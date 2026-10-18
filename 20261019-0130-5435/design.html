@@ -1,0 +1,2789 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Components, OC Player / Home, Google, Google</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        padding: 40px 16px;
+        background: #f4f4f5;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      body > * + * {
+        margin-top: 40px;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --background: #121212;
+        --surface: #282828;
+        --surface-glass: rgba(40, 40, 40, 0.6);
+        --text: #FFFFFF;
+        --text-secondary: #B3B3B3;
+        --primary: #1DB954;
+        --primary-soft: rgba(29, 185, 84, 0.2);
+        --primary-tint: rgba(29, 185, 84, 0.1);
+        --glass-highlight: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --player-bg: rgba(0, 0, 0, 0.85);
+        --text-xs: 12px;
+        --text-s: 14px;
+        --text-m: 16px;
+        --text-l: 18px;
+        --radius-s: 4px;
+        --radius-m: 8px;
+        --radius-full: 999px;
+        --placeholder: #757575;
+        --radius-pill: 74px;
+      }
+
+      .components {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 32px;
+        width: 760px;
+        background-color: var(--background);
+      }
+
+      .trackitem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        align-self: stretch;
+        border-radius: var(--radius-s);
+      }
+
+      .trackitem--variant {
+        background-color: var(--surface);
+      }
+
+      .trackitem--queue-item {
+        position: relative;
+        background-color: var(--primary-tint);
+        overflow: hidden;
+      }
+
+      .trackitem--queue-item-2 {
+        background-color: var(--glass-highlight);
+      }
+
+      .trackitem__track-number {
+        width: 30px;
+        flex-shrink: 0;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackitem__track-number--variant {
+        color: var(--text-secondary);
+      }
+
+      .trackitem__track-number--queue-item {
+        color: var(--primary);
+      }
+
+      .trackitem__track-thumbnail {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: var(--radius-s);
+        overflow: hidden;
+      }
+
+      .trackitem__track-thumbnail--default {
+        background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+      }
+
+      .trackitem__track-thumbnail--queue-item {
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+      }
+
+      .trackitem__track-thumbnail--queue-item-2 {
+        background: linear-gradient(135deg, #c2456b, #2b0d1a);
+      }
+
+      .trackitem__track-thumbnail--queue-item-3 {
+        background: linear-gradient(135deg, #2f7a6a, #0b221d);
+      }
+
+      .trackitem__track-thumbnail--queue-item-4 {
+        background: linear-gradient(135deg, #8a6a4a, #241a10);
+      }
+
+      .trackitem__track-thumbnail--queue-item-5 {
+        background: linear-gradient(135deg, #a35a2a, #2a1206);
+      }
+
+      .trackitem__track-thumbnail--queue-item-6 {
+        background: linear-gradient(135deg, #4a6a9a, #10192a);
+      }
+
+      .trackitem__thumbnail-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+      }
+
+      .trackitem__track-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .trackitem__track-title {
+        color: var(--text);
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackitem__duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackcard {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 250px;
+        height: 250px;
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+        overflow: hidden;
+      }
+
+      .trackcard--default {
+        background: linear-gradient(135deg, #4a4a4a, #1f1f1f);
+      }
+
+      .trackcard--recent-card {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #5b3a8a, #1d1533);
+      }
+
+      .trackcard--recent-card-2 {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+      }
+
+      .trackcard--recent-card-3 {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #c2456b, #2b0d1a);
+      }
+
+      .trackcard--recent-card-4 {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #2f7a6a, #0b221d);
+      }
+
+      .trackcard--recent-card-5 {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #2d46b9, #0d1236);
+      }
+
+      .trackcard__card-shade {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 70%);
+      }
+
+      .trackcard__card-info {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .trackcard__card-title {
+        align-self: stretch;
+        color: var(--text);
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackcard__card-details {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .trackcard__card-kind {
+        color: var(--text);
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+        opacity: 0.9;
+      }
+
+      .trackcard__card-duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .tabbutton {
+        display: flex;
+        align-items: flex-start;
+        padding: 14px 28px;
+        border-radius: var(--radius-pill);
+      }
+
+      .tabbutton--variant {
+        background-color: var(--surface-glass);
+      }
+
+      .tabbutton--tab-queue {
+        background-color: var(--primary-soft);
+      }
+
+      .tabbutton__tab-label {
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .tabbutton__tab-label--variant {
+        color: var(--text-secondary);
+      }
+
+      .tabbutton__tab-label--tab-queue {
+        color: var(--text);
+      }
+
+      .controlbutton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--glass-highlight);
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px var(--glass-highlight);
+      }
+
+      .controlbutton--instance {
+        flex-shrink: 0;
+      }
+
+      .controlbutton__control-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        height: 900px;
+        background: radial-gradient(circle at 50% -20%, rgba(29,185,84,0.15), transparent 70%), linear-gradient(135deg, #0a0a0a, #141414);
+        overflow: hidden;
+      }
+
+      .oc-player-home__main-view {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .oc-player-home__search-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+      }
+
+      .oc-player-home__search-input {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface-glass);
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+      }
+
+      .oc-player-home__placeholder {
+        flex-shrink: 0;
+        color: var(--placeholder);
+        font-size: var(--text-m);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .oc-player-home__search-button {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__search-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--text-secondary);
+      }
+
+      .oc-player-home__recently-added {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .oc-player-home__recently-added-title {
+        color: var(--text);
+        font-size: var(--text-l);
+        font-weight: 700;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .oc-player-home__track-scroll {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 0 0 12px;
+        align-self: stretch;
+        overflow: hidden;
+      }
+
+      .oc-player-home__tabs {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 0 0 16px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__queue-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .trackitem__playing-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 64px;
+        background-color: var(--primary);
+      }
+
+      .trackitem__track-actions {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 0 8px 0 0;
+        flex-shrink: 0;
+      }
+
+      .trackitem__play-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__play-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .trackitem__queue-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__queue-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .trackitem__save-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__save-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home__bottom-player {
+        position: absolute;
+        left: 0;
+        top: 818px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 10px 10px;
+        width: 1440px;
+        background-color: var(--player-bg);
+        box-shadow: inset 0 0 0 1px var(--glass-highlight);
+      }
+
+      .oc-player-home__progress-bar {
+        position: relative;
+        height: 4px;
+        align-self: stretch;
+        background-color: var(--glass-highlight);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+      }
+
+      .oc-player-home__progress-current {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 512px;
+        height: 4px;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      .oc-player-home__mini-player {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        align-self: stretch;
+      }
+
+      .oc-player-home__now-playing-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__current-thumbnail {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+        border-radius: var(--radius-s);
+      }
+
+      .oc-player-home__current-title {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--text);
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .oc-player-home__playback-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .oc-player-home__play-pause {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background-color: var(--primary);
+        border-radius: 50%;
+      }
+
+      .oc-player-home__pause-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home__volume-control {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__volume-slider {
+        width: 100px;
+        height: 4px;
+        flex-shrink: 0;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      .google {
+        position: relative;
+        width: 1082px;
+        height: 625px;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+
+      .google__rqyyhe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1082px;
+        height: 625px;
+      }
+
+      .google__acuseb {
+        position: relative;
+        height: 60px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__about {
+        position: absolute;
+        left: 21px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google__about-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__store {
+        position: absolute;
+        left: 77.5px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google__store-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__gb {
+        position: absolute;
+        left: 126px;
+        top: 4.5px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 950px;
+        height: 51.5px;
+      }
+
+      .google__gb-r {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 11px 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__gb-9 {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 15px;
+      }
+
+      .google__gmail {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google__images {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google__gbwa {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__gb-d {
+        position: relative;
+        height: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__google-apps {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px;
+        width: 40px;
+        border-radius: 20px;
+      }
+
+      .google__icon {
+        height: 24px;
+        align-self: stretch;
+        object-fit: contain;
+      }
+
+      .google__gb-z {
+        position: relative;
+        width: 93px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google__sign-in {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 12px;
+        width: 85px;
+        height: 40px;
+        background-color: #0b57d0;
+        border-radius: 20px;
+      }
+
+      .google__sign-in-2 {
+        flex-shrink: 0;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.29;
+        white-space: pre;
+      }
+
+      .google__si1xge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 96px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__uzekje {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 272px;
+      }
+
+      .google__google {
+        position: relative;
+        height: 92px;
+        align-self: stretch;
+      }
+
+      .google__path {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 272px;
+        height: 92px;
+      }
+
+      .google__acuseb-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 26px 96px 20px;
+        height: 190px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__div {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        width: 688px;
+      }
+
+      .google__rnnxgb {
+        display: flex;
+        align-items: flex-start;
+        padding: 1px;
+        height: 52px;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 26px;
+        box-shadow: inset 0 0 0 1px #dadce0, #1f1f1f14 0px 3px 10px 0px;
+      }
+
+      .google__sdkep {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px 0 0;
+        width: 686px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google__umoyhd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google__add-files-and-tools {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 18px;
+      }
+
+      .google__wpszbe {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 24px;
+        flex-shrink: 0;
+      }
+
+      .google__icon-2 {
+        height: 24px;
+        align-self: stretch;
+      }
+
+      .google__search {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__dryyxd {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google__div-2 {
+        display: flex;
+        align-items: flex-start;
+        width: 80px;
+        height: 24px;
+        background-color: #ffffff;
+      }
+
+      .google__search-by-voice {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__icon-3 {
+        width: 24px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__search-by-image {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__ai-mode {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 8px;
+        width: 96.5px;
+        height: 36px;
+        background-color: #ffffff;
+        border-radius: 18px;
+      }
+
+      .google__bzntfe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        border-radius: 18px;
+        opacity: 0.6;
+      }
+
+      .google__bvukz {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        background-color: #f3f5f6;
+        border-radius: 18px;
+      }
+
+      .google__div-3 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 20px;
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__ltxwle {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 4px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__ai-mode-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        white-space: pre;
+      }
+
+      .google__span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: flex-start;
+        height: 20px;
+      }
+
+      .google__icon-4 {
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google__bzntfe-2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 688px;
+        height: 124px;
+        border-radius: 24px;
+      }
+
+      .google__devrsb {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 42px;
+        align-self: stretch;
+      }
+
+      .google__div-4 {
+        display: flex;
+        align-items: flex-start;
+        gap: 7.83px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__create-images {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__text {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.14;
+        white-space: pre;
+      }
+
+      .google__create-images-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__ask-about-files {
+        position: relative;
+        width: 151.5px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__ask-about-files-2 {
+        position: absolute;
+        left: 41px;
+        top: 12.5px;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__dugvje {
+        position: absolute;
+        left: 8.5px;
+        top: 7px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 28.5px;
+      }
+
+      .google__icon-5 {
+        height: 28.5px;
+        align-self: stretch;
+      }
+
+      .google__brainstorm {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__dugvje-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google__icon-6 {
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__brainstorm-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__i-am-feeling-lucky {
+        display: flex;
+        align-items: flex-start;
+        padding: 11px 17px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__i-am-feeling-lucky-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__acuseb-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .google__gws-output-pages-elements-homepage-additional-languages-als {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__google-offered-in {
+        color: #474747;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 2.15;
+        white-space: pre;
+      }
+
+      .google__acuseb-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+      }
+
+      .google__div-5 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 15px 30px 16px;
+        align-self: stretch;
+      }
+
+      .google__india {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.1;
+        white-space: pre;
+      }
+
+      .google__border-bottom {
+        position: absolute;
+        left: 0;
+        top: 47px;
+        width: 1082px;
+        height: 1px;
+        background-color: #d2d2d2;
+      }
+
+      .google__xqqexb {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 161.5px;
+        padding: 0 20px;
+        height: 46px;
+        align-self: stretch;
+      }
+
+      .google__osh6f {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__advertising {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__advertising-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__business {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__business-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__how-search-works {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__how-search-works-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__rwlvme {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__privacy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__privacy-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__terms {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__terms-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__span-2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 80.5px;
+        align-self: stretch;
+      }
+
+      .google__span-3 {
+        display: flex;
+        align-items: center;
+        height: 15.5px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__eqtddf {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        flex-shrink: 0;
+      }
+
+      .google__settings {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2 {
+        position: relative;
+        width: 1082px;
+        height: 544px;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+
+      .google-2__rqyyhe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1082px;
+        height: 544px;
+      }
+
+      .google-2__acuseb {
+        position: relative;
+        height: 60px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__about {
+        position: absolute;
+        left: 21px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google-2__about-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__store {
+        position: absolute;
+        left: 77.5px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google-2__store-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__gb {
+        position: absolute;
+        left: 126px;
+        top: 4.5px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 950px;
+        height: 51.5px;
+      }
+
+      .google-2__gb-r {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 11px 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__gb-9 {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 15px;
+      }
+
+      .google-2__gmail {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google-2__images {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google-2__gbwa {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__gb-d {
+        position: relative;
+        height: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__google-apps {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px;
+        width: 40px;
+        border-radius: 20px;
+      }
+
+      .google-2__icon {
+        height: 24px;
+        align-self: stretch;
+        object-fit: contain;
+      }
+
+      .google-2__gb-z {
+        position: relative;
+        width: 93px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google-2__sign-in {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 12px;
+        width: 85px;
+        height: 40px;
+        background-color: #0b57d0;
+        border-radius: 20px;
+      }
+
+      .google-2__sign-in-2 {
+        flex-shrink: 0;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.29;
+        white-space: pre;
+      }
+
+      .google-2__div {
+        position: absolute;
+        left: -298px;
+        top: 49.5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12.5px 0 0;
+        width: 370px;
+        height: 0;
+        overflow: hidden;
+      }
+
+      .google-2__embedded-page {
+        height: 0;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #f2f2f2;
+        box-shadow: inset 0 0 0 1px #d4d4d4;
+      }
+
+      .google-2__si1xge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 96px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__uzekje {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 272px;
+      }
+
+      .google-2__logo-doodle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        height: 92px;
+        align-self: stretch;
+      }
+
+      .google-2__tile-g {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #3186ff;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(-6deg);
+      }
+
+      .google-2__text {
+        flex-shrink: 0;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .google-2__tile-o {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #fc413d;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(4deg);
+      }
+
+      .google-2__tile-o-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #ffbe00;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(-3deg);
+      }
+
+      .google-2__tile-g-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #3186ff;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(5deg);
+      }
+
+      .google-2__tile-l {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #00af57;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(-4deg);
+      }
+
+      .google-2__tile-e {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 52px;
+        flex-shrink: 0;
+        background-color: #fc413d;
+        border-radius: 12px;
+        box-shadow: #1f1f1f24 0px 4px 0px 0px;
+        transform: rotate(3deg);
+      }
+
+      .google-2__acuseb-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 26px 96px 20px;
+        height: 190px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__div-2 {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        width: 688px;
+      }
+
+      .google-2__rnnxgb {
+        display: flex;
+        align-items: flex-start;
+        padding: 1px;
+        height: 52px;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 26px;
+        box-shadow: inset 0 0 0 1px #dadce0, #1f1f1f14 0px 3px 10px 0px;
+      }
+
+      .google-2__sdkep {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px 0 0;
+        width: 686px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google-2__umoyhd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google-2__add-files-and-tools {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 18px;
+      }
+
+      .google-2__wpszbe {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 24px;
+        flex-shrink: 0;
+      }
+
+      .google-2__icon-2 {
+        height: 24px;
+        align-self: stretch;
+      }
+
+      .google-2__search {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google-2__dryyxd {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google-2__div-3 {
+        display: flex;
+        align-items: flex-start;
+        width: 80px;
+        height: 24px;
+        background-color: #ffffff;
+      }
+
+      .google-2__search-by-voice {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google-2__icon-3 {
+        width: 24px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__search-by-image {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google-2__ai-mode {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 8px;
+        width: 96.5px;
+        height: 36px;
+        background-color: #ffffff;
+        border-radius: 18px;
+      }
+
+      .google-2__bzntfe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        border-radius: 18px;
+        opacity: 0.6;
+      }
+
+      .google-2__bvukz {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        background-color: #f3f5f6;
+        border-radius: 18px;
+      }
+
+      .google-2__div-4 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 20px;
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__ltxwle {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 4px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__ai-mode-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        white-space: pre;
+      }
+
+      .google-2__span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: flex-start;
+        height: 20px;
+      }
+
+      .google-2__icon-4 {
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google-2__bzntfe-2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 688px;
+        height: 124px;
+        border-radius: 24px;
+      }
+
+      .google-2__devrsb {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 42px;
+        align-self: stretch;
+      }
+
+      .google-2__div-5 {
+        display: flex;
+        align-items: flex-start;
+        gap: 7.83px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__create-images {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google-2__text-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.14;
+        white-space: pre;
+      }
+
+      .google-2__create-images-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google-2__ask-about-files {
+        position: relative;
+        width: 151.5px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google-2__ask-about-files-2 {
+        position: absolute;
+        left: 41px;
+        top: 12.5px;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google-2__dugvje {
+        position: absolute;
+        left: 8.5px;
+        top: 7px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 28.5px;
+      }
+
+      .google-2__icon-5 {
+        height: 28.5px;
+        align-self: stretch;
+      }
+
+      .google-2__brainstorm {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google-2__dugvje-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google-2__icon-6 {
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__brainstorm-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google-2__i-am-feeling-lucky {
+        display: flex;
+        align-items: flex-start;
+        padding: 11px 17px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google-2__i-am-feeling-lucky-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google-2__acuseb-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .google-2__gws-output-pages-elements-homepage-additional-languages-als {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__google-offered-in {
+        color: #474747;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 2.15;
+        white-space: pre;
+      }
+
+      .google-2__acuseb-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+      }
+
+      .google-2__div-6 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 15px 30px 16px;
+        align-self: stretch;
+      }
+
+      .google-2__india {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.1;
+        white-space: pre;
+      }
+
+      .google-2__border-bottom {
+        position: absolute;
+        left: 0;
+        top: 47px;
+        width: 1082px;
+        height: 1px;
+        background-color: #d2d2d2;
+      }
+
+      .google-2__xqqexb {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 161.5px;
+        padding: 0 20px;
+        height: 46px;
+        align-self: stretch;
+      }
+
+      .google-2__osh6f {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__advertising {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google-2__advertising-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__business {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google-2__business-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__how-search-works {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google-2__how-search-works-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__rwlvme {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__privacy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google-2__privacy-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__terms {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google-2__terms-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google-2__span-2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 80.5px;
+        align-self: stretch;
+      }
+
+      .google-2__span-3 {
+        display: flex;
+        align-items: center;
+        height: 15.5px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google-2__eqtddf {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        flex-shrink: 0;
+      }
+
+      .google-2__settings {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="components">
+      <div class="trackitem trackitem--variant" data-component="trackitem">
+        <p class="trackitem__track-number trackitem__track-number--variant">01</p>
+        <div class="trackitem__track-thumbnail trackitem__track-thumbnail--default">
+          <div class="trackitem__thumbnail-overlay"></div>
+        </div>
+        <div class="trackitem__track-info">
+          <p class="trackitem__track-title">Track title</p>
+          <p class="trackitem__duration">3:45</p>
+        </div>
+      </div>
+      <div class="trackcard trackcard--default" data-component="trackcard">
+        <div class="trackcard__card-shade"></div>
+        <div class="trackcard__card-info">
+          <h1 class="trackcard__card-title">Track title</h1>
+          <div class="trackcard__card-details">
+            <p class="trackcard__card-kind">Single track</p>
+            <p class="trackcard__card-duration">3:45</p>
+          </div>
+        </div>
+      </div>
+      <div class="tabbutton tabbutton--variant" data-component="tabbutton">
+        <p class="tabbutton__tab-label tabbutton__tab-label--variant">Saved Tracks</p>
+      </div>
+      <div class="controlbutton" data-component="controlbutton">
+        <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4v16"/><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/></svg>
+      </div>
+    </div>
+    <div class="oc-player-home">
+      <main class="oc-player-home__main-view">
+        <div class="oc-player-home__search-bar">
+          <div class="oc-player-home__search-input">
+            <p class="oc-player-home__placeholder">Paste YouTube URL...</p>
+          </div>
+          <button class="oc-player-home__search-button" type="button">
+            <svg class="oc-player-home__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          </button>
+        </div>
+        <div class="oc-player-home__recently-added">
+          <h1 class="oc-player-home__recently-added-title">Recently Added</h1>
+          <div class="oc-player-home__track-scroll">
+            <div class="trackcard trackcard--recent-card" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Lofi Hip Hop Radio – Beats to Relax/Study To</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Playlist · 24 tracks</p>
+                  <p class="trackcard__card-duration">1:42:10</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-2" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Daft Punk – Get Lucky ft. Pharrell Williams</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">6:09</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-3" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Tame Impala – The Less I Know The Better</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">3:36</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-4" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Nujabes – Aruarian Dance</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">4:08</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-5" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Synthwave Essentials 2026</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Playlist · 38 tracks</p>
+                  <p class="trackcard__card-duration">2:31:47</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="oc-player-home__tabs">
+          <div class="tabbutton tabbutton--tab-queue" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--tab-queue">Queue</p>
+          </div>
+          <div class="tabbutton tabbutton--variant" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--variant">Saved Tracks</p>
+          </div>
+          <div class="tabbutton tabbutton--variant" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--variant">Trending</p>
+          </div>
+        </div>
+        <div class="oc-player-home__queue-tab">
+          <div class="trackitem trackitem--queue-item" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item">01</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Daft Punk – Get Lucky ft. Pharrell Williams</p>
+              <p class="trackitem__duration">6:09</p>
+            </div>
+            <div class="trackitem__playing-bar"></div>
+          </div>
+          <div class="trackitem trackitem--variant" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--variant">02</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-2">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Tame Impala – The Less I Know The Better</p>
+              <p class="trackitem__duration">3:36</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--queue-item-2" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--variant">03</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-3">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Nujabes – Aruarian Dance</p>
+              <p class="trackitem__duration">4:08</p>
+            </div>
+            <div class="trackitem__track-actions">
+              <button class="trackitem__play-button" type="button">
+                <svg class="trackitem__play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+              </button>
+              <button class="trackitem__queue-button" type="button">
+                <svg class="trackitem__queue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              </button>
+              <button class="trackitem__save-button" type="button">
+                <svg class="trackitem__save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="trackitem trackitem--variant" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--variant">04</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-4">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Fleetwood Mac – Dreams (Official Music Video)</p>
+              <p class="trackitem__duration">4:17</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--variant" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--variant">05</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-5">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Khruangbin – Time (You and I)</p>
+              <p class="trackitem__duration">3:58</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--variant" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--variant">06</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-6">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Mac DeMarco – Chamber of Reflection</p>
+              <p class="trackitem__duration">3:52</p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="oc-player-home__bottom-player">
+        <div class="oc-player-home__progress-bar">
+          <div class="oc-player-home__progress-current"></div>
+        </div>
+        <div class="oc-player-home__mini-player">
+          <div class="oc-player-home__now-playing-info">
+            <div class="oc-player-home__current-thumbnail"></div>
+            <p class="oc-player-home__current-title">Daft Punk – Get Lucky ft. Pharrell…</p>
+          </div>
+          <div class="oc-player-home__playback-controls">
+            <div class="controlbutton controlbutton--instance" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </div>
+            <div class="oc-player-home__play-pause">
+              <svg class="oc-player-home__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>
+            </div>
+            <div class="controlbutton controlbutton--instance" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="controlbutton controlbutton--instance" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+            </div>
+          </div>
+          <div class="oc-player-home__volume-control">
+            <div class="controlbutton controlbutton--instance" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+            </div>
+            <div class="oc-player-home__volume-slider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="google">
+      <div class="google__rqyyhe">
+        <div class="google__acuseb">
+          <a class="google__about" href="#">
+            <p class="google__about-2">About</p>
+          </a>
+          <a class="google__store" href="#">
+            <p class="google__store-2">Store</p>
+          </a>
+          <header class="google__gb">
+            <div class="google__gb-r">
+              <div class="google__gb-9">
+                <p class="google__gmail">Gmail</p>
+              </div>
+              <div class="google__gb-9">
+                <p class="google__images">Images</p>
+              </div>
+            </div>
+            <div class="google__gbwa">
+              <div class="google__gb-d">
+                <a class="google__google-apps" href="#">
+                  <img class="google__icon" src="assets/46b239c74d571981.png" alt="Icon">
+                </a>
+              </div>
+            </div>
+            <div class="google__gb-z">
+              <a class="google__sign-in" href="#">
+                <p class="google__sign-in-2">Sign in</p>
+              </a>
+            </div>
+          </header>
+        </div>
+        <div class="google__si1xge">
+          <div class="google__uzekje">
+            <div class="google__google">
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M31.32 70.33c17.65.17 29.67-11.68 29.67-29.92q.01-2.29-.43-5.08H31.2v8.76h20.6c-1.1 11.47-9.18 17.44-20.27 17.44-12.44 0-21.96-9.35-21.96-22.94 0-13.41 9.1-22.77 21.96-22.77 6.48 0 11.26 2 16.04 6.9l6.14-6.43c-5.38-6.3-13.16-9.31-22.3-9.31C13.7 6.98 0 20.27 0 38.46c0 17.4 13.25 31.7 31.32 31.87" fill="#3186ff" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M88.2 70.33c13.2 0 22.77-9.69 22.77-23.15 0-13.2-9.35-22.98-22.77-22.98-12.7 0-22.68 9.02-22.68 22.98 0 13.33 9.43 23.15 22.68 23.15m0-8.04c-8.04 0-13.67-6.6-13.67-15.1s5.93-14.95 13.67-14.95c8.17 0 13.67 6.6 13.67 14.94 0 8.64-5.63 15.11-13.67 15.11" fill="#fc413d" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M137.42 70.33c13.29 0 22.77-9.73 22.77-23.15 0-13.2-9.35-22.98-22.77-22.98-12.7 0-22.68 9.02-22.68 22.98 0 13.33 9.43 23.15 22.68 23.15m0-8.04c-8.04 0-13.67-6.6-13.67-15.1s5.93-14.95 13.67-14.95c8.17 0 13.67 6.6 13.67 14.94 0 8.64-5.63 15.11-13.67 15.11" fill="#ffbe00" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M185.37 88.57q21.51 0 21.5-24.63V25.77h-8.8v5.37h-.17c-2.75-4.27-7.96-6.68-13.84-6.68-12.7 0-20.44 9.69-20.44 22.6 0 12.86 7.53 22.34 20.78 22.34 6.52 0 11.34-3.72 13.37-6.77h.3v3.94c0 8.67-4.49 13.8-12.82 13.8-5.46 0-9.1-3.01-11.77-8.05l-7.96 3.52c4.2 8.84 10.16 12.73 19.85 12.73m0-27.55c-7.74 0-12.7-5.71-12.7-14.22 0-8.2 4.92-14.13 12.75-14.13s12.65 5.5 12.65 14.09c0 8.68-5.08 14.26-12.7 14.26" fill="#3186ff" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M222.91 8.33h-9.22v60.6h9.22z" fill="#00af57" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M250.17 70.25a22.1 22.1 0 0 0 19-10.54l-6.86-4.49c-3 4.2-7.1 6.6-11.72 6.6a13.6 13.6 0 0 1-11.93-7.23l30.93-13.12a20 20 0 0 0-.84-3.22c-3.69-9.48-10.12-13.8-18.8-13.8-13.24 0-22.25 9.66-22.25 23.03 0 13.67 9.47 22.77 22.47 22.77m-13.5-22.81v-.51c0-8.76 5.03-14.64 12.95-14.64 3.76 0 7.15 1.69 9.44 5.67z" fill="#fc413d" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="google__acuseb-2">
+          <div class="google__form">
+            <div class="google__div">
+              <div class="google__rnnxgb">
+                <div class="google__sdkep">
+                  <div class="google__umoyhd">
+                    <button class="google__add-files-and-tools" type="button">
+                      <span class="google__wpszbe">
+                        <svg class="google__icon-2" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M434.5-434.5H191.87v-91H434.5v-242.63h91v242.63h242.63v91H525.5v242.63h-91V-434.5Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="google__search"></div>
+                  <div class="google__dryyxd">
+                    <div class="google__div-2">
+                      <div class="google__search-by-voice">
+                        <svg class="google__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                      <div class="google__search-by-image">
+                        <svg class="google__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm240 160q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160Zm-440 40q-66 0-113-47t-47-113v-80h80v80q0 33 23.5 56.5T280-200h200v80H280Zm480-320v-160q0-33-23.5-56.5T680-680H280q-33 0-56.5 23.5T200-600v120h-80v-120q0-66 47-113t113-47h80l40-80h160l40 80h80q66 0 113 47t47 113v160h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                    </div>
+                    <button class="google__ai-mode" type="button">
+                      <span class="google__bzntfe"></span>
+                      <span class="google__bvukz"></span>
+                      <span class="google__div-3">
+                        <span class="google__ltxwle">
+                          <span class="google__ai-mode-2">AI Mode</span>
+                        </span>
+                        <span class="google__span">
+                          <svg class="google__icon-4" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M740-560q-6,0-8-6q-16-61-60.5-105.5T566-732q-6-2-6-8q0-7 6-8q61-16 105.5-60.5T732-914q2-6 8-6q7,0 8,6q17,61 61,105.5T914-748q6,1 6,8q0,6-6,8q-61,16-105.5,60.5T748-566q-1,6-8,6Zm44,440L534-370q-34,25-73,37.5T380-320q-109,0-184.5-75.5T120-580t75.5-184.5T380-840q29,0 57,6.5T491-815l-40,70q-17-8-35-11.5T380-760q-75,0-127.5,52.5T200-580t52.5,127.5T380-400q69,0 120-45.5T559-560h80q-3,36-15,70.5T590-426L840-176l-56,56Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="google__bzntfe-2"></div>
+              <div class="google__devrsb">
+                <div class="google__div-4">
+                  <div class="google__create-images">
+                    <p class="google__text">🍌</p>
+                    <p class="google__create-images-2">Create images</p>
+                  </div>
+                  <div class="google__ask-about-files">
+                    <p class="google__ask-about-files-2">Ask about files</p>
+                    <span class="google__dugvje">
+                      <svg class="google__icon-5" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M720-330q0,104-73,177T470-80T293-153T220-330V-700q0-75 52.5-127.5T400-880t127.5,52.5T580-700v350q0,46-32,78t-78,32t-78-32t-32-78V-720h80v370q0,13 8.5,21.5T470-320t21.5-8.5T500-350V-700q-1-42-29.5-71T400-800t-71,29t-29,71v370q-1,71 49,120.5T470-160q70,0 119-49.5T640-330V-720h80v390Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                  </div>
+                  <div class="google__brainstorm">
+                    <span class="google__dugvje-2">
+                      <svg class="google__icon-6" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M423.5-103.5Q400-127 400-160H560q0,33-23.5,56.5T480-80t-56.5-23.5ZM320-200v-80H640v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880t212.5,87.5T780-580q0,81-40.5,150T630-320H330Zm24-80H606q45-32 69.5-79T700-580q0-92-64-156T480-800T324-736T260-580q0,54 24.5,101T354-400Zm126,0Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                    <p class="google__brainstorm-2">Brainstorm</p>
+                  </div>
+                  <div class="google__i-am-feeling-lucky">
+                    <p class="google__i-am-feeling-lucky-2">I am feeling lucky</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="google__acuseb-3">
+          <div class="google__gws-output-pages-elements-homepage-additional-languages-als">
+            <p class="google__google-offered-in">Google offered in: हिन्दी বাংলা తెలుగు मराठी தமிழ் ગુજરાતી ಕನ್ನಡ മലയാളം ਪੰਜਾਬੀ</p>
+          </div>
+        </div>
+        <div class="google__acuseb-4">
+          <div class="google__div-5">
+            <p class="google__india">India</p>
+            <div class="google__border-bottom"></div>
+          </div>
+          <div class="google__xqqexb">
+            <div class="google__osh6f">
+              <a class="google__advertising" href="#">
+                <p class="google__advertising-2">Advertising</p>
+              </a>
+              <a class="google__business" href="#">
+                <p class="google__business-2">Business</p>
+              </a>
+              <a class="google__how-search-works" href="#">
+                <p class="google__how-search-works-2">How Search works</p>
+              </a>
+            </div>
+            <div class="google__rwlvme">
+              <a class="google__privacy" href="#">
+                <p class="google__privacy-2">Privacy</p>
+              </a>
+              <a class="google__terms" href="#">
+                <p class="google__terms-2">Terms</p>
+              </a>
+              <span class="google__span-2">
+                <div class="google__span-3">
+                  <div class="google__eqtddf">
+                    <p class="google__settings">Settings</p>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="google-2">
+      <div class="google-2__rqyyhe">
+        <div class="google-2__acuseb">
+          <a class="google-2__about" href="#">
+            <p class="google-2__about-2">About</p>
+          </a>
+          <a class="google-2__store" href="#">
+            <p class="google-2__store-2">Store</p>
+          </a>
+          <header class="google-2__gb">
+            <div class="google-2__gb-r">
+              <div class="google-2__gb-9">
+                <p class="google-2__gmail">Gmail</p>
+              </div>
+              <div class="google-2__gb-9">
+                <p class="google-2__images">Images</p>
+              </div>
+            </div>
+            <div class="google-2__gbwa">
+              <div class="google-2__gb-d">
+                <a class="google-2__google-apps" href="#">
+                  <img class="google-2__icon" src="assets/46b239c74d571981.png" alt="Icon">
+                </a>
+              </div>
+            </div>
+            <div class="google-2__gb-z">
+              <a class="google-2__sign-in" href="#">
+                <p class="google-2__sign-in-2">Sign in</p>
+              </a>
+              <div class="google-2__div">
+                <div class="google-2__embedded-page"></div>
+              </div>
+            </div>
+          </header>
+        </div>
+        <div class="google-2__si1xge">
+          <div class="google-2__uzekje">
+            <div class="google-2__logo-doodle">
+              <div class="google-2__tile-g">
+                <h1 class="google-2__text">G</h1>
+              </div>
+              <div class="google-2__tile-o">
+                <p class="google-2__text">o</p>
+              </div>
+              <div class="google-2__tile-o-2">
+                <p class="google-2__text">o</p>
+              </div>
+              <div class="google-2__tile-g-2">
+                <p class="google-2__text">g</p>
+              </div>
+              <div class="google-2__tile-l">
+                <p class="google-2__text">l</p>
+              </div>
+              <div class="google-2__tile-e">
+                <p class="google-2__text">e</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="google-2__acuseb-2">
+          <div class="google-2__form">
+            <div class="google-2__div-2">
+              <div class="google-2__rnnxgb">
+                <div class="google-2__sdkep">
+                  <div class="google-2__umoyhd">
+                    <button class="google-2__add-files-and-tools" type="button">
+                      <span class="google-2__wpszbe">
+                        <svg class="google-2__icon-2" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M434.5-434.5H191.87v-91H434.5v-242.63h91v242.63h242.63v91H525.5v242.63h-91V-434.5Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="google-2__search"></div>
+                  <div class="google-2__dryyxd">
+                    <div class="google-2__div-3">
+                      <div class="google-2__search-by-voice">
+                        <svg class="google-2__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                      <div class="google-2__search-by-image">
+                        <svg class="google-2__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm240 160q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160Zm-440 40q-66 0-113-47t-47-113v-80h80v80q0 33 23.5 56.5T280-200h200v80H280Zm480-320v-160q0-33-23.5-56.5T680-680H280q-33 0-56.5 23.5T200-600v120h-80v-120q0-66 47-113t113-47h80l40-80h160l40 80h80q66 0 113 47t47 113v160h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                    </div>
+                    <button class="google-2__ai-mode" type="button">
+                      <span class="google-2__bzntfe"></span>
+                      <span class="google-2__bvukz"></span>
+                      <span class="google-2__div-4">
+                        <span class="google-2__ltxwle">
+                          <span class="google-2__ai-mode-2">AI Mode</span>
+                        </span>
+                        <span class="google-2__span">
+                          <svg class="google-2__icon-4" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M740-560q-6,0-8-6q-16-61-60.5-105.5T566-732q-6-2-6-8q0-7 6-8q61-16 105.5-60.5T732-914q2-6 8-6q7,0 8,6q17,61 61,105.5T914-748q6,1 6,8q0,6-6,8q-61,16-105.5,60.5T748-566q-1,6-8,6Zm44,440L534-370q-34,25-73,37.5T380-320q-109,0-184.5-75.5T120-580t75.5-184.5T380-840q29,0 57,6.5T491-815l-40,70q-17-8-35-11.5T380-760q-75,0-127.5,52.5T200-580t52.5,127.5T380-400q69,0 120-45.5T559-560h80q-3,36-15,70.5T590-426L840-176l-56,56Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="google-2__bzntfe-2"></div>
+              <div class="google-2__devrsb">
+                <div class="google-2__div-5">
+                  <div class="google-2__create-images">
+                    <p class="google-2__text-2">🍌</p>
+                    <p class="google-2__create-images-2">Create images</p>
+                  </div>
+                  <div class="google-2__ask-about-files">
+                    <p class="google-2__ask-about-files-2">Ask about files</p>
+                    <span class="google-2__dugvje">
+                      <svg class="google-2__icon-5" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M720-330q0,104-73,177T470-80T293-153T220-330V-700q0-75 52.5-127.5T400-880t127.5,52.5T580-700v350q0,46-32,78t-78,32t-78-32t-32-78V-720h80v370q0,13 8.5,21.5T470-320t21.5-8.5T500-350V-700q-1-42-29.5-71T400-800t-71,29t-29,71v370q-1,71 49,120.5T470-160q70,0 119-49.5T640-330V-720h80v390Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                  </div>
+                  <div class="google-2__brainstorm">
+                    <span class="google-2__dugvje-2">
+                      <svg class="google-2__icon-6" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M423.5-103.5Q400-127 400-160H560q0,33-23.5,56.5T480-80t-56.5-23.5ZM320-200v-80H640v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880t212.5,87.5T780-580q0,81-40.5,150T630-320H330Zm24-80H606q45-32 69.5-79T700-580q0-92-64-156T480-800T324-736T260-580q0,54 24.5,101T354-400Zm126,0Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                    <p class="google-2__brainstorm-2">Brainstorm</p>
+                  </div>
+                  <div class="google-2__i-am-feeling-lucky">
+                    <p class="google-2__i-am-feeling-lucky-2">I am feeling lucky</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="google-2__acuseb-3">
+          <div class="google-2__gws-output-pages-elements-homepage-additional-languages-als">
+            <p class="google-2__google-offered-in">Google offered in: हिन्दी বাংলা తెలుగు मराठी தமிழ் ગુજરાતી ಕನ್ನಡ മലയാളം ਪੰਜਾਬੀ</p>
+          </div>
+        </div>
+        <div class="google-2__acuseb-4">
+          <div class="google-2__div-6">
+            <p class="google-2__india">India</p>
+            <div class="google-2__border-bottom"></div>
+          </div>
+          <div class="google-2__xqqexb">
+            <div class="google-2__osh6f">
+              <a class="google-2__advertising" href="#">
+                <p class="google-2__advertising-2">Advertising</p>
+              </a>
+              <a class="google-2__business" href="#">
+                <p class="google-2__business-2">Business</p>
+              </a>
+              <a class="google-2__how-search-works" href="#">
+                <p class="google-2__how-search-works-2">How Search works</p>
+              </a>
+            </div>
+            <div class="google-2__rwlvme">
+              <a class="google-2__privacy" href="#">
+                <p class="google-2__privacy-2">Privacy</p>
+              </a>
+              <a class="google-2__terms" href="#">
+                <p class="google-2__terms-2">Terms</p>
+              </a>
+              <span class="google-2__span-2">
+                <div class="google-2__span-3">
+                  <div class="google-2__eqtddf">
+                    <p class="google-2__settings">Settings</p>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OC Player / Home · Untitled 2</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 50% -20%, rgba(29,185,84,0.15), transparent 70%), linear-gradient(135deg, #0a0a0a, #141414);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --surface: #282828;
+        --surface-glass: rgba(40, 40, 40, 0.6);
+        --text: #FFFFFF;
+        --text-secondary: #B3B3B3;
+        --primary: #1DB954;
+        --primary-soft: rgba(29, 185, 84, 0.2);
+        --primary-tint: rgba(29, 185, 84, 0.1);
+        --glass-highlight: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --player-bg: rgba(0, 0, 0, 0.85);
+        --text-xs: 12px;
+        --text-s: 14px;
+        --text-m: 16px;
+        --text-l: 18px;
+        --radius-s: 4px;
+        --radius-m: 8px;
+        --radius-full: 999px;
+        --placeholder: #757575;
+        --radius-pill: 74px;
+      }
+
+      .oc-player-home {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        height: 900px;
+        background: radial-gradient(circle at 50% -20%, rgba(29,185,84,0.15), transparent 70%), linear-gradient(135deg, #0a0a0a, #141414);
+        overflow: hidden;
+      }
+
+      .oc-player-home__main-view {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .oc-player-home__search-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+      }
+
+      .oc-player-home__search-input {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface-glass);
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+      }
+
+      .oc-player-home__placeholder {
+        flex-shrink: 0;
+        color: var(--placeholder);
+        font-size: var(--text-m);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .oc-player-home__search-button {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__search-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--text-secondary);
+      }
+
+      .oc-player-home__recently-added {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .oc-player-home__recently-added-title {
+        color: var(--text);
+        font-size: var(--text-l);
+        font-weight: 700;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .oc-player-home__track-scroll {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 0 0 12px;
+        align-self: stretch;
+        overflow: hidden;
+      }
+
+      .trackcard {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 250px;
+        height: 250px;
+        flex-shrink: 0;
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+        overflow: hidden;
+      }
+
+      .trackcard--recent-card {
+        background: linear-gradient(135deg, #5b3a8a, #1d1533);
+      }
+
+      .trackcard--recent-card-2 {
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+      }
+
+      .trackcard--recent-card-3 {
+        background: linear-gradient(135deg, #c2456b, #2b0d1a);
+      }
+
+      .trackcard--recent-card-4 {
+        background: linear-gradient(135deg, #2f7a6a, #0b221d);
+      }
+
+      .trackcard--recent-card-5 {
+        background: linear-gradient(135deg, #2d46b9, #0d1236);
+      }
+
+      .trackcard__card-shade {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 70%);
+      }
+
+      .trackcard__card-info {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .trackcard__card-title {
+        align-self: stretch;
+        color: var(--text);
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackcard__card-details {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .trackcard__card-kind {
+        color: var(--text);
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+        opacity: 0.9;
+      }
+
+      .trackcard__card-duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .oc-player-home__tabs {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 0 0 16px;
+        flex-shrink: 0;
+      }
+
+      .tabbutton {
+        display: flex;
+        align-items: flex-start;
+        padding: 14px 28px;
+        border-radius: var(--radius-pill);
+      }
+
+      .tabbutton--tab-queue {
+        background-color: var(--primary-soft);
+      }
+
+      .tabbutton--instance {
+        background-color: var(--surface-glass);
+      }
+
+      .tabbutton__tab-label {
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .tabbutton__tab-label--tab-queue {
+        color: var(--text);
+      }
+
+      .tabbutton__tab-label--instance {
+        color: var(--text-secondary);
+      }
+
+      .oc-player-home__queue-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .trackitem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        align-self: stretch;
+        border-radius: var(--radius-s);
+      }
+
+      .trackitem--queue-item {
+        position: relative;
+        background-color: var(--primary-tint);
+        overflow: hidden;
+      }
+
+      .trackitem--queue-item-2 {
+        background-color: var(--surface);
+      }
+
+      .trackitem--queue-item-3 {
+        background-color: var(--glass-highlight);
+      }
+
+      .trackitem__track-number {
+        width: 30px;
+        flex-shrink: 0;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackitem__track-number--queue-item {
+        color: var(--primary);
+      }
+
+      .trackitem__track-number--queue-item-2 {
+        color: var(--text-secondary);
+      }
+
+      .trackitem__track-thumbnail {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        border-radius: var(--radius-s);
+        overflow: hidden;
+      }
+
+      .trackitem__track-thumbnail--queue-item {
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+      }
+
+      .trackitem__track-thumbnail--queue-item-2 {
+        background: linear-gradient(135deg, #c2456b, #2b0d1a);
+      }
+
+      .trackitem__track-thumbnail--queue-item-3 {
+        background: linear-gradient(135deg, #2f7a6a, #0b221d);
+      }
+
+      .trackitem__track-thumbnail--queue-item-4 {
+        background: linear-gradient(135deg, #8a6a4a, #241a10);
+      }
+
+      .trackitem__track-thumbnail--queue-item-5 {
+        background: linear-gradient(135deg, #a35a2a, #2a1206);
+      }
+
+      .trackitem__track-thumbnail--queue-item-6 {
+        background: linear-gradient(135deg, #4a6a9a, #10192a);
+      }
+
+      .trackitem__thumbnail-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+      }
+
+      .trackitem__track-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .trackitem__track-title {
+        color: var(--text);
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackitem__duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackitem__playing-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 64px;
+        background-color: var(--primary);
+      }
+
+      .trackitem__track-actions {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 0 8px 0 0;
+        flex-shrink: 0;
+      }
+
+      .trackitem__play-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__play-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .trackitem__queue-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__queue-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .trackitem__save-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+
+      .trackitem__save-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home__bottom-player {
+        position: absolute;
+        left: 0;
+        top: 818px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 10px 10px;
+        width: 1440px;
+        background-color: var(--player-bg);
+        box-shadow: inset 0 0 0 1px var(--glass-highlight);
+      }
+
+      .oc-player-home__progress-bar {
+        position: relative;
+        height: 4px;
+        align-self: stretch;
+        background-color: var(--glass-highlight);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+      }
+
+      .oc-player-home__progress-current {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 512px;
+        height: 4px;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      .oc-player-home__mini-player {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        align-self: stretch;
+      }
+
+      .oc-player-home__now-playing-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__current-thumbnail {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #b8862f, #2a1a08);
+        border-radius: var(--radius-s);
+      }
+
+      .oc-player-home__current-title {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--text);
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .oc-player-home__playback-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .controlbutton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        background-color: var(--glass-highlight);
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px var(--glass-highlight);
+      }
+
+      .controlbutton__control-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home__play-pause {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background-color: var(--primary);
+        border-radius: 50%;
+      }
+
+      .oc-player-home__pause-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      .oc-player-home__volume-control {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .oc-player-home__volume-slider {
+        width: 100px;
+        height: 4px;
+        flex-shrink: 0;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="oc-player-home">
+      <main class="oc-player-home__main-view">
+        <div class="oc-player-home__search-bar">
+          <div class="oc-player-home__search-input">
+            <p class="oc-player-home__placeholder">Paste YouTube URL...</p>
+          </div>
+          <button class="oc-player-home__search-button" type="button">
+            <svg class="oc-player-home__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          </button>
+        </div>
+        <div class="oc-player-home__recently-added">
+          <h1 class="oc-player-home__recently-added-title">Recently Added</h1>
+          <div class="oc-player-home__track-scroll">
+            <div class="trackcard trackcard--recent-card" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Lofi Hip Hop Radio – Beats to Relax/Study To</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Playlist · 24 tracks</p>
+                  <p class="trackcard__card-duration">1:42:10</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-2" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Daft Punk – Get Lucky ft. Pharrell Williams</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">6:09</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-3" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Tame Impala – The Less I Know The Better</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">3:36</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-4" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Nujabes – Aruarian Dance</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Single track</p>
+                  <p class="trackcard__card-duration">4:08</p>
+                </div>
+              </div>
+            </div>
+            <div class="trackcard trackcard--recent-card-5" data-instance-of="trackcard">
+              <div class="trackcard__card-shade"></div>
+              <div class="trackcard__card-info">
+                <p class="trackcard__card-title">Synthwave Essentials 2026</p>
+                <div class="trackcard__card-details">
+                  <p class="trackcard__card-kind">Playlist · 38 tracks</p>
+                  <p class="trackcard__card-duration">2:31:47</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="oc-player-home__tabs">
+          <div class="tabbutton tabbutton--tab-queue" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--tab-queue">Queue</p>
+          </div>
+          <div class="tabbutton tabbutton--instance" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--instance">Saved Tracks</p>
+          </div>
+          <div class="tabbutton tabbutton--instance" data-instance-of="tabbutton">
+            <p class="tabbutton__tab-label tabbutton__tab-label--instance">Trending</p>
+          </div>
+        </div>
+        <div class="oc-player-home__queue-tab">
+          <div class="trackitem trackitem--queue-item" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item">01</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Daft Punk – Get Lucky ft. Pharrell Williams</p>
+              <p class="trackitem__duration">6:09</p>
+            </div>
+            <div class="trackitem__playing-bar"></div>
+          </div>
+          <div class="trackitem trackitem--queue-item-2" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item-2">02</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-2">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Tame Impala – The Less I Know The Better</p>
+              <p class="trackitem__duration">3:36</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--queue-item-3" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item-2">03</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-3">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Nujabes – Aruarian Dance</p>
+              <p class="trackitem__duration">4:08</p>
+            </div>
+            <div class="trackitem__track-actions">
+              <button class="trackitem__play-button" type="button">
+                <svg class="trackitem__play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+              </button>
+              <button class="trackitem__queue-button" type="button">
+                <svg class="trackitem__queue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              </button>
+              <button class="trackitem__save-button" type="button">
+                <svg class="trackitem__save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="trackitem trackitem--queue-item-2" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item-2">04</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-4">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Fleetwood Mac – Dreams (Official Music Video)</p>
+              <p class="trackitem__duration">4:17</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--queue-item-2" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item-2">05</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-5">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Khruangbin – Time (You and I)</p>
+              <p class="trackitem__duration">3:58</p>
+            </div>
+          </div>
+          <div class="trackitem trackitem--queue-item-2" data-instance-of="trackitem">
+            <p class="trackitem__track-number trackitem__track-number--queue-item-2">06</p>
+            <div class="trackitem__track-thumbnail trackitem__track-thumbnail--queue-item-6">
+              <div class="trackitem__thumbnail-overlay"></div>
+            </div>
+            <div class="trackitem__track-info">
+              <p class="trackitem__track-title">Mac DeMarco – Chamber of Reflection</p>
+              <p class="trackitem__duration">3:52</p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="oc-player-home__bottom-player">
+        <div class="oc-player-home__progress-bar">
+          <div class="oc-player-home__progress-current"></div>
+        </div>
+        <div class="oc-player-home__mini-player">
+          <div class="oc-player-home__now-playing-info">
+            <div class="oc-player-home__current-thumbnail"></div>
+            <p class="oc-player-home__current-title">Daft Punk – Get Lucky ft. Pharrell…</p>
+          </div>
+          <div class="oc-player-home__playback-controls">
+            <div class="controlbutton" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </div>
+            <div class="oc-player-home__play-pause">
+              <svg class="oc-player-home__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>
+            </div>
+            <div class="controlbutton" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="controlbutton" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+            </div>
+          </div>
+          <div class="oc-player-home__volume-control">
+            <div class="controlbutton" data-instance-of="controlbutton">
+              <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+            </div>
+            <div class="oc-player-home__volume-slider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

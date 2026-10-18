@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Components · Untitled 2</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--background);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --background: #121212;
+        --surface: #282828;
+        --surface-glass: rgba(40, 40, 40, 0.6);
+        --text: #FFFFFF;
+        --text-secondary: #B3B3B3;
+        --glass-highlight: rgba(255, 255, 255, 0.1);
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --text-xs: 12px;
+        --text-s: 14px;
+        --text-m: 16px;
+        --radius-s: 4px;
+        --radius-m: 8px;
+        --radius-pill: 74px;
+      }
+
+      .components {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 32px;
+        width: 760px;
+        background-color: var(--background);
+      }
+
+      .trackitem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        align-self: stretch;
+        background-color: var(--surface);
+        border-radius: var(--radius-s);
+      }
+
+      .trackitem__track-number {
+        width: 30px;
+        flex-shrink: 0;
+        color: var(--text-secondary);
+        font-size: var(--text-s);
+        line-height: 1.3;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackitem__track-thumbnail {
+        position: relative;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+        border-radius: var(--radius-s);
+        overflow: hidden;
+      }
+
+      .trackitem__thumbnail-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+      }
+
+      .trackitem__track-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .trackitem__track-title {
+        color: var(--text);
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackitem__duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .trackcard {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(135deg, #4a4a4a, #1f1f1f);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+        overflow: hidden;
+      }
+
+      .trackcard__card-shade {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0) 70%);
+      }
+
+      .trackcard__card-info {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .trackcard__card-title {
+        align-self: stretch;
+        color: var(--text);
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .trackcard__card-details {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .trackcard__card-kind {
+        color: var(--text);
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+        opacity: 0.9;
+      }
+
+      .trackcard__card-duration {
+        color: var(--text-secondary);
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .tabbutton {
+        display: flex;
+        align-items: flex-start;
+        padding: 14px 28px;
+        background-color: var(--surface-glass);
+        border-radius: var(--radius-pill);
+      }
+
+      .tabbutton__tab-label {
+        color: var(--text-secondary);
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .controlbutton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--glass-highlight);
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px var(--glass-highlight);
+      }
+
+      .controlbutton__control-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--text);
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="components">
+      <div class="trackitem" data-component="trackitem">
+        <p class="trackitem__track-number">01</p>
+        <div class="trackitem__track-thumbnail">
+          <div class="trackitem__thumbnail-overlay"></div>
+        </div>
+        <div class="trackitem__track-info">
+          <p class="trackitem__track-title">Track title</p>
+          <p class="trackitem__duration">3:45</p>
+        </div>
+      </div>
+      <div class="trackcard" data-component="trackcard">
+        <div class="trackcard__card-shade"></div>
+        <div class="trackcard__card-info">
+          <h1 class="trackcard__card-title">Track title</h1>
+          <div class="trackcard__card-details">
+            <p class="trackcard__card-kind">Single track</p>
+            <p class="trackcard__card-duration">3:45</p>
+          </div>
+        </div>
+      </div>
+      <div class="tabbutton" data-component="tabbutton">
+        <p class="tabbutton__tab-label">Saved Tracks</p>
+      </div>
+      <div class="controlbutton" data-component="controlbutton">
+        <svg class="controlbutton__control-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4v16"/><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/></svg>
+      </div>
+    </div>
+  </body>
+</html>

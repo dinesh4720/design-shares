@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Google · Untitled 2</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      .google {
+        position: relative;
+        width: 1082px;
+        height: 625px;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+
+      .google__rqyyhe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1082px;
+        height: 625px;
+      }
+
+      .google__acuseb {
+        position: relative;
+        height: 60px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__about {
+        position: absolute;
+        left: 21px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google__about-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__store {
+        position: absolute;
+        left: 77.5px;
+        top: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;
+      }
+
+      .google__store-2 {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__gb {
+        position: absolute;
+        left: 126px;
+        top: 4.5px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 950px;
+        height: 51.5px;
+      }
+
+      .google__gb-r {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 11px 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__gb-9 {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 15px;
+      }
+
+      .google__gmail {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google__images {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.85;
+        white-space: pre;
+      }
+
+      .google__gbwa {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__gb-d {
+        position: relative;
+        height: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__google-apps {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px;
+        width: 40px;
+        border-radius: 20px;
+      }
+
+      .google__icon {
+        height: 24px;
+        align-self: stretch;
+        object-fit: contain;
+      }
+
+      .google__gb-z {
+        position: relative;
+        width: 93px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google__sign-in {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 12px;
+        width: 85px;
+        height: 40px;
+        background-color: #0b57d0;
+        border-radius: 20px;
+      }
+
+      .google__sign-in-2 {
+        flex-shrink: 0;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.29;
+        white-space: pre;
+      }
+
+      .google__si1xge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 96px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__uzekje {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 272px;
+      }
+
+      .google__google {
+        position: relative;
+        height: 92px;
+        align-self: stretch;
+      }
+
+      .google__path {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 272px;
+        height: 92px;
+      }
+
+      .google__acuseb-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 26px 96px 20px;
+        height: 190px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__div {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+        width: 688px;
+      }
+
+      .google__rnnxgb {
+        display: flex;
+        align-items: flex-start;
+        padding: 1px;
+        height: 52px;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 26px;
+        box-shadow: inset 0 0 0 1px #dadce0, #1f1f1f14 0px 3px 10px 0px;
+      }
+
+      .google__sdkep {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px 0 0;
+        width: 686px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google__umoyhd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+      }
+
+      .google__add-files-and-tools {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 18px;
+      }
+
+      .google__wpszbe {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 24px;
+        flex-shrink: 0;
+      }
+
+      .google__icon-2 {
+        height: 24px;
+        align-self: stretch;
+      }
+
+      .google__search {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__dryyxd {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 25px;
+      }
+
+      .google__div-2 {
+        display: flex;
+        align-items: flex-start;
+        width: 80px;
+        height: 24px;
+        background-color: #ffffff;
+      }
+
+      .google__search-by-voice {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__icon-3 {
+        width: 24px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__search-by-image {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 8px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .google__ai-mode {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 8px;
+        width: 96.5px;
+        height: 36px;
+        background-color: #ffffff;
+        border-radius: 18px;
+      }
+
+      .google__bzntfe {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        border-radius: 18px;
+        opacity: 0.6;
+      }
+
+      .google__bvukz {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 96.5px;
+        height: 36px;
+        background-color: #f3f5f6;
+        border-radius: 18px;
+      }
+
+      .google__div-3 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 0 0 0 20px;
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__ltxwle {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 4px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__ai-mode-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.43;
+        white-space: pre;
+      }
+
+      .google__span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: flex-start;
+        height: 20px;
+      }
+
+      .google__icon-4 {
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google__bzntfe-2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 688px;
+        height: 124px;
+        border-radius: 24px;
+      }
+
+      .google__devrsb {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        height: 42px;
+        align-self: stretch;
+      }
+
+      .google__div-4 {
+        display: flex;
+        align-items: flex-start;
+        gap: 7.83px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__create-images {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__text {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        line-height: 1.14;
+        white-space: pre;
+      }
+
+      .google__create-images-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__ask-about-files {
+        position: relative;
+        width: 151.5px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__ask-about-files-2 {
+        position: absolute;
+        left: 41px;
+        top: 12.5px;
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__dugvje {
+        position: absolute;
+        left: 8.5px;
+        top: 7px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 28.5px;
+      }
+
+      .google__icon-5 {
+        height: 28.5px;
+        align-self: stretch;
+      }
+
+      .google__brainstorm {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 11px 17px 11px 13px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__dugvje-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 20px;
+        align-self: stretch;
+      }
+
+      .google__icon-6 {
+        height: 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__brainstorm-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__i-am-feeling-lucky {
+        display: flex;
+        align-items: flex-start;
+        padding: 11px 17px;
+        align-self: stretch;
+        background-color: #f3f5f6;
+        border-radius: 21px;
+      }
+
+      .google__i-am-feeling-lucky-2 {
+        color: #1f1f1f;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.25;
+        white-space: pre;
+      }
+
+      .google__acuseb-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .google__gws-output-pages-elements-homepage-additional-languages-als {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__google-offered-in {
+        color: #474747;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        line-height: 2.15;
+        white-space: pre;
+      }
+
+      .google__acuseb-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+      }
+
+      .google__div-5 {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 15px 30px 16px;
+        align-self: stretch;
+      }
+
+      .google__india {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        line-height: 1.1;
+        white-space: pre;
+      }
+
+      .google__border-bottom {
+        position: absolute;
+        left: 0;
+        top: 47px;
+        width: 1082px;
+        height: 1px;
+        background-color: #d2d2d2;
+      }
+
+      .google__xqqexb {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 161.5px;
+        padding: 0 20px;
+        height: 46px;
+        align-self: stretch;
+      }
+
+      .google__osh6f {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__advertising {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__advertising-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__business {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__business-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__how-search-works {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__how-search-works-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__rwlvme {
+        display: flex;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__privacy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__privacy-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__terms {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        align-self: stretch;
+      }
+
+      .google__terms-2 {
+        flex-shrink: 0;
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      .google__span-2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 80.5px;
+        align-self: stretch;
+      }
+
+      .google__span-3 {
+        display: flex;
+        align-items: center;
+        height: 15.5px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .google__eqtddf {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        flex-shrink: 0;
+      }
+
+      .google__settings {
+        color: #1f1f1f;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.11;
+        white-space: pre;
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="google">
+      <div class="google__rqyyhe">
+        <div class="google__acuseb">
+          <a class="google__about" href="#">
+            <p class="google__about-2">About</p>
+          </a>
+          <a class="google__store" href="#">
+            <p class="google__store-2">Store</p>
+          </a>
+          <header class="google__gb">
+            <div class="google__gb-r">
+              <div class="google__gb-9">
+                <p class="google__gmail">Gmail</p>
+              </div>
+              <div class="google__gb-9">
+                <p class="google__images">Images</p>
+              </div>
+            </div>
+            <div class="google__gbwa">
+              <div class="google__gb-d">
+                <a class="google__google-apps" href="#">
+                  <img class="google__icon" src="assets/46b239c74d571981.png" alt="Icon">
+                </a>
+              </div>
+            </div>
+            <div class="google__gb-z">
+              <a class="google__sign-in" href="#">
+                <p class="google__sign-in-2">Sign in</p>
+              </a>
+            </div>
+          </header>
+        </div>
+        <div class="google__si1xge">
+          <div class="google__uzekje">
+            <div class="google__google">
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M31.32 70.33c17.65.17 29.67-11.68 29.67-29.92q.01-2.29-.43-5.08H31.2v8.76h20.6c-1.1 11.47-9.18 17.44-20.27 17.44-12.44 0-21.96-9.35-21.96-22.94 0-13.41 9.1-22.77 21.96-22.77 6.48 0 11.26 2 16.04 6.9l6.14-6.43c-5.38-6.3-13.16-9.31-22.3-9.31C13.7 6.98 0 20.27 0 38.46c0 17.4 13.25 31.7 31.32 31.87" fill="#3186ff" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M88.2 70.33c13.2 0 22.77-9.69 22.77-23.15 0-13.2-9.35-22.98-22.77-22.98-12.7 0-22.68 9.02-22.68 22.98 0 13.33 9.43 23.15 22.68 23.15m0-8.04c-8.04 0-13.67-6.6-13.67-15.1s5.93-14.95 13.67-14.95c8.17 0 13.67 6.6 13.67 14.94 0 8.64-5.63 15.11-13.67 15.11" fill="#fc413d" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M137.42 70.33c13.29 0 22.77-9.73 22.77-23.15 0-13.2-9.35-22.98-22.77-22.98-12.7 0-22.68 9.02-22.68 22.98 0 13.33 9.43 23.15 22.68 23.15m0-8.04c-8.04 0-13.67-6.6-13.67-15.1s5.93-14.95 13.67-14.95c8.17 0 13.67 6.6 13.67 14.94 0 8.64-5.63 15.11-13.67 15.11" fill="#ffbe00" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M185.37 88.57q21.51 0 21.5-24.63V25.77h-8.8v5.37h-.17c-2.75-4.27-7.96-6.68-13.84-6.68-12.7 0-20.44 9.69-20.44 22.6 0 12.86 7.53 22.34 20.78 22.34 6.52 0 11.34-3.72 13.37-6.77h.3v3.94c0 8.67-4.49 13.8-12.82 13.8-5.46 0-9.1-3.01-11.77-8.05l-7.96 3.52c4.2 8.84 10.16 12.73 19.85 12.73m0-27.55c-7.74 0-12.7-5.71-12.7-14.22 0-8.2 4.92-14.13 12.75-14.13s12.65 5.5 12.65 14.09c0 8.68-5.08 14.26-12.7 14.26" fill="#3186ff" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M222.91 8.33h-9.22v60.6h9.22z" fill="#00af57" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="google__path" viewBox="0 0 272 92" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M250.17 70.25a22.1 22.1 0 0 0 19-10.54l-6.86-4.49c-3 4.2-7.1 6.6-11.72 6.6a13.6 13.6 0 0 1-11.93-7.23l30.93-13.12a20 20 0 0 0-.84-3.22c-3.69-9.48-10.12-13.8-18.8-13.8-13.24 0-22.25 9.66-22.25 23.03 0 13.67 9.47 22.77 22.47 22.77m-13.5-22.81v-.51c0-8.76 5.03-14.64 12.95-14.64 3.76 0 7.15 1.69 9.44 5.67z" fill="#fc413d" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="google__acuseb-2">
+          <div class="google__form">
+            <div class="google__div">
+              <div class="google__rnnxgb">
+                <div class="google__sdkep">
+                  <div class="google__umoyhd">
+                    <button class="google__add-files-and-tools" type="button">
+                      <span class="google__wpszbe">
+                        <svg class="google__icon-2" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M434.5-434.5H191.87v-91H434.5v-242.63h91v242.63h242.63v91H525.5v242.63h-91V-434.5Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="google__search"></div>
+                  <div class="google__dryyxd">
+                    <div class="google__div-2">
+                      <div class="google__search-by-voice">
+                        <svg class="google__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                      <div class="google__search-by-image">
+                        <svg class="google__icon-3" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M480-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm240 160q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160Zm-440 40q-66 0-113-47t-47-113v-80h80v80q0 33 23.5 56.5T280-200h200v80H280Zm480-320v-160q0-33-23.5-56.5T680-680H280q-33 0-56.5 23.5T200-600v120h-80v-120q0-66 47-113t113-47h80l40-80h160l40 80h80q66 0 113 47t47 113v160h-80Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                      </div>
+                    </div>
+                    <button class="google__ai-mode" type="button">
+                      <span class="google__bzntfe"></span>
+                      <span class="google__bvukz"></span>
+                      <span class="google__div-3">
+                        <span class="google__ltxwle">
+                          <span class="google__ai-mode-2">AI Mode</span>
+                        </span>
+                        <span class="google__span">
+                          <svg class="google__icon-4" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M740-560q-6,0-8-6q-16-61-60.5-105.5T566-732q-6-2-6-8q0-7 6-8q61-16 105.5-60.5T732-914q2-6 8-6q7,0 8,6q17,61 61,105.5T914-748q6,1 6,8q0,6-6,8q-61,16-105.5,60.5T748-566q-1,6-8,6Zm44,440L534-370q-34,25-73,37.5T380-320q-109,0-184.5-75.5T120-580t75.5-184.5T380-840q29,0 57,6.5T491-815l-40,70q-17-8-35-11.5T380-760q-75,0-127.5,52.5T200-580t52.5,127.5T380-400q69,0 120-45.5T559-560h80q-3,36-15,70.5T590-426L840-176l-56,56Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                        </span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="google__bzntfe-2"></div>
+              <div class="google__devrsb">
+                <div class="google__div-4">
+                  <div class="google__create-images">
+                    <p class="google__text">🍌</p>
+                    <p class="google__create-images-2">Create images</p>
+                  </div>
+                  <div class="google__ask-about-files">
+                    <p class="google__ask-about-files-2">Ask about files</p>
+                    <span class="google__dugvje">
+                      <svg class="google__icon-5" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M720-330q0,104-73,177T470-80T293-153T220-330V-700q0-75 52.5-127.5T400-880t127.5,52.5T580-700v350q0,46-32,78t-78,32t-78-32t-32-78V-720h80v370q0,13 8.5,21.5T470-320t21.5-8.5T500-350V-700q-1-42-29.5-71T400-800t-71,29t-29,71v370q-1,71 49,120.5T470-160q70,0 119-49.5T640-330V-720h80v390Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                  </div>
+                  <div class="google__brainstorm">
+                    <span class="google__dugvje-2">
+                      <svg class="google__icon-6" viewBox="0 -960 960 960" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M423.5-103.5Q400-127 400-160H560q0,33-23.5,56.5T480-80t-56.5-23.5ZM320-200v-80H640v80H320Zm10-120q-69-41-109.5-110T180-580q0-125 87.5-212.5T480-880t212.5,87.5T780-580q0,81-40.5,150T630-320H330Zm24-80H606q45-32 69.5-79T700-580q0-92-64-156T480-800T324-736T260-580q0,54 24.5,101T354-400Zm126,0Z" fill="#1f1f1f" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    </span>
+                    <p class="google__brainstorm-2">Brainstorm</p>
+                  </div>
+                  <div class="google__i-am-feeling-lucky">
+                    <p class="google__i-am-feeling-lucky-2">I am feeling lucky</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="google__acuseb-3">
+          <div class="google__gws-output-pages-elements-homepage-additional-languages-als">
+            <p class="google__google-offered-in">Google offered in: हिन्दी বাংলা తెలుగు मराठी தமிழ் ગુજરાતી ಕನ್ನಡ മലയാളം ਪੰਜਾਬੀ</p>
+          </div>
+        </div>
+        <div class="google__acuseb-4">
+          <div class="google__div-5">
+            <p class="google__india">India</p>
+            <div class="google__border-bottom"></div>
+          </div>
+          <div class="google__xqqexb">
+            <div class="google__osh6f">
+              <a class="google__advertising" href="#">
+                <p class="google__advertising-2">Advertising</p>
+              </a>
+              <a class="google__business" href="#">
+                <p class="google__business-2">Business</p>
+              </a>
+              <a class="google__how-search-works" href="#">
+                <p class="google__how-search-works-2">How Search works</p>
+              </a>
+            </div>
+            <div class="google__rwlvme">
+              <a class="google__privacy" href="#">
+                <p class="google__privacy-2">Privacy</p>
+              </a>
+              <a class="google__terms" href="#">
+                <p class="google__terms-2">Terms</p>
+              </a>
+              <span class="google__span-2">
+                <div class="google__span-3">
+                  <div class="google__eqtddf">
+                    <p class="google__settings">Settings</p>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
