@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mark as Dispatched Side Panel · Shipments</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      .mark-as-dispatched-side-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 560px;
+        height: 804px;
+        background-color: #ffffff;
+        box-shadow: -8px 0px 24px 0px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .mark-as-dispatched-side-panel__panel-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px 17px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 #e4e4e7;
+      }
+
+      .mark-as-dispatched-side-panel__header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .mark-as-dispatched-side-panel__record-buyer-rejection {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__close {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .mark-as-dispatched-side-panel__vector {
+        position: absolute;
+        left: 4.58px;
+        top: 4.58px;
+        width: 12.83px;
+        height: 12.83px;
+      }
+
+      .mark-as-dispatched-side-panel__panel-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .mark-as-dispatched-side-panel__section-title {
+        flex-shrink: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__quantities {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .mark-as-dispatched-side-panel__dispatched-quantity {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .mark-as-dispatched-side-panel__label {
+        display: flex;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .mark-as-dispatched-side-panel__label-text {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__text {
+        color: #dc2626;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 13px;
+        height: 36px;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .mark-as-dispatched-side-panel__value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .mark-as-dispatched-side-panel__unit-divider {
+        width: 1px;
+        height: 18px;
+        flex-shrink: 0;
+        background-color: #e4e4e7;
+      }
+
+      .mark-as-dispatched-side-panel__unit {
+        flex-shrink: 0;
+        color: #71717a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__keyboard-arrow-down {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .mark-as-dispatched-side-panel__vector-2 {
+        position: absolute;
+        left: 4px;
+        top: 5.33px;
+        width: 8px;
+        height: 4.93px;
+      }
+
+      .mark-as-dispatched-side-panel__number-of-bags {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .mark-as-dispatched-side-panel__value-2 {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #a1a1aa;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .mark-as-dispatched-side-panel__date-dispatched {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .mark-as-dispatched-side-panel__calendar-today {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .mark-as-dispatched-side-panel__vector-3 {
+        position: absolute;
+        left: 2.25px;
+        top: 1.5px;
+        width: 13.5px;
+        height: 15px;
+      }
+
+      .mark-as-dispatched-side-panel__notify-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .mark-as-dispatched-side-panel__box {
+        width: 16px;
+        height: 16px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #d4d4d8;
+      }
+
+      .mark-as-dispatched-side-panel__checkbox-label {
+        color: #18181b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__panel-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 20px 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 #e4e4e7;
+      }
+
+      .mark-as-dispatched-side-panel__cancel-button {
+        display: flex;
+        align-items: center;
+        padding: 1px 15px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .mark-as-dispatched-side-panel__cancel {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .mark-as-dispatched-side-panel__save-button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 14px;
+        height: 36px;
+        flex-shrink: 0;
+        background-color: #3b82f6;
+        border-radius: 4px;
+      }
+
+      .mark-as-dispatched-side-panel__save {
+        color: #ffffff;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mark-as-dispatched-side-panel">
+      <header class="mark-as-dispatched-side-panel__panel-header">
+        <div class="mark-as-dispatched-side-panel__header-text">
+          <p class="mark-as-dispatched-side-panel__record-buyer-rejection">Mark as Dispatched</p>
+        </div>
+        <div class="mark-as-dispatched-side-panel__close">
+          <svg class="mark-as-dispatched-side-panel__vector" viewBox="0 0 12.83 12.83" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.28 12.83 L0 11.55 L5.13 6.42 L0 1.28 L1.28 0 L6.42 5.13 L11.55 0 L12.83 1.28 L7.7 6.42 L12.83 11.55 L11.55 12.83 L6.42 7.7 L1.28 12.83 Z" fill="#52525b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+      </header>
+      <div class="mark-as-dispatched-side-panel__panel-body">
+        <h1 class="mark-as-dispatched-side-panel__section-title">Dispatch Details</h1>
+        <div class="mark-as-dispatched-side-panel__quantities">
+          <div class="mark-as-dispatched-side-panel__dispatched-quantity">
+            <div class="mark-as-dispatched-side-panel__label">
+              <p class="mark-as-dispatched-side-panel__label-text">Dispatched Quantity</p>
+              <p class="mark-as-dispatched-side-panel__text">*</p>
+            </div>
+            <div class="mark-as-dispatched-side-panel__input">
+              <p class="mark-as-dispatched-side-panel__value">1</p>
+              <div class="mark-as-dispatched-side-panel__unit-divider"></div>
+              <p class="mark-as-dispatched-side-panel__unit">ql</p>
+              <div class="mark-as-dispatched-side-panel__keyboard-arrow-down">
+                <svg class="mark-as-dispatched-side-panel__vector-2" viewBox="0 0 8 4.93" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M4 4.93 L0 0.93 L0.93 0 L4 3.07 L7.07 0 L8 0.93 L4 4.93 Z" fill="#71717a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="mark-as-dispatched-side-panel__number-of-bags">
+            <div class="mark-as-dispatched-side-panel__label">
+              <p class="mark-as-dispatched-side-panel__label-text">Number of bags</p>
+            </div>
+            <div class="mark-as-dispatched-side-panel__input">
+              <p class="mark-as-dispatched-side-panel__value-2">e.g. 20</p>
+            </div>
+          </div>
+        </div>
+        <div class="mark-as-dispatched-side-panel__date-dispatched">
+          <div class="mark-as-dispatched-side-panel__label">
+            <p class="mark-as-dispatched-side-panel__label-text">Date Dispatched</p>
+            <p class="mark-as-dispatched-side-panel__text">*</p>
+          </div>
+          <div class="mark-as-dispatched-side-panel__input">
+            <p class="mark-as-dispatched-side-panel__value">22/09/2026</p>
+            <div class="mark-as-dispatched-side-panel__calendar-today">
+              <svg class="mark-as-dispatched-side-panel__vector-3" viewBox="0 0 13.5 15" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.5 15 C1.09 15 0.73 14.85 0.44 14.56 C0.15 14.27 0 13.91 0 13.5 L0 3 C0 2.59 0.15 2.23 0.44 1.94 C0.74 1.65 1.09 1.5 1.5 1.5 L2.25 1.5 L2.25 0 L3.75 0 L3.75 1.5 L9.75 1.5 L9.75 0 L11.25 0 L11.25 1.5 L12 1.5 C12.41 1.5 12.77 1.65 13.06 1.94 C13.35 2.23 13.5 2.59 13.5 3 L13.5 13.5 C13.5 13.91 13.35 14.27 13.06 14.56 C12.77 14.85 12.41 15 12 15 L1.5 15 Z M1.5 13.5 L12 13.5 L12 6 L1.5 6 L1.5 13.5 Z M1.5 4.5 L12 4.5 L12 3 L1.5 3 L1.5 4.5 Z" fill="#71717a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="mark-as-dispatched-side-panel__notify-checkbox">
+          <div class="mark-as-dispatched-side-panel__box"></div>
+          <p class="mark-as-dispatched-side-panel__checkbox-label">Notify invoice to buyer</p>
+        </div>
+      </div>
+      <footer class="mark-as-dispatched-side-panel__panel-footer">
+        <button class="mark-as-dispatched-side-panel__cancel-button" type="button">
+          <span class="mark-as-dispatched-side-panel__cancel">Cancel</span>
+        </button>
+        <button class="mark-as-dispatched-side-panel__save-button" type="button">
+          <span class="mark-as-dispatched-side-panel__save">Save</span>
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Update – Choose Outcome Side Panel · Shipments</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      .add-update-choose-outcome-side-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 560px;
+        height: 1000px;
+        background-color: #ffffff;
+        box-shadow: -8px 0px 24px 0px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__panel-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px 17px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__add-update {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__close {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__vector {
+        position: absolute;
+        left: 4.58px;
+        top: 4.58px;
+        width: 12.83px;
+        height: 12.83px;
+      }
+
+      .add-update-choose-outcome-side-panel__shipment-summary {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        padding: 13px 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #fafafa;
+        box-shadow: inset 0 1px 0 0 #e4e4e7, inset 0 -1px 0 0 #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__shipment {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__label {
+        color: #71717a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 11px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__value {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__shipment-quantity {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__panel-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__outcome-card-no-fully-unloaded {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 21px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__radio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1px;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border-radius: 9px;
+        box-shadow: inset 0 0 0 1px #a1a1aa;
+      }
+
+      .add-update-choose-outcome-side-panel__icon-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        background-color: #dcfce7;
+        border-radius: 22px;
+      }
+
+      .add-update-choose-outcome-side-panel__check-circle {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__vector-2 {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .add-update-choose-outcome-side-panel__card-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .add-update-choose-outcome-side-panel__card-title {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__card-description {
+        align-self: stretch;
+        color: #52525b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .add-update-choose-outcome-side-panel__outcome-card-partially-rejected {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 22px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #eff6ff;
+        border-radius: 8px;
+        box-shadow: inset 0 0 0 2px #3b82f6;
+      }
+
+      .add-update-choose-outcome-side-panel__radio-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2px;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border-radius: 9px;
+        box-shadow: inset 0 0 0 2px #3b82f6;
+      }
+
+      .add-update-choose-outcome-side-panel__radio-dot {
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
+        background-color: #3b82f6;
+        border-radius: 50%;
+      }
+
+      .add-update-choose-outcome-side-panel__icon-badge-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        background-color: #fef3c7;
+        border-radius: 22px;
+      }
+
+      .add-update-choose-outcome-side-panel__rule {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__vector-3 {
+        position: absolute;
+        left: 2px;
+        top: 3.92px;
+        width: 20px;
+        height: 16.08px;
+      }
+
+      .add-update-choose-outcome-side-panel__outcome-card-entirely-rejected {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 21px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__icon-badge-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        background-color: #fee2e2;
+        border-radius: 22px;
+      }
+
+      .add-update-choose-outcome-side-panel__cancel {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__panel-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 20px 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__cancel-button {
+        display: flex;
+        align-items: center;
+        padding: 1px 15px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .add-update-choose-outcome-side-panel__cancel-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__save-button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 14px;
+        height: 36px;
+        flex-shrink: 0;
+        background-color: #3b82f6;
+        border-radius: 4px;
+      }
+
+      .add-update-choose-outcome-side-panel__continue {
+        color: #ffffff;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .add-update-choose-outcome-side-panel__arrow-forward {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        overflow: hidden;
+      }
+
+      .add-update-choose-outcome-side-panel__vector-4 {
+        position: absolute;
+        left: 2.67px;
+        top: 2.67px;
+        width: 10.67px;
+        height: 10.67px;
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="add-update-choose-outcome-side-panel">
+      <header class="add-update-choose-outcome-side-panel__panel-header">
+        <div class="add-update-choose-outcome-side-panel__header-text">
+          <p class="add-update-choose-outcome-side-panel__add-update">Add Update</p>
+        </div>
+        <div class="add-update-choose-outcome-side-panel__close">
+          <svg class="add-update-choose-outcome-side-panel__vector" viewBox="0 0 12.83 12.83" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.28 12.83 L0 11.55 L5.13 6.42 L0 1.28 L1.28 0 L6.42 5.13 L11.55 0 L12.83 1.28 L7.7 6.42 L12.83 11.55 L11.55 12.83 L6.42 7.7 L1.28 12.83 Z" fill="#52525b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+      </header>
+      <div class="add-update-choose-outcome-side-panel__shipment-summary">
+        <div class="add-update-choose-outcome-side-panel__shipment">
+          <p class="add-update-choose-outcome-side-panel__label">Shipment</p>
+          <p class="add-update-choose-outcome-side-panel__value">AGS250765</p>
+        </div>
+        <div class="add-update-choose-outcome-side-panel__item">
+          <p class="add-update-choose-outcome-side-panel__label">Item</p>
+          <p class="add-update-choose-outcome-side-panel__value">Paddy (Dhan)</p>
+        </div>
+        <div class="add-update-choose-outcome-side-panel__shipment-quantity">
+          <p class="add-update-choose-outcome-side-panel__label">Shipment Quantity</p>
+          <p class="add-update-choose-outcome-side-panel__value">1 ql</p>
+        </div>
+      </div>
+      <div class="add-update-choose-outcome-side-panel__panel-body">
+        <div class="add-update-choose-outcome-side-panel__outcome-card-no-fully-unloaded">
+          <div class="add-update-choose-outcome-side-panel__radio"></div>
+          <div class="add-update-choose-outcome-side-panel__icon-badge">
+            <div class="add-update-choose-outcome-side-panel__check-circle">
+              <svg class="add-update-choose-outcome-side-panel__vector-2" viewBox="0 0 20 20" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.6 14.6 L15.65 7.55 L14.25 6.15 L8.6 11.8 L5.75 8.95 L4.35 10.35 L8.6 14.6 Z M10 20 C8.62 20 7.32 19.74 6.1 19.21 C4.88 18.69 3.83 17.97 2.93 17.08 C2.03 16.18 1.31 15.12 0.79 13.9 C0.26 12.68 0 11.38 0 10 C0 8.62 0.26 7.32 0.79 6.1 C1.31 4.88 2.03 3.82 2.93 2.93 C3.82 2.03 4.88 1.31 6.1 0.79 C7.32 0.26 8.62 0 10 0 C11.38 0 12.68 0.26 13.9 0.79 C15.12 1.31 16.18 2.03 17.08 2.93 C17.97 3.82 18.69 4.88 19.21 6.1 C19.74 7.32 20 8.62 20 10 C20 11.38 19.74 12.68 19.21 13.9 C18.69 15.12 17.98 16.18 17.08 17.08 C16.17 17.97 15.12 18.69 13.9 19.21 C12.68 19.74 11.38 20 10 20 Z M10 18 C12.23 18 14.13 17.22 15.68 15.67 C17.23 14.12 18 12.23 18 10 C18 7.77 17.23 5.87 15.68 4.32 C14.13 2.77 12.23 2 10 2 C7.77 2 5.88 2.77 4.33 4.32 C2.78 5.87 2 7.77 2 10 C2 12.23 2.78 14.12 4.33 15.67 C5.88 17.22 7.77 18 10 18 Z" fill="#15803d" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+          <div class="add-update-choose-outcome-side-panel__card-text">
+            <h1 class="add-update-choose-outcome-side-panel__card-title">Fully Unloaded</h1>
+            <p class="add-update-choose-outcome-side-panel__card-description">The shipment moves to Item Unloaded.</p>
+          </div>
+        </div>
+        <div class="add-update-choose-outcome-side-panel__outcome-card-partially-rejected">
+          <div class="add-update-choose-outcome-side-panel__radio-2">
+            <div class="add-update-choose-outcome-side-panel__radio-dot"></div>
+          </div>
+          <div class="add-update-choose-outcome-side-panel__icon-badge-2">
+            <div class="add-update-choose-outcome-side-panel__rule">
+              <svg class="add-update-choose-outcome-side-panel__vector-3" viewBox="0 0 20 16.08" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M12.4 16.08 L11 14.68 L13.6 12.07 L11 9.47 L12.4 8.07 L15 10.68 L17.6 8.07 L19 9.47 L16.4 12.07 L19 14.68 L17.6 16.08 L15 13.47 L12.4 16.08 Z M14.38 7.07 L10.82 3.52 L12.23 2.13 L14.35 4.25 L18.6 0 L20 1.42 L14.38 7.07 Z M0 13.07 L0 11.07 L9 11.07 L9 13.07 L0 13.07 Z M0 5.07 L0 3.08 L9 3.08 L9 5.07 L0 5.07 Z" fill="#b45309" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+          <div class="add-update-choose-outcome-side-panel__card-text">
+            <p class="add-update-choose-outcome-side-panel__card-title">Partially Rejected</p>
+            <p class="add-update-choose-outcome-side-panel__card-description">Log the accepted and rejected quantity, then create a return shipment or just log it.</p>
+          </div>
+        </div>
+        <div class="add-update-choose-outcome-side-panel__outcome-card-entirely-rejected">
+          <div class="add-update-choose-outcome-side-panel__radio"></div>
+          <div class="add-update-choose-outcome-side-panel__icon-badge-3">
+            <div class="add-update-choose-outcome-side-panel__cancel">
+              <svg class="add-update-choose-outcome-side-panel__vector-2" viewBox="0 0 20 20" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M6.4 15 L10 11.4 L13.6 15 L15 13.6 L11.4 10 L15 6.4 L13.6 5 L10 8.6 L6.4 5 L5 6.4 L8.6 10 L5 13.6 L6.4 15 Z M10 20 C8.62 20 7.32 19.74 6.1 19.21 C4.88 18.69 3.83 17.97 2.93 17.08 C2.03 16.18 1.31 15.12 0.79 13.9 C0.26 12.68 0 11.38 0 10 C0 8.62 0.26 7.32 0.79 6.1 C1.31 4.88 2.03 3.82 2.93 2.93 C3.82 2.03 4.88 1.31 6.1 0.79 C7.32 0.26 8.62 0 10 0 C11.38 0 12.68 0.26 13.9 0.79 C15.12 1.31 16.18 2.03 17.08 2.93 C17.97 3.82 18.69 4.88 19.21 6.1 C19.74 7.32 20 8.62 20 10 C20 11.38 19.74 12.68 19.21 13.9 C18.69 15.12 17.98 16.18 17.08 17.08 C16.17 17.97 15.12 18.69 13.9 19.21 C12.68 19.74 11.38 20 10 20 Z M10 18 C12.23 18 14.13 17.22 15.68 15.67 C17.23 14.12 18 12.23 18 10 C18 7.77 17.23 5.87 15.68 4.32 C14.13 2.77 12.23 2 10 2 C7.77 2 5.88 2.77 4.33 4.32 C2.78 5.87 2 7.77 2 10 C2 12.23 2.78 14.12 4.33 15.67 C5.88 17.22 7.77 18 10 18 Z" fill="#b91c1c" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+          </div>
+          <div class="add-update-choose-outcome-side-panel__card-text">
+            <p class="add-update-choose-outcome-side-panel__card-title">Entirely Rejected</p>
+            <p class="add-update-choose-outcome-side-panel__card-description">Log the buyer's reason, then create a return shipment or just log it.</p>
+          </div>
+        </div>
+      </div>
+      <footer class="add-update-choose-outcome-side-panel__panel-footer">
+        <button class="add-update-choose-outcome-side-panel__cancel-button" type="button">
+          <span class="add-update-choose-outcome-side-panel__cancel-2">Cancel</span>
+        </button>
+        <button class="add-update-choose-outcome-side-panel__save-button" type="button">
+          <span class="add-update-choose-outcome-side-panel__continue">Continue</span>
+          <span class="add-update-choose-outcome-side-panel__arrow-forward">
+            <svg class="add-update-choose-outcome-side-panel__vector-4" viewBox="0 0 10.67 10.67" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.12 6 L0 6 L0 4.67 L8.12 4.67 L4.38 0.93 L5.33 0 L10.67 5.33 L5.33 10.67 L4.38 9.73 L8.12 6 Z" fill="#ffffff" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </span>
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>

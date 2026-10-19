@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buyer Rejected Side Panel – Create Return Shipment (Step 2) · Shipments</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 560px;
+        height: 1000px;
+        background-color: #ffffff;
+        box-shadow: -8px 0px 24px 0px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__panel-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px 17px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 #e4e4e7;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__add-update {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__close {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__vector {
+        position: absolute;
+        left: 4.58px;
+        top: 4.58px;
+        width: 12.83px;
+        height: 12.83px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__shipment-summary {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        padding: 13px 20px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #fafafa;
+        box-shadow: inset 0 1px 0 0 #e4e4e7, inset 0 -1px 0 0 #e4e4e7;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__shipment {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__label {
+        color: #71717a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 11px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__value {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__shipment-quantity {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__panel-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__pickup-location {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__pickup-location-2 {
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__location-mode {
+        display: flex;
+        align-items: flex-start;
+        padding: 4px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #f4f4f5;
+        border-radius: 6px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__mode-buyer-location {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        height: 32px;
+        flex: 1 1 0;
+        min-width: 0;
+        border-radius: 4px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__store {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__vector-2 {
+        position: absolute;
+        left: 2px;
+        top: 2.67px;
+        width: 12px;
+        height: 10.67px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__buyer-location {
+        flex-shrink: 0;
+        color: #52525b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__mode-collection-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        height: 32px;
+        flex: 1 1 0;
+        min-width: 0;
+        border-radius: 4px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__warehouse {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__vector-3 {
+        position: absolute;
+        left: 1.33px;
+        top: 2px;
+        width: 13.33px;
+        height: 12px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__collection-center {
+        flex-shrink: 0;
+        color: #52525b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__mode-custom-entry {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        height: 32px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #ffffff;
+        border-radius: 4px;
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__edit-location-alt {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__vector-4 {
+        position: absolute;
+        left: 2.67px;
+        top: 0.68px;
+        width: 11.32px;
+        height: 13.98px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__custom-entry {
+        flex-shrink: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__location-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__location-name {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__label-2 {
+        display: flex;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__location-name-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__text {
+        color: #dc2626;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 13px;
+        height: 36px;
+        align-self: stretch;
+        background-color: #ffffff;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__sharma-cold-storage {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__pincode {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__pincode-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__132114 {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__pincode-hint {
+        color: #71717a;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 11px;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__address {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__address-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__khasra-no-212-mandi-road {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__contact-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__contact-person {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__contact-person-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__ramesh-kumar {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__contact-number {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__contact-number-2 {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__91-98765-43210 {
+        flex: 1 1 0;
+        min-width: 0;
+        color: #09090b;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__return-shipment-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: #eff6ff;
+        border-radius: 8px;
+        box-shadow: inset 0 0 0 1px #bfdbfe;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__info-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: #3b82f6;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__note-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__note-title {
+        color: #18181b;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__panel-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 20px 14px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 #e4e4e7;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__cancel-button {
+        display: flex;
+        align-items: center;
+        padding: 1px 15px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px #e4e4e7;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__cancel {
+        color: #3f3f46;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__save-button {
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        height: 36px;
+        flex-shrink: 0;
+        background-color: #3b82f6;
+        border-radius: 4px;
+      }
+
+      .buyer-rejected-side-panel-create-return-shipment-step-2__confirm-rejection {
+        color: #ffffff;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="buyer-rejected-side-panel-create-return-shipment-step-2">
+      <header class="buyer-rejected-side-panel-create-return-shipment-step-2__panel-header">
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__header-text">
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__add-update">Add Update</p>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__close">
+          <svg class="buyer-rejected-side-panel-create-return-shipment-step-2__vector" viewBox="0 0 12.83 12.83" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.28 12.83 L0 11.55 L5.13 6.42 L0 1.28 L1.28 0 L6.42 5.13 L11.55 0 L12.83 1.28 L7.7 6.42 L12.83 11.55 L11.55 12.83 L6.42 7.7 L1.28 12.83 Z" fill="#52525b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+      </header>
+      <div class="buyer-rejected-side-panel-create-return-shipment-step-2__shipment-summary">
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__shipment">
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__label">Shipment</p>
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__value">AGS250765</p>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__item">
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__label">Item</p>
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__value">Paddy (Dhan)</p>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__shipment-quantity">
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__label">Shipment Quantity</p>
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__value">1 ql</p>
+        </div>
+      </div>
+      <div class="buyer-rejected-side-panel-create-return-shipment-step-2__panel-body">
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__pickup-location">
+          <p class="buyer-rejected-side-panel-create-return-shipment-step-2__pickup-location-2">Pickup Location</p>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__location-mode">
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__mode-buyer-location">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__store">
+              <svg class="buyer-rejected-side-panel-create-return-shipment-step-2__vector-2" viewBox="0 0 12 10.67" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M0.67 1.33 L0.67 0 L11.33 0 L11.33 1.33 L0.67 1.33 Z M0.67 10.67 L0.67 6.67 L0 6.67 L0 5.33 L0.67 2 L11.33 2 L12 5.33 L12 6.67 L11.33 6.67 L11.33 10.67 L10 10.67 L10 6.67 L7.33 6.67 L7.33 10.67 L0.67 10.67 Z M2 9.33 L6 9.33 L6 6.67 L2 6.67 L2 9.33 Z M1.37 5.33 L10.63 5.33 L10.23 3.33 L1.77 3.33 L1.37 5.33 Z" fill="#52525b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__buyer-location">Buyer Location</p>
+          </div>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__mode-collection-center">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__warehouse">
+              <svg class="buyer-rejected-side-panel-create-return-shipment-step-2__vector-3" viewBox="0 0 13.33 12" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.33 10.67 L2.67 10.67 L2.67 5.33 L10.67 5.33 L10.67 10.67 L12 10.67 L12 3.57 L6.67 1.43 L1.33 3.57 L1.33 10.67 Z M0 12 L0 2.67 L6.67 0 L13.33 2.67 L13.33 12 L9.33 12 L9.33 6.67 L4 6.67 L4 12 L0 12 Z M4.67 12 L4.67 10.67 L6 10.67 L6 12 L4.67 12 Z M6 10 L6 8.67 L7.33 8.67 L7.33 10 L6 10 Z M7.33 12 L7.33 10.67 L8.67 10.67 L8.67 12 L7.33 12 Z" fill="#52525b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__collection-center">Collection Center</p>
+          </div>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__mode-custom-entry">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__edit-location-alt">
+              <svg class="buyer-rejected-side-panel-create-return-shipment-step-2__vector-4" viewBox="0 0 11.32 13.98" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.33 13.98 C3.54 12.46 2.21 11.05 1.33 9.74 C0.44 8.44 0 7.23 0 6.12 C0 4.45 0.54 3.12 1.61 2.13 C2.68 1.14 3.92 0.65 5.33 0.65 C5.63 0.65 5.93 0.68 6.23 0.73 C6.52 0.78 6.81 0.84 7.08 0.93 L6 2.03 C5.89 2.01 5.78 2 5.67 1.99 C5.57 1.99 5.46 1.98 5.33 1.98 C4.21 1.98 3.26 2.37 2.49 3.14 C1.72 3.91 1.33 4.91 1.33 6.12 C1.33 6.91 1.66 7.81 2.32 8.83 C2.97 9.84 3.98 10.97 5.33 12.22 C6.69 10.97 7.69 9.84 8.35 8.83 C9.01 7.81 9.33 6.91 9.33 6.12 C9.33 5.98 9.33 5.85 9.32 5.72 C9.31 5.58 9.29 5.46 9.27 5.33 L10.37 4.23 C10.47 4.52 10.54 4.82 10.59 5.13 C10.64 5.44 10.67 5.77 10.67 6.12 C10.67 7.23 10.23 8.44 9.34 9.74 C8.46 11.05 7.12 12.46 5.33 13.98 Z M9.57 1.88 L8.8 1.12 L4.67 5.25 L4.67 6.65 L6.07 6.65 L10.2 2.52 L9.57 1.88 Z M10.67 2.05 L11.13 1.58 C11.26 1.46 11.32 1.31 11.32 1.12 C11.32 0.93 11.26 0.77 11.13 0.65 L10.67 0.18 C10.54 0.06 10.39 0 10.2 0 C10.01 0 9.86 0.06 9.73 0.18 L9.27 0.65 L10.67 2.05 Z" fill="#09090b" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__custom-entry">Custom Entry</p>
+          </div>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__location-row">
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__location-name">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__label-2">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__location-name-2">Location Name</p>
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__text">*</p>
+            </div>
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__input">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__sharma-cold-storage">Sharma Cold Storage</p>
+            </div>
+          </div>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__pincode">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__label-2">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__pincode-2">Pincode</p>
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__text">*</p>
+            </div>
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__input">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__132114">132114</p>
+            </div>
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__pincode-hint">Karnal, Haryana</p>
+          </div>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__address">
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__label-2">
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__address-2">Address</p>
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__text">*</p>
+          </div>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__input">
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__khasra-no-212-mandi-road">Khasra No. 212, Mandi Road, Tehsil Gharaunda</p>
+          </div>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__contact-row">
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__contact-person">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__label-2">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__contact-person-2">Contact Person</p>
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__text">*</p>
+            </div>
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__input">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__ramesh-kumar">Ramesh Kumar</p>
+            </div>
+          </div>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__contact-number">
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__label-2">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__contact-number-2">Contact Number</p>
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__text">*</p>
+            </div>
+            <div class="buyer-rejected-side-panel-create-return-shipment-step-2__input">
+              <p class="buyer-rejected-side-panel-create-return-shipment-step-2__91-98765-43210">+91 98765 43210</p>
+            </div>
+          </div>
+        </div>
+        <div class="buyer-rejected-side-panel-create-return-shipment-step-2__return-shipment-note">
+          <svg class="buyer-rejected-side-panel-create-return-shipment-step-2__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div class="buyer-rejected-side-panel-create-return-shipment-step-2__note-text">
+            <p class="buyer-rejected-side-panel-create-return-shipment-step-2__note-title">A return shipment will be created</p>
+          </div>
+        </div>
+      </div>
+      <footer class="buyer-rejected-side-panel-create-return-shipment-step-2__panel-footer">
+        <button class="buyer-rejected-side-panel-create-return-shipment-step-2__cancel-button" type="button">
+          <span class="buyer-rejected-side-panel-create-return-shipment-step-2__cancel">Cancel</span>
+        </button>
+        <button class="buyer-rejected-side-panel-create-return-shipment-step-2__save-button" type="button">
+          <span class="buyer-rejected-side-panel-create-return-shipment-step-2__confirm-rejection">Create Return Shipment</span>
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>
