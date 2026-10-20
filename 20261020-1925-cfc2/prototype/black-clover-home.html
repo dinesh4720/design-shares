@@ -1,0 +1,5036 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Black Clover · Home · Landing page</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-ext-400-normal.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --bg: #070608;
+        --band: #100e12;
+        --surface: #18151b;
+        --line: #2b2630;
+        --ink: #f4efe6;
+        --muted: #a59d95;
+        --brand: #e0263a;
+        --on-brand: #ffffff;
+        --gold: #d9a84e;
+        --text-xs: 13px;
+        --text-s: 15px;
+        --text-m: 17px;
+        --text-l: 22px;
+        --text-xl: 32px;
+        --text-2xl: 56px;
+        --text-3xl: 96px;
+        --text-hero: 168px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-m: 16px;
+        --space-l: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+        --space-3xl: 64px;
+        --space-4xl: 96px;
+        --space-5xl: 144px;
+        --radius-s: 6px;
+        --radius-m: 14px;
+        --radius-full: 999px;
+      }
+
+      .black-clover-home {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        background-color: var(--bg);
+      }
+
+      .black-clover-home__hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0 36px;
+        height: 900px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .black-clover-home__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .black-clover-home__brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__brand-mark {
+        position: relative;
+        width: 30px;
+        height: 30px;
+      }
+
+      .black-clover-home__path-1 {
+        position: absolute;
+        left: 9.202px;
+        top: 2.213px;
+        width: 11.596px;
+        height: 11.225px;
+      }
+
+      .black-clover-home__path-2 {
+        position: absolute;
+        left: 16.486px;
+        top: 6.373px;
+        width: 11.702px;
+        height: 11.451px;
+      }
+
+      .black-clover-home__path-3 {
+        position: absolute;
+        left: 14.821px;
+        top: 16.264px;
+        width: 11.17px;
+        height: 11.307px;
+      }
+
+      .black-clover-home__path-4 {
+        position: absolute;
+        left: 4.009px;
+        top: 16.264px;
+        width: 11.17px;
+        height: 11.307px;
+      }
+
+      .black-clover-home__path-5 {
+        position: absolute;
+        left: 1.812px;
+        top: 6.373px;
+        width: 11.702px;
+        height: 11.451px;
+      }
+
+      .black-clover-home__wordmark {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-l);
+        font-weight: 900;
+        line-height: 1.3;
+        letter-spacing: 1px;
+        white-space: pre;
+      }
+
+      .black-clover-home__nav-links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__nav-story {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__nav-grimoire {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__nav-magic {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__nav-characters {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__nav-seasons {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .button-primary {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: var(--brand);
+        border-radius: var(--radius-full);
+        box-shadow: 0 0 40px rgba(224, 38, 58, 0.45);
+      }
+
+      .button-primary--nav-watch {
+        padding: 0 20px;
+        height: 40px;
+        flex-shrink: 0;
+      }
+
+      .button-primary--instance {
+        padding: 0 28px;
+        height: 52px;
+      }
+
+      .button-primary--dossier-start {
+        padding: 0 28px;
+        height: 52px;
+        flex-shrink: 0;
+      }
+
+      .button-primary__icon {
+        color: var(--on-brand);
+      }
+
+      .button-primary__icon--nav-watch {
+        width: 14px;
+        height: 14px;
+      }
+
+      .button-primary__icon--instance {
+        width: 18px;
+        height: 18px;
+      }
+
+      .button-primary__label {
+        color: var(--on-brand);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .button-primary__label--nav-watch {
+        font-size: var(--text-s);
+      }
+
+      .button-primary__label--instance {
+        font-size: var(--text-m);
+      }
+
+      .black-clover-home__hero-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-l);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .black-clover-home__hero-kicker {
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__hero-title {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-hero);
+        font-weight: 900;
+        line-height: 0.86;
+        letter-spacing: -2px;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .black-clover-home__hero-line {
+        width: 640px;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.55;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        opacity: 0.86;
+      }
+
+      .black-clover-home__hero-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-m);
+        padding: var(--space-xs) 0 0;
+      }
+
+      .button-ghost {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 28px;
+        height: 52px;
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--muted);
+      }
+
+      .button-ghost__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .button-ghost__icon {
+        width: 18px;
+        height: 18px;
+        color: var(--ink);
+      }
+
+      .black-clover-home__hero-meta {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__hero-hint {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__hint-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--muted);
+      }
+
+      .black-clover-home__hint {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__stats {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 120px;
+        align-self: stretch;
+        background-color: var(--bg);
+        box-shadow: inset 0 1px 0 0 var(--line), inset 0 -1px 0 0 var(--line);
+      }
+
+      .black-clover-home__stat-0 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-2xl) var(--space-xl);
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__stat-number {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-2xl);
+        font-weight: 900;
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .black-clover-home__stat-label {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__stat-5 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-2xl) var(--space-xl);
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__stat-9 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-2xl) var(--space-xl);
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__stat-170 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-2xl) var(--space-xl);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__story {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4xl);
+        padding: var(--space-5xl) 120px;
+        align-self: stretch;
+        background-color: var(--bg);
+      }
+
+      .black-clover-home__story-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__story-kicker {
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__story-title {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -1.5px;
+        white-space: pre;
+      }
+
+      .black-clover-home__story-p1 {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.6;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__story-p2 {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.6;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__story-pull {
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-xl);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__grimoire {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-s);
+        width: 480px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__grimoire-sigil {
+        position: relative;
+        width: 480px;
+        height: 480px;
+        background-color: var(--band);
+        border-radius: var(--radius-m);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__grimoire-caption {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__magic {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-3xl);
+        padding: var(--space-5xl) 120px;
+        align-self: stretch;
+        background-color: var(--band);
+      }
+
+      .black-clover-home__section-head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-m);
+        align-self: stretch;
+      }
+
+      .black-clover-home__kicker {
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__title {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -1px;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .black-clover-home__line {
+        width: 560px;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.55;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__magic-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: stretch;
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .black-clover-home__magic-row-1 {
+        display: flex;
+        align-items: stretch;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .black-clover-home__magic-anti-magic {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__anti-magic-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__anti-magic-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-name {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-l);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__magic-user {
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__magic-line {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__magic-wind {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__wind-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__wind-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-water {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__water-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__water-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-row-2 {
+        display: flex;
+        align-items: stretch;
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-flame {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__flame-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__flame-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-lightning {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+        box-shadow: inset -1px 0 0 0 var(--line);
+      }
+
+      .black-clover-home__lightning-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__lightning-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__magic-dark {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__dark-art {
+        position: relative;
+        height: 280px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__dark-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        padding: var(--space-l) 28px var(--space-xl);
+        align-self: stretch;
+      }
+
+      .black-clover-home__characters {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-3xl);
+        padding: var(--space-5xl) 120px;
+        align-self: stretch;
+        background-color: var(--bg);
+      }
+
+      .black-clover-home__line-2 {
+        width: 600px;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.55;
+        text-align: center;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__cards {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-l);
+        align-self: stretch;
+      }
+
+      .black-clover-home__card-asta {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: 28px;
+        height: 540px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__card-role {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__card-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-2xl);
+        font-weight: 900;
+        line-height: 0.95;
+        white-space: pre;
+      }
+
+      .black-clover-home__card-line {
+        flex-shrink: 0;
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-m);
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        opacity: 0.9;
+      }
+
+      .button-outline-small {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 18px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--ink);
+      }
+
+      .button-outline-small__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .button-outline-small__icon {
+        width: 16px;
+        height: 16px;
+        color: var(--ink);
+      }
+
+      .black-clover-home__card-yuno {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: 28px;
+        height: 540px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__card-noelle {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: 28px;
+        height: 540px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__card-yami {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: 28px;
+        height: 540px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__seasons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-3xl);
+        padding: var(--space-5xl) 120px;
+        align-self: stretch;
+        background-color: var(--band);
+      }
+
+      .black-clover-home__season-cards {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-l);
+        align-self: stretch;
+      }
+
+      .black-clover-home__season-season-1-e1-51 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__season-art {
+        position: relative;
+        height: 160px;
+        align-self: stretch;
+        background-color: var(--bg);
+        border-radius: var(--radius-s);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__season-eps {
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__season-title {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__season-line {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .black-clover-home__season-season-2-e52-102 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__season-season-3-e103-154 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__season-season-4-e155-170 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .black-clover-home__episode-road {
+        position: relative;
+        width: 1200px;
+        height: 96px;
+      }
+
+      .black-clover-home__episode-1 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 5.071px;
+        height: 56px;
+        background-color: var(--brand);
+      }
+
+      .black-clover-home__episode-2 {
+        position: absolute;
+        left: 7.071px;
+        top: 27.603px;
+        width: 5.071px;
+        height: 28.397px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-3 {
+        position: absolute;
+        left: 14.141px;
+        top: 26.529px;
+        width: 5.071px;
+        height: 29.471px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-4 {
+        position: absolute;
+        left: 21.212px;
+        top: 25.098px;
+        width: 5.071px;
+        height: 30.902px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-5 {
+        position: absolute;
+        left: 28.282px;
+        top: 23.758px;
+        width: 5.071px;
+        height: 32.242px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-6 {
+        position: absolute;
+        left: 35.353px;
+        top: 22.976px;
+        width: 5.071px;
+        height: 33.024px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-7 {
+        position: absolute;
+        left: 42.424px;
+        top: 23.116px;
+        width: 5.071px;
+        height: 32.884px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-8 {
+        position: absolute;
+        left: 49.494px;
+        top: 24.352px;
+        width: 5.071px;
+        height: 31.648px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-9 {
+        position: absolute;
+        left: 56.565px;
+        top: 26.608px;
+        width: 5.071px;
+        height: 29.392px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-10 {
+        position: absolute;
+        left: 63.635px;
+        top: 29.566px;
+        width: 5.071px;
+        height: 26.434px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-11 {
+        position: absolute;
+        left: 70.706px;
+        top: 32.722px;
+        width: 5.071px;
+        height: 23.278px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-12 {
+        position: absolute;
+        left: 77.776px;
+        top: 35.491px;
+        width: 5.071px;
+        height: 20.509px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-13 {
+        position: absolute;
+        left: 84.847px;
+        top: 37.33px;
+        width: 5.071px;
+        height: 18.67px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-14 {
+        position: absolute;
+        left: 91.918px;
+        top: 37.854px;
+        width: 5.071px;
+        height: 18.146px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-15 {
+        position: absolute;
+        left: 98.988px;
+        top: 36.922px;
+        width: 5.071px;
+        height: 19.078px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-16 {
+        position: absolute;
+        left: 106.059px;
+        top: 34.671px;
+        width: 5.071px;
+        height: 21.329px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-17 {
+        position: absolute;
+        left: 113.129px;
+        top: 31.489px;
+        width: 5.071px;
+        height: 24.511px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-18 {
+        position: absolute;
+        left: 120.2px;
+        top: 27.935px;
+        width: 5.071px;
+        height: 28.065px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-19 {
+        position: absolute;
+        left: 127.271px;
+        top: 24.624px;
+        width: 5.071px;
+        height: 31.376px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-20 {
+        position: absolute;
+        left: 134.341px;
+        top: 22.102px;
+        width: 5.071px;
+        height: 33.898px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-21 {
+        position: absolute;
+        left: 141.412px;
+        top: 20.734px;
+        width: 5.071px;
+        height: 35.266px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-22 {
+        position: absolute;
+        left: 148.482px;
+        top: 20.636px;
+        width: 5.071px;
+        height: 35.364px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-23 {
+        position: absolute;
+        left: 155.553px;
+        top: 21.663px;
+        width: 5.071px;
+        height: 34.337px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-24 {
+        position: absolute;
+        left: 162.624px;
+        top: 23.45px;
+        width: 5.071px;
+        height: 32.55px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-25 {
+        position: absolute;
+        left: 169.694px;
+        top: 25.508px;
+        width: 5.071px;
+        height: 30.492px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-26 {
+        position: absolute;
+        left: 176.765px;
+        top: 27.336px;
+        width: 5.071px;
+        height: 28.664px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-27 {
+        position: absolute;
+        left: 183.835px;
+        top: 28.539px;
+        width: 5.071px;
+        height: 27.461px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-28 {
+        position: absolute;
+        left: 190.906px;
+        top: 28.915px;
+        width: 5.071px;
+        height: 27.085px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-29 {
+        position: absolute;
+        left: 197.976px;
+        top: 28.495px;
+        width: 5.071px;
+        height: 27.505px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-30 {
+        position: absolute;
+        left: 205.047px;
+        top: 27.533px;
+        width: 5.071px;
+        height: 28.467px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-31 {
+        position: absolute;
+        left: 212.118px;
+        top: 26.431px;
+        width: 5.071px;
+        height: 29.569px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-32 {
+        position: absolute;
+        left: 219.188px;
+        top: 25.641px;
+        width: 5.071px;
+        height: 30.359px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-33 {
+        position: absolute;
+        left: 226.259px;
+        top: 25.546px;
+        width: 5.071px;
+        height: 30.454px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-34 {
+        position: absolute;
+        left: 233.329px;
+        top: 26.363px;
+        width: 5.071px;
+        height: 29.637px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-35 {
+        position: absolute;
+        left: 240.4px;
+        top: 28.077px;
+        width: 5.071px;
+        height: 27.923px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-36 {
+        position: absolute;
+        left: 247.471px;
+        top: 30.435px;
+        width: 5.071px;
+        height: 25.565px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-37 {
+        position: absolute;
+        left: 254.541px;
+        top: 32.996px;
+        width: 5.071px;
+        height: 23.004px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-38 {
+        position: absolute;
+        left: 261.612px;
+        top: 35.219px;
+        width: 5.071px;
+        height: 20.781px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-39 {
+        position: absolute;
+        left: 268.682px;
+        top: 36.59px;
+        width: 5.071px;
+        height: 19.41px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-40 {
+        position: absolute;
+        left: 275.753px;
+        top: 36.733px;
+        width: 5.071px;
+        height: 19.267px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-41 {
+        position: absolute;
+        left: 282.824px;
+        top: 35.501px;
+        width: 5.071px;
+        height: 20.499px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-42 {
+        position: absolute;
+        left: 289.894px;
+        top: 33.019px;
+        width: 5.071px;
+        height: 22.981px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-43 {
+        position: absolute;
+        left: 296.965px;
+        top: 29.665px;
+        width: 5.071px;
+        height: 26.335px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-44 {
+        position: absolute;
+        left: 304.035px;
+        top: 25.994px;
+        width: 5.071px;
+        height: 30.006px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-45 {
+        position: absolute;
+        left: 311.106px;
+        top: 22.631px;
+        width: 5.071px;
+        height: 33.369px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-46 {
+        position: absolute;
+        left: 318.176px;
+        top: 20.14px;
+        width: 5.071px;
+        height: 35.86px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-47 {
+        position: absolute;
+        left: 325.247px;
+        top: 18.911px;
+        width: 5.071px;
+        height: 37.089px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-48 {
+        position: absolute;
+        left: 332.318px;
+        top: 19.084px;
+        width: 5.071px;
+        height: 36.916px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-49 {
+        position: absolute;
+        left: 339.388px;
+        top: 20.526px;
+        width: 5.071px;
+        height: 35.474px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-50 {
+        position: absolute;
+        left: 346.459px;
+        top: 22.866px;
+        width: 5.071px;
+        height: 33.134px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-51 {
+        position: absolute;
+        left: 353.529px;
+        top: 25.584px;
+        width: 5.071px;
+        height: 30.416px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__road-label-1 {
+        position: absolute;
+        left: 0;
+        top: 70px;
+        color: var(--brand);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__episode-52 {
+        position: absolute;
+        left: 360.6px;
+        top: 0;
+        width: 5.071px;
+        height: 56px;
+        background-color: var(--gold);
+      }
+
+      .black-clover-home__episode-53 {
+        position: absolute;
+        left: 367.671px;
+        top: 30.032px;
+        width: 5.071px;
+        height: 25.968px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-54 {
+        position: absolute;
+        left: 374.741px;
+        top: 31.018px;
+        width: 5.071px;
+        height: 24.982px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-55 {
+        position: absolute;
+        left: 381.812px;
+        top: 31.044px;
+        width: 5.071px;
+        height: 24.956px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-56 {
+        position: absolute;
+        left: 388.882px;
+        top: 30.305px;
+        width: 5.071px;
+        height: 25.695px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-57 {
+        position: absolute;
+        left: 395.953px;
+        top: 29.174px;
+        width: 5.071px;
+        height: 26.826px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-58 {
+        position: absolute;
+        left: 403.024px;
+        top: 28.103px;
+        width: 5.071px;
+        height: 27.897px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-59 {
+        position: absolute;
+        left: 410.094px;
+        top: 27.51px;
+        width: 5.071px;
+        height: 28.49px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-60 {
+        position: absolute;
+        left: 417.165px;
+        top: 27.671px;
+        width: 5.071px;
+        height: 28.329px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-61 {
+        position: absolute;
+        left: 424.235px;
+        top: 28.646px;
+        width: 5.071px;
+        height: 27.354px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-62 {
+        position: absolute;
+        left: 431.306px;
+        top: 30.265px;
+        width: 5.071px;
+        height: 25.735px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-63 {
+        position: absolute;
+        left: 438.376px;
+        top: 32.156px;
+        width: 5.071px;
+        height: 23.844px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-64 {
+        position: absolute;
+        left: 445.447px;
+        top: 33.836px;
+        width: 5.071px;
+        height: 22.164px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-65 {
+        position: absolute;
+        left: 452.518px;
+        top: 34.818px;
+        width: 5.071px;
+        height: 21.182px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-66 {
+        position: absolute;
+        left: 459.588px;
+        top: 34.733px;
+        width: 5.071px;
+        height: 21.267px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-67 {
+        position: absolute;
+        left: 466.659px;
+        top: 33.419px;
+        width: 5.071px;
+        height: 22.581px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-68 {
+        position: absolute;
+        left: 473.729px;
+        top: 30.975px;
+        width: 5.071px;
+        height: 25.025px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-69 {
+        position: absolute;
+        left: 480.8px;
+        top: 27.746px;
+        width: 5.071px;
+        height: 28.254px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-70 {
+        position: absolute;
+        left: 487.871px;
+        top: 24.265px;
+        width: 5.071px;
+        height: 31.735px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-71 {
+        position: absolute;
+        left: 494.941px;
+        top: 21.14px;
+        width: 5.071px;
+        height: 34.86px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-72 {
+        position: absolute;
+        left: 502.012px;
+        top: 18.934px;
+        width: 5.071px;
+        height: 37.066px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-73 {
+        position: absolute;
+        left: 509.082px;
+        top: 18.042px;
+        width: 5.071px;
+        height: 37.958px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-74 {
+        position: absolute;
+        left: 516.153px;
+        top: 18.613px;
+        width: 5.071px;
+        height: 37.387px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-75 {
+        position: absolute;
+        left: 523.224px;
+        top: 20.519px;
+        width: 5.071px;
+        height: 35.481px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-76 {
+        position: absolute;
+        left: 530.294px;
+        top: 23.381px;
+        width: 5.071px;
+        height: 32.619px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-77 {
+        position: absolute;
+        left: 537.365px;
+        top: 26.655px;
+        width: 5.071px;
+        height: 29.345px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-78 {
+        position: absolute;
+        left: 544.435px;
+        top: 29.747px;
+        width: 5.071px;
+        height: 26.253px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-79 {
+        position: absolute;
+        left: 551.506px;
+        top: 32.134px;
+        width: 5.071px;
+        height: 23.866px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-80 {
+        position: absolute;
+        left: 558.576px;
+        top: 33.475px;
+        width: 5.071px;
+        height: 22.525px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-81 {
+        position: absolute;
+        left: 565.647px;
+        top: 33.674px;
+        width: 5.071px;
+        height: 22.326px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-82 {
+        position: absolute;
+        left: 572.718px;
+        top: 32.885px;
+        width: 5.071px;
+        height: 23.115px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-83 {
+        position: absolute;
+        left: 579.788px;
+        top: 31.466px;
+        width: 5.071px;
+        height: 24.534px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-84 {
+        position: absolute;
+        left: 586.859px;
+        top: 29.885px;
+        width: 5.071px;
+        height: 26.115px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-85 {
+        position: absolute;
+        left: 593.929px;
+        top: 28.606px;
+        width: 5.071px;
+        height: 27.394px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-86 {
+        position: absolute;
+        left: 601px;
+        top: 27.975px;
+        width: 5.071px;
+        height: 28.025px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-87 {
+        position: absolute;
+        left: 608.071px;
+        top: 28.138px;
+        width: 5.071px;
+        height: 27.862px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-88 {
+        position: absolute;
+        left: 615.141px;
+        top: 29.012px;
+        width: 5.071px;
+        height: 26.988px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-89 {
+        position: absolute;
+        left: 622.212px;
+        top: 30.298px;
+        width: 5.071px;
+        height: 25.702px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-90 {
+        position: absolute;
+        left: 629.282px;
+        top: 31.566px;
+        width: 5.071px;
+        height: 24.434px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-91 {
+        position: absolute;
+        left: 636.353px;
+        top: 32.353px;
+        width: 5.071px;
+        height: 23.647px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-92 {
+        position: absolute;
+        left: 643.424px;
+        top: 32.284px;
+        width: 5.071px;
+        height: 23.716px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-93 {
+        position: absolute;
+        left: 650.494px;
+        top: 31.169px;
+        width: 5.071px;
+        height: 24.831px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-94 {
+        position: absolute;
+        left: 657.565px;
+        top: 29.06px;
+        width: 5.071px;
+        height: 26.94px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-95 {
+        position: absolute;
+        left: 664.635px;
+        top: 26.251px;
+        width: 5.071px;
+        height: 29.749px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-96 {
+        position: absolute;
+        left: 671.706px;
+        top: 23.226px;
+        width: 5.071px;
+        height: 32.774px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-97 {
+        position: absolute;
+        left: 678.776px;
+        top: 20.56px;
+        width: 5.071px;
+        height: 35.44px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-98 {
+        position: absolute;
+        left: 685.847px;
+        top: 18.793px;
+        width: 5.071px;
+        height: 37.207px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-99 {
+        position: absolute;
+        left: 692.918px;
+        top: 18.316px;
+        width: 5.071px;
+        height: 37.684px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-100 {
+        position: absolute;
+        left: 699.988px;
+        top: 19.281px;
+        width: 5.071px;
+        height: 36.719px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-101 {
+        position: absolute;
+        left: 707.059px;
+        top: 21.565px;
+        width: 5.071px;
+        height: 34.435px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-102 {
+        position: absolute;
+        left: 714.129px;
+        top: 24.789px;
+        width: 5.071px;
+        height: 31.211px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__road-label-2 {
+        position: absolute;
+        left: 360.6px;
+        top: 70px;
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__episode-103 {
+        position: absolute;
+        left: 721.2px;
+        top: 0;
+        width: 5.071px;
+        height: 56px;
+        background-color: var(--gold);
+      }
+
+      .black-clover-home__episode-104 {
+        position: absolute;
+        left: 728.271px;
+        top: 31.773px;
+        width: 5.071px;
+        height: 24.227px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-105 {
+        position: absolute;
+        left: 735.341px;
+        top: 34.355px;
+        width: 5.071px;
+        height: 21.645px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-106 {
+        position: absolute;
+        left: 742.412px;
+        top: 35.763px;
+        width: 5.071px;
+        height: 20.237px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-107 {
+        position: absolute;
+        left: 749.482px;
+        top: 35.863px;
+        width: 5.071px;
+        height: 20.137px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-108 {
+        position: absolute;
+        left: 756.553px;
+        top: 34.785px;
+        width: 5.071px;
+        height: 21.215px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-109 {
+        position: absolute;
+        left: 763.624px;
+        top: 32.887px;
+        width: 5.071px;
+        height: 23.113px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-110 {
+        position: absolute;
+        left: 770.694px;
+        top: 30.664px;
+        width: 5.071px;
+        height: 25.336px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-111 {
+        position: absolute;
+        left: 777.765px;
+        top: 28.631px;
+        width: 5.071px;
+        height: 27.369px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-112 {
+        position: absolute;
+        left: 784.835px;
+        top: 27.207px;
+        width: 5.071px;
+        height: 28.793px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-113 {
+        position: absolute;
+        left: 791.906px;
+        top: 26.624px;
+        width: 5.071px;
+        height: 29.376px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-114 {
+        position: absolute;
+        left: 798.976px;
+        top: 26.879px;
+        width: 5.071px;
+        height: 29.121px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-115 {
+        position: absolute;
+        left: 806.047px;
+        top: 27.743px;
+        width: 5.071px;
+        height: 28.257px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-116 {
+        position: absolute;
+        left: 813.118px;
+        top: 28.827px;
+        width: 5.071px;
+        height: 27.173px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-117 {
+        position: absolute;
+        left: 820.188px;
+        top: 29.681px;
+        width: 5.071px;
+        height: 26.319px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-118 {
+        position: absolute;
+        left: 827.259px;
+        top: 29.908px;
+        width: 5.071px;
+        height: 26.092px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-119 {
+        position: absolute;
+        left: 834.329px;
+        top: 29.273px;
+        width: 5.071px;
+        height: 26.727px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-120 {
+        position: absolute;
+        left: 841.4px;
+        top: 27.762px;
+        width: 5.071px;
+        height: 28.238px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-121 {
+        position: absolute;
+        left: 848.471px;
+        top: 25.598px;
+        width: 5.071px;
+        height: 30.402px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-122 {
+        position: absolute;
+        left: 855.541px;
+        top: 23.202px;
+        width: 5.071px;
+        height: 32.798px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-123 {
+        position: absolute;
+        left: 862.612px;
+        top: 21.097px;
+        width: 5.071px;
+        height: 34.903px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-124 {
+        position: absolute;
+        left: 869.682px;
+        top: 19.795px;
+        width: 5.071px;
+        height: 36.205px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-125 {
+        position: absolute;
+        left: 876.753px;
+        top: 19.676px;
+        width: 5.071px;
+        height: 36.324px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-126 {
+        position: absolute;
+        left: 883.824px;
+        top: 20.899px;
+        width: 5.071px;
+        height: 35.101px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-127 {
+        position: absolute;
+        left: 890.894px;
+        top: 23.356px;
+        width: 5.071px;
+        height: 32.644px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-128 {
+        position: absolute;
+        left: 897.965px;
+        top: 26.684px;
+        width: 5.071px;
+        height: 29.316px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-129 {
+        position: absolute;
+        left: 905.035px;
+        top: 30.335px;
+        width: 5.071px;
+        height: 25.665px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-130 {
+        position: absolute;
+        left: 912.106px;
+        top: 33.689px;
+        width: 5.071px;
+        height: 22.311px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-131 {
+        position: absolute;
+        left: 919.176px;
+        top: 36.174px;
+        width: 5.071px;
+        height: 19.826px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-132 {
+        position: absolute;
+        left: 926.247px;
+        top: 37.388px;
+        width: 5.071px;
+        height: 18.612px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-133 {
+        position: absolute;
+        left: 933.318px;
+        top: 37.178px;
+        width: 5.071px;
+        height: 18.822px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-134 {
+        position: absolute;
+        left: 940.388px;
+        top: 35.666px;
+        width: 5.071px;
+        height: 20.334px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-135 {
+        position: absolute;
+        left: 947.459px;
+        top: 33.215px;
+        width: 5.071px;
+        height: 22.785px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-136 {
+        position: absolute;
+        left: 954.529px;
+        top: 30.347px;
+        width: 5.071px;
+        height: 25.653px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-137 {
+        position: absolute;
+        left: 961.6px;
+        top: 27.629px;
+        width: 5.071px;
+        height: 28.371px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-138 {
+        position: absolute;
+        left: 968.671px;
+        top: 25.547px;
+        width: 5.071px;
+        height: 30.453px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-139 {
+        position: absolute;
+        left: 975.741px;
+        top: 24.405px;
+        width: 5.071px;
+        height: 31.595px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-140 {
+        position: absolute;
+        left: 982.812px;
+        top: 24.271px;
+        width: 5.071px;
+        height: 31.729px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-141 {
+        position: absolute;
+        left: 989.882px;
+        top: 24.971px;
+        width: 5.071px;
+        height: 31.029px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-142 {
+        position: absolute;
+        left: 996.953px;
+        top: 26.142px;
+        width: 5.071px;
+        height: 29.858px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-143 {
+        position: absolute;
+        left: 1004.024px;
+        top: 27.33px;
+        width: 5.071px;
+        height: 28.67px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-144 {
+        position: absolute;
+        left: 1011.094px;
+        top: 28.105px;
+        width: 5.071px;
+        height: 27.895px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-145 {
+        position: absolute;
+        left: 1018.165px;
+        top: 28.167px;
+        width: 5.071px;
+        height: 27.833px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-146 {
+        position: absolute;
+        left: 1025.235px;
+        top: 27.423px;
+        width: 5.071px;
+        height: 28.577px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-147 {
+        position: absolute;
+        left: 1032.306px;
+        top: 26.016px;
+        width: 5.071px;
+        height: 29.984px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-148 {
+        position: absolute;
+        left: 1039.376px;
+        top: 24.291px;
+        width: 5.071px;
+        height: 31.709px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-149 {
+        position: absolute;
+        left: 1046.447px;
+        top: 22.715px;
+        width: 5.071px;
+        height: 33.285px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-150 {
+        position: absolute;
+        left: 1053.518px;
+        top: 21.769px;
+        width: 5.071px;
+        height: 34.231px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-151 {
+        position: absolute;
+        left: 1060.588px;
+        top: 21.831px;
+        width: 5.071px;
+        height: 34.169px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-152 {
+        position: absolute;
+        left: 1067.659px;
+        top: 23.075px;
+        width: 5.071px;
+        height: 32.925px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-153 {
+        position: absolute;
+        left: 1074.729px;
+        top: 25.424px;
+        width: 5.071px;
+        height: 30.576px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-154 {
+        position: absolute;
+        left: 1081.8px;
+        top: 28.552px;
+        width: 5.071px;
+        height: 27.448px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__road-label-3 {
+        position: absolute;
+        left: 721.2px;
+        top: 70px;
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__episode-155 {
+        position: absolute;
+        left: 1088.871px;
+        top: 0;
+        width: 5.071px;
+        height: 56px;
+        background-color: var(--gold);
+      }
+
+      .black-clover-home__episode-156 {
+        position: absolute;
+        left: 1095.941px;
+        top: 34.996px;
+        width: 5.071px;
+        height: 21.004px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-157 {
+        position: absolute;
+        left: 1103.012px;
+        top: 37.148px;
+        width: 5.071px;
+        height: 18.852px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-158 {
+        position: absolute;
+        left: 1110.082px;
+        top: 37.995px;
+        width: 5.071px;
+        height: 18.005px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-159 {
+        position: absolute;
+        left: 1117.153px;
+        top: 37.377px;
+        width: 5.071px;
+        height: 18.623px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-160 {
+        position: absolute;
+        left: 1124.224px;
+        top: 35.412px;
+        width: 5.071px;
+        height: 20.588px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-161 {
+        position: absolute;
+        left: 1131.294px;
+        top: 32.468px;
+        width: 5.071px;
+        height: 23.532px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-162 {
+        position: absolute;
+        left: 1138.365px;
+        top: 29.09px;
+        width: 5.071px;
+        height: 26.91px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-163 {
+        position: absolute;
+        left: 1145.435px;
+        top: 25.882px;
+        width: 5.071px;
+        height: 30.118px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-164 {
+        position: absolute;
+        left: 1152.506px;
+        top: 23.381px;
+        width: 5.071px;
+        height: 32.619px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-165 {
+        position: absolute;
+        left: 1159.576px;
+        top: 21.948px;
+        width: 5.071px;
+        height: 34.052px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-166 {
+        position: absolute;
+        left: 1166.647px;
+        top: 21.704px;
+        width: 5.071px;
+        height: 34.296px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-167 {
+        position: absolute;
+        left: 1173.718px;
+        top: 22.51px;
+        width: 5.071px;
+        height: 33.49px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-168 {
+        position: absolute;
+        left: 1180.788px;
+        top: 24.017px;
+        width: 5.071px;
+        height: 31.983px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-169 {
+        position: absolute;
+        left: 1187.859px;
+        top: 25.752px;
+        width: 5.071px;
+        height: 30.248px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__episode-170 {
+        position: absolute;
+        left: 1194.929px;
+        top: 27.237px;
+        width: 5.071px;
+        height: 28.763px;
+        background-color: var(--line);
+      }
+
+      .black-clover-home__road-label-4 {
+        position: absolute;
+        left: 1088.871px;
+        top: 70px;
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__final-call {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-l);
+        height: 820px;
+        align-self: stretch;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .black-clover-home__final-kicker {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__final-title {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -1px;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .black-clover-home__final-line {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.3;
+        text-align: center;
+        white-space: pre;
+        opacity: 0.86;
+      }
+
+      .black-clover-home__final-actions {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-xs) 0 0;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: var(--space-2xl) 120px var(--space-3xl);
+        align-self: stretch;
+        background-color: var(--bg);
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .black-clover-home__footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+      }
+
+      .black-clover-home__footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__footer-mark {
+        position: relative;
+        width: 26px;
+        height: 26px;
+      }
+
+      .black-clover-home__path-1-2 {
+        position: absolute;
+        left: 7.975px;
+        top: 1.918px;
+        width: 10.05px;
+        height: 9.728px;
+      }
+
+      .black-clover-home__path-2-2 {
+        position: absolute;
+        left: 14.288px;
+        top: 5.523px;
+        width: 10.142px;
+        height: 9.925px;
+      }
+
+      .black-clover-home__path-3-2 {
+        position: absolute;
+        left: 12.845px;
+        top: 14.096px;
+        width: 9.681px;
+        height: 9.799px;
+      }
+
+      .black-clover-home__path-4-2 {
+        position: absolute;
+        left: 3.474px;
+        top: 14.096px;
+        width: 9.681px;
+        height: 9.799px;
+      }
+
+      .black-clover-home__path-5-2 {
+        position: absolute;
+        left: 1.57px;
+        top: 5.523px;
+        width: 10.142px;
+        height: 9.925px;
+      }
+
+      .black-clover-home__footer-wordmark {
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-l);
+        font-weight: 900;
+        line-height: 1.3;
+        letter-spacing: 1px;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-links {
+        display: flex;
+        align-items: flex-start;
+        gap: 32px;
+        flex-shrink: 0;
+      }
+
+      .black-clover-home__footer-story {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-grimoire {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-magic {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-characters {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-seasons {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .black-clover-home__footer-note {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-asta {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        width: 1120px;
+        height: 640px;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .dossier-asta__dossier-aura {
+        position: relative;
+        width: 440px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        isolation: isolate;
+      }
+
+      .dossier-asta__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .dossier-asta__dossier-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: 56px 56px 48px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .dossier-asta__dossier-role {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .dossier-asta__dossier-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        white-space: pre;
+      }
+
+      .dossier-asta__dossier-line {
+        flex-shrink: 0;
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-l);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-asta__dossier-facts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .dossier-asta__fact-magic {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-asta__fact-label {
+        width: 120px;
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-asta__fact-value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-asta__fact-grimoire {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-asta__fact-weapons {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-asta__fact-goal {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-asta__close-dossier {
+        position: absolute;
+        left: 1064px;
+        top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .dossier-asta__close-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--ink);
+      }
+
+      .dossier-yuno {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        width: 1120px;
+        height: 640px;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .dossier-yuno__dossier-aura {
+        position: relative;
+        width: 440px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        isolation: isolate;
+      }
+
+      .dossier-yuno__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .dossier-yuno__dossier-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: 56px 56px 48px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .dossier-yuno__dossier-role {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .dossier-yuno__dossier-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        white-space: pre;
+      }
+
+      .dossier-yuno__dossier-line {
+        flex-shrink: 0;
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-l);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yuno__dossier-facts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .dossier-yuno__fact-magic {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yuno__fact-label {
+        width: 120px;
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yuno__fact-value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yuno__fact-grimoire {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yuno__fact-spirit {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yuno__fact-signature {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yuno__close-dossier {
+        position: absolute;
+        left: 1064px;
+        top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .dossier-yuno__close-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--ink);
+      }
+
+      .dossier-noelle {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        width: 1120px;
+        height: 640px;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .dossier-noelle__dossier-aura {
+        position: relative;
+        width: 440px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        isolation: isolate;
+      }
+
+      .dossier-noelle__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .dossier-noelle__dossier-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: 56px 56px 48px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .dossier-noelle__dossier-role {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .dossier-noelle__dossier-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        white-space: pre;
+      }
+
+      .dossier-noelle__dossier-line {
+        flex-shrink: 0;
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-l);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-noelle__dossier-facts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .dossier-noelle__fact-magic {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-noelle__fact-label {
+        width: 120px;
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-noelle__fact-value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-noelle__fact-family {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-noelle__fact-signature {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-noelle__fact-armour {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-noelle__close-dossier {
+        position: absolute;
+        left: 1064px;
+        top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .dossier-noelle__close-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--ink);
+      }
+
+      .dossier-yami {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        width: 1120px;
+        height: 640px;
+        background-color: var(--surface);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .dossier-yami__dossier-aura {
+        position: relative;
+        width: 440px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        isolation: isolate;
+      }
+
+      .dossier-yami__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .dossier-yami__dossier-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: 56px 56px 48px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .dossier-yami__dossier-role {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .dossier-yami__dossier-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Avenir Next Condensed', 'Arial Narrow', sans-serif;
+        font-size: var(--text-3xl);
+        font-weight: 900;
+        line-height: 0.9;
+        white-space: pre;
+      }
+
+      .dossier-yami__dossier-line {
+        flex-shrink: 0;
+        align-self: stretch;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-l);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yami__dossier-facts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .dossier-yami__fact-magic {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yami__fact-label {
+        width: 120px;
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yami__fact-value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .dossier-yami__fact-squad {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yami__fact-signature {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yami__fact-also {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-s) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .dossier-yami__close-dossier {
+        position: absolute;
+        left: 1064px;
+        top: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .dossier-yami__close-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--ink);
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+
+      dialog {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+      }
+
+      dialog::backdrop {
+        background: rgb(0 0 0 / 0.45);
+      }
+
+      @view-transition {
+        navigation: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        @view-transition {
+          navigation: none;
+        }
+      }
+
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: var(--transition-duration, 300ms);
+        animation-timing-function: var(--transition-easing, ease-out);
+      }
+
+      html:active-view-transition-type(dissolve)::view-transition-old(root) {
+        animation-name: none;
+        mix-blend-mode: normal;
+      }
+
+      html:active-view-transition-type(dissolve)::view-transition-new(root) {
+        animation-name: prototype-fade-in;
+        mix-blend-mode: normal;
+      }
+
+      @keyframes prototype-fade-in {
+        from { opacity: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="black-clover-home">
+      <header class="black-clover-home__hero" id="hero">
+        <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.11+4.0;
+ vec2 d=uv-m;float r=length(d);
+ float a=0.95/(r*3.2+0.55)+0.15*sin(u_time*0.25);
+ vec2 p=m+rot(a)*d;
+ vec2 q=vec2(fbm(p*1.5+t),fbm(p*1.5-t+5.2));
+ vec2 w=vec2(fbm(p*2.0+q*2.3+vec2(1.7,9.2)+t*0.6),fbm(p*2.0+q*2.3+vec2(8.3,2.8)-t*0.4));
+ float f=fbm(p*1.35+w*2.1);
+ float rg=pow(1.0-abs(f-0.5)*2.0,9.0);
+ vec3 col=vec3(0.018,0.012,0.016);
+ col+=vec3(0.42,0.02,0.05)*smoothstep(0.38,0.95,f)*(0.45+w.x);
+ col+=vec3(1.0,0.16,0.18)*rg*0.6*smoothstep(0.15,0.95,w.y);
+ float ang=atan(d.y,d.x);
+ float rr=0.3+0.012*sin(u_time*1.7+ang*5.0)+0.02*(fbm(vec2(ang*2.0,u_time*0.5))-0.5);
+ float rim=exp(-abs(r-rr)*48.0);
+ col+=vec3(1.0,0.22,0.2)*rim*0.85+vec3(1.0,0.75,0.55)*exp(-abs(r-rr)*190.0)*0.6;
+ col*=mix(0.12,1.0,smoothstep(rr-0.05,rr+0.01,r));
+ for(int i=0;i&lt;40;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,1.3)),h21(vec2(fi,7.1)));float sp=0.035+0.06*s.y;
+  vec2 pp=vec2((s.x-0.5)*1.9+0.05*sin(u_time*0.7+fi),mod(s.y*1.4+u_time*sp,1.4)-0.7);
+  float e=exp(-length(uv-pp)*300.0)*(0.55+0.45*sin(u_time*3.0+fi*2.1));
+  col+=vec3(1.0,0.42,0.16)*e*1.8;}
+ col*=smoothstep(1.35,0.3,length(uv*vec2(0.72,1.0)));
+ float yb=gl_FragCoord.y/R.y;
+ col=mix(vec3(0.027,0.024,0.031),col,smoothstep(0.0,0.24,yb));
+ col+=(h21(gl_FragCoord.xy+fract(u_time))-0.5)*0.03;
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        <nav class="black-clover-home__nav">
+          <div class="black-clover-home__brand">
+            <div class="black-clover-home__brand-mark">
+              <svg class="black-clover-home__path-1" viewBox="-9.277 -20.459 18.554 17.959" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M0 -2.5 C-6.02 -6.8 -11.18 -12.82 -8.6 -17.98 C-6.88 -21.42 -1.72 -21.42 0 -17.12 C1.72 -21.42 6.88 -21.42 8.6 -17.98 C11.18 -12.82 6.02 -6.8 0 -2.5 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-2" viewBox="2.378 -13.803 18.724 18.322" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M2.378 -0.773 C4.607 -7.827 8.738 -14.594 14.442 -13.735 C18.246 -13.162 19.84 -8.255 16.282 -5.29 C20.903 -4.983 22.498 -0.076 19.758 2.623 C15.647 6.671 8.327 3.624 2.378 -0.773 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-3" viewBox="-0.286 2.023 17.873 18.091" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.469 2.023 C8.867 1.963 16.58 3.8 17.526 9.491 C18.156 13.285 13.982 16.318 10.063 13.85 C11.199 18.34 7.024 21.373 3.611 19.601 C-1.509 16.943 -0.873 9.04 1.469 2.023 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-4" viewBox="-17.586 2.023 17.873 18.091" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M-1.469 2.023 C0.873 9.04 1.509 16.943 -3.611 19.601 C-7.024 21.373 -11.199 18.34 -10.063 13.85 C-13.982 16.318 -18.156 13.285 -17.526 9.491 C-16.58 3.8 -8.867 1.963 -1.469 2.023 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-5" viewBox="-21.101 -13.803 18.724 18.322" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M-2.378 -0.773 C-8.327 3.624 -15.647 6.671 -19.758 2.623 C-22.498 -0.076 -20.903 -4.983 -16.282 -5.29 C-19.84 -8.255 -18.246 -13.162 -14.442 -13.735 C-8.738 -14.594 -4.607 -7.827 -2.378 -0.773 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="black-clover-home__wordmark">BLACK CLOVER</p>
+          </div>
+          <div class="black-clover-home__nav-links">
+            <a class="black-clover-home__nav-story" href="#story">Story</a>
+            <a class="black-clover-home__nav-grimoire" href="#grimoire">Grimoire</a>
+            <a class="black-clover-home__nav-magic" href="#magic">Magic</a>
+            <a class="black-clover-home__nav-characters" href="#characters">Characters</a>
+            <a class="black-clover-home__nav-seasons" href="#seasons">Seasons</a>
+          </div>
+          <a class="button-primary button-primary--nav-watch" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--nav-watch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--nav-watch">Watch E1</p>
+          </a>
+        </nav>
+        <div class="black-clover-home__hero-copy">
+          <p class="black-clover-home__hero-kicker">Born without a single drop of mana</p>
+          <h1 class="black-clover-home__hero-title">NO MAGIC.<br>NO LIMITS.</h1>
+          <p class="black-clover-home__hero-line">In the Clover Kingdom everyone is born with magic. Everyone except Asta. With a tattered five‑leaf grimoire and swords that cut through any spell, he’s going to become Wizard King anyway.</p>
+          <div class="black-clover-home__hero-actions">
+            <a class="button-primary button-primary--instance" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+              <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+              <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+            </a>
+            <a class="button-ghost" href="#characters" data-instance-of="button-ghost">
+              <p class="button-ghost__label">Meet the Black Bulls</p>
+              <svg class="button-ghost__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+            </a>
+          </div>
+          <p class="black-clover-home__hero-meta">4 seasons · 170 episodes · 1 film</p>
+        </div>
+        <div class="black-clover-home__hero-hint">
+          <svg class="black-clover-home__hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4.1 12 6"/><path d="m5.1 8-2.9-.8"/><path d="m6 12-1.9 2"/><path d="M7.2 2.2 8 5.1"/><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z"/></svg>
+          <p class="black-clover-home__hint">Move your cursor. The anti‑magic follows it.</p>
+        </div>
+      </header>
+      <section class="black-clover-home__stats">
+        <div class="black-clover-home__stat-0">
+          <p class="black-clover-home__stat-number">0</p>
+          <p class="black-clover-home__stat-label">drops of mana Asta was born with</p>
+        </div>
+        <div class="black-clover-home__stat-5">
+          <p class="black-clover-home__stat-number">5</p>
+          <p class="black-clover-home__stat-label">leaves on his grimoire. Most mages get three.</p>
+        </div>
+        <div class="black-clover-home__stat-9">
+          <p class="black-clover-home__stat-number">9</p>
+          <p class="black-clover-home__stat-label">Magic Knight squads guard the kingdom</p>
+        </div>
+        <div class="black-clover-home__stat-170">
+          <p class="black-clover-home__stat-number">170</p>
+          <p class="black-clover-home__stat-label">episodes across four seasons, plus a film</p>
+        </div>
+      </section>
+      <section class="black-clover-home__story" id="story">
+        <div class="black-clover-home__story-copy">
+          <p class="black-clover-home__story-kicker">The story</p>
+          <h2 class="black-clover-home__story-title">TWO ORPHANS.<br>ONE THRONE.</h2>
+          <p class="black-clover-home__story-p1">Asta and Yuno were left on the steps of the same church on the same night. Yuno grew up a prodigy with the wind at his call. Asta grew up shouting, training, and failing to cast so much as a spark.</p>
+          <p class="black-clover-home__story-p2">At fifteen, Yuno was chosen by a legendary four‑leaf grimoire. Asta got nothing, until a tattered black five‑leaf book found him, and with it a sword that cancels magic itself.</p>
+          <p class="black-clover-home__story-pull">Both swore to become Wizard King. Only one of them can.</p>
+        </div>
+        <div class="black-clover-home__grimoire" id="grimoire">
+          <div class="black-clover-home__grimoire-sigil">
+            <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+vec3 sigil(vec2 p,float t,float n,float lit,vec3 gold){
+ float r=length(p);float th=atan(p.y,p.x);float c=0.0;
+ c+=exp(-abs(r-0.78)*220.0)+0.7*exp(-abs(r-0.715)*300.0);
+ float tk=fract((th+t*0.12)*72.0/6.2831853);
+ c+=step(0.55,tk)*step(0.722,r)*step(r,0.772)*0.55;
+ float a2=th-t*0.07;float cs=a2*28.0/6.2831853;float id=floor(cs);float ce=fract(cs);
+ float rl=0.6+0.07*h21(vec2(id,3.0));
+ c+=step(0.18,ce)*step(ce,0.82)*exp(-abs(r-rl)*380.0)*0.9;
+ c+=step(0.18,ce)*step(ce,0.82)*step(0.6,r)*step(r,rl)*0.18;
+ c+=exp(-abs(r-0.585)*340.0)*0.9+exp(-abs(r-0.5)*420.0)*0.6;
+ vec2 q=rot(t*0.05)*p;float st=1e5;
+ for(int i=0;i&lt;5;i++){float a=6.2831853*float(i)/5.0+1.5707963;float b=a+6.2831853*2.0/5.0;
+  st=min(st,seg(q,0.5*vec2(cos(a),sin(a)),0.5*vec2(cos(b),sin(b))));}
+ c+=exp(-st*260.0)*0.55;
+ float d=leaves(rot(-t*0.03)*p,0.4,n);
+ c+=exp(-abs(d)*140.0)*1.3;
+ vec3 col=gold*c*lit;
+ float inside=smoothstep(0.01,-0.01,d);
+ float fl=fbm(rot(t*0.2)*p*4.0+vec2(0.0,-t*0.6));
+ float vein=pow(1.0-abs(fl-0.5)*2.0,14.0);
+ vec3 core=vec3(0.012,0.006,0.01)+vec3(0.9,0.06,0.1)*vein*1.3*lit+vec3(0.35,0.02,0.04)*pow(fl,3.0)*lit;
+ col=mix(col,core+gold*exp(-abs(d)*90.0)*lit,inside*0.92);
+ col+=gold*exp(-r*2.6)*0.12*lit;
+ return col;
+}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time+8.0;
+ float tilt=(u_mouse.x/R.x-0.5)*0.9;
+ vec2 p=rot(tilt)*uv*1.9;
+ float near=exp(-length(uv-m)*3.5);
+ vec3 gold=vec3(0.86,0.64,0.3);
+ vec3 col=sigil(p,t,5.0,0.8+0.6*near,gold);
+ for(int i=0;i&lt;30;i++){float fi=float(i);
+  float a=h21(vec2(fi,4.0))*6.2831853+t*0.15;
+  float rd=0.95+0.25*h21(vec2(fi,8.0))+0.04*sin(t+fi);
+  vec2 pp=rd*vec2(cos(a),sin(a));
+  col+=gold*exp(-length(p-pp)*140.0)*0.9;}
+ col+=vec3(1.0,0.2,0.2)*near*0.05;
+ vec3 bg=vec3(0.063,0.055,0.071);
+ float edge=smoothstep(0.5,0.38,max(abs(uv.x)*R.y/R.x,abs(uv.y)));
+ col=mix(bg,col+bg,edge);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+          </div>
+          <p class="black-clover-home__grimoire-caption">Asta’s grimoire. Move across it to tilt the circle.</p>
+        </div>
+      </section>
+      <section class="black-clover-home__magic" id="magic">
+        <div class="black-clover-home__section-head">
+          <p class="black-clover-home__kicker">Pick your magic</p>
+          <h2 class="black-clover-home__title">EVERY GRIMOIRE<br>HAS A TEMPER.</h2>
+          <p class="black-clover-home__line">Six of the kingdom’s strongest spells, live. Run your cursor through each one and it answers.</p>
+        </div>
+        <div class="black-clover-home__magic-grid">
+          <div class="black-clover-home__magic-row-1">
+            <div class="black-clover-home__magic-anti-magic">
+              <div class="black-clover-home__anti-magic-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 m=u_mouse/R;float t=u_time;
+ vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 mp=vec2((m.x-0.5)*R.x/R.y,m.y);
+ float n=fbm(vec2(p.x*2.6,p.y*1.8-t*1.1));
+ float n2=fbm(vec2(p.x*5.0+n*1.5,p.y*3.2-t*1.9));
+ float heat=(1.05-uv.y)*1.15+0.55*exp(-length(p-mp)*3.5);
+ float f=heat*(n*0.85+n2*0.55);
+ vec3 glow=vec3(0.55,0.02,0.05)*(0.12+0.88*smoothstep(0.15,1.0,1.0-uv.y))+vec3(0.9,0.1,0.1)*0.25*exp(-length(p-mp)*2.0);
+ float k=smoothstep(0.5,0.62,f);
+ vec3 col=mix(glow,vec3(0.006,0.004,0.006),k);
+ col+=vec3(1.0,0.3,0.22)*exp(-abs(f-0.56)*55.0)*0.9;
+ for(int i=0;i&lt;18;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,3.3)),h21(vec2(fi,6.6)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y,mod(s.y+t*(0.08+0.1*s.y),1.1));
+  col+=vec3(1.0,0.35,0.2)*exp(-length(p-pp)*220.0)*1.5;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__anti-magic-text">
+                <p class="black-clover-home__magic-name">Anti‑magic</p>
+                <p class="black-clover-home__magic-user">Asta · Black Bulls</p>
+                <p class="black-clover-home__magic-line">Not a spell but the absence of one. His swords cut through anything cast.</p>
+              </div>
+            </div>
+            <div class="black-clover-home__magic-wind">
+              <div class="black-clover-home__wind-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.45+3.0;
+ vec2 d=uv-m;float r=length(d);
+ vec2 p=m+rot(1.1/(r*3.5+0.35))*d;
+ float n=fbm(p*1.8+vec2(t*0.9,t*0.2));
+ float s1=sin((p.y+n*0.7)*42.0-t*3.0);
+ float s2=sin((p.y*0.7-n*0.9+p.x*0.15)*26.0+t*2.0);
+ float lines=smoothstep(0.93,1.0,s1)*(0.35+n)+smoothstep(0.96,1.0,s2)*0.6;
+ vec3 col=vec3(0.012,0.03,0.026);
+ col+=vec3(0.04,0.3,0.2)*n*n*1.4;
+ col+=vec3(0.3,1.0,0.7)*lines*0.85;
+ col+=vec3(0.7,1.0,0.85)*exp(-r*7.0)*0.3;
+ for(int i=0;i&lt;14;i++){float fi=float(i);
+  float a=h21(vec2(fi,1.0))*6.2831853+t*(0.8+h21(vec2(fi,2.0)));
+  vec2 pp=m+(0.12+0.35*h21(vec2(fi,3.0)))*vec2(cos(a),sin(a)*0.6);
+  col+=vec3(0.6,1.0,0.75)*exp(-length(uv-pp)*160.0)*0.9;}
+ col*=smoothstep(1.2,0.25,length(uv*vec2(0.65,1.0)));
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__wind-text">
+                <p class="black-clover-home__magic-name">Wind</p>
+                <p class="black-clover-home__magic-user">Yuno · Golden Dawn</p>
+                <p class="black-clover-home__magic-line">A wind spirit chose him before he could walk. Now it fights at his side.</p>
+              </div>
+            </div>
+            <div class="black-clover-home__magic-water">
+              <div class="black-clover-home__water-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R.y;vec2 m=u_mouse/R.y;
+ float t=u_time*0.35+23.0;
+ vec2 d=uv-m;float r=length(d);
+ uv+=normalize(d+1e-4)*sin(r*55.0-u_time*5.0)*0.007*exp(-r*4.0);
+ vec2 p=mod(uv*6.2831853*1.1,6.2831853)-250.0;vec2 i=p;float c=1.0;float inten=0.005;
+ for(int n=0;n&lt;5;n++){float tt=t*(1.0-(3.5/float(n+1)));
+  i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));
+  c+=1.0/length(vec2(p.x/(sin(i.x+tt)/inten),p.y/(cos(i.y+tt)/inten)));}
+ c/=5.0;c=1.17-pow(c,1.4);float v=pow(abs(c),8.0);
+ vec3 col=mix(vec3(0.01,0.03,0.07),vec3(0.02,0.1,0.2),gl_FragCoord.y/R.y);
+ col+=vec3(0.45,0.75,1.0)*clamp(v,0.0,1.2)*0.85;
+ col+=vec3(0.6,0.85,1.0)*exp(-r*5.0)*0.18;
+ col+=vec3(0.7,0.9,1.0)*smoothstep(0.97,1.0,sin(r*55.0-u_time*5.0))*exp(-r*5.0)*0.35;
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__water-text">
+                <p class="black-clover-home__magic-name">Water</p>
+                <p class="black-clover-home__magic-user">Noelle Silva · Black Bulls</p>
+                <p class="black-clover-home__magic-line">Royal blood and no control, until she shaped it into a sea dragon’s nest.</p>
+              </div>
+            </div>
+          </div>
+          <div class="black-clover-home__magic-row-2">
+            <div class="black-clover-home__magic-flame">
+              <div class="black-clover-home__flame-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 m=u_mouse/R;float t=u_time;
+ vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 mp=vec2((m.x-0.5)*R.x/R.y,m.y);
+ float n=fbm(vec2(p.x*3.0,p.y*2.0-t*1.5));
+ float n2=fbm(vec2(p.x*6.0+n,p.y*4.0-t*2.4));
+ float heat=(1.0-uv.y)*1.3+0.5*exp(-length(p-mp)*4.0);
+ float f=heat*(n*0.9+n2*0.5);
+ f=smoothstep(0.32,1.1,f);
+ vec3 col=vec3(0.03,0.01,0.008)+vec3(f*1.5,pow(f,2.2)*1.1,pow(f,5.0)*0.7);
+ for(int i=0;i&lt;20;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,4.4)),h21(vec2(fi,8.8)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y+0.04*sin(t*2.0+fi),mod(s.y+t*(0.15+0.2*s.y),1.15));
+  col+=vec3(1.0,0.6,0.2)*exp(-length(p-pp)*260.0)*1.4;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__flame-text">
+                <p class="black-clover-home__magic-name">Flame</p>
+                <p class="black-clover-home__magic-user">Fuegoleon Vermillion · Crimson Lions</p>
+                <p class="black-clover-home__magic-line">The Crimson Lions’ captain burns hottest when his squad is behind him.</p>
+              </div>
+            </div>
+            <div class="black-clover-home__magic-lightning">
+              <div class="black-clover-home__lightning-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;float t=u_time;
+ float st=floor(t*11.0);
+ vec3 col=mix(vec3(0.01,0.012,0.03),vec3(0.03,0.035,0.08),fbm(uv*2.5+t*0.05));
+ float ax=0.5*R.x/R.y;
+ for(int k=0;k&lt;4;k++){float fk=float(k);
+  vec2 a=vec2((fk&lt;2.0?-ax:ax)*1.05,(mod(fk,2.0)-0.5)*0.9+0.2*(h21(vec2(fk,st*0.1))-0.5));
+  vec2 ab=m-a;float h=clamp(dot(uv-a,ab)/dot(ab,ab),0.0,1.0);
+  vec2 nr=normalize(vec2(-ab.y,ab.x));
+  float off=(fbm(vec2(h*7.0+fk*3.1,st*0.37+fk))-0.5)*0.32*sin(h*3.14159);
+  off+=(vnoise(vec2(h*40.0,st+fk))-0.5)*0.03*sin(h*3.14159);
+  float dd=length(uv-(a+ab*h+nr*off));
+  float fl=0.55+0.45*step(0.25,h21(vec2(st,fk)));
+  col+=vec3(0.55,0.72,1.0)*0.0035/max(dd,0.001)*fl;
+  col+=vec3(0.95,0.98,1.0)*exp(-dd*900.0)*fl;}
+ float r=length(uv-m);
+ col+=vec3(0.7,0.85,1.0)*exp(-r*9.0)*0.7+vec3(0.4,0.3,1.0)*exp(-r*3.0)*0.15;
+ col=min(col,vec3(1.4));
+ col*=smoothstep(1.2,0.3,length(uv*vec2(0.6,1.0)));
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__lightning-text">
+                <p class="black-clover-home__magic-name">Lightning</p>
+                <p class="black-clover-home__magic-user">Luck Voltia · Black Bulls</p>
+                <p class="black-clover-home__magic-line">Always smiling, always faster, always looking for the next fight.</p>
+              </div>
+            </div>
+            <div class="black-clover-home__magic-dark">
+              <div class="black-clover-home__dark-art">
+                <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;float t=u_time*0.3+5.0;
+ vec2 q=vec2(fbm(uv*2.0+t),fbm(uv*2.0-t+3.0));
+ float sm=fbm(uv*1.6+q*1.8);
+ vec3 col=vec3(0.012,0.008,0.02)+vec3(0.12,0.04,0.22)*pow(sm,2.0)*1.6;
+ vec2 mc=vec2(0.22,0.06);float rm=length(uv-mc);float rc=length(uv-mc-vec2(0.07,0.04));
+ float moon=smoothstep(0.205,0.2,rm)*smoothstep(0.195,0.205,rc);
+ col=mix(col,vec3(0.0),smoothstep(0.205,0.2,rm));
+ col+=vec3(0.6,0.4,1.0)*moon*0.55+vec3(0.5,0.3,0.9)*exp(-abs(rm-0.2)*60.0)*0.4;
+ float y=m.y+(fbm(vec2(uv.x*6.0,t*2.0))-0.5)*0.035;
+ float dd=abs(uv.y-y);
+ float span=smoothstep(0.9,0.2,abs(uv.x-m.x*0.3));
+ col+=vec3(0.75,0.6,1.0)*0.0028/max(dd,0.0008)*span;
+ col+=vec3(1.0)*exp(-dd*700.0)*span;
+ col=mix(col,vec3(0.0),smoothstep(0.03,0.0,dd)*0.3*span);
+ col*=smoothstep(1.2,0.3,length(uv*vec2(0.65,1.0)));
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+              </div>
+              <div class="black-clover-home__dark-text">
+                <p class="black-clover-home__magic-name">Dark</p>
+                <p class="black-clover-home__magic-user">Yami Sukehiro · Black Bulls</p>
+                <p class="black-clover-home__magic-line">The Black Bulls’ captain draws darkness down a blade that can cut space.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="black-clover-home__characters" id="characters">
+        <div class="black-clover-home__section-head">
+          <p class="black-clover-home__kicker">The cast</p>
+          <h2 class="black-clover-home__title">THE SQUAD<br>NOBODY WANTED.</h2>
+          <p class="black-clover-home__line-2">The Black Bulls are the kingdom’s lowest‑rated Magic Knights, and somehow its most dangerous. Then there’s Yuno.</p>
+        </div>
+        <div class="black-clover-home__cards">
+          <div class="black-clover-home__card-asta">
+            <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+11.0;
+ vec3 A=vec3(0.85,0.06,0.1);vec3 B=vec3(0.95,0.25,0.22);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+11.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,5.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,11.0)),h21(vec2(fi,11.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            <p class="black-clover-home__card-role">Anti‑magic · Black Bulls</p>
+            <h3 class="black-clover-home__card-name">ASTA</h3>
+            <p class="black-clover-home__card-line">Trains until his body quits, then shouts until it starts again.</p>
+            <a class="button-outline-small" href="#" data-instance-of="button-outline-small" data-click="overlay overlay-dossier-asta" data-click-transition="dissolve 200ms ease-out">
+              <p class="button-outline-small__label">Open dossier</p>
+              <svg class="button-outline-small__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+          <div class="black-clover-home__card-yuno">
+            <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+23.0;
+ vec3 A=vec3(0.1,0.75,0.5);vec3 B=vec3(0.55,1.0,0.8);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+23.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,4.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,23.0)),h21(vec2(fi,23.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            <p class="black-clover-home__card-role">Wind · Golden Dawn</p>
+            <h3 class="black-clover-home__card-name">YUNO</h3>
+            <p class="black-clover-home__card-line">Quiet, gifted, and never more than a step behind his brother.</p>
+            <a class="button-outline-small" href="#" data-instance-of="button-outline-small" data-click="overlay overlay-dossier-yuno" data-click-transition="dissolve 200ms ease-out">
+              <p class="button-outline-small__label">Open dossier</p>
+              <svg class="button-outline-small__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+          <div class="black-clover-home__card-noelle">
+            <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+37.0;
+ vec3 A=vec3(0.2,0.45,0.95);vec3 B=vec3(0.75,0.88,1.0);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+37.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,3.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,37.0)),h21(vec2(fi,37.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            <p class="black-clover-home__card-role">Water · Black Bulls</p>
+            <h3 class="black-clover-home__card-name">NOELLE</h3>
+            <p class="black-clover-home__card-line">The royal her family wrote off, now the squad’s heaviest hitter.</p>
+            <a class="button-outline-small" href="#" data-instance-of="button-outline-small" data-click="overlay overlay-dossier-noelle" data-click-transition="dissolve 200ms ease-out">
+              <p class="button-outline-small__label">Open dossier</p>
+              <svg class="button-outline-small__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+          <div class="black-clover-home__card-yami">
+            <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+41.0;
+ vec3 A=vec3(0.35,0.12,0.7);vec3 B=vec3(0.8,0.65,1.0);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+41.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,3.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,41.0)),h21(vec2(fi,41.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            <p class="black-clover-home__card-role">Dark · Black Bulls captain</p>
+            <h3 class="black-clover-home__card-name">YAMI</h3>
+            <p class="black-clover-home__card-line">Naps, smokes, and pushes his squad past every limit they have.</p>
+            <a class="button-outline-small" href="#" data-instance-of="button-outline-small" data-click="overlay overlay-dossier-yami" data-click-transition="dissolve 200ms ease-out">
+              <p class="button-outline-small__label">Open dossier</p>
+              <svg class="button-outline-small__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section class="black-clover-home__seasons" id="seasons">
+        <div class="black-clover-home__section-head">
+          <p class="black-clover-home__kicker">Where to start</p>
+          <h2 class="black-clover-home__title">170 EPISODES.<br>FOUR DOORS IN.</h2>
+          <p class="black-clover-home__line-2">It’s long, but it moves in four clear seasons. Start at episode 1 and let it pull you through.</p>
+        </div>
+        <div class="black-clover-home__season-cards">
+          <div class="black-clover-home__season-season-1-e1-51">
+            <div class="black-clover-home__season-art">
+              <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 m=u_mouse/R;
+ float t=u_time*0.2+3.0;
+ vec3 sky=vec3(0.55,0.32,0.1);vec3 sun=vec3(1.0,0.82,0.45);
+ vec3 col=mix(sky*1.4,vec3(0.02,0.015,0.02),smoothstep(0.1,1.0,uv.y));
+ col+=sky*0.6*pow(fbm(vec2(p.x*2.5+t*0.4,p.y*5.0)),3.0)*smoothstep(0.25,0.8,uv.y);
+ vec2 sc=vec2((m.x-0.5)*0.4,0.42);float r=length(p-sc);
+ col+=sun*smoothstep(0.13,0.12,r)+sun*exp(-r*5.0)*0.55;
+ float h1=0.2+0.12*fbm(vec2(p.x*2.2+3.0,1.0));
+ float h2=0.1+0.09*fbm(vec2(p.x*4.0-3.0,7.0));
+ col=mix(col,vec3(0.03,0.02,0.03)+sky*0.08,smoothstep(h1+0.004,h1,uv.y));
+ col=mix(col,vec3(0.01,0.008,0.012),smoothstep(h2+0.004,h2,uv.y));
+ for(int i=0;i&lt;12;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,3.0)),h21(vec2(fi,3.7)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y,mod(s.y+t*(0.3+s.y*0.3),1.0));
+  col+=sun*exp(-length(p-pp)*320.0)*1.2;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            </div>
+            <p class="black-clover-home__season-eps">Season 1 · E1–51</p>
+            <h3 class="black-clover-home__season-title">The five‑leaf grimoire</h3>
+            <p class="black-clover-home__season-line">Asta talks his way into the Black Bulls, the squad nobody wants, and starts winning anyway.</p>
+          </div>
+          <div class="black-clover-home__season-season-2-e52-102">
+            <div class="black-clover-home__season-art">
+              <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 m=u_mouse/R;
+ float t=u_time*0.2+7.0;
+ vec3 sky=vec3(0.6,0.06,0.08);vec3 sun=vec3(1.0,0.45,0.35);
+ vec3 col=mix(sky*1.4,vec3(0.02,0.015,0.02),smoothstep(0.1,1.0,uv.y));
+ col+=sky*0.6*pow(fbm(vec2(p.x*2.5+t*0.4,p.y*5.0)),3.0)*smoothstep(0.25,0.8,uv.y);
+ vec2 sc=vec2((m.x-0.5)*0.4,0.42);float r=length(p-sc);
+ col+=sun*smoothstep(0.13,0.12,r)+sun*exp(-r*5.0)*0.55;
+ float h1=0.2+0.12*fbm(vec2(p.x*2.2+7.0,1.0));
+ float h2=0.1+0.09*fbm(vec2(p.x*4.0-7.0,7.0));
+ col=mix(col,vec3(0.03,0.02,0.03)+sky*0.08,smoothstep(h1+0.004,h1,uv.y));
+ col=mix(col,vec3(0.01,0.008,0.012),smoothstep(h2+0.004,h2,uv.y));
+ for(int i=0;i&lt;12;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,7.0)),h21(vec2(fi,7.7)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y,mod(s.y+t*(0.3+s.y*0.3),1.0));
+  col+=sun*exp(-length(p-pp)*320.0)*1.2;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            </div>
+            <p class="black-clover-home__season-eps">Season 2 · E52–102</p>
+            <h3 class="black-clover-home__season-title">Enemies at the capital</h3>
+            <p class="black-clover-home__season-line">An old grudge strikes the kingdom, and its strongest knights are picked for a counterattack.</p>
+          </div>
+          <div class="black-clover-home__season-season-3-e103-154">
+            <div class="black-clover-home__season-art">
+              <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 m=u_mouse/R;
+ float t=u_time*0.2+13.0;
+ vec3 sky=vec3(0.32,0.12,0.55);vec3 sun=vec3(0.85,0.7,1.0);
+ vec3 col=mix(sky*1.4,vec3(0.02,0.015,0.02),smoothstep(0.1,1.0,uv.y));
+ col+=sky*0.6*pow(fbm(vec2(p.x*2.5+t*0.4,p.y*5.0)),3.0)*smoothstep(0.25,0.8,uv.y);
+ vec2 sc=vec2((m.x-0.5)*0.4,0.42);float r=length(p-sc);
+ col+=sun*smoothstep(0.13,0.12,r)+sun*exp(-r*5.0)*0.55;
+ float h1=0.2+0.12*fbm(vec2(p.x*2.2+13.0,1.0));
+ float h2=0.1+0.09*fbm(vec2(p.x*4.0-13.0,7.0));
+ col=mix(col,vec3(0.03,0.02,0.03)+sky*0.08,smoothstep(h1+0.004,h1,uv.y));
+ col=mix(col,vec3(0.01,0.008,0.012),smoothstep(h2+0.004,h2,uv.y));
+ for(int i=0;i&lt;12;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,13.0)),h21(vec2(fi,13.7)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y,mod(s.y+t*(0.3+s.y*0.3),1.0));
+  col+=sun*exp(-length(p-pp)*320.0)*1.2;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            </div>
+            <p class="black-clover-home__season-eps">Season 3 · E103–154</p>
+            <h3 class="black-clover-home__season-title">The reincarnation</h3>
+            <p class="black-clover-home__season-line">A lost tribe returns wearing the faces of friends, and the kingdom turns on itself.</p>
+          </div>
+          <div class="black-clover-home__season-season-4-e155-170">
+            <div class="black-clover-home__season-art">
+              <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=gl_FragCoord.xy/R;vec2 p=vec2((uv.x-0.5)*R.x/R.y,uv.y);vec2 m=u_mouse/R;
+ float t=u_time*0.2+19.0;
+ vec3 sky=vec3(0.05,0.3,0.32);vec3 sun=vec3(0.6,1.0,0.95);
+ vec3 col=mix(sky*1.4,vec3(0.02,0.015,0.02),smoothstep(0.1,1.0,uv.y));
+ col+=sky*0.6*pow(fbm(vec2(p.x*2.5+t*0.4,p.y*5.0)),3.0)*smoothstep(0.25,0.8,uv.y);
+ vec2 sc=vec2((m.x-0.5)*0.4,0.42);float r=length(p-sc);
+ col+=sun*smoothstep(0.13,0.12,r)+sun*exp(-r*5.0)*0.55;
+ float h1=0.2+0.12*fbm(vec2(p.x*2.2+19.0,1.0));
+ float h2=0.1+0.09*fbm(vec2(p.x*4.0-19.0,7.0));
+ col=mix(col,vec3(0.03,0.02,0.03)+sky*0.08,smoothstep(h1+0.004,h1,uv.y));
+ col=mix(col,vec3(0.01,0.008,0.012),smoothstep(h2+0.004,h2,uv.y));
+ for(int i=0;i&lt;12;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,19.0)),h21(vec2(fi,19.7)));
+  vec2 pp=vec2((s.x-0.5)*R.x/R.y,mod(s.y+t*(0.3+s.y*0.3),1.0));
+  col+=sun*exp(-length(p-pp)*320.0)*1.2;}
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+            </div>
+            <p class="black-clover-home__season-eps">Season 4 · E155–170</p>
+            <h3 class="black-clover-home__season-title">The Spade Kingdom</h3>
+            <p class="black-clover-home__season-line">Devils cross the border. To stand a chance, Asta has to fight alongside the one in his book.</p>
+          </div>
+        </div>
+        <div class="black-clover-home__episode-road">
+          <div class="black-clover-home__episode-1"></div>
+          <div class="black-clover-home__episode-2"></div>
+          <div class="black-clover-home__episode-3"></div>
+          <div class="black-clover-home__episode-4"></div>
+          <div class="black-clover-home__episode-5"></div>
+          <div class="black-clover-home__episode-6"></div>
+          <div class="black-clover-home__episode-7"></div>
+          <div class="black-clover-home__episode-8"></div>
+          <div class="black-clover-home__episode-9"></div>
+          <div class="black-clover-home__episode-10"></div>
+          <div class="black-clover-home__episode-11"></div>
+          <div class="black-clover-home__episode-12"></div>
+          <div class="black-clover-home__episode-13"></div>
+          <div class="black-clover-home__episode-14"></div>
+          <div class="black-clover-home__episode-15"></div>
+          <div class="black-clover-home__episode-16"></div>
+          <div class="black-clover-home__episode-17"></div>
+          <div class="black-clover-home__episode-18"></div>
+          <div class="black-clover-home__episode-19"></div>
+          <div class="black-clover-home__episode-20"></div>
+          <div class="black-clover-home__episode-21"></div>
+          <div class="black-clover-home__episode-22"></div>
+          <div class="black-clover-home__episode-23"></div>
+          <div class="black-clover-home__episode-24"></div>
+          <div class="black-clover-home__episode-25"></div>
+          <div class="black-clover-home__episode-26"></div>
+          <div class="black-clover-home__episode-27"></div>
+          <div class="black-clover-home__episode-28"></div>
+          <div class="black-clover-home__episode-29"></div>
+          <div class="black-clover-home__episode-30"></div>
+          <div class="black-clover-home__episode-31"></div>
+          <div class="black-clover-home__episode-32"></div>
+          <div class="black-clover-home__episode-33"></div>
+          <div class="black-clover-home__episode-34"></div>
+          <div class="black-clover-home__episode-35"></div>
+          <div class="black-clover-home__episode-36"></div>
+          <div class="black-clover-home__episode-37"></div>
+          <div class="black-clover-home__episode-38"></div>
+          <div class="black-clover-home__episode-39"></div>
+          <div class="black-clover-home__episode-40"></div>
+          <div class="black-clover-home__episode-41"></div>
+          <div class="black-clover-home__episode-42"></div>
+          <div class="black-clover-home__episode-43"></div>
+          <div class="black-clover-home__episode-44"></div>
+          <div class="black-clover-home__episode-45"></div>
+          <div class="black-clover-home__episode-46"></div>
+          <div class="black-clover-home__episode-47"></div>
+          <div class="black-clover-home__episode-48"></div>
+          <div class="black-clover-home__episode-49"></div>
+          <div class="black-clover-home__episode-50"></div>
+          <div class="black-clover-home__episode-51"></div>
+          <p class="black-clover-home__road-label-1">Start here · E1</p>
+          <div class="black-clover-home__episode-52"></div>
+          <div class="black-clover-home__episode-53"></div>
+          <div class="black-clover-home__episode-54"></div>
+          <div class="black-clover-home__episode-55"></div>
+          <div class="black-clover-home__episode-56"></div>
+          <div class="black-clover-home__episode-57"></div>
+          <div class="black-clover-home__episode-58"></div>
+          <div class="black-clover-home__episode-59"></div>
+          <div class="black-clover-home__episode-60"></div>
+          <div class="black-clover-home__episode-61"></div>
+          <div class="black-clover-home__episode-62"></div>
+          <div class="black-clover-home__episode-63"></div>
+          <div class="black-clover-home__episode-64"></div>
+          <div class="black-clover-home__episode-65"></div>
+          <div class="black-clover-home__episode-66"></div>
+          <div class="black-clover-home__episode-67"></div>
+          <div class="black-clover-home__episode-68"></div>
+          <div class="black-clover-home__episode-69"></div>
+          <div class="black-clover-home__episode-70"></div>
+          <div class="black-clover-home__episode-71"></div>
+          <div class="black-clover-home__episode-72"></div>
+          <div class="black-clover-home__episode-73"></div>
+          <div class="black-clover-home__episode-74"></div>
+          <div class="black-clover-home__episode-75"></div>
+          <div class="black-clover-home__episode-76"></div>
+          <div class="black-clover-home__episode-77"></div>
+          <div class="black-clover-home__episode-78"></div>
+          <div class="black-clover-home__episode-79"></div>
+          <div class="black-clover-home__episode-80"></div>
+          <div class="black-clover-home__episode-81"></div>
+          <div class="black-clover-home__episode-82"></div>
+          <div class="black-clover-home__episode-83"></div>
+          <div class="black-clover-home__episode-84"></div>
+          <div class="black-clover-home__episode-85"></div>
+          <div class="black-clover-home__episode-86"></div>
+          <div class="black-clover-home__episode-87"></div>
+          <div class="black-clover-home__episode-88"></div>
+          <div class="black-clover-home__episode-89"></div>
+          <div class="black-clover-home__episode-90"></div>
+          <div class="black-clover-home__episode-91"></div>
+          <div class="black-clover-home__episode-92"></div>
+          <div class="black-clover-home__episode-93"></div>
+          <div class="black-clover-home__episode-94"></div>
+          <div class="black-clover-home__episode-95"></div>
+          <div class="black-clover-home__episode-96"></div>
+          <div class="black-clover-home__episode-97"></div>
+          <div class="black-clover-home__episode-98"></div>
+          <div class="black-clover-home__episode-99"></div>
+          <div class="black-clover-home__episode-100"></div>
+          <div class="black-clover-home__episode-101"></div>
+          <div class="black-clover-home__episode-102"></div>
+          <p class="black-clover-home__road-label-2">S2 · E52</p>
+          <div class="black-clover-home__episode-103"></div>
+          <div class="black-clover-home__episode-104"></div>
+          <div class="black-clover-home__episode-105"></div>
+          <div class="black-clover-home__episode-106"></div>
+          <div class="black-clover-home__episode-107"></div>
+          <div class="black-clover-home__episode-108"></div>
+          <div class="black-clover-home__episode-109"></div>
+          <div class="black-clover-home__episode-110"></div>
+          <div class="black-clover-home__episode-111"></div>
+          <div class="black-clover-home__episode-112"></div>
+          <div class="black-clover-home__episode-113"></div>
+          <div class="black-clover-home__episode-114"></div>
+          <div class="black-clover-home__episode-115"></div>
+          <div class="black-clover-home__episode-116"></div>
+          <div class="black-clover-home__episode-117"></div>
+          <div class="black-clover-home__episode-118"></div>
+          <div class="black-clover-home__episode-119"></div>
+          <div class="black-clover-home__episode-120"></div>
+          <div class="black-clover-home__episode-121"></div>
+          <div class="black-clover-home__episode-122"></div>
+          <div class="black-clover-home__episode-123"></div>
+          <div class="black-clover-home__episode-124"></div>
+          <div class="black-clover-home__episode-125"></div>
+          <div class="black-clover-home__episode-126"></div>
+          <div class="black-clover-home__episode-127"></div>
+          <div class="black-clover-home__episode-128"></div>
+          <div class="black-clover-home__episode-129"></div>
+          <div class="black-clover-home__episode-130"></div>
+          <div class="black-clover-home__episode-131"></div>
+          <div class="black-clover-home__episode-132"></div>
+          <div class="black-clover-home__episode-133"></div>
+          <div class="black-clover-home__episode-134"></div>
+          <div class="black-clover-home__episode-135"></div>
+          <div class="black-clover-home__episode-136"></div>
+          <div class="black-clover-home__episode-137"></div>
+          <div class="black-clover-home__episode-138"></div>
+          <div class="black-clover-home__episode-139"></div>
+          <div class="black-clover-home__episode-140"></div>
+          <div class="black-clover-home__episode-141"></div>
+          <div class="black-clover-home__episode-142"></div>
+          <div class="black-clover-home__episode-143"></div>
+          <div class="black-clover-home__episode-144"></div>
+          <div class="black-clover-home__episode-145"></div>
+          <div class="black-clover-home__episode-146"></div>
+          <div class="black-clover-home__episode-147"></div>
+          <div class="black-clover-home__episode-148"></div>
+          <div class="black-clover-home__episode-149"></div>
+          <div class="black-clover-home__episode-150"></div>
+          <div class="black-clover-home__episode-151"></div>
+          <div class="black-clover-home__episode-152"></div>
+          <div class="black-clover-home__episode-153"></div>
+          <div class="black-clover-home__episode-154"></div>
+          <p class="black-clover-home__road-label-3">S3 · E103</p>
+          <div class="black-clover-home__episode-155"></div>
+          <div class="black-clover-home__episode-156"></div>
+          <div class="black-clover-home__episode-157"></div>
+          <div class="black-clover-home__episode-158"></div>
+          <div class="black-clover-home__episode-159"></div>
+          <div class="black-clover-home__episode-160"></div>
+          <div class="black-clover-home__episode-161"></div>
+          <div class="black-clover-home__episode-162"></div>
+          <div class="black-clover-home__episode-163"></div>
+          <div class="black-clover-home__episode-164"></div>
+          <div class="black-clover-home__episode-165"></div>
+          <div class="black-clover-home__episode-166"></div>
+          <div class="black-clover-home__episode-167"></div>
+          <div class="black-clover-home__episode-168"></div>
+          <div class="black-clover-home__episode-169"></div>
+          <div class="black-clover-home__episode-170"></div>
+          <p class="black-clover-home__road-label-4">S4 · E155</p>
+        </div>
+      </section>
+      <section class="black-clover-home__final-call">
+        <canvas class="black-clover-home__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;float t=u_time;
+ float a=-0.42+m.x*0.35;vec2 dir=vec2(cos(a),sin(a));vec2 nr=vec2(-dir.y,dir.x);
+ vec2 c=vec2(0.0,m.y*0.3);
+ float al=dot(uv-c,dir);float dd=dot(uv-c,nr);
+ dd+=(fbm(vec2(al*6.0,t*0.6))-0.5)*0.03;
+ float w=0.085*max(0.0,1.0-pow(al/1.15,2.0));
+ vec3 col=vec3(0.02,0.012,0.016)+vec3(0.3,0.02,0.04)*pow(fbm(uv*1.7+vec2(t*0.05,0.0)),2.5)*1.2;
+ float inside=smoothstep(w,w-0.006,abs(dd));
+ float inner=fbm(vec2(al*3.0-t*0.5,dd*12.0));
+ col=mix(col,vec3(0.004,0.002,0.004)+vec3(0.5,0.02,0.05)*pow(inner,4.0)*1.5,inside);
+ float edge=exp(-abs(abs(dd)-w)*90.0)*step(0.0,w-0.002);
+ col+=vec3(1.0,0.2,0.18)*edge*1.1+vec3(1.0,0.8,0.6)*exp(-abs(abs(dd)-w)*500.0)*step(0.0,w-0.002)*0.8;
+ for(int i=0;i&lt;36;i++){float fi=float(i);
+  float s=h21(vec2(fi,1.9));float side=sign(h21(vec2(fi,3.7))-0.5);
+  float life=fract(s*7.0+t*(0.25+0.3*h21(vec2(fi,5.5))));
+  float al0=(h21(vec2(fi,2.3))-0.5)*1.9;
+  float w0=0.085*max(0.0,1.0-pow(al0/1.15,2.0));
+  vec2 pp=c+dir*al0+nr*side*(w0+life*0.35)+vec2(0.0,-life*life*0.2);
+  col+=vec3(1.0,0.45,0.2)*exp(-length(uv-pp)*400.0)*(1.0-life)*2.0;}
+ float yb=gl_FragCoord.y/R.y;
+ col=mix(vec3(0.027,0.024,0.031),col,smoothstep(0.0,0.2,yb)*smoothstep(1.0,0.8,yb));
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        <p class="black-clover-home__final-kicker">Your move</p>
+        <h2 class="black-clover-home__final-title">YOUR STORY STARTS<br>WITH NOTHING.</h2>
+        <p class="black-clover-home__final-line">No magic, no grimoire, no excuse. Episode 1 is waiting.</p>
+        <div class="black-clover-home__final-actions">
+          <a class="button-primary button-primary--instance" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+          </a>
+          <a class="button-ghost" href="#hero" data-instance-of="button-ghost">
+            <p class="button-ghost__label">Back to the top</p>
+            <svg class="button-ghost__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+          </a>
+        </div>
+      </section>
+      <footer class="black-clover-home__footer">
+        <div class="black-clover-home__footer-row">
+          <div class="black-clover-home__footer-brand">
+            <div class="black-clover-home__footer-mark">
+              <svg class="black-clover-home__path-1-2" viewBox="-9.277 -20.459 18.554 17.959" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M0 -2.5 C-6.02 -6.8 -11.18 -12.82 -8.6 -17.98 C-6.88 -21.42 -1.72 -21.42 0 -17.12 C1.72 -21.42 6.88 -21.42 8.6 -17.98 C11.18 -12.82 6.02 -6.8 0 -2.5 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-2-2" viewBox="2.378 -13.803 18.724 18.322" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M2.378 -0.773 C4.607 -7.827 8.738 -14.594 14.442 -13.735 C18.246 -13.162 19.84 -8.255 16.282 -5.29 C20.903 -4.983 22.498 -0.076 19.758 2.623 C15.647 6.671 8.327 3.624 2.378 -0.773 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-3-2" viewBox="-0.286 2.023 17.873 18.091" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1.469 2.023 C8.867 1.963 16.58 3.8 17.526 9.491 C18.156 13.285 13.982 16.318 10.063 13.85 C11.199 18.34 7.024 21.373 3.611 19.601 C-1.509 16.943 -0.873 9.04 1.469 2.023 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-4-2" viewBox="-17.586 2.023 17.873 18.091" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M-1.469 2.023 C0.873 9.04 1.509 16.943 -3.611 19.601 C-7.024 21.373 -11.199 18.34 -10.063 13.85 C-13.982 16.318 -18.156 13.285 -17.526 9.491 C-16.58 3.8 -8.867 1.963 -1.469 2.023 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+              <svg class="black-clover-home__path-5-2" viewBox="-21.101 -13.803 18.724 18.322" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M-2.378 -0.773 C-8.327 3.624 -15.647 6.671 -19.758 2.623 C-22.498 -0.076 -20.903 -4.983 -16.282 -5.29 C-19.84 -8.255 -18.246 -13.162 -14.442 -13.735 C-8.738 -14.594 -4.607 -7.827 -2.378 -0.773 Z" fill="#e0263a" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="black-clover-home__footer-wordmark">BLACK CLOVER</p>
+          </div>
+          <div class="black-clover-home__footer-links">
+            <a class="black-clover-home__footer-story" href="#story">Story</a>
+            <a class="black-clover-home__footer-grimoire" href="#grimoire">Grimoire</a>
+            <a class="black-clover-home__footer-magic" href="#magic">Magic</a>
+            <a class="black-clover-home__footer-characters" href="#characters">Characters</a>
+            <a class="black-clover-home__footer-seasons" href="#seasons">Seasons</a>
+          </div>
+        </div>
+        <p class="black-clover-home__footer-note">A fan concept, not an official site. Black Clover © Yūki Tabata / Shueisha, TV Tokyo, Studio Pierrot. Every picture on this page is drawn live by a GLSL shader.</p>
+      </footer>
+    </main>
+    <dialog id="overlay-dossier-asta" aria-label="Dossier · Asta">
+      <div class="dossier-asta">
+        <div class="dossier-asta__dossier-aura">
+          <canvas class="dossier-asta__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+11.0;
+ vec3 A=vec3(0.85,0.06,0.1);vec3 B=vec3(0.95,0.25,0.22);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+11.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,5.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,11.0)),h21(vec2(fi,11.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        </div>
+        <div class="dossier-asta__dossier-body">
+          <p class="dossier-asta__dossier-role">Anti‑magic · Black Bulls</p>
+          <h2 class="dossier-asta__dossier-name">ASTA</h2>
+          <p class="dossier-asta__dossier-line">Born with no mana at all. Chosen by the one grimoire that doesn’t need it.</p>
+          <div class="dossier-asta__dossier-facts">
+            <div class="dossier-asta__fact-magic">
+              <p class="dossier-asta__fact-label">Magic</p>
+              <p class="dossier-asta__fact-value">Anti‑magic, from the devil in his grimoire</p>
+            </div>
+            <div class="dossier-asta__fact-grimoire">
+              <p class="dossier-asta__fact-label">Grimoire</p>
+              <p class="dossier-asta__fact-value">Five leaves, black and tattered</p>
+            </div>
+            <div class="dossier-asta__fact-weapons">
+              <p class="dossier-asta__fact-label">Weapons</p>
+              <p class="dossier-asta__fact-value">Demon‑Slayer, Demon‑Dweller, Demon‑Destroyer</p>
+            </div>
+            <div class="dossier-asta__fact-goal">
+              <p class="dossier-asta__fact-label">Goal</p>
+              <p class="dossier-asta__fact-value">Wizard King</p>
+            </div>
+          </div>
+          <a class="button-primary button-primary--dossier-start" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+          </a>
+        </div>
+        <button class="dossier-asta__close-dossier" type="button" data-click="close" data-click-transition="dissolve 150ms ease-out">
+          <svg class="dossier-asta__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Close"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="overlay-dossier-yuno" aria-label="Dossier · Yuno">
+      <div class="dossier-yuno">
+        <div class="dossier-yuno__dossier-aura">
+          <canvas class="dossier-yuno__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+23.0;
+ vec3 A=vec3(0.1,0.75,0.5);vec3 B=vec3(0.55,1.0,0.8);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+23.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,4.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,23.0)),h21(vec2(fi,23.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        </div>
+        <div class="dossier-yuno__dossier-body">
+          <p class="dossier-yuno__dossier-role">Wind · Golden Dawn</p>
+          <h2 class="dossier-yuno__dossier-name">YUNO</h2>
+          <p class="dossier-yuno__dossier-line">Raised beside Asta, gifted at everything, and still racing him to the top.</p>
+          <div class="dossier-yuno__dossier-facts">
+            <div class="dossier-yuno__fact-magic">
+              <p class="dossier-yuno__fact-label">Magic</p>
+              <p class="dossier-yuno__fact-value">Wind</p>
+            </div>
+            <div class="dossier-yuno__fact-grimoire">
+              <p class="dossier-yuno__fact-label">Grimoire</p>
+              <p class="dossier-yuno__fact-value">Four leaves, the clover of legend</p>
+            </div>
+            <div class="dossier-yuno__fact-spirit">
+              <p class="dossier-yuno__fact-label">Spirit</p>
+              <p class="dossier-yuno__fact-value">Sylph, the wind spirit</p>
+            </div>
+            <div class="dossier-yuno__fact-signature">
+              <p class="dossier-yuno__fact-label">Signature</p>
+              <p class="dossier-yuno__fact-value">Spirit Dive</p>
+            </div>
+          </div>
+          <a class="button-primary button-primary--dossier-start" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+          </a>
+        </div>
+        <button class="dossier-yuno__close-dossier" type="button" data-click="close" data-click-transition="dissolve 150ms ease-out">
+          <svg class="dossier-yuno__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Close"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="overlay-dossier-noelle" aria-label="Dossier · Noelle">
+      <div class="dossier-noelle">
+        <div class="dossier-noelle__dossier-aura">
+          <canvas class="dossier-noelle__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+37.0;
+ vec3 A=vec3(0.2,0.45,0.95);vec3 B=vec3(0.75,0.88,1.0);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+37.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,3.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,37.0)),h21(vec2(fi,37.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        </div>
+        <div class="dossier-noelle__dossier-body">
+          <p class="dossier-noelle__dossier-role">Water · Black Bulls</p>
+          <h2 class="dossier-noelle__dossier-name">NOELLE</h2>
+          <p class="dossier-noelle__dossier-line">A royal of House Silva with more mana than she could hold, until she learned to.</p>
+          <div class="dossier-noelle__dossier-facts">
+            <div class="dossier-noelle__fact-magic">
+              <p class="dossier-noelle__fact-label">Magic</p>
+              <p class="dossier-noelle__fact-value">Water</p>
+            </div>
+            <div class="dossier-noelle__fact-family">
+              <p class="dossier-noelle__fact-label">Family</p>
+              <p class="dossier-noelle__fact-value">Royal House Silva</p>
+            </div>
+            <div class="dossier-noelle__fact-signature">
+              <p class="dossier-noelle__fact-label">Signature</p>
+              <p class="dossier-noelle__fact-value">Sea Dragon’s Nest</p>
+            </div>
+            <div class="dossier-noelle__fact-armour">
+              <p class="dossier-noelle__fact-label">Armour</p>
+              <p class="dossier-noelle__fact-value">Valkyrie Dress</p>
+            </div>
+          </div>
+          <a class="button-primary button-primary--dossier-start" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+          </a>
+        </div>
+        <button class="dossier-noelle__close-dossier" type="button" data-click="close" data-click-transition="dissolve 150ms ease-out">
+          <svg class="dossier-noelle__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Close"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="overlay-dossier-yami" aria-label="Dossier · Yami">
+      <div class="dossier-yami">
+        <div class="dossier-yami__dossier-aura">
+          <canvas class="dossier-yami__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;vec2 m=(u_mouse-0.5*R)/R.y;
+ float t=u_time*0.5+41.0;
+ vec3 A=vec3(0.35,0.12,0.7);vec3 B=vec3(0.8,0.65,1.0);
+ float near=exp(-length(uv-m)*3.0);
+ float n=fbm(vec2(uv.x*3.0,uv.y*2.0-t*0.9)+41.0);
+ float pillar=exp(-abs(uv.x+(n-0.5)*0.25)*5.5)*smoothstep(0.55,-0.5,uv.y);
+ vec3 col=vec3(0.02,0.015,0.02)+A*pillar*(0.5+n)*0.9+B*pow(n,3.0)*0.5;
+ vec2 g=rot(t*0.15+(m.x)*0.8)*(uv-vec2(0.0,0.18))*3.4;
+ float d=leaves(g,0.42,3.0);
+ col+=B*exp(-abs(d)*55.0)*(0.7+0.8*near);
+ col+=B*exp(-abs(length(g)-0.62)*120.0)*0.5;
+ for(int i=0;i&lt;16;i++){float fi=float(i);
+  vec2 s=vec2(h21(vec2(fi,41.0)),h21(vec2(fi,41.5)));
+  vec2 pp=vec2((s.x-0.5)*0.8,mod(s.y+t*0.12*(0.5+s.y),1.2)-0.6);
+  col+=mix(A,B,s.x)*exp(-length(uv-pp)*240.0)*1.4;}
+ col+=A*near*0.12;
+ col=mix(col,vec3(0.027,0.024,0.031),smoothstep(-0.05,-0.5,uv.y)*0.85);
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+        </div>
+        <div class="dossier-yami__dossier-body">
+          <p class="dossier-yami__dossier-role">Dark · Black Bulls captain</p>
+          <h2 class="dossier-yami__dossier-name">YAMI</h2>
+          <p class="dossier-yami__dossier-line">Came over the sea from the Land of the Rising Sun and took in every misfit he found.</p>
+          <div class="dossier-yami__dossier-facts">
+            <div class="dossier-yami__fact-magic">
+              <p class="dossier-yami__fact-label">Magic</p>
+              <p class="dossier-yami__fact-value">Dark</p>
+            </div>
+            <div class="dossier-yami__fact-squad">
+              <p class="dossier-yami__fact-label">Squad</p>
+              <p class="dossier-yami__fact-value">Captain of the Black Bulls</p>
+            </div>
+            <div class="dossier-yami__fact-signature">
+              <p class="dossier-yami__fact-label">Signature</p>
+              <p class="dossier-yami__fact-value">Dimension Slash</p>
+            </div>
+            <div class="dossier-yami__fact-also">
+              <p class="dossier-yami__fact-label">Also</p>
+              <p class="dossier-yami__fact-value">Reads ki, the way others read mana</p>
+            </div>
+          </div>
+          <a class="button-primary button-primary--dossier-start" href="https://www.crunchyroll.com/search?q=black%20clover" data-instance-of="button-primary" target="_blank" rel="noopener noreferrer">
+            <svg class="button-primary__icon button-primary__icon--instance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            <p class="button-primary__label button-primary__label--instance">Start with episode 1</p>
+          </a>
+        </div>
+        <button class="dossier-yami__close-dossier" type="button" data-click="close" data-click-transition="dissolve 150ms ease-out">
+          <svg class="dossier-yami__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Close"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </dialog>
+    <script>// Draws the shader layers (canvas[data-shader]).
+    (function shaderRuntime(root) {
+      "use strict";
+      const MAX_SIDE = 1600;
+      const UNIFORMS = [["u_resolution", "vec2"], ["u_time", "float"], ["u_mouse", "vec2"]];
+      const VERTEX = "attribute vec2 a_position;\nvoid main() { gl_Position = vec4(a_position, 0.0, 1.0); }";
+      const started = performance.now();
+      const reduced = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const states = new Map();
+      const programs = new Map();
+      let gl = null;
+      let glCanvas = null;
+      let frame = 0;
+      let pointer = null;
+    
+      function context() {
+        if (gl && !gl.isContextLost()) return gl;
+        programs.clear();
+        glCanvas = document.createElement("canvas");
+        gl = glCanvas.getContext("webgl", { premultipliedAlpha: false, preserveDrawingBuffer: true, antialias: false }) || glCanvas.getContext("experimental-webgl");
+        if (!gl) return null;
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+        return gl;
+      }
+    
+      // The source with what it leaves out: a precision and the uniforms.
+      function complete(source) {
+        let head = "";
+        if (!/^\s*precision\s+\w+\s+float\s*;/m.test(source)) head += "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
+        for (const [name, type] of UNIFORMS) if (!new RegExp(`\\buniform\\s+\\w+\\s+${name}\\b`).test(source)) head += `uniform ${type} ${name};\n`;
+        const version = /^\s*#version[^\n]*\n/.exec(source);
+        return version ? version[0] + head + source.slice(version[0].length) : head + source;
+      }
+    
+      function program(source) {
+        if (programs.has(source)) return programs.get(source);
+        const shader = (type, text) => {
+          const s = gl.createShader(type);
+          gl.shaderSource(s, text);
+          gl.compileShader(s);
+          if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) || "the shader doesn't compile");
+          return s;
+        };
+        let entry;
+        try {
+          const p = gl.createProgram();
+          gl.attachShader(p, shader(gl.VERTEX_SHADER, VERTEX));
+          gl.attachShader(p, shader(gl.FRAGMENT_SHADER, complete(source)));
+          gl.linkProgram(p);
+          if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p) || "the shader doesn't link");
+          entry = {
+            program: p,
+            position: gl.getAttribLocation(p, "a_position"),
+            resolution: gl.getUniformLocation(p, "u_resolution"),
+            time: gl.getUniformLocation(p, "u_time"),
+            mouse: gl.getUniformLocation(p, "u_mouse"),
+            animated: /\bu_(time|mouse)\b/.test(source),
+          };
+        } catch (error) {
+          entry = { error: String(error.message || error).trim() };
+        }
+        programs.set(source, entry);
+        return entry;
+      }
+    
+      function draw(canvas, state, now) {
+        const box = canvas.getBoundingClientRect();
+        if (!box.width || !box.height) return;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const scale = Math.min(1, MAX_SIDE / Math.max(box.width * ratio, box.height * ratio));
+        const w = Math.max(1, Math.round(box.width * ratio * scale));
+        const h = Math.max(1, Math.round(box.height * ratio * scale));
+        const t = reduced() ? 0 : (now - started) / 1000;
+        if (state.drawn && state.drawn.w === w && state.drawn.h === h && !(state.entry && state.entry.animated && !reduced())) return;
+        if (!context()) return;
+        const entry = (state.entry = program(state.source));
+        if (entry.error) {
+          if (canvas.dataset.shaderError !== entry.error) {
+            canvas.dataset.shaderError = entry.error;
+            console.warn(`Shader layer: ${entry.error}`);
+          }
+          state.drawn = { w, h };
+          return;
+        }
+        delete canvas.dataset.shaderError;
+        if (glCanvas.width !== w || glCanvas.height !== h) {
+          glCanvas.width = w;
+          glCanvas.height = h;
+        }
+        gl.viewport(0, 0, w, h);
+        gl.useProgram(entry.program);
+        gl.enableVertexAttribArray(entry.position);
+        gl.vertexAttribPointer(entry.position, 2, gl.FLOAT, false, 0, 0);
+        if (entry.resolution) gl.uniform2f(entry.resolution, w, h);
+        if (entry.time) gl.uniform1f(entry.time, t);
+        if (entry.mouse) {
+          const inside = pointer && pointer.x >= box.left && pointer.x <= box.right && pointer.y >= box.top && pointer.y <= box.bottom;
+          if (inside) state.mouse = [((pointer.x - box.left) / box.width) * w, ((box.bottom - pointer.y) / box.height) * h];
+          const m = state.mouse || [w / 2, h / 2];
+          gl.uniform2f(entry.mouse, m[0], m[1]);
+        }
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(glCanvas, 0, 0);
+        state.drawn = { w, h };
+      }
+    
+      function scan() {
+        for (const canvas of root.querySelectorAll("canvas[data-shader]")) {
+          const source = canvas.getAttribute("data-shader") || "";
+          const state = states.get(canvas);
+          if (!state) states.set(canvas, { source, drawn: null, visible: true });
+          else if (state.source !== source) Object.assign(state, { source, drawn: null, entry: null });
+        }
+        for (const canvas of states.keys()) if (!canvas.isConnected) states.delete(canvas);
+      }
+    
+      function tick(now) {
+        frame = 0;
+        scan();
+        const view = { w: window.innerWidth, h: window.innerHeight };
+        let again = false;
+        for (const [canvas, state] of states) {
+          const box = canvas.getBoundingClientRect();
+          if (box.right < 0 || box.bottom < 0 || box.left > view.w || box.top > view.h) continue;
+          draw(canvas, state, now);
+          if (state.entry && state.entry.animated && !reduced()) again = true;
+        }
+        if (again) schedule();
+      }
+    
+      function schedule() {
+        if (!frame) frame = requestAnimationFrame(tick);
+      }
+    
+      addEventListener("pointermove", (event) => {
+        pointer = { x: event.clientX, y: event.clientY };
+      }, { passive: true });
+      // New canvases, changed shaders, resizes and scrolls bring a frame.
+      new MutationObserver(schedule).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-shader", "style", "class"] });
+      addEventListener("resize", schedule);
+      addEventListener("scroll", schedule, { passive: true, capture: true });
+      addEventListener("wheel", schedule, { passive: true });
+      addEventListener("pointerup", schedule, { passive: true });
+      // The first picture right away, so a page that's captured as soon as it
+      // loads has its shaders drawn.
+      scan();
+      tick(performance.now());
+    })(document);</script>
+  </body>
+</html>

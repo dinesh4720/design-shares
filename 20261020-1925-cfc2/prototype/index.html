@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intro · The grimoire opens · Landing page</title>
+    <script src="prototype.js"></script>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --bg: #070608;
+        --line: #2b2630;
+        --ink: #f4efe6;
+        --muted: #a59d95;
+        --gold: #d9a84e;
+        --text-xs: 13px;
+        --text-xl: 32px;
+        --space-xs: 8px;
+        --radius-full: 999px;
+      }
+
+      .intro-the-grimoire-opens {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 0 88px;
+        width: 1440px;
+        height: 900px;
+        background-color: var(--bg);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .intro-the-grimoire-opens__shader {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+
+      .intro-the-grimoire-opens__intro-line-1 {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-xl);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .intro-the-grimoire-opens__intro-line-2 {
+        flex-shrink: 0;
+        color: var(--gold);
+        font-family: 'Hoefler Text', Garamond, Georgia, serif;
+        font-style: italic;
+        font-size: var(--text-xl);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .intro-the-grimoire-opens__skip-intro {
+        position: absolute;
+        left: 1272px;
+        top: 32px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .intro-the-grimoire-opens__skip-label {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .intro-the-grimoire-opens__skip-icon {
+        width: 14px;
+        height: 14px;
+        color: var(--muted);
+      }
+
+      /* Prototype: what can be clicked, overlays and page transitions (prototype.js runs them). */
+
+      [data-click], [data-hover] {
+        cursor: pointer;
+      }
+
+      @view-transition {
+        navigation: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        @view-transition {
+          navigation: none;
+        }
+      }
+
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: var(--transition-duration, 300ms);
+        animation-timing-function: var(--transition-easing, ease-out);
+      }
+
+      html:active-view-transition-type(dissolve)::view-transition-old(root) {
+        animation-name: none;
+        mix-blend-mode: normal;
+      }
+
+      html:active-view-transition-type(dissolve)::view-transition-new(root) {
+        animation-name: prototype-fade-in;
+        mix-blend-mode: normal;
+      }
+
+      @keyframes prototype-fade-in {
+        from { opacity: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro-the-grimoire-opens" data-delay="navigate black-clover-home.html" data-delay-ms="3800" data-delay-transition="dissolve 500ms ease-in-out">
+      <canvas class="intro-the-grimoire-opens__shader" data-shader="
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+float vnoise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);
+ return mix(mix(h21(i),h21(i+vec2(1.0,0.0)),u.x),mix(h21(i+vec2(0.0,1.0)),h21(i+vec2(1.0,1.0)),u.x),u.y);}
+float fbm(vec2 p){float v=0.0;float a=0.5;mat2 r=mat2(0.8,0.6,-0.6,0.8);
+ for(int i=0;i&lt;5;i++){v+=a*vnoise(p);p=r*p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}
+float seg(vec2 p,vec2 a,vec2 b){vec2 pa=p-a;vec2 ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);}
+float leaves(vec2 p,float s,float n){float r=length(p);float th=atan(p.x,p.y);float sg=6.2831853/n;
+ float ph=mod(th+sg*0.5,sg)-sg*0.5;float k=abs(ph)/(sg*0.5);
+ float R=s*(pow(max(0.0,1.0-pow(k,2.4)),0.6)*0.95+0.05);R-=s*0.2*exp(-ph*ph*n*n*14.0);return r-R;}
+
+vec3 sigil(vec2 p,float t,float n,float lit,vec3 gold){
+ float r=length(p);float th=atan(p.y,p.x);float c=0.0;
+ c+=exp(-abs(r-0.78)*220.0)+0.7*exp(-abs(r-0.715)*300.0);
+ float tk=fract((th+t*0.12)*72.0/6.2831853);
+ c+=step(0.55,tk)*step(0.722,r)*step(r,0.772)*0.55;
+ float a2=th-t*0.07;float cs=a2*28.0/6.2831853;float id=floor(cs);float ce=fract(cs);
+ float rl=0.6+0.07*h21(vec2(id,3.0));
+ c+=step(0.18,ce)*step(ce,0.82)*exp(-abs(r-rl)*380.0)*0.9;
+ c+=step(0.18,ce)*step(ce,0.82)*step(0.6,r)*step(r,rl)*0.18;
+ c+=exp(-abs(r-0.585)*340.0)*0.9+exp(-abs(r-0.5)*420.0)*0.6;
+ vec2 q=rot(t*0.05)*p;float st=1e5;
+ for(int i=0;i&lt;5;i++){float a=6.2831853*float(i)/5.0+1.5707963;float b=a+6.2831853*2.0/5.0;
+  st=min(st,seg(q,0.5*vec2(cos(a),sin(a)),0.5*vec2(cos(b),sin(b))));}
+ c+=exp(-st*260.0)*0.55;
+ float d=leaves(rot(-t*0.03)*p,0.4,n);
+ c+=exp(-abs(d)*140.0)*1.3;
+ vec3 col=gold*c*lit;
+ float inside=smoothstep(0.01,-0.01,d);
+ float fl=fbm(rot(t*0.2)*p*4.0+vec2(0.0,-t*0.6));
+ float vein=pow(1.0-abs(fl-0.5)*2.0,14.0);
+ vec3 core=vec3(0.012,0.006,0.01)+vec3(0.9,0.06,0.1)*vein*1.3*lit+vec3(0.35,0.02,0.04)*pow(fl,3.0)*lit;
+ col=mix(col,core+gold*exp(-abs(d)*90.0)*lit,inside*0.92);
+ col+=gold*exp(-r*2.6)*0.12*lit;
+ return col;
+}
+
+void main(){
+
+ vec2 R=u_resolution;vec2 uv=(gl_FragCoord.xy-0.5*R)/R.y;
+ float t=u_time;float ig=0.4+0.6*smoothstep(0.2,2.2,t);
+ vec2 p=(uv-vec2(0.0,0.08))*2.45;float r=length(p);
+ vec3 gold=vec3(0.86,0.64,0.3);
+ vec3 col=sigil(p,t+6.0,5.0,ig,gold);
+ for(int i=0;i&lt;48;i++){float fi=float(i);
+  float a=h21(vec2(fi,2.0))*6.2831853+t*(0.2+0.3*h21(vec2(fi,5.0)));
+  float rd=mod(h21(vec2(fi,9.0))*1.6-t*0.09,1.6)+0.12;
+  vec2 pp=rd*vec2(cos(a),sin(a));
+  col+=gold*exp(-length(p-pp)*170.0)*(0.5+0.5*sin(t*4.0+fi))*1.2;}
+ float sh=max(0.0,t-2.2);
+ col+=vec3(1.0,0.3,0.25)*exp(-abs(r-sh*1.1)*26.0)*exp(-sh*1.3)*1.4;
+ col+=vec3(0.9,0.12,0.12)*exp(-r*1.4)*0.08*ig;
+ col*=smoothstep(2.6,0.6,r);
+ col+=(h21(gl_FragCoord.xy+fract(t))-0.5)*0.03;
+ gl_FragColor=vec4(col,1.0);
+}" aria-hidden="true"></canvas>
+      <h1 class="intro-the-grimoire-opens__intro-line-1">In a world where magic is everything,</h1>
+      <p class="intro-the-grimoire-opens__intro-line-2">one boy was born with none.</p>
+      <a class="intro-the-grimoire-opens__skip-intro" href="black-clover-home.html" data-click-transition="dissolve 300ms ease-out">
+        <p class="intro-the-grimoire-opens__skip-label">Skip intro</p>
+        <svg class="intro-the-grimoire-opens__skip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    <script>// Draws the shader layers (canvas[data-shader]).
+    (function shaderRuntime(root) {
+      "use strict";
+      const MAX_SIDE = 1600;
+      const UNIFORMS = [["u_resolution", "vec2"], ["u_time", "float"], ["u_mouse", "vec2"]];
+      const VERTEX = "attribute vec2 a_position;\nvoid main() { gl_Position = vec4(a_position, 0.0, 1.0); }";
+      const started = performance.now();
+      const reduced = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const states = new Map();
+      const programs = new Map();
+      let gl = null;
+      let glCanvas = null;
+      let frame = 0;
+      let pointer = null;
+    
+      function context() {
+        if (gl && !gl.isContextLost()) return gl;
+        programs.clear();
+        glCanvas = document.createElement("canvas");
+        gl = glCanvas.getContext("webgl", { premultipliedAlpha: false, preserveDrawingBuffer: true, antialias: false }) || glCanvas.getContext("experimental-webgl");
+        if (!gl) return null;
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+        return gl;
+      }
+    
+      // The source with what it leaves out: a precision and the uniforms.
+      function complete(source) {
+        let head = "";
+        if (!/^\s*precision\s+\w+\s+float\s*;/m.test(source)) head += "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
+        for (const [name, type] of UNIFORMS) if (!new RegExp(`\\buniform\\s+\\w+\\s+${name}\\b`).test(source)) head += `uniform ${type} ${name};\n`;
+        const version = /^\s*#version[^\n]*\n/.exec(source);
+        return version ? version[0] + head + source.slice(version[0].length) : head + source;
+      }
+    
+      function program(source) {
+        if (programs.has(source)) return programs.get(source);
+        const shader = (type, text) => {
+          const s = gl.createShader(type);
+          gl.shaderSource(s, text);
+          gl.compileShader(s);
+          if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) || "the shader doesn't compile");
+          return s;
+        };
+        let entry;
+        try {
+          const p = gl.createProgram();
+          gl.attachShader(p, shader(gl.VERTEX_SHADER, VERTEX));
+          gl.attachShader(p, shader(gl.FRAGMENT_SHADER, complete(source)));
+          gl.linkProgram(p);
+          if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p) || "the shader doesn't link");
+          entry = {
+            program: p,
+            position: gl.getAttribLocation(p, "a_position"),
+            resolution: gl.getUniformLocation(p, "u_resolution"),
+            time: gl.getUniformLocation(p, "u_time"),
+            mouse: gl.getUniformLocation(p, "u_mouse"),
+            animated: /\bu_(time|mouse)\b/.test(source),
+          };
+        } catch (error) {
+          entry = { error: String(error.message || error).trim() };
+        }
+        programs.set(source, entry);
+        return entry;
+      }
+    
+      function draw(canvas, state, now) {
+        const box = canvas.getBoundingClientRect();
+        if (!box.width || !box.height) return;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const scale = Math.min(1, MAX_SIDE / Math.max(box.width * ratio, box.height * ratio));
+        const w = Math.max(1, Math.round(box.width * ratio * scale));
+        const h = Math.max(1, Math.round(box.height * ratio * scale));
+        const t = reduced() ? 0 : (now - started) / 1000;
+        if (state.drawn && state.drawn.w === w && state.drawn.h === h && !(state.entry && state.entry.animated && !reduced())) return;
+        if (!context()) return;
+        const entry = (state.entry = program(state.source));
+        if (entry.error) {
+          if (canvas.dataset.shaderError !== entry.error) {
+            canvas.dataset.shaderError = entry.error;
+            console.warn(`Shader layer: ${entry.error}`);
+          }
+          state.drawn = { w, h };
+          return;
+        }
+        delete canvas.dataset.shaderError;
+        if (glCanvas.width !== w || glCanvas.height !== h) {
+          glCanvas.width = w;
+          glCanvas.height = h;
+        }
+        gl.viewport(0, 0, w, h);
+        gl.useProgram(entry.program);
+        gl.enableVertexAttribArray(entry.position);
+        gl.vertexAttribPointer(entry.position, 2, gl.FLOAT, false, 0, 0);
+        if (entry.resolution) gl.uniform2f(entry.resolution, w, h);
+        if (entry.time) gl.uniform1f(entry.time, t);
+        if (entry.mouse) {
+          const inside = pointer && pointer.x >= box.left && pointer.x <= box.right && pointer.y >= box.top && pointer.y <= box.bottom;
+          if (inside) state.mouse = [((pointer.x - box.left) / box.width) * w, ((box.bottom - pointer.y) / box.height) * h];
+          const m = state.mouse || [w / 2, h / 2];
+          gl.uniform2f(entry.mouse, m[0], m[1]);
+        }
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(glCanvas, 0, 0);
+        state.drawn = { w, h };
+      }
+    
+      function scan() {
+        for (const canvas of root.querySelectorAll("canvas[data-shader]")) {
+          const source = canvas.getAttribute("data-shader") || "";
+          const state = states.get(canvas);
+          if (!state) states.set(canvas, { source, drawn: null, visible: true });
+          else if (state.source !== source) Object.assign(state, { source, drawn: null, entry: null });
+        }
+        for (const canvas of states.keys()) if (!canvas.isConnected) states.delete(canvas);
+      }
+    
+      function tick(now) {
+        frame = 0;
+        scan();
+        const view = { w: window.innerWidth, h: window.innerHeight };
+        let again = false;
+        for (const [canvas, state] of states) {
+          const box = canvas.getBoundingClientRect();
+          if (box.right < 0 || box.bottom < 0 || box.left > view.w || box.top > view.h) continue;
+          draw(canvas, state, now);
+          if (state.entry && state.entry.animated && !reduced()) again = true;
+        }
+        if (again) schedule();
+      }
+    
+      function schedule() {
+        if (!frame) frame = requestAnimationFrame(tick);
+      }
+    
+      addEventListener("pointermove", (event) => {
+        pointer = { x: event.clientX, y: event.clientY };
+      }, { passive: true });
+      // New canvases, changed shaders, resizes and scrolls bring a frame.
+      new MutationObserver(schedule).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-shader", "style", "class"] });
+      addEventListener("resize", schedule);
+      addEventListener("scroll", schedule, { passive: true, capture: true });
+      addEventListener("wheel", schedule, { passive: true });
+      addEventListener("pointerup", schedule, { passive: true });
+      // The first picture right away, so a page that's captured as soon as it
+      // loads has its shaders drawn.
+      scan();
+      tick(performance.now());
+    })(document);</script>
+  </body>
+</html>
