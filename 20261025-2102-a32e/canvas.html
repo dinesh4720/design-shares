@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untitled · canvas</title>
+<style>
+  :root { color-scheme: light dark; --canvas: #e9e9e9; --panel: #fff; --line: #e2e2e2; --text: #1a1a1a; --muted: #6b6b6b; --label: #6b6b6b; }
+  @media (prefers-color-scheme: dark) { :root { --canvas: #161616; --panel: #1e1e1e; --line: #2e2e2e; --text: #ececec; --muted: #a1a1a1; --label: #9a9a9a; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: var(--page, var(--canvas)); font: 12px/1.3 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  body.dragging { cursor: grabbing; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .board { position: absolute; }
+  .board iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; background: transparent; }
+  .board .name { position: absolute; left: 0; bottom: 100%; padding-bottom: 4px; transform: scale(var(--inv, 1)); transform-origin: 0 100%; white-space: nowrap; max-width: calc(var(--w) * 1px / var(--inv, 1)); overflow: hidden; text-overflow: ellipsis; color: var(--label); font-size: 12px; }
+  .board:hover .name { color: var(--text); }
+  .bar { position: fixed; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line), 0 4px 16px rgba(0,0,0,.08); cursor: default; }
+  .bar[hidden] { display: none; }
+  .zoom { right: 12px; bottom: 12px; }
+  .pages { left: 12px; top: 12px; }
+  .bar button, .bar select { height: 28px; min-width: 28px; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: var(--text); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .bar button:hover, .bar select:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+  #pct { min-width: 48px; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="world"></div>
+<div class="bar pages" id="pagebar" hidden><select id="page" aria-label="Page"></select></div>
+<div class="bar zoom" role="group" aria-label="Zoom">
+  <button type="button" id="out" aria-label="Zoom out">−</button>
+  <button type="button" id="pct" title="Zoom to 100%">100%</button>
+  <button type="button" id="in" aria-label="Zoom in">+</button>
+  <button type="button" id="fit" title="See everything (F)">Fit</button>
+</div>
+<script type="application/json" id="pages">[{"id":"page-1","name":"Page 1","color":"#161616","boards":[{"file":"board-Y0PZx.html","name":"BSK Technologies — Home","x":0,"y":0,"w":1440,"h":9816}]}]</script>
+<script>
+(function () {
+  var pages = JSON.parse(document.getElementById("pages").textContent);
+  var world = document.getElementById("world");
+  var pct = document.getElementById("pct");
+  var view = { s: 1, x: 0, y: 0 };
+  var current = 0;
+  var MIN = 0.02, MAX = 8;
+  function apply() {
+    world.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
+    world.style.setProperty("--inv", String(1 / view.s));
+    pct.textContent = Math.round(view.s * 100) + "%";
+  }
+  function zoomAt(s, cx, cy) {
+    moved = true;
+    s = Math.min(MAX, Math.max(MIN, s));
+    view.x = cx - (cx - view.x) * (s / view.s);
+    view.y = cy - (cy - view.y) * (s / view.s);
+    view.s = s;
+    apply();
+  }
+  // Until someone moves the view, it keeps everything in sight (the frame
+  // this shows in can have no size yet when it starts).
+  var moved = false;
+  function fit() {
+    if (innerWidth < 40 || innerHeight < 40) return requestAnimationFrame(fit);
+    var boards = pages[current].boards;
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    boards.forEach(function (b) { x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); });
+    var pad = 64, w = innerWidth - pad * 2, h = innerHeight - pad * 2;
+    var s = Math.min(1, w / (x1 - x0), h / (y1 - y0));
+    view.s = Math.max(MIN, s);
+    view.x = (innerWidth - (x1 - x0) * view.s) / 2 - x0 * view.s;
+    view.y = (innerHeight - (y1 - y0) * view.s) / 2 - y0 * view.s;
+    apply();
+  }
+  function show(i) {
+    current = i;
+    var page = pages[i];
+    document.body.style.setProperty("--page", page.color || "");
+    if (!page.color) document.body.style.removeProperty("--page");
+    world.textContent = "";
+    page.boards.forEach(function (b) {
+      var box = document.createElement("div");
+      box.className = "board";
+      box.style.left = b.x + "px"; box.style.top = b.y + "px";
+      box.style.width = b.w + "px"; box.style.height = b.h + "px";
+      box.style.setProperty("--w", String(b.w));
+      box.dataset.file = b.file;
+      var name = document.createElement("div");
+      name.className = "name";
+      name.textContent = b.name;
+      var frame = document.createElement("iframe");
+      frame.src = b.file;
+      frame.title = b.name || "Board";
+      frame.setAttribute("tabindex", "-1");
+      box.appendChild(name);
+      box.appendChild(frame);
+      world.appendChild(box);
+    });
+    fit();
+  }
+  // Moving around: drag (one finger), pinch (two), scroll and ⌘/Ctrl-scroll.
+  var pointers = new Map(), last;
+  addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".bar")) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    document.body.setPointerCapture(e.pointerId);
+    document.body.classList.add("dragging");
+    last = undefined;
+  });
+  addEventListener("pointermove", function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    var before = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      moved = true; view.x += e.clientX - before.x; view.y += e.clientY - before.y; apply();
+    } else if (pointers.size === 2) {
+      var p = Array.from(pointers.values());
+      var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), mx = (p[0].x + p[1].x) / 2, my = (p[0].y + p[1].y) / 2;
+      if (last) { view.x += mx - last.mx; view.y += my - last.my; zoomAt(view.s * d / last.d, mx, my); }
+      last = { d: d, mx: mx, my: my };
+    }
+  });
+  function up(e) { pointers.delete(e.pointerId); last = undefined; if (!pointers.size) document.body.classList.remove("dragging"); }
+  addEventListener("pointerup", up);
+  addEventListener("pointercancel", up);
+  addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (e.ctrlKey || e.metaKey) zoomAt(view.s * Math.exp(-e.deltaY * (e.ctrlKey && !e.metaKey ? 0.01 : 0.002)), e.clientX, e.clientY);
+    else { moved = true; view.x -= e.deltaX; view.y -= e.deltaY; apply(); }
+  }, { passive: false });
+  addEventListener("dblclick", function (e) {
+    var box = e.target.closest && e.target.closest(".board");
+    if (box) window.open(box.dataset.file, "_blank", "noopener");
+  });
+  function centre(s) { zoomAt(s, innerWidth / 2, innerHeight / 2); }
+  document.getElementById("in").onclick = function () { centre(view.s * 1.25); };
+  document.getElementById("out").onclick = function () { centre(view.s / 1.25); };
+  document.getElementById("pct").onclick = function () { centre(1); };
+  document.getElementById("fit").onclick = function () { fit(); moved = false; };
+  addEventListener("keydown", function (e) {
+    if (e.target.tagName === "SELECT") return;
+    if (e.key === "+" || e.key === "=") centre(view.s * 1.25);
+    else if (e.key === "-" || e.key === "_") centre(view.s / 1.25);
+    else if (e.key === "f" || e.key === "F" || (e.key === "1" && e.shiftKey)) fit();
+    else if (e.key === "0") centre(1);
+  });
+  addEventListener("resize", function () { if (moved) apply(); else fit(); });
+  // Pages, when there's more than one.
+  var select = document.getElementById("page");
+  pages.forEach(function (p, i) { var o = document.createElement("option"); o.value = String(i); o.textContent = p.name; select.appendChild(o); });
+  if (pages.length > 1) document.getElementById("pagebar").hidden = false;
+  select.onchange = function () { show(Number(select.value)); };
+  show(0);
+})();
+</script>
+</body>
+</html>
