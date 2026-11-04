@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Decision header</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --text-s: 13px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-xl: 32px;
+        --radius-s: 6px;
+        --radius-m: 8px;
+        --radius-full: 999px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --bg: #ffffff;
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+        --muted: #646462;
+        --accepted-soft: #ebf4ef;
+        --accepted-ink: #006d45;
+      }
+
+      [data-mode="dark"] {
+        --bg: #1b1a17;
+        --sunken: #161513;
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --accepted-soft: #2d392e;
+        --accepted-ink: #77d4a4;
+      }
+
+      .decision-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 var(--space-xl);
+        width: 1440px;
+        height: 56px;
+        background-color: var(--bg);
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .decision-header__header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        flex-shrink: 0;
+      }
+
+      .button-ghost {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .button-ghost__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-ghost__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .decision-header__esc-key {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 var(--space-2xs);
+        border-radius: var(--radius-s);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .decision-header__key {
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-header__header-divider {
+        width: 1px;
+        height: 16px;
+        background-color: var(--line);
+      }
+
+      .decision-header__header-id {
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .status-pill-accepted {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        background-color: var(--accepted-soft);
+        border-radius: var(--radius-full);
+      }
+
+      .status-glyph-accepted {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__disc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-pill-accepted__label {
+        color: var(--accepted-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .area-tag {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-xs);
+        background-color: var(--sunken);
+        border-radius: var(--radius-s);
+      }
+
+      .area-tag__area {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-header__header-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .button-secondary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .button-secondary__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-secondary__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .button-accepted-state {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        background-color: var(--accepted-soft);
+        border-radius: var(--radius-m);
+      }
+
+      .button-accepted-state__label {
+        color: var(--accepted-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="decision-header" data-component="decision-header">
+      <header class="decision-header__header-left">
+        <button class="button-ghost" type="button" data-instance-of="button-ghost">
+          <svg class="button-ghost__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <span class="button-ghost__label">Board</span>
+        </button>
+        <div class="decision-header__esc-key">
+          <p class="decision-header__key">Esc</p>
+        </div>
+        <div class="decision-header__header-divider"></div>
+        <p class="decision-header__header-id">D-018</p>
+        <div class="status-pill-accepted" data-instance-of="status-pill-accepted">
+          <div class="status-glyph-accepted" data-instance-of="status-glyph-accepted">
+            <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <p class="status-pill-accepted__label">Accepted</p>
+        </div>
+        <div class="area-tag" data-instance-of="area-tag">
+          <p class="area-tag__area">caching</p>
+        </div>
+      </header>
+      <header class="decision-header__header-actions">
+        <button class="button-secondary" type="button" data-instance-of="button-secondary">
+          <svg class="button-secondary__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          <span class="button-secondary__label">Reject</span>
+        </button>
+        <button class="button-accepted-state" type="button" data-instance-of="button-accepted-state">
+          <span class="status-glyph-accepted" data-instance-of="status-glyph-accepted">
+            <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </span>
+          <span class="button-accepted-state__label">Accepted</span>
+        </button>
+      </header>
+    </header>
+  </body>
+</html>

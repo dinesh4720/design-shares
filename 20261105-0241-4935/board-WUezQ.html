@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Discuss icon button</title>
+    <style>
+      body {
+        margin: 0;
+        background: var(--sunken);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --radius-s: 6px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --sunken: #f7f6f4;
+        --ink: #23221e;
+      }
+
+      [data-mode="dark"] {
+        --sunken: #161513;
+        --ink: #f2f1ed;
+      }
+
+      .discuss-icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        background-color: var(--sunken);
+        border-radius: var(--radius-s);
+      }
+
+      .discuss-icon-button__chat-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--ink);
+        stroke-width: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="discuss-icon-button" type="button" data-component="discuss-icon-button">
+      <svg class="discuss-icon-button__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Discuss this point"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+    </button>
+  </body>
+</html>

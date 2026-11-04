@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Board · Desktop</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --text-s: 13px;
+        --text-m: 14px;
+        --text-l: 16px;
+        --text-3xl: 36px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-m: 16px;
+        --space-l: 24px;
+        --space-xl: 32px;
+        --radius-s: 6px;
+        --radius-m: 8px;
+        --radius-l: 12px;
+        --radius-full: 999px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --bg: #ffffff;
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+        --muted: #646462;
+        --primary: #23221e;
+        --on-primary: #ffffff;
+        --attention: #c4441c;
+        --on-attention: #ffffff;
+        --replaced-ink: #6343a7;
+      }
+
+      [data-mode="dark"] {
+        --bg: #1b1a17;
+        --sunken: #161513;
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --primary: #f2f1ed;
+        --on-primary: #1b1a17;
+        --attention: #f0683f;
+        --on-attention: #1b1a17;
+        --replaced-ink: #c3b0f9;
+      }
+
+      .board-desktop {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        height: 1024px;
+        background-color: var(--bg);
+        overflow: hidden;
+      }
+
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 var(--space-xl);
+        height: 56px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .top-bar__brand {
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        flex-shrink: 0;
+      }
+
+      .top-bar__logo-mark {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary);
+        border-radius: var(--radius-s);
+      }
+
+      .top-bar__logo-check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+      }
+
+      .top-bar__product-name {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-l);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .top-bar__divider {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .top-bar__project-picker {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        border-radius: var(--radius-m);
+      }
+
+      .top-bar__project-name {
+        color: var(--ink);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .top-bar__picker-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .top-bar__top-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .button-ghost {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .button-ghost__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-ghost__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .button-agent-inbox {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-xs) 0 var(--space-s);
+        height: 32px;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .button-agent-inbox__inbox-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-agent-inbox__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .button-agent-inbox__count {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 var(--space-xs);
+        height: 20px;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      .button-agent-inbox__number {
+        color: var(--on-primary);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .icon-button__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .board-desktop__main {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: var(--space-xl);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .board-desktop__summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-desktop__headline-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .board-desktop__headline {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-s);
+      }
+
+      .board-desktop__need-you-count {
+        color: var(--attention);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+        white-space: pre;
+      }
+
+      .board-desktop__headline-text {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+        white-space: pre;
+      }
+
+      .board-desktop__stats {
+        display: flex;
+        align-items: center;
+        gap: var(--space-m);
+      }
+
+      .board-desktop__to-review-stat {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-2xs);
+      }
+
+      .board-desktop__value {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .board-desktop__label {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .board-desktop__stat-divider {
+        width: 1px;
+        height: 16px;
+        background-color: var(--line);
+      }
+
+      .board-desktop__active-stat {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-2xs);
+      }
+
+      .board-desktop__value-2 {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .board-desktop__label-2 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .board-desktop__stat-divider-2 {
+        width: 1px;
+        height: 16px;
+        background-color: var(--line);
+      }
+
+      .board-desktop__waiting-notes-stat {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-2xs);
+      }
+
+      .board-desktop__value-3 {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .board-desktop__label-3 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .search-field {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-xs) 0 var(--space-s);
+        width: 280px;
+        height: 32px;
+        flex-shrink: 0;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .search-field__search-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .search-field__placeholder {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.2;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .search-field__shortcut {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 var(--space-2xs);
+        flex-shrink: 0;
+        border-radius: var(--radius-s);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .search-field__key {
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__area-filters {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-desktop__filter-label {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .filter-chip-selected {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-s);
+        flex-shrink: 0;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--primary);
+      }
+
+      .filter-chip-selected__label {
+        color: var(--on-primary);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .filter-chip {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-s);
+        flex-shrink: 0;
+        background-color: var(--raised);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .filter-chip__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__columns {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .board-desktop__needs-review-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .board-desktop__column-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-desktop__column-glyphs {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .status-glyph-proposed {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-proposed--instance {
+        flex-shrink: 0;
+      }
+
+      .status-glyph-proposed__dashed-ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .board-desktop__column-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__column-count {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-card-needs-you {
+        display: flex;
+        align-items: stretch;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .decision-card-needs-you__needs-you-edge {
+        width: 3px;
+        flex-shrink: 0;
+        background-color: var(--attention);
+      }
+
+      .decision-card-needs-you__body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .decision-card-needs-you__meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        align-self: stretch;
+      }
+
+      .decision-card-needs-you__card-id {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .area-tag {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-s);
+      }
+
+      .area-tag__area {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-card-needs-you__card-age {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        text-align: right;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-card-needs-you__card-title {
+        align-self: stretch;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-card-needs-you__card-footer {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        align-self: stretch;
+      }
+
+      .needs-you-badge {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        background-color: var(--attention);
+        border-radius: var(--radius-full);
+      }
+
+      .needs-you-badge__pause-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--on-attention);
+        stroke-width: 1.5;
+      }
+
+      .needs-you-badge__label {
+        color: var(--on-attention);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .notes-count {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .notes-count__chat-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .notes-count__count {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-card {
+        display: flex;
+        align-items: stretch;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+        overflow: hidden;
+      }
+
+      .decision-card__needs-you-edge {
+        width: 3px;
+        flex-shrink: 0;
+        background-color: var(--raised);
+      }
+
+      .decision-card__body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-s);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .decision-card__meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        align-self: stretch;
+      }
+
+      .decision-card__card-id {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-card__card-age {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        text-align: right;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-card__card-title {
+        align-self: stretch;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-card__card-title--instance {
+        color: var(--ink);
+      }
+
+      .decision-card__card-title--instance-2 {
+        color: var(--muted);
+      }
+
+      .decision-card__card-footer {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        align-self: stretch;
+      }
+
+      .board-desktop__accepted-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .board-desktop__column-header-2 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-desktop__column-glyphs-2 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .status-glyph-accepted {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted--card-status {
+        flex-shrink: 0;
+      }
+
+      .status-glyph-accepted__disc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .board-desktop__column-name-2 {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__column-count-2 {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__replaced-or-rejected-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .board-desktop__column-header-3 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-desktop__column-glyphs-3 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .status-glyph-replaced {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-replaced--card-status {
+        flex-shrink: 0;
+      }
+
+      .status-glyph-replaced__ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-replaced__arrow {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected--card-status {
+        flex-shrink: 0;
+      }
+
+      .status-glyph-rejected__ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected__cross {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .board-desktop__column-name-3 {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-desktop__column-count-3 {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-card__card-replaced-by {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .decision-card__link-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--replaced-ink);
+        stroke-width: 1.5;
+      }
+
+      .decision-card__replaced-by-text {
+        color: var(--replaced-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board-desktop" data-component="board-desktop">
+      <div class="top-bar" data-instance-of="top-bar">
+        <div class="top-bar__brand">
+          <div class="top-bar__logo-mark">
+            <svg class="top-bar__logo-check" viewBox="0 0 20 20" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.5 10.2 L8.6 13.2 L14.5 7" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <p class="top-bar__product-name">Decision Board</p>
+          <p class="top-bar__divider">/</p>
+          <div class="top-bar__project-picker">
+            <p class="top-bar__project-name">patient-portal</p>
+            <svg class="top-bar__picker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+          </div>
+        </div>
+        <div class="top-bar__top-actions">
+          <button class="button-ghost" type="button" data-instance-of="button-ghost">
+            <svg class="button-ghost__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+            <span class="button-ghost__label">Import decisions</span>
+          </button>
+          <button class="button-agent-inbox" type="button" data-instance-of="button-agent-inbox">
+            <svg class="button-agent-inbox__inbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+            <span class="button-agent-inbox__label">Agent inbox</span>
+            <span class="button-agent-inbox__count">
+              <span class="button-agent-inbox__number">3</span>
+            </span>
+          </button>
+          <button class="icon-button" type="button" data-instance-of="icon-button">
+            <svg class="icon-button__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Switch to dark mode"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+          </button>
+        </div>
+      </div>
+      <main class="board-desktop__main">
+        <div class="board-desktop__summary">
+          <div class="board-desktop__headline-group">
+            <div class="board-desktop__headline">
+              <p class="board-desktop__need-you-count">2</p>
+              <h1 class="board-desktop__headline-text">decisions need you</h1>
+            </div>
+            <div class="board-desktop__stats">
+              <div class="board-desktop__to-review-stat">
+                <p class="board-desktop__value">5</p>
+                <p class="board-desktop__label">to review</p>
+              </div>
+              <div class="board-desktop__stat-divider"></div>
+              <div class="board-desktop__active-stat">
+                <p class="board-desktop__value-2">6</p>
+                <p class="board-desktop__label-2">active</p>
+              </div>
+              <div class="board-desktop__stat-divider-2"></div>
+              <div class="board-desktop__waiting-notes-stat">
+                <p class="board-desktop__value-3">3</p>
+                <p class="board-desktop__label-3">notes waiting for the agent</p>
+              </div>
+            </div>
+          </div>
+          <div class="search-field" data-instance-of="search-field">
+            <svg class="search-field__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+            <p class="search-field__placeholder">Search decisions</p>
+            <div class="search-field__shortcut">
+              <p class="search-field__key">/</p>
+            </div>
+          </div>
+        </div>
+        <div class="board-desktop__area-filters">
+          <p class="board-desktop__filter-label">Area</p>
+          <div class="filter-chip-selected" data-instance-of="filter-chip-selected">
+            <p class="filter-chip-selected__label">All</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">caching</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">auth</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">api</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">data</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">jobs</p>
+          </div>
+          <div class="filter-chip" data-instance-of="filter-chip">
+            <p class="filter-chip__label">ui</p>
+          </div>
+        </div>
+        <div class="board-desktop__columns">
+          <div class="board-desktop__needs-review-column">
+            <div class="board-desktop__column-header">
+              <div class="board-desktop__column-glyphs">
+                <div class="status-glyph-proposed" data-instance-of="status-glyph-proposed">
+                  <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-desktop__column-name">Needs review</p>
+              <p class="board-desktop__column-count">5</p>
+            </div>
+            <div class="decision-card-needs-you" data-instance-of="decision-card-needs-you">
+              <div class="decision-card-needs-you__needs-you-edge"></div>
+              <div class="decision-card-needs-you__body">
+                <div class="decision-card-needs-you__meta">
+                  <div class="status-glyph-proposed status-glyph-proposed--instance" data-instance-of="status-glyph-proposed">
+                    <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card-needs-you__card-id">D-024</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">auth</p>
+                  </div>
+                  <p class="decision-card-needs-you__card-age">12 min ago</p>
+                </div>
+                <p class="decision-card-needs-you__card-title">Log doctors out after 15 minutes idle</p>
+                <div class="decision-card-needs-you__card-footer">
+                  <div class="needs-you-badge" data-instance-of="needs-you-badge">
+                    <svg class="needs-you-badge__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="10" x2="10" y1="15" y2="9"/><line x1="14" x2="14" y1="15" y2="9"/></svg>
+                    <p class="needs-you-badge__label">Needs you</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card-needs-you" data-instance-of="decision-card-needs-you">
+              <div class="decision-card-needs-you__needs-you-edge"></div>
+              <div class="decision-card-needs-you__body">
+                <div class="decision-card-needs-you__meta">
+                  <div class="status-glyph-proposed status-glyph-proposed--instance" data-instance-of="status-glyph-proposed">
+                    <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card-needs-you__card-id">D-023</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">data</p>
+                  </div>
+                  <p class="decision-card-needs-you__card-age">40 min ago</p>
+                </div>
+                <p class="decision-card-needs-you__card-title">Store allergy notes as structured fields</p>
+                <div class="decision-card-needs-you__card-footer">
+                  <div class="needs-you-badge" data-instance-of="needs-you-badge">
+                    <svg class="needs-you-badge__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="10" x2="10" y1="15" y2="9"/><line x1="14" x2="14" y1="15" y2="9"/></svg>
+                    <p class="needs-you-badge__label">Needs you</p>
+                  </div>
+                  <div class="notes-count" data-instance-of="notes-count">
+                    <svg class="notes-count__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                    <p class="notes-count__count">1</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-proposed status-glyph-proposed--instance" data-instance-of="status-glyph-proposed">
+                    <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-022</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">api</p>
+                  </div>
+                  <p class="decision-card__card-age">2 h ago</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Keep the old /v1/patients API for now</p>
+                <div class="decision-card__card-footer">
+                  <div class="notes-count" data-instance-of="notes-count">
+                    <svg class="notes-count__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                    <p class="notes-count__count">1</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-proposed status-glyph-proposed--instance" data-instance-of="status-glyph-proposed">
+                    <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-021</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">jobs</p>
+                  </div>
+                  <p class="decision-card__card-age">3 h ago</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Send appointment reminders from a queue</p>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-proposed status-glyph-proposed--instance" data-instance-of="status-glyph-proposed">
+                    <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-020</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">ui</p>
+                  </div>
+                  <p class="decision-card__card-age">Yesterday</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Load the patient timeline in pages of 50</p>
+              </div>
+            </div>
+          </div>
+          <div class="board-desktop__accepted-column">
+            <div class="board-desktop__column-header-2">
+              <div class="board-desktop__column-glyphs-2">
+                <div class="status-glyph-accepted" data-instance-of="status-glyph-accepted">
+                  <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-desktop__column-name-2">Accepted</p>
+              <p class="board-desktop__column-count-2">6</p>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-019</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">auth</p>
+                  </div>
+                  <p class="decision-card__card-age">Today</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Sign in with the hospital's single sign-on</p>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-018</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">caching</p>
+                  </div>
+                  <p class="decision-card__card-age">Yesterday</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Cache patient lookups in Redis</p>
+                <div class="decision-card__card-footer">
+                  <div class="notes-count" data-instance-of="notes-count">
+                    <svg class="notes-count__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                    <p class="notes-count__count">2</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-017</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">data</p>
+                  </div>
+                  <p class="decision-card__card-age">Nov 3</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Write an audit entry every time a record is opened</p>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-015</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">api</p>
+                  </div>
+                  <p class="decision-card__card-age">Nov 2</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Send all dates with a time zone</p>
+                <div class="decision-card__card-footer">
+                  <div class="notes-count" data-instance-of="notes-count">
+                    <svg class="notes-count__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                    <p class="notes-count__count">1</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-014</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">ui</p>
+                  </div>
+                  <p class="decision-card__card-age">Nov 1</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Show times in the clinic's time zone</p>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-accepted status-glyph-accepted--card-status" data-instance-of="status-glyph-accepted">
+                    <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-012</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">jobs</p>
+                  </div>
+                  <p class="decision-card__card-age">Oct 30</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance">Retry failed lab imports 3 times, then alert</p>
+              </div>
+            </div>
+          </div>
+          <div class="board-desktop__replaced-or-rejected-column">
+            <div class="board-desktop__column-header-3">
+              <div class="board-desktop__column-glyphs-3">
+                <div class="status-glyph-replaced" data-instance-of="status-glyph-replaced">
+                  <svg class="status-glyph-replaced__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-replaced__arrow" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5 8 H10.6 M8.4 5.8 L10.6 8 L8.4 10.2" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+                <div class="status-glyph-rejected" data-instance-of="status-glyph-rejected">
+                  <svg class="status-glyph-rejected__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-rejected__cross" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.8 5.8 L10.2 10.2 M10.2 5.8 L5.8 10.2" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-desktop__column-name-3">Replaced or rejected</p>
+              <p class="board-desktop__column-count-3">3</p>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-replaced status-glyph-replaced--card-status" data-instance-of="status-glyph-replaced">
+                    <svg class="status-glyph-replaced__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-replaced__arrow" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5 8 H10.6 M8.4 5.8 L10.6 8 L8.4 10.2" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-016</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">caching</p>
+                  </div>
+                  <p class="decision-card__card-age">Nov 4</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance-2">Cache patient lookups in each server's memory</p>
+                <div class="decision-card__card-footer">
+                  <div class="decision-card__card-replaced-by">
+                    <svg class="decision-card__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 10 5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                    <p class="decision-card__replaced-by-text">Replaced by D-018</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-rejected status-glyph-rejected--card-status" data-instance-of="status-glyph-rejected">
+                    <svg class="status-glyph-rejected__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-rejected__cross" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.8 5.8 L10.2 10.2 M10.2 5.8 L5.8 10.2" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-013</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">data</p>
+                  </div>
+                  <p class="decision-card__card-age">Nov 2</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance-2">Store lab results as PDF files only</p>
+              </div>
+            </div>
+            <div class="decision-card" data-instance-of="decision-card">
+              <div class="decision-card__needs-you-edge"></div>
+              <div class="decision-card__body">
+                <div class="decision-card__meta">
+                  <div class="status-glyph-rejected status-glyph-rejected--card-status" data-instance-of="status-glyph-rejected">
+                    <svg class="status-glyph-rejected__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                    <svg class="status-glyph-rejected__cross" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.8 5.8 L10.2 10.2 M10.2 5.8 L5.8 10.2" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="decision-card__card-id">D-011</p>
+                  <div class="area-tag" data-instance-of="area-tag">
+                    <p class="area-tag__area">api</p>
+                  </div>
+                  <p class="decision-card__card-age">Oct 29</p>
+                </div>
+                <p class="decision-card__card-title decision-card__card-title--instance-2">Use GraphQL for the patient API</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

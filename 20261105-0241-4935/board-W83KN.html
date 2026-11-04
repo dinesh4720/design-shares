@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Note skeleton</title>
+    <style>
+      body {
+        margin: 0;
+        background: var(--raised);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --space-s: 12px;
+        --space-m: 16px;
+        --radius-s: 6px;
+        --radius-l: 12px;
+      }
+
+      :root, [data-mode] {
+        --raised: #ffffff;
+        --line: #e5e4e3;
+      }
+
+      [data-mode="dark"] {
+        --raised: #262521;
+        --line: #34332e;
+      }
+
+      .note-skeleton {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: var(--space-m);
+        width: 472px;
+        background-color: var(--raised);
+        border-radius: var(--radius-l);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .note-skeleton__source-bar {
+        width: 160px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .note-skeleton__point-bar {
+        width: 280px;
+        height: 16px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .note-skeleton__label-bar-1 {
+        width: 64px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .note-skeleton__value-bar-1 {
+        width: 340px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .note-skeleton__label-bar-2 {
+        width: 96px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .note-skeleton__value-bar-2 {
+        width: 300px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="note-skeleton" data-component="note-skeleton">
+      <div class="note-skeleton__source-bar"></div>
+      <div class="note-skeleton__point-bar"></div>
+      <div class="note-skeleton__label-bar-1"></div>
+      <div class="note-skeleton__value-bar-1"></div>
+      <div class="note-skeleton__label-bar-2"></div>
+      <div class="note-skeleton__value-bar-2"></div>
+    </div>
+  </body>
+</html>

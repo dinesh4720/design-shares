@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Card skeleton</title>
+    <style>
+      body {
+        margin: 0;
+        background: var(--raised);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --space-xs: 8px;
+        --space-s: 12px;
+        --radius-s: 6px;
+        --radius-m: 8px;
+        --radius-full: 999px;
+      }
+
+      :root, [data-mode] {
+        --raised: #ffffff;
+        --line: #e5e4e3;
+      }
+
+      [data-mode="dark"] {
+        --raised: #262521;
+        --line: #34332e;
+      }
+
+      .card-skeleton {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: var(--space-s);
+        width: 320px;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .card-skeleton__skeleton-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        align-self: stretch;
+      }
+
+      .card-skeleton__skeleton-glyph {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background-color: var(--line);
+        border-radius: var(--radius-full);
+      }
+
+      .card-skeleton__skeleton-id {
+        width: 40px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .card-skeleton__skeleton-area {
+        width: 48px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .card-skeleton__skeleton-title {
+        width: 220px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+
+      .card-skeleton__skeleton-title-2 {
+        width: 140px;
+        height: 12px;
+        background-color: var(--line);
+        border-radius: var(--radius-s);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card-skeleton" data-component="card-skeleton">
+      <div class="card-skeleton__skeleton-meta">
+        <div class="card-skeleton__skeleton-glyph"></div>
+        <div class="card-skeleton__skeleton-id"></div>
+        <div class="card-skeleton__skeleton-area"></div>
+      </div>
+      <div class="card-skeleton__skeleton-title"></div>
+      <div class="card-skeleton__skeleton-title-2"></div>
+    </div>
+  </body>
+</html>

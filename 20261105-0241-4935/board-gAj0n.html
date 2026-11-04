@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Label · Phone · Light</title>
+    <style>
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-2xl: 28px;
+      }
+
+      :root, [data-mode] {
+        --ink: #23221e;
+      }
+
+      [data-mode="dark"] {
+        --ink: #f2f1ed;
+      }
+
+      .label-phone-light {
+        width: fit-content;
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-2xl);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="label-phone-light">Phone · Light</p>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Send button</title>
+    <style>
+      body {
+        margin: 0;
+        background: var(--primary);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --radius-full: 999px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --primary: #23221e;
+        --on-primary: #ffffff;
+      }
+
+      [data-mode="dark"] {
+        --primary: #f2f1ed;
+        --on-primary: #1b1a17;
+      }
+
+      .send-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+      }
+
+      .send-button__send-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--on-primary);
+        stroke-width: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="send-button" type="button" data-component="send-button">
+      <svg class="send-button__send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Send"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+    </button>
+  </body>
+</html>

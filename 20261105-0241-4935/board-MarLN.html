@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Board · Empty</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --text-s: 13px;
+        --text-m: 14px;
+        --text-l: 16px;
+        --text-3xl: 36px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-m: 16px;
+        --space-l: 24px;
+        --space-xl: 32px;
+        --radius-s: 6px;
+        --radius-m: 8px;
+        --radius-l: 12px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --bg: #ffffff;
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+        --muted: #646462;
+        --primary: #23221e;
+        --on-primary: #ffffff;
+      }
+
+      [data-mode="dark"] {
+        --bg: #1b1a17;
+        --sunken: #161513;
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --primary: #f2f1ed;
+        --on-primary: #1b1a17;
+      }
+
+      .board-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        height: 1024px;
+        background-color: var(--bg);
+        overflow: hidden;
+      }
+
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 var(--space-xl);
+        height: 56px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .top-bar__brand {
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        flex-shrink: 0;
+      }
+
+      .top-bar__logo-mark {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary);
+        border-radius: var(--radius-s);
+      }
+
+      .top-bar__logo-check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+      }
+
+      .top-bar__product-name {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-l);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .top-bar__divider {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .top-bar__project-picker {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        border-radius: var(--radius-m);
+      }
+
+      .top-bar__project-name {
+        color: var(--ink);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .top-bar__picker-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .top-bar__top-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .button-ghost {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .button-ghost__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-ghost__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .button-agent-inbox {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-xs) 0 var(--space-s);
+        height: 32px;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .button-agent-inbox__inbox-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-agent-inbox__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .icon-button__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .board-empty__main {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-l);
+        padding: var(--space-xl);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .board-empty__empty-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-empty__empty-title {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+        white-space: pre;
+      }
+
+      .board-empty__empty-body {
+        width: 640px;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-l);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .board-empty__empty-actions {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs) 0 0;
+      }
+
+      .button-primary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        background-color: var(--primary);
+        border-radius: var(--radius-m);
+      }
+
+      .button-primary__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--on-primary);
+        stroke-width: 1.5;
+      }
+
+      .button-primary__label {
+        color: var(--on-primary);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .board-empty__columns {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .board-empty__needs-review-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .board-empty__column-header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-empty__column-glyphs {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        flex-shrink: 0;
+      }
+
+      .status-glyph-proposed {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-proposed__dashed-ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .board-empty__column-name {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-empty__column-count {
+        flex-shrink: 0;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .board-empty__empty-column-note {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .board-empty__empty-text {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .board-empty__accepted-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .status-glyph-accepted {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__disc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .board-empty__replaced-or-rejected-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .status-glyph-replaced {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-replaced__ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-replaced__arrow {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected__ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-rejected__cross {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board-empty">
+      <div class="top-bar" data-instance-of="top-bar">
+        <div class="top-bar__brand">
+          <div class="top-bar__logo-mark">
+            <svg class="top-bar__logo-check" viewBox="0 0 20 20" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.5 10.2 L8.6 13.2 L14.5 7" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <p class="top-bar__product-name">Decision Board</p>
+          <p class="top-bar__divider">/</p>
+          <div class="top-bar__project-picker">
+            <p class="top-bar__project-name">patient-portal</p>
+            <svg class="top-bar__picker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+          </div>
+        </div>
+        <div class="top-bar__top-actions">
+          <button class="button-ghost" type="button" data-instance-of="button-ghost">
+            <svg class="button-ghost__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+            <span class="button-ghost__label">Import decisions</span>
+          </button>
+          <button class="button-agent-inbox" type="button" data-instance-of="button-agent-inbox">
+            <svg class="button-agent-inbox__inbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+            <span class="button-agent-inbox__label">Agent inbox</span>
+          </button>
+          <button class="icon-button" type="button" data-instance-of="icon-button">
+            <svg class="icon-button__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Switch to dark mode"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+          </button>
+        </div>
+      </div>
+      <main class="board-empty__main">
+        <div class="board-empty__empty-intro">
+          <h1 class="board-empty__empty-title">No decisions yet</h1>
+          <p class="board-empty__empty-body">When a coding agent makes a choice, it writes a one-line card here for you to review. Nothing to do until then.</p>
+          <div class="board-empty__empty-actions">
+            <button class="button-primary" type="button" data-instance-of="button-primary">
+              <svg class="button-primary__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+              <span class="button-primary__label">Import decisions</span>
+            </button>
+          </div>
+        </div>
+        <div class="board-empty__columns">
+          <div class="board-empty__needs-review-column">
+            <div class="board-empty__column-header">
+              <div class="board-empty__column-glyphs">
+                <div class="status-glyph-proposed" data-instance-of="status-glyph-proposed">
+                  <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-empty__column-name">Needs review</p>
+              <p class="board-empty__column-count">0</p>
+            </div>
+            <div class="board-empty__empty-column-note">
+              <p class="board-empty__empty-text">New cards wait here for you. The ones marked Needs you come first.</p>
+            </div>
+          </div>
+          <div class="board-empty__accepted-column">
+            <div class="board-empty__column-header">
+              <div class="board-empty__column-glyphs">
+                <div class="status-glyph-accepted" data-instance-of="status-glyph-accepted">
+                  <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-empty__column-name">Accepted</p>
+              <p class="board-empty__column-count">0</p>
+            </div>
+            <div class="board-empty__empty-column-note">
+              <p class="board-empty__empty-text">Decisions you accept go here. Agents follow them.</p>
+            </div>
+          </div>
+          <div class="board-empty__replaced-or-rejected-column">
+            <div class="board-empty__column-header">
+              <div class="board-empty__column-glyphs">
+                <div class="status-glyph-replaced" data-instance-of="status-glyph-replaced">
+                  <svg class="status-glyph-replaced__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-replaced__arrow" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5 8 H10.6 M8.4 5.8 L10.6 8 L8.4 10.2" fill="none" stroke="#8a6ad8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+                <div class="status-glyph-rejected" data-instance-of="status-glyph-rejected">
+                  <svg class="status-glyph-rejected__ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.75 A6.25 6.25 0 1 1 8 14.25 A6.25 6.25 0 1 1 8 1.75 Z" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                  <svg class="status-glyph-rejected__cross" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.8 5.8 L10.2 10.2 M10.2 5.8 L5.8 10.2" fill="none" stroke="#cf4436" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="board-empty__column-name">Replaced or rejected</p>
+              <p class="board-empty__column-count">0</p>
+            </div>
+            <div class="board-empty__empty-column-note">
+              <p class="board-empty__empty-text">Decisions you turn down, or newer ones replace, move here.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

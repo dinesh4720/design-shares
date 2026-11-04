@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>File row</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--raised);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-s: 13px;
+        --text-m: 14px;
+        --space-s: 12px;
+        --space-m: 16px;
+      }
+
+      :root, [data-mode] {
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+      }
+
+      [data-mode="dark"] {
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+      }
+
+      .file-row {
+        display: flex;
+        align-items: flex-start;
+        width: 880px;
+        background-color: var(--raised);
+        box-shadow: inset 0 1px 0 0 var(--line);
+      }
+
+      .file-row__path-cell {
+        display: flex;
+        align-items: flex-start;
+        padding: var(--space-s) var(--space-m);
+        width: 320px;
+        flex-shrink: 0;
+      }
+
+      .file-row__file-path {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-s);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .file-row__change-cell {
+        display: flex;
+        align-items: flex-start;
+        padding: var(--space-s) var(--space-m);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .file-row__file-change {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="file-row" data-component="file-row">
+      <div class="file-row__path-cell">
+        <p class="file-row__file-path">src/cache/patients.ts</p>
+      </div>
+      <div class="file-row__change-cell">
+        <p class="file-row__file-change">Read-through cache</p>
+      </div>
+    </div>
+  </body>
+</html>

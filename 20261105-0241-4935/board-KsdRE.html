@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Section header</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-s: 13px;
+        --text-xl: 20px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --radius-m: 8px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --ink: #23221e;
+        --muted: #646462;
+      }
+
+      [data-mode="dark"] {
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 880px;
+      }
+
+      .section-header__section-title {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-xl);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .discuss-button {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        border-radius: var(--radius-m);
+      }
+
+      .discuss-button__chat-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .discuss-button__label {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="section-header" data-component="section-header">
+      <h1 class="section-header__section-title">How it works</h1>
+      <section class="discuss-button" data-instance-of="discuss-button">
+        <svg class="discuss-button__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+        <p class="discuss-button__label">Discuss</p>
+      </section>
+    </section>
+  </body>
+</html>

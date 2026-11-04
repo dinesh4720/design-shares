@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flow legend</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --space-xs: 8px;
+        --space-m: 16px;
+        --radius-s: 6px;
+        --radius-full: 999px;
+        --icon-s: 16px;
+      }
+
+      :root, [data-mode] {
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+        --muted: #646462;
+        --primary: #23221e;
+        --highlight: #fef9c3;
+        --highlight-line: #d9bd2b;
+      }
+
+      [data-mode="dark"] {
+        --sunken: #161513;
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --primary: #f2f1ed;
+        --highlight: #3b3517;
+        --highlight-line: #8f7a1f;
+      }
+
+      .flow-legend {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: flex-start;
+        row-gap: var(--space-xs);
+        column-gap: var(--space-m);
+        width: 816px;
+      }
+
+      .flow-legend__who-starts-it-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .flow-legend__who-swatch {
+        width: 20px;
+        height: 12px;
+        background-color: var(--sunken);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .flow-legend__key-label {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .flow-legend__step-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .flow-legend__step-swatch {
+        width: 20px;
+        height: 12px;
+        background-color: var(--raised);
+        border-radius: var(--radius-s);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .flow-legend__key-label-2 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .flow-legend__check-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .diamond-glyph {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .diamond-glyph__diamond {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .flow-legend__key-label-3 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .flow-legend__data-store-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .flow-legend__store-swatch {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--ink);
+        stroke-width: 1.5;
+      }
+
+      .flow-legend__key-label-4 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .flow-legend__result-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .flow-legend__result-swatch {
+        width: 20px;
+        height: 12px;
+        background-color: var(--primary);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 0 0 1px var(--primary);
+      }
+
+      .flow-legend__key-label-5 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .flow-legend__new-in-this-decision-key {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .flow-legend__new-swatch {
+        width: 20px;
+        height: 12px;
+        background-color: var(--highlight);
+        border-radius: var(--radius-s);
+        box-shadow: inset 0 0 0 1px var(--highlight-line);
+      }
+
+      .flow-legend__key-label-6 {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flow-legend" data-component="flow-legend">
+      <div class="flow-legend__who-starts-it-key">
+        <div class="flow-legend__who-swatch"></div>
+        <p class="flow-legend__key-label">Who starts it</p>
+      </div>
+      <div class="flow-legend__step-key">
+        <div class="flow-legend__step-swatch"></div>
+        <p class="flow-legend__key-label-2">Step</p>
+      </div>
+      <div class="flow-legend__check-key">
+        <div class="diamond-glyph" data-instance-of="diamond-glyph">
+          <svg class="diamond-glyph__diamond" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 L14.5 8 L8 14.5 L1.5 8 Z" fill="none" stroke="#23221e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+        <p class="flow-legend__key-label-3">Check</p>
+      </div>
+      <div class="flow-legend__data-store-key">
+        <svg class="flow-legend__store-swatch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+        <p class="flow-legend__key-label-4">Data store</p>
+      </div>
+      <div class="flow-legend__result-key">
+        <div class="flow-legend__result-swatch"></div>
+        <p class="flow-legend__key-label-5">Result</p>
+      </div>
+      <div class="flow-legend__new-in-this-decision-key">
+        <div class="flow-legend__new-swatch"></div>
+        <p class="flow-legend__key-label-6">New in this decision</p>
+      </div>
+    </div>
+  </body>
+</html>

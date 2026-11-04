@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Status pill / Proposed</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--proposed-soft);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --radius-full: 999px;
+      }
+
+      :root, [data-mode] {
+        --proposed-soft: #ebf1fd;
+        --proposed-ink: #2552b7;
+      }
+
+      [data-mode="dark"] {
+        --proposed-soft: #30353c;
+        --proposed-ink: #9ebdff;
+      }
+
+      .status-pill-proposed {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        width: fit-content;
+        background-color: var(--proposed-soft);
+        border-radius: var(--radius-full);
+      }
+
+      .status-glyph-proposed {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-proposed__dashed-ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-pill-proposed__label {
+        color: var(--proposed-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="status-pill-proposed" data-component="status-pill-proposed">
+      <div class="status-glyph-proposed" data-instance-of="status-glyph-proposed">
+        <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </div>
+      <p class="status-pill-proposed__label">Proposed</p>
+    </div>
+  </body>
+</html>

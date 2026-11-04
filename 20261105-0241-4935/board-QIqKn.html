@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Button / Accepted state</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--accepted-soft);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-s: 13px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --radius-m: 8px;
+      }
+
+      :root, [data-mode] {
+        --accepted-soft: #ebf4ef;
+        --accepted-ink: #006d45;
+      }
+
+      [data-mode="dark"] {
+        --accepted-soft: #2d392e;
+        --accepted-ink: #77d4a4;
+      }
+
+      .button-accepted-state {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        width: fit-content;
+        height: 32px;
+        background-color: var(--accepted-soft);
+        border-radius: var(--radius-m);
+      }
+
+      .status-glyph-accepted {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__disc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-accepted__check {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .button-accepted-state__label {
+        color: var(--accepted-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="button-accepted-state" type="button" data-component="button-accepted-state">
+      <span class="status-glyph-accepted" data-instance-of="status-glyph-accepted">
+        <svg class="status-glyph-accepted__disc" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8 1.5 A6.5 6.5 0 1 1 8 14.5 A6.5 6.5 0 1 1 8 1.5 Z" fill="#1f9463" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+        <svg class="status-glyph-accepted__check" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.2 8.2 L7.2 10.1 L10.9 6.1" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </span>
+      <span class="button-accepted-state__label">Accepted</span>
+    </button>
+  </body>
+</html>

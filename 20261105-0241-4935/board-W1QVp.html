@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat message / You</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-m: 14px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --radius-s: 6px;
+        --radius-l: 12px;
+      }
+
+      :root, [data-mode] {
+        --sunken: #f7f6f4;
+        --ink: #23221e;
+      }
+
+      [data-mode="dark"] {
+        --sunken: #161513;
+        --ink: #f2f1ed;
+      }
+
+      .chat-message-you {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 400px;
+      }
+
+      .chat-message-you__bubble {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-xs) var(--space-s);
+        flex-shrink: 0;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l) var(--radius-l) var(--radius-s) var(--radius-l);
+      }
+
+      .chat-message-you__message-text {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.5;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-message-you" data-component="chat-message-you">
+      <div class="chat-message-you__bubble">
+        <p class="chat-message-you__message-text">What could go wrong here?</p>
+      </div>
+    </div>
+  </body>
+</html>

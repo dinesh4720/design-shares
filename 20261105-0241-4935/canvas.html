@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untitled 3 · canvas</title>
+<style>
+  :root { color-scheme: light dark; --canvas: #e9e9e9; --panel: #fff; --line: #e2e2e2; --text: #1a1a1a; --muted: #6b6b6b; --label: #6b6b6b; }
+  @media (prefers-color-scheme: dark) { :root { --canvas: #161616; --panel: #1e1e1e; --line: #2e2e2e; --text: #ececec; --muted: #a1a1a1; --label: #9a9a9a; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: var(--page, var(--canvas)); font: 12px/1.3 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  body.dragging { cursor: grabbing; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .board { position: absolute; }
+  .board iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; background: transparent; }
+  .board .name { position: absolute; left: 0; bottom: 100%; padding-bottom: 4px; transform: scale(var(--inv, 1)); transform-origin: 0 100%; white-space: nowrap; max-width: calc(var(--w) * 1px / var(--inv, 1)); overflow: hidden; text-overflow: ellipsis; color: var(--label); font-size: 12px; }
+  .board:hover .name { color: var(--text); }
+  .bar { position: fixed; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line), 0 4px 16px rgba(0,0,0,.08); cursor: default; }
+  .bar[hidden] { display: none; }
+  .zoom { right: 12px; bottom: 12px; }
+  .pages { left: 12px; top: 12px; }
+  .bar button, .bar select { height: 28px; min-width: 28px; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: var(--text); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .bar button:hover, .bar select:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+  #pct { min-width: 48px; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="world"></div>
+<div class="bar pages" id="pagebar" hidden><select id="page" aria-label="Page"></select></div>
+<div class="bar zoom" role="group" aria-label="Zoom">
+  <button type="button" id="out" aria-label="Zoom out">−</button>
+  <button type="button" id="pct" title="Zoom to 100%">100%</button>
+  <button type="button" id="in" aria-label="Zoom in">+</button>
+  <button type="button" id="fit" title="See everything (F)">Fit</button>
+</div>
+<script type="application/json" id="pages">[{"id":"page-1","name":"Page 1","color":"#101317","boards":[{"file":"board-xQ32U.html","name":"Status glyph / Proposed","x":-7234,"y":0,"w":16,"h":16},{"file":"board-ofg1q.html","name":"Status glyph / Accepted","x":-7138,"y":0,"w":16,"h":16},{"file":"board-4TOXf.html","name":"Status glyph / Rejected","x":-7042,"y":0,"w":16,"h":16},{"file":"board-7bosm.html","name":"Status glyph / Replaced","x":-6946,"y":0,"w":16,"h":16},{"file":"board-yqn0t.html","name":"Status pill / Proposed","x":8797,"y":0,"w":92,"h":24},{"file":"board-l4qDp.html","name":"Status pill / Accepted","x":8969,"y":0,"w":92,"h":24},{"file":"board-UXkO7.html","name":"Status pill / Rejected","x":9141,"y":0,"w":87,"h":24},{"file":"board-0ow4E.html","name":"Status pill / Replaced","x":-7620,"y":56,"w":90,"h":24},{"file":"board-1QuF7.html","name":"Needs you badge","x":-7450,"y":56,"w":98,"h":24},{"file":"board-Hv1Lw.html","name":"Area tag","x":-5774,"y":56,"w":62,"h":24},{"file":"board-fUNwW.html","name":"Notes count","x":-3959,"y":56,"w":28,"h":16},{"file":"board-Qk5xz.html","name":"Button / Primary","x":-6504,"y":0,"w":93,"h":32},{"file":"board-11Oqw.html","name":"Button / Secondary","x":-6331,"y":0,"w":87,"h":32},{"file":"board-aJSwo.html","name":"Button / Ghost","x":-5226,"y":0,"w":152,"h":32},{"file":"board-PpDK6.html","name":"Button / Agent inbox","x":8566,"y":0,"w":151,"h":32},{"file":"board-QIqKn.html","name":"Button / Accepted state","x":-6820,"y":64,"w":108,"h":32},{"file":"board-EbGj3.html","name":"Discuss button","x":-6164,"y":64,"w":86,"h":24},{"file":"board-WKhHo.html","name":"Icon button","x":-5998,"y":64,"w":32,"h":32},{"file":"board-iIwsL.html","name":"Filter chip","x":-6994,"y":177,"w":74,"h":25},{"file":"board-2fuYa.html","name":"Filter chip / Selected","x":-7418,"y":177,"w":40,"h":25},{"file":"board-Da00s.html","name":"Search field","x":-6528,"y":128,"w":240,"h":32},{"file":"board-BMY9k.html","name":"Chat chip","x":-130,"y":56,"w":41,"h":24},{"file":"board-WUezQ.html","name":"Discuss icon button","x":-6632,"y":64,"w":24,"h":24},{"file":"board-vmK01.html","name":"Discussing chip","x":4000,"y":56,"w":99,"h":24},{"file":"board-8hQpo.html","name":"Decision card","x":-5626,"y":0,"w":320,"h":100},{"file":"board-fyaXe.html","name":"Decision card / Needs you","x":3040,"y":0,"w":320,"h":108},{"file":"board-KsdRE.html","name":"Section header","x":-6020,"y":498,"w":880,"h":24},{"file":"board-GPgnj.html","name":"Point block","x":10274,"y":140,"w":280,"h":66},{"file":"board-bfzUU.html","name":"Point block / Has chat","x":-6020,"y":260,"w":280,"h":87},{"file":"board-T4Spg.html","name":"Point block / Hover","x":-5660,"y":260,"w":280,"h":66},{"file":"board-qVOyj.html","name":"Point block / Discussing","x":-4000,"y":379,"w":280,"h":87},{"file":"board-ojSgd.html","name":"Picked pill","x":-7272,"y":112,"w":75,"h":24},{"file":"board-H1F4t.html","name":"Option row","x":-6020,"y":618,"w":880,"h":44},{"file":"board-17j7P.html","name":"Option row / Picked","x":8200,"y":694,"w":880,"h":76},{"file":"board-c31C0.html","name":"Option table header","x":8200,"y":554,"w":880,"h":32},{"file":"board-ovtul.html","name":"File row","x":2480,"y":866,"w":880,"h":44},{"file":"board-UcEMu.html","name":"File table header","x":-6020,"y":802,"w":880,"h":32},{"file":"board-RyT92.html","name":"Note status / Waiting","x":-5226,"y":112,"w":136,"h":24},{"file":"board-7sgHd.html","name":"Note status / Sent","x":9230,"y":112,"w":113,"h":24},{"file":"board-uIKLZ.html","name":"Note card","x":-6020,"y":1184,"w":560,"h":357},{"file":"board-Mvs1e.html","name":"Diamond glyph","x":-4768,"y":0,"w":16,"h":16},{"file":"board-qjEeo.html","name":"New tag","x":-7117,"y":112,"w":43,"h":17},{"file":"board-wUunr.html","name":"Flow box / Who starts it","x":-4672,"y":0,"w":200,"h":64},{"file":"board-vhZ6T.html","name":"Flow box / Step","x":-4392,"y":0,"w":200,"h":64},{"file":"board-oBUhh.html","name":"Flow box / Check","x":-3760,"y":0,"w":200,"h":44},{"file":"board-Z2KwE.html","name":"Flow box / Data store","x":-4960,"y":96,"w":200,"h":64},{"file":"board-R3vRt.html","name":"Flow box / Result","x":-410,"y":96,"w":200,"h":64},{"file":"board-DuSdr.html","name":"Flow box / Step · New","x":2480,"y":96,"w":200,"h":89},{"file":"board-9qC8d.html","name":"Flow box / Data store · New","x":2760,"y":96,"w":200,"h":89},{"file":"board-QacmF.html","name":"Flow arrow / Right","x":-4680,"y":217,"w":56,"h":12},{"file":"board-VGIZm.html","name":"Flow arrow / Down","x":-4408,"y":217,"w":20,"h":48},{"file":"board-p1Goq.html","name":"Flow arrow / Up","x":-4056,"y":217,"w":20,"h":48},{"file":"board-XGhZh.html","name":"Flow arrow / Right · Yes","x":-4544,"y":217,"w":56,"h":32},{"file":"board-4UtIO.html","name":"Flow arrow / Down · If not","x":-4308,"y":217,"w":50,"h":48},{"file":"board-CfyYK.html","name":"Flow arrow / Down · Yes","x":-4178,"y":217,"w":42,"h":48},{"file":"board-AfvkA.html","name":"Flow legend","x":2480,"y":297,"w":816,"h":16},{"file":"board-W1QVp.html","name":"Chat message / You","x":7680,"y":97,"w":400,"h":37},{"file":"board-zqiaj.html","name":"Chat message / Claude","x":8750,"y":166,"w":400,"h":41},{"file":"board-ZDa7J.html","name":"Starter question","x":-3900,"y":239,"w":201,"h":33},{"file":"board-MCq6g.html","name":"Send button","x":-5886,"y":64,"w":32,"h":32},{"file":"board-xl4uz.html","name":"Stop button","x":-4112,"y":64,"w":73,"h":32},{"file":"board-s5aqi.html","name":"Chat composer","x":4120,"y":304,"w":400,"h":85},{"file":"board-OHVth.html","name":"Summarize for agent button","x":10634,"y":192,"w":400,"h":40},{"file":"board-grigO.html","name":"Discussed point","x":3520,"y":0,"w":400,"h":65},{"file":"board-xLp9D.html","name":"Top bar","x":9874,"y":0,"w":1440,"h":56},{"file":"board-PVlQp.html","name":"Phone status bar","x":4120,"y":176,"w":390,"h":48},{"file":"board-CVcIK.html","name":"Phone home indicator","x":8280,"y":176,"w":390,"h":32},{"file":"board-Feruy.html","name":"Board · Desktop","x":0,"y":0,"w":1440,"h":1024},{"file":"board-DoOkd.html","name":"Decision header","x":11394,"y":88,"w":1440,"h":56},{"file":"board-Hy4Ul.html","name":"Decision document · D-018","x":1520,"y":0,"w":880,"h":2283},{"file":"board-AxhKV.html","name":"Decision page · Desktop","x":-3450,"y":0,"w":1440,"h":2451},{"file":"board-qQYbp.html","name":"Discussion panel","x":7680,"y":421,"w":440,"h":968},{"file":"board-svAm8.html","name":"Discussion panel / Empty","x":3080,"y":1421,"w":440,"h":968},{"file":"board-VB2cZ.html","name":"Agent inbox panel","x":3520,"y":176,"w":520,"h":992},{"file":"board-2L45z.html","name":"Discussion · Desktop","x":-1930,"y":0,"w":1440,"h":1024},{"file":"board-gGTMj.html","name":"Agent inbox · Desktop","x":4620,"y":0,"w":1440,"h":1024},{"file":"board-lEgaX.html","name":"Option card","x":-6020,"y":942,"w":358,"h":108},{"file":"board-dR7hb.html","name":"Option card / Picked","x":-5582,"y":942,"w":358,"h":112},{"file":"board-guDNu.html","name":"File item","x":-5144,"y":1086,"w":358,"h":66},{"file":"board-fVl4z.html","name":"Decision document · D-018 · Phone","x":9436,"y":0,"w":358,"h":3017},{"file":"board-sps5t.html","name":"Tab pill","x":12914,"y":112,"w":96,"h":33},{"file":"board-Kei4F.html","name":"Tab pill / Selected","x":-7620,"y":177,"w":122,"h":33},{"file":"board-8b97g.html","name":"Board · Phone","x":0,"y":5400,"w":390,"h":844},{"file":"board-kPNYh.html","name":"Decision page · Phone","x":490,"y":5400,"w":390,"h":844},{"file":"board-8NZbG.html","name":"Decision page · Phone · full length","x":-2980,"y":5400,"w":390,"h":3265},{"file":"board-J0xyf.html","name":"Discussion · Phone","x":-3450,"y":5400,"w":390,"h":844},{"file":"board-6xIeV.html","name":"Discussion · Phone · Empty","x":1470,"y":5400,"w":390,"h":844},{"file":"board-2fJjl.html","name":"Agent inbox · Phone","x":1960,"y":5400,"w":390,"h":844},{"file":"board-MuWmg.html","name":"Decision page · Card only · Desktop","x":6160,"y":0,"w":1440,"h":1024},{"file":"board-c9hyg.html","name":"Card skeleton","x":9874,"y":140,"w":320,"h":88},{"file":"board-MarLN.html","name":"Board · Empty","x":0,"y":9800,"w":1440,"h":1024},{"file":"board-kz0rd.html","name":"Board · Loading","x":1540,"y":9800,"w":1440,"h":1024},{"file":"board-W83KN.html","name":"Note skeleton","x":-5380,"y":1573,"w":472,"h":168},{"file":"board-moICA.html","name":"Agent inbox panel / Empty","x":506,"y":1200,"w":520,"h":992},{"file":"board-FSiuQ.html","name":"Agent inbox panel / Loading","x":2480,"y":1200,"w":520,"h":992},{"file":"board-qrtC2.html","name":"Agent inbox · Empty","x":3080,"y":9800,"w":1440,"h":1024},{"file":"board-HUHy7.html","name":"Agent inbox · Loading","x":4620,"y":9800,"w":1440,"h":1024},{"file":"board-qCCVC.html","name":"Flow pattern · Before and After","x":-4960,"y":345,"w":880,"h":526},{"file":"board-tvqzU.html","name":"Board · Desktop · Dark","x":-2834,"y":2700,"w":1440,"h":1024},{"file":"board-a5dDC.html","name":"Decision page · Desktop · Dark","x":3356,"y":2700,"w":1440,"h":2451},{"file":"board-HCqow.html","name":"Discussion · Desktop · Dark","x":4876,"y":2700,"w":1440,"h":1024},{"file":"board-PFWuB.html","name":"Agent inbox · Desktop · Dark","x":6396,"y":2700,"w":1440,"h":1024},{"file":"board-QkLML.html","name":"Decision page · Card only · Desktop · Dark","x":7916,"y":2700,"w":1440,"h":1024},{"file":"board-sY9XH.html","name":"Board · Phone · Dark","x":0,"y":6450,"w":390,"h":844},{"file":"board-2iyUz.html","name":"Decision page · Phone · Dark","x":490,"y":6450,"w":390,"h":844},{"file":"board-yfxtx.html","name":"Discussion · Phone · Dark","x":980,"y":6450,"w":390,"h":844},{"file":"board-MluAz.html","name":"Discussion · Phone · Empty · Dark","x":1470,"y":6450,"w":390,"h":844},{"file":"board-8jLFG.html","name":"Agent inbox · Phone · Dark","x":1960,"y":6450,"w":390,"h":844},{"file":"board-L4AZE.html","name":"Decision page · Phone · full length · Dark","x":-2510,"y":5400,"w":390,"h":3265},{"file":"board-0nnnk.html","name":"Label · Desktop · Light","x":-410,"y":-80,"w":196,"h":34},{"file":"board-q7Qwl.html","name":"Label · Desktop · Dark","x":0,"y":2620,"w":193,"h":34},{"file":"board-gAj0n.html","name":"Label · Phone · Light","x":-2040,"y":5320,"w":172,"h":34},{"file":"board-5YDc0.html","name":"Label · Phone · Dark","x":-3450,"y":6370,"w":168,"h":34},{"file":"board-pFka9.html","name":"Label · Phone · full length","x":2600,"y":5320,"w":240,"h":34},{"file":"board-rIYiC.html","name":"Label · States: empty and loading","x":-3450,"y":9720,"w":340,"h":34},{"file":"board-7r5zs.html","name":"Label · Decision documents","x":4120,"y":-80,"w":261,"h":34},{"file":"board-ZUuh8.html","name":"Label · Panels and bars","x":8280,"y":-80,"w":206,"h":34},{"file":"board-xyBEv.html","name":"Label · Chat","x":-3900,"y":-80,"w":60,"h":34},{"file":"board-aylCJ.html","name":"Label · Diagram","x":-4960,"y":-80,"w":112,"h":34},{"file":"board-GbwZq.html","name":"Label · Cards, points and tables","x":-6020,"y":-80,"w":314,"h":34},{"file":"board-3VkOw.html","name":"Label · Buttons and fields","x":-6820,"y":-80,"w":236,"h":34},{"file":"board-Gf9nS.html","name":"Label · Status, tags and badges","x":-7620,"y":-80,"w":306,"h":34},{"file":"board-Sabvi.html","name":"Decision Board · Prototype","x":-1930,"y":1104,"w":1440,"h":1024}]},{"id":"page-mw2m3i5edxq","name":"Prototype","color":"#101317","boards":[{"file":"board-8lZGd.html","name":"Decision Board · Prototype","x":-720,"y":-512,"w":1440,"h":1024}]}]</script>
+<script>
+(function () {
+  var pages = JSON.parse(document.getElementById("pages").textContent);
+  var world = document.getElementById("world");
+  var pct = document.getElementById("pct");
+  var view = { s: 1, x: 0, y: 0 };
+  var current = 0;
+  var MIN = 0.02, MAX = 8;
+  function apply() {
+    world.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
+    world.style.setProperty("--inv", String(1 / view.s));
+    pct.textContent = Math.round(view.s * 100) + "%";
+  }
+  function zoomAt(s, cx, cy) {
+    moved = true;
+    s = Math.min(MAX, Math.max(MIN, s));
+    view.x = cx - (cx - view.x) * (s / view.s);
+    view.y = cy - (cy - view.y) * (s / view.s);
+    view.s = s;
+    apply();
+  }
+  // Until someone moves the view, it keeps everything in sight (the frame
+  // this shows in can have no size yet when it starts).
+  var moved = false;
+  function fit() {
+    if (innerWidth < 40 || innerHeight < 40) return requestAnimationFrame(fit);
+    var boards = pages[current].boards;
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    boards.forEach(function (b) { x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); });
+    var pad = 64, w = innerWidth - pad * 2, h = innerHeight - pad * 2;
+    var s = Math.min(1, w / (x1 - x0), h / (y1 - y0));
+    view.s = Math.max(MIN, s);
+    view.x = (innerWidth - (x1 - x0) * view.s) / 2 - x0 * view.s;
+    view.y = (innerHeight - (y1 - y0) * view.s) / 2 - y0 * view.s;
+    apply();
+  }
+  function show(i) {
+    current = i;
+    var page = pages[i];
+    document.body.style.setProperty("--page", page.color || "");
+    if (!page.color) document.body.style.removeProperty("--page");
+    world.textContent = "";
+    page.boards.forEach(function (b) {
+      var box = document.createElement("div");
+      box.className = "board";
+      box.style.left = b.x + "px"; box.style.top = b.y + "px";
+      box.style.width = b.w + "px"; box.style.height = b.h + "px";
+      box.style.setProperty("--w", String(b.w));
+      box.dataset.file = b.file;
+      var name = document.createElement("div");
+      name.className = "name";
+      name.textContent = b.name;
+      var frame = document.createElement("iframe");
+      frame.src = b.file;
+      frame.title = b.name || "Board";
+      frame.setAttribute("tabindex", "-1");
+      box.appendChild(name);
+      box.appendChild(frame);
+      world.appendChild(box);
+    });
+    fit();
+  }
+  // Moving around: drag (one finger), pinch (two), scroll and ⌘/Ctrl-scroll.
+  var pointers = new Map(), last;
+  addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".bar")) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    document.body.setPointerCapture(e.pointerId);
+    document.body.classList.add("dragging");
+    last = undefined;
+  });
+  addEventListener("pointermove", function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    var before = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      moved = true; view.x += e.clientX - before.x; view.y += e.clientY - before.y; apply();
+    } else if (pointers.size === 2) {
+      var p = Array.from(pointers.values());
+      var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), mx = (p[0].x + p[1].x) / 2, my = (p[0].y + p[1].y) / 2;
+      if (last) { view.x += mx - last.mx; view.y += my - last.my; zoomAt(view.s * d / last.d, mx, my); }
+      last = { d: d, mx: mx, my: my };
+    }
+  });
+  function up(e) { pointers.delete(e.pointerId); last = undefined; if (!pointers.size) document.body.classList.remove("dragging"); }
+  addEventListener("pointerup", up);
+  addEventListener("pointercancel", up);
+  addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (e.ctrlKey || e.metaKey) zoomAt(view.s * Math.exp(-e.deltaY * (e.ctrlKey && !e.metaKey ? 0.01 : 0.002)), e.clientX, e.clientY);
+    else { moved = true; view.x -= e.deltaX; view.y -= e.deltaY; apply(); }
+  }, { passive: false });
+  addEventListener("dblclick", function (e) {
+    var box = e.target.closest && e.target.closest(".board");
+    if (box) window.open(box.dataset.file, "_blank", "noopener");
+  });
+  function centre(s) { zoomAt(s, innerWidth / 2, innerHeight / 2); }
+  document.getElementById("in").onclick = function () { centre(view.s * 1.25); };
+  document.getElementById("out").onclick = function () { centre(view.s / 1.25); };
+  document.getElementById("pct").onclick = function () { centre(1); };
+  document.getElementById("fit").onclick = function () { fit(); moved = false; };
+  addEventListener("keydown", function (e) {
+    if (e.target.tagName === "SELECT") return;
+    if (e.key === "+" || e.key === "=") centre(view.s * 1.25);
+    else if (e.key === "-" || e.key === "_") centre(view.s / 1.25);
+    else if (e.key === "f" || e.key === "F" || (e.key === "1" && e.shiftKey)) fit();
+    else if (e.key === "0") centre(1);
+  });
+  addEventListener("resize", function () { if (moved) apply(); else fit(); });
+  // Pages, when there's more than one.
+  var select = document.getElementById("page");
+  pages.forEach(function (p, i) { var o = document.createElement("option"); o.value = String(i); o.textContent = p.name; select.appendChild(o); });
+  if (pages.length > 1) document.getElementById("pagebar").hidden = false;
+  select.onchange = function () { show(Number(select.value)); };
+  show(0);
+})();
+</script>
+</body>
+</html>

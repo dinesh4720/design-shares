@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agent inbox panel / Empty</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--raised);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --text-s: 13px;
+        --text-m: 14px;
+        --text-xl: 20px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-m: 16px;
+        --space-l: 24px;
+        --space-2xl: 48px;
+        --radius-m: 8px;
+        --radius-full: 999px;
+        --icon-s: 16px;
+        --icon-m: 20px;
+      }
+
+      :root, [data-mode] {
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --ink: #23221e;
+        --muted: #646462;
+        --accepted-soft: #ebf4ef;
+        --accepted-ink: #006d45;
+      }
+
+      [data-mode="dark"] {
+        --sunken: #161513;
+        --raised: #262521;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --accepted-soft: #2d392e;
+        --accepted-ink: #77d4a4;
+      }
+
+      .agent-inbox-panel-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 520px;
+        height: 992px;
+        background-color: var(--raised);
+      }
+
+      .agent-inbox-panel-empty__inbox-header {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: var(--space-m) var(--space-s) var(--space-m) var(--space-l);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .agent-inbox-panel-empty__inbox-title-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xs);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .agent-inbox-panel-empty__inbox-title {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-xl);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .agent-inbox-panel-empty__inbox-subtitle {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: var(--radius-m);
+      }
+
+      .icon-button__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        flex-shrink: 0;
+        color: var(--ink);
+        stroke-width: 1.5;
+      }
+
+      .agent-inbox-panel-empty__inbox-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-l);
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+        background-color: var(--sunken);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .agent-inbox-panel-empty__inbox-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-s);
+        padding: var(--space-2xl) var(--space-xs);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .agent-inbox-panel-empty__empty-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--accepted-soft);
+        border-radius: var(--radius-full);
+      }
+
+      .agent-inbox-panel-empty__done-icon {
+        width: var(--icon-m);
+        height: var(--icon-m);
+        flex-shrink: 0;
+        color: var(--accepted-ink);
+        stroke-width: 1.5;
+      }
+
+      .agent-inbox-panel-empty__empty-title {
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-xl);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .agent-inbox-panel-empty__empty-body {
+        align-self: stretch;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .agent-inbox-panel-empty__empty-meta {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="agent-inbox-panel-empty" data-component="agent-inbox-panel-empty" data-instance-of="agent-inbox-panel">
+      <header class="agent-inbox-panel-empty__inbox-header">
+        <div class="agent-inbox-panel-empty__inbox-title-group">
+          <h1 class="agent-inbox-panel-empty__inbox-title">Agent inbox</h1>
+          <p class="agent-inbox-panel-empty__inbox-subtitle">All caught up</p>
+        </div>
+        <button class="icon-button" type="button" data-instance-of="icon-button">
+          <svg class="icon-button__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Close inbox (Esc)"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </header>
+      <div class="agent-inbox-panel-empty__inbox-list">
+        <div class="agent-inbox-panel-empty__inbox-empty">
+          <div class="agent-inbox-panel-empty__empty-icon">
+            <svg class="agent-inbox-panel-empty__done-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg>
+          </div>
+          <h2 class="agent-inbox-panel-empty__empty-title">Nothing waiting for the agent</h2>
+          <p class="agent-inbox-panel-empty__empty-body">Notes from your discussions show up here. Copy them to the agent, then mark them as sent.</p>
+          <p class="agent-inbox-panel-empty__empty-meta">Last note sent on Nov 4</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

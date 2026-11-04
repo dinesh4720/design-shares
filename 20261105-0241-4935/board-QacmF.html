@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flow arrow / Right</title>
+    <style>
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --space-2xs: 4px;
+      }
+
+      :root, [data-mode] {
+        --muted: #646462;
+      }
+
+      [data-mode="dark"] {
+        --muted: #a8a7a1;
+      }
+
+      .flow-arrow-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-2xs);
+        width: 56px;
+      }
+
+      .flow-arrow-right__arrow-line {
+        display: flex;
+        align-items: center;
+        height: 12px;
+        align-self: stretch;
+      }
+
+      .flow-arrow-right__shaft {
+        height: 1.5px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: var(--muted);
+      }
+
+      .flow-arrow-right__head {
+        width: 8px;
+        height: 12px;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flow-arrow-right" data-component="flow-arrow-right">
+      <div class="flow-arrow-right__arrow-line">
+        <div class="flow-arrow-right__shaft"></div>
+        <svg class="flow-arrow-right__head" viewBox="0 0 8 12" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1 1 L6.5 6 L1 11" fill="none" stroke="#646462" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </div>
+    </div>
+  </body>
+</html>

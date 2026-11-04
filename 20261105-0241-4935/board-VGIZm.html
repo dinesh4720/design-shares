@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flow arrow / Down</title>
+    <style>
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --space-xs: 8px;
+      }
+
+      :root, [data-mode] {
+        --muted: #646462;
+      }
+
+      [data-mode="dark"] {
+        --muted: #a8a7a1;
+      }
+
+      .flow-arrow-down {
+        display: flex;
+        align-items: stretch;
+        gap: var(--space-xs);
+        width: fit-content;
+        height: 48px;
+      }
+
+      .flow-arrow-down__arrow-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 12px;
+      }
+
+      .flow-arrow-down__shaft {
+        width: 1.5px;
+        flex: 1 1 0;
+        min-height: 0;
+        background-color: var(--muted);
+      }
+
+      .flow-arrow-down__head {
+        width: 12px;
+        height: 8px;
+        flex-shrink: 0;
+      }
+
+      .flow-arrow-down__label-slot {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 0;
+        height: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flow-arrow-down" data-component="flow-arrow-down">
+      <div class="flow-arrow-down__arrow-line">
+        <div class="flow-arrow-down__shaft"></div>
+        <svg class="flow-arrow-down__head" viewBox="0 0 12 8" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M1 1 L6 6.5 L11 1" fill="none" stroke="#646462" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </div>
+      <div class="flow-arrow-down__label-slot"></div>
+    </div>
+  </body>
+</html>

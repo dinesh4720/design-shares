@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Decision page · Card only · Desktop</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --text-xs: 12px;
+        --text-s: 13px;
+        --text-m: 14px;
+        --text-l: 16px;
+        --text-xl: 20px;
+        --text-2xl: 28px;
+        --text-3xl: 36px;
+        --space-2xs: 4px;
+        --space-xs: 8px;
+        --space-s: 12px;
+        --space-m: 16px;
+        --space-l: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+        --radius-s: 6px;
+        --radius-m: 8px;
+        --radius-l: 12px;
+        --radius-full: 999px;
+        --icon-s: 16px;
+        --icon-m: 20px;
+      }
+
+      :root, [data-mode] {
+        --bg: #ffffff;
+        --sunken: #f7f6f4;
+        --raised: #ffffff;
+        --line: #e5e4e3;
+        --ink: #23221e;
+        --muted: #646462;
+        --primary: #23221e;
+        --on-primary: #ffffff;
+        --attention: #c4441c;
+        --on-attention: #ffffff;
+        --attention-soft: #fdeee9;
+        --attention-ink: #a02b00;
+        --highlight: #fef9c3;
+        --highlight-line: #d9bd2b;
+        --proposed-soft: #ebf1fd;
+        --proposed-ink: #2552b7;
+      }
+
+      [data-mode="dark"] {
+        --bg: #1b1a17;
+        --sunken: #161513;
+        --raised: #262521;
+        --line: #34332e;
+        --ink: #f2f1ed;
+        --muted: #a8a7a1;
+        --primary: #f2f1ed;
+        --on-primary: #1b1a17;
+        --attention: #f0683f;
+        --on-attention: #1b1a17;
+        --attention-soft: #412e25;
+        --attention-ink: #ffa287;
+        --highlight: #3b3517;
+        --highlight-line: #8f7a1f;
+        --proposed-soft: #30353c;
+        --proposed-ink: #9ebdff;
+      }
+
+      .decision-page-card-only-desktop {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1440px;
+        height: 1024px;
+        background-color: var(--bg);
+        overflow: hidden;
+      }
+
+      .decision-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 var(--space-xl);
+        height: 56px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--bg);
+        box-shadow: inset 0 -1px 0 0 var(--line);
+      }
+
+      .decision-header__header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        flex-shrink: 0;
+      }
+
+      .button-ghost {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        border-radius: var(--radius-m);
+      }
+
+      .button-ghost__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-ghost__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .decision-header__esc-key {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 var(--space-2xs);
+        border-radius: var(--radius-s);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .decision-header__key {
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-header__header-divider {
+        width: 1px;
+        height: 16px;
+        background-color: var(--line);
+      }
+
+      .decision-header__header-id {
+        color: var(--muted);
+        font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+        font-size: var(--text-s);
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .status-pill-proposed {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        background-color: var(--proposed-soft);
+        border-radius: var(--radius-full);
+      }
+
+      .status-glyph-proposed {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-glyph-proposed__dashed-ring {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .status-pill-proposed__label {
+        color: var(--proposed-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .area-tag {
+        display: flex;
+        align-items: center;
+        padding: var(--space-2xs) var(--space-xs);
+        background-color: var(--sunken);
+        border-radius: var(--radius-s);
+      }
+
+      .area-tag__area {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-header__header-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+      }
+
+      .button-secondary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        background-color: var(--raised);
+        border-radius: var(--radius-m);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+
+      .button-secondary__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .button-secondary__label {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .button-primary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        padding: 0 var(--space-s);
+        height: 32px;
+        background-color: var(--primary);
+        border-radius: var(--radius-m);
+      }
+
+      .button-primary__button-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--on-primary);
+        stroke-width: 1.5;
+      }
+
+      .button-primary__label {
+        color: var(--on-primary);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .decision-page-card-only-desktop__page-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-2xl) 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .decision-page-card-only-desktop__decision-document-d-024 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2xl);
+        width: 880px;
+      }
+
+      .decision-page-card-only-desktop__title-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-m);
+        align-self: stretch;
+      }
+
+      .decision-page-card-only-desktop__waiting-banner {
+        display: flex;
+        align-items: center;
+        gap: var(--space-s);
+        padding: var(--space-s) var(--space-m);
+        align-self: stretch;
+        background-color: var(--attention-soft);
+        border-radius: var(--radius-m);
+      }
+
+      .needs-you-badge {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        background-color: var(--attention);
+        border-radius: var(--radius-full);
+      }
+
+      .needs-you-badge__pause-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--on-attention);
+        stroke-width: 1.5;
+      }
+
+      .needs-you-badge__label {
+        color: var(--on-attention);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.3;
+        white-space: pre;
+      }
+
+      .decision-page-card-only-desktop__waiting-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--attention-ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-page-card-only-desktop__decision-title {
+        align-self: stretch;
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-page-card-only-desktop__decision-meta {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .decision-page-card-only-desktop__the-decision-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-m);
+        align-self: stretch;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+      }
+
+      .section-header__section-title {
+        flex-shrink: 0;
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-xl);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .discuss-button {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2xs);
+        padding: var(--space-2xs) var(--space-xs);
+        flex-shrink: 0;
+        border-radius: var(--radius-m);
+      }
+
+      .discuss-button__chat-icon {
+        width: var(--icon-s);
+        height: var(--icon-s);
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .discuss-button__label {
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-s);
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: pre;
+      }
+
+      .decision-page-card-only-desktop__decision-statement {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-l) var(--space-xl);
+        align-self: stretch;
+        background-color: var(--highlight);
+        border-radius: var(--radius-l);
+        box-shadow: inset 0 0 0 1px var(--highlight-line);
+      }
+
+      .decision-page-card-only-desktop__decision-sentence {
+        align-self: stretch;
+        color: var(--ink);
+        font-family: Charter, 'Bitstream Charter', 'Sitka Text', Georgia, serif;
+        font-size: var(--text-2xl);
+        line-height: 1.3;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-page-card-only-desktop__no-details-yet {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-m);
+        padding: var(--space-l);
+        align-self: stretch;
+        background-color: var(--sunken);
+        border-radius: var(--radius-l);
+      }
+
+      .decision-page-card-only-desktop__details-icon {
+        width: var(--icon-m);
+        height: var(--icon-m);
+        flex-shrink: 0;
+        color: var(--muted);
+        stroke-width: 1.5;
+      }
+
+      .decision-page-card-only-desktop__no-details-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .decision-page-card-only-desktop__no-details-title {
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-l);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .decision-page-card-only-desktop__no-details-body {
+        width: 560px;
+        color: var(--muted);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--text-m);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .decision-page-card-only-desktop__no-details-actions {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-xs);
+        padding: var(--space-xs) 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="decision-page-card-only-desktop" data-component="decision-page-card-only-desktop">
+      <header class="decision-header" data-instance-of="decision-header">
+        <div class="decision-header__header-left">
+          <button class="button-ghost" type="button" data-instance-of="button-ghost">
+            <svg class="button-ghost__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+            <span class="button-ghost__label">Board</span>
+          </button>
+          <div class="decision-header__esc-key">
+            <p class="decision-header__key">Esc</p>
+          </div>
+          <div class="decision-header__header-divider"></div>
+          <p class="decision-header__header-id">D-024</p>
+          <div class="status-pill-proposed" data-instance-of="status-pill-proposed">
+            <div class="status-glyph-proposed" data-instance-of="status-glyph-proposed">
+              <svg class="status-glyph-proposed__dashed-ring" viewBox="0 0 16 16" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M8.65 1.78 A6.25 6.25 0 0 1 11.93 3.14 M12.86 4.07 A6.25 6.25 0 0 1 14.22 7.35 M14.22 8.65 A6.25 6.25 0 0 1 12.86 11.93 M11.93 12.86 A6.25 6.25 0 0 1 8.65 14.22 M7.35 14.22 A6.25 6.25 0 0 1 4.07 12.86 M3.14 11.93 A6.25 6.25 0 0 1 1.78 8.65 M1.78 7.35 A6.25 6.25 0 0 1 3.14 4.07 M4.07 3.14 A6.25 6.25 0 0 1 7.35 1.78" fill="none" stroke="#3f72e0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            </div>
+            <p class="status-pill-proposed__label">Proposed</p>
+          </div>
+          <div class="area-tag" data-instance-of="area-tag">
+            <p class="area-tag__area">auth</p>
+          </div>
+        </div>
+        <div class="decision-header__header-actions">
+          <button class="button-secondary" type="button" data-instance-of="button-secondary">
+            <svg class="button-secondary__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span class="button-secondary__label">Reject</span>
+          </button>
+          <button class="button-primary" type="button" data-instance-of="button-primary">
+            <svg class="button-primary__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-primary__label">Accept</span>
+          </button>
+        </div>
+      </header>
+      <div class="decision-page-card-only-desktop__page-body">
+        <div class="decision-page-card-only-desktop__decision-document-d-024">
+          <div class="decision-page-card-only-desktop__title-block">
+            <div class="decision-page-card-only-desktop__waiting-banner">
+              <div class="needs-you-badge" data-instance-of="needs-you-badge">
+                <svg class="needs-you-badge__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="10" x2="10" y1="15" y2="9"/><line x1="14" x2="14" y1="15" y2="9"/></svg>
+                <p class="needs-you-badge__label">Needs you</p>
+              </div>
+              <p class="decision-page-card-only-desktop__waiting-text">Claude Code has stopped and is waiting for your answer.</p>
+            </div>
+            <h1 class="decision-page-card-only-desktop__decision-title">Log doctors out after 15 minutes idle</h1>
+            <p class="decision-page-card-only-desktop__decision-meta">Written by Claude Code 12 min ago</p>
+          </div>
+          <div class="decision-page-card-only-desktop__the-decision-section">
+            <div class="section-header" data-instance-of="section-header">
+              <h2 class="section-header__section-title">The decision</h2>
+              <div class="discuss-button" data-instance-of="discuss-button">
+                <svg class="discuss-button__chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                <p class="discuss-button__label">Discuss</p>
+              </div>
+            </div>
+            <div class="decision-page-card-only-desktop__decision-statement">
+              <p class="decision-page-card-only-desktop__decision-sentence">Sign doctors out of shared clinic computers after 15 minutes with no activity.</p>
+            </div>
+          </div>
+          <div class="decision-page-card-only-desktop__no-details-yet">
+            <svg class="decision-page-card-only-desktop__details-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+            <div class="decision-page-card-only-desktop__no-details-text">
+              <p class="decision-page-card-only-desktop__no-details-title">The agent wrote only the card for this one</p>
+              <p class="decision-page-card-only-desktop__no-details-body">There is no diagram or reasoning yet. Decide from the sentence above, or ask Claude what it would mean.</p>
+              <div class="decision-page-card-only-desktop__no-details-actions">
+                <button class="button-secondary" type="button" data-instance-of="button-secondary">
+                  <svg class="button-secondary__button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                  <span class="button-secondary__label">Ask Claude about it</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
