@@ -1,0 +1,4289 @@
+<!doctype html>
+<html lang="en" data-mode="light" data-accent="v2-lilac" data-theme-variant="1">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chart colour research · Page 3</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 100;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-100-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 200;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-200-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-300-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-800-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-900-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--colorNeutralBackground1);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :where(:root) {
+        --color-classic-blue-20: #071633;
+        --color-classic-blue-80: #0E4FB5;
+        --color-classic-blue-100: #73A7FF;
+        --color-classic-blue-160: #ECF2FE;
+        --color-cobalt-20: #0E1729;
+        --color-cobalt-80: #2F5398;
+        --color-cobalt-100: #7FA7F2;
+        --color-cobalt-160: #EEF2FA;
+        --color-azure-20: #081926;
+        --color-azure-80: #16588C;
+        --color-azure-100: #6CADE5;
+        --color-azure-160: #EDF3F9;
+        --color-teal-20: #071A1A;
+        --color-teal-80: #025F62;
+        --color-teal-100: #65B4B6;
+        --color-teal-160: #EDF4F4;
+        --color-cyan-20: #071922;
+        --color-cyan-80: #0D5B79;
+        --color-cyan-100: #68B0D1;
+        --color-cyan-160: #ECF3F6;
+        --color-peacock-20: #051A1F;
+        --color-peacock-80: #015E6C;
+        --color-peacock-100: #5CB4C7;
+        --color-peacock-160: #ECF3F5;
+        --color-lilac-20: #1F1323;
+        --color-lilac-80: #6D467A;
+        --color-lilac-100: #C397D5;
+        --color-lilac-160: #F5F0F6;
+        --color-orchid-20: #250E29;
+        --color-orchid-80: #842D96;
+        --color-orchid-100: #DF84F1;
+        --color-orchid-160: #F8EEF9;
+        --color-cocoa-20: #1D1517;
+        --color-cocoa-80: #6A4D57;
+        --color-cocoa-100: #BF9FAA;
+        --color-cocoa-160: #F4F1F2;
+        --color-clay-20: #24130B;
+        --color-clay-80: #7E4628;
+        --color-clay-100: #DA9876;
+        --color-clay-160: #F7F0ED;
+        --color-burnished-copper-20: #21150B;
+        --color-burnished-copper-80: #774A28;
+        --color-burnished-copper-100: #D19C76;
+        --color-burnished-copper-160: #F6F1ED;
+        --color-steel-gray-20: #15181B;
+        --color-steel-gray-80: #4C5660;
+        --color-steel-gray-100: #9DA9B4;
+        --color-steel-gray-160: #F1F2F3;
+        --color-stone-gray-20: #181714;
+        --color-stone-gray-80: #59544D;
+        --color-stone-gray-100: #ADA69D;
+        --color-stone-gray-160: #F2F2F1;
+        --color-muted-plum-20: #1D151A;
+        --color-muted-plum-80: #664B5C;
+        --color-muted-plum-100: #BE9EB2;
+        --color-muted-plum-160: #F4F1F3;
+        --color-slate-blue-20: #11181F;
+        --color-slate-blue-80: #41576D;
+        --color-slate-blue-100: #8FAAC4;
+        --color-slate-blue-160: #F0F2F5;
+        --color-denim-blue-20: #111726;
+        --color-denim-blue-80: #405389;
+        --color-denim-blue-100: #8EA6E5;
+        --color-denim-blue-160: #EFF2F8;
+        --color-deep-iris-20: #151429;
+        --color-deep-iris-80: #48418C;
+        --color-deep-iris-100: #A19EF5;
+        --color-deep-iris-160: #F1F1FA;
+        --fontSizeBase200: 12px;
+        --fontSizeBase300: 14px;
+        --fontSizeBase400: 16px;
+        --fontWeightRegular: 400;
+        --fontWeightSemibold: 600;
+        --spacingHorizontalM: 12px;
+        --spacingVerticalXS: 4px;
+        --spacingVerticalS: 8px;
+        --spacingVerticalM: 12px;
+        --borderRadiusMedium: 4px;
+        --color-v2-indigo-20: #190D40;
+        --color-v2-indigo-80: #522DB7;
+        --color-v2-indigo-100: #B398FF;
+        --color-v2-indigo-160: #F7F5FF;
+        --color-v2-iris-20: #201433;
+        --color-v2-iris-80: #7957AD;
+        --color-v2-iris-100: #DEB3FF;
+        --color-v2-iris-160: #FAF4FF;
+        --color-v2-classic-blue-20: #021643;
+        --color-v2-classic-blue-80: #1857D1;
+        --color-v2-classic-blue-100: #67ABFF;
+        --color-v2-classic-blue-160: #F1F7FF;
+        --color-v2-navy-20: #0F152D;
+        --color-v2-navy-80: #30407F;
+        --color-v2-navy-100: #A5B7F5;
+        --color-v2-navy-160: #F4F6FF;
+        --color-v2-teal-20: #002320;
+        --color-v2-teal-80: #00857A;
+        --color-v2-teal-100: #33E1D4;
+        --color-v2-teal-160: #E2FCF9;
+        --color-v2-deep-teal-20: #071A16;
+        --color-v2-deep-teal-80: #194F44;
+        --color-v2-deep-teal-100: #A4C9BE;
+        --color-v2-deep-teal-160: #F1F8F6;
+        --color-v2-azure-20: #001C2E;
+        --color-v2-azure-80: #006EA4;
+        --color-v2-azure-100: #70CBFF;
+        --color-v2-azure-160: #EDF8FF;
+        --color-v2-cyan-20: #00222A;
+        --color-v2-cyan-80: #00809A;
+        --color-v2-cyan-100: #22D6F5;
+        --color-v2-cyan-160: #E6FAFF;
+        --color-v2-peacock-20: #0A191D;
+        --color-v2-peacock-80: #214A56;
+        --color-v2-peacock-100: #79B2BA;
+        --color-v2-peacock-160: #EDF9FA;
+        --color-v2-lilac-20: #1E1521;
+        --color-v2-lilac-80: #685070;
+        --color-v2-lilac-100: #C1A9C5;
+        --color-v2-lilac-160: #FAF5FB;
+        --color-v2-orchid-20: #30062B;
+        --color-v2-orchid-80: #952288;
+        --color-v2-orchid-100: #F787E6;
+        --color-v2-orchid-160: #FFF3FC;
+        --color-v2-slate-blue-20: #151921;
+        --color-v2-slate-blue-80: #505971;
+        --color-v2-slate-blue-100: #A3A8BD;
+        --color-v2-slate-blue-160: #F5F6FB;
+        --color-v2-clay-20: #221703;
+        --color-v2-clay-80: #735418;
+        --color-v2-clay-100: #D8C082;
+        --color-v2-clay-160: #FBF6EA;
+        --color-v2-umber-20: #1A150D;
+        --color-v2-umber-80: #4B3E28;
+        --color-v2-umber-100: #B5A78D;
+        --color-v2-umber-160: #F9F6F1;
+        --borderRadiusCircular: 9999px;
+        --color-v2-olive-20: #181C03;
+        --color-v2-olive-80: #56621A;
+        --color-v2-olive-100: #B5C87D;
+        --color-v2-olive-160: #F5F9EB;
+        --color-v2-mulberry-20: #250716;
+        --color-v2-mulberry-80: #782851;
+        --color-v2-mulberry-100: #EDA0C1;
+        --color-v2-mulberry-160: #FFF2F8;
+        --color-v2-aubergine-20: #0D021E;
+        --color-v2-aubergine-80: #401C70;
+        --color-v2-aubergine-100: #EAD4FD;
+        --color-v2-aubergine-160: #FAF4FF;
+        --color-v2-dusk-20: #0A0713;
+        --color-v2-dusk-80: #372F51;
+        --color-v2-dusk-100: #C1BAE8;
+        --color-v2-dusk-160: #F7F5FF;
+        --color-v2-amethyst-20: #2C0A35;
+        --color-v2-amethyst-80: #993DB3;
+        --color-v2-amethyst-100: #CD92EA;
+        --color-v2-amethyst-160: #FBF3FF;
+        --color-v2-prussian-20: #041C32;
+        --color-v2-prussian-80: #01518A;
+        --color-v2-prussian-100: #BADCFE;
+        --color-v2-prussian-160: #EEF8FF;
+        --color-v2-midnight-20: #06111B;
+        --color-v2-midnight-80: #193853;
+        --color-v2-midnight-100: #8FB1D1;
+        --color-v2-midnight-160: #EEF8FF;
+        --color-v2-verdigris-20: #142421;
+        --color-v2-verdigris-80: #3A665E;
+        --color-v2-verdigris-100: #89F2F9;
+        --color-v2-verdigris-160: #EAFBFC;
+        --color-v2-lagoon-20: #122225;
+        --color-v2-lagoon-80: #356168;
+        --color-v2-lagoon-100: #9BD4DC;
+        --color-v2-lagoon-160: #EAFBFD;
+        --color-v2-pine-20: #070E04;
+        --color-v2-pine-80: #283C1B;
+        --color-v2-pine-100: #D0E6BD;
+        --color-v2-pine-160: #F3F9ED;
+        --color-v2-fern-20: #16220F;
+        --color-v2-fern-80: #52713E;
+        --color-v2-fern-100: #BBEA9E;
+        --color-v2-fern-160: #F2FAEE;
+        --color-v2-moss-20: #091600;
+        --color-v2-moss-80: #2F5100;
+        --color-v2-moss-100: #D6EA83;
+        --color-v2-moss-160: #F5F9EB;
+        --color-v2-juniper-20: #0B0E00;
+        --color-v2-juniper-80: #353D01;
+        --color-v2-juniper-100: #A0B24B;
+        --color-v2-juniper-160: #F5F9EB;
+        --color-v2-sage-20: #12180B;
+        --color-v2-sage-80: #475733;
+        --color-v2-sage-100: #9AB089;
+        --color-v2-sage-160: #F2FAED;
+        --color-v2-khaki-20: #251E0F;
+        --color-v2-khaki-80: #796740;
+        --color-v2-khaki-100: #EFDCB1;
+        --color-v2-khaki-160: #FCF6E9;
+        --color-v2-bronze-20: #150D00;
+        --color-v2-bronze-80: #4F3A00;
+        --color-v2-bronze-100: #EFBF5F;
+        --color-v2-bronze-160: #FDF6EA;
+        --color-v2-hazel-20: #1A1406;
+        --color-v2-hazel-80: #5D4C25;
+        --color-v2-hazel-100: #CFA241;
+        --color-v2-hazel-160: #FDF6EA;
+        --color-v2-brass-20: #281C01;
+        --color-v2-brass-80: #83630B;
+        --color-v2-brass-100: #FADA8A;
+        --color-v2-brass-160: #FCF6E9;
+        --color-v2-fig-20: #14070E;
+        --color-v2-fig-80: #4C283A;
+        --color-v2-fig-100: #E3B5C9;
+        --color-v2-fig-160: #FFF2F8;
+        --color-v2-raspberry-20: #3B0C26;
+        --color-v2-raspberry-80: #B2357B;
+        --color-v2-raspberry-100: #F385BF;
+        --color-v2-raspberry-160: #FFF2F9;
+        --color-v2-mauve-20: #2E1923;
+        --color-v2-mauve-80: #905873;
+        --color-v2-mauve-100: #FFCCF0;
+        --color-v2-mauve-160: #FFF2FB;
+        --color-v2-damson-20: #1B0016;
+        --color-v2-damson-80: #5E0051;
+        --color-v2-damson-100: #FDAEE9;
+        --color-v2-damson-160: #FFF2FB;
+        --color-v2-theme-indigo-1-20: #19181E;
+        --color-v2-theme-indigo-1-80: #4F4E5D;
+        --color-v2-theme-indigo-1-100: #BBB8C6;
+        --color-v2-theme-indigo-1-160: #F7F6F8;
+        --color-v2-theme-indigo-2-20: #18162A;
+        --color-v2-theme-indigo-2-80: #4D487C;
+        --color-v2-theme-indigo-2-100: #ADA4CD;
+        --color-v2-theme-indigo-2-160: #F7F6FA;
+        --color-v2-theme-indigo-3-20: #14102D;
+        --color-v2-theme-indigo-3-80: #301E6A;
+        --color-v2-theme-indigo-3-100: #D4C8FF;
+        --color-v2-theme-indigo-3-160: #F7F6FB;
+        --color-v2-theme-indigo-4-20: var(--color-v2-indigo-20);
+        --color-v2-theme-indigo-4-80: var(--color-v2-indigo-80);
+        --color-v2-theme-indigo-4-100: var(--color-v2-indigo-100);
+        --color-v2-theme-indigo-4-160: var(--color-v2-indigo-160);
+        --color-v2-theme-amethyst-1-20: #1E1A1F;
+        --color-v2-theme-amethyst-1-80: #6F6572;
+        --color-v2-theme-amethyst-1-100: #B9B1BD;
+        --color-v2-theme-amethyst-1-160: #F7F6F7;
+        --color-v2-theme-amethyst-2-20: #231627;
+        --color-v2-theme-amethyst-2-80: #7D5989;
+        --color-v2-theme-amethyst-2-100: #B9A0C6;
+        --color-v2-theme-amethyst-2-160: #F8F5FA;
+        --color-v2-theme-amethyst-3-20: #230F29;
+        --color-v2-theme-amethyst-3-80: #673177;
+        --color-v2-theme-amethyst-3-100: #E7BFFC;
+        --color-v2-theme-amethyst-3-160: #F9F4FC;
+        --color-v2-theme-amethyst-4-20: var(--color-v2-amethyst-20);
+        --color-v2-theme-amethyst-4-80: var(--color-v2-amethyst-80);
+        --color-v2-theme-amethyst-4-100: var(--color-v2-amethyst-100);
+        --color-v2-theme-amethyst-4-160: var(--color-v2-amethyst-160);
+        --color-v2-theme-lilac-1-20: #18151A;
+        --color-v2-theme-lilac-1-80: #453C49;
+        --color-v2-theme-lilac-1-100: #DED3E0;
+        --color-v2-theme-lilac-1-160: #F8F6F9;
+        --color-v2-theme-lilac-2-20: var(--color-v2-lilac-20);
+        --color-v2-theme-lilac-2-80: var(--color-v2-lilac-80);
+        --color-v2-theme-lilac-2-100: var(--color-v2-lilac-100);
+        --color-v2-theme-lilac-2-160: var(--color-v2-lilac-160);
+        --color-v2-theme-lilac-3-20: #250C2C;
+        --color-v2-theme-lilac-3-80: #78378C;
+        --color-v2-theme-lilac-3-100: #EFB6F9;
+        --color-v2-theme-lilac-3-160: #FDF3FF;
+        --color-v2-theme-lilac-4-20: #2E013A;
+        --color-v2-theme-lilac-4-80: #AA18CF;
+        --color-v2-theme-lilac-4-100: #E881FB;
+        --color-v2-theme-lilac-4-160: #FDF3FF;
+        --color-v2-theme-dusk-1-20: #0E0D13;
+        --color-v2-theme-dusk-1-80: #696676;
+        --color-v2-theme-dusk-1-100: #ACAAB8;
+        --color-v2-theme-dusk-1-160: #F7F6F9;
+        --color-v2-theme-dusk-2-20: #0D0A14;
+        --color-v2-theme-dusk-2-80: #534D6A;
+        --color-v2-theme-dusk-2-100: #E1DEF3;
+        --color-v2-theme-dusk-2-160: #F7F6FA;
+        --color-v2-theme-dusk-3-20: var(--color-v2-dusk-20);
+        --color-v2-theme-dusk-3-80: var(--color-v2-dusk-80);
+        --color-v2-theme-dusk-3-100: var(--color-v2-dusk-100);
+        --color-v2-theme-dusk-3-160: var(--color-v2-dusk-160);
+        --color-v2-theme-dusk-4-20: #0C0220;
+        --color-v2-theme-dusk-4-80: #3C1976;
+        --color-v2-theme-dusk-4-100: #B19EFF;
+        --color-v2-theme-dusk-4-160: #F7F5FF;
+        --color-v2-theme-iris-1-20: #1C1A20;
+        --color-v2-theme-iris-1-80: #6A6575;
+        --color-v2-theme-iris-1-100: #CCC5D2;
+        --color-v2-theme-iris-1-160: #F7F6F8;
+        --color-v2-theme-iris-2-20: #191620;
+        --color-v2-theme-iris-2-80: #4D445F;
+        --color-v2-theme-iris-2-100: #E5D0F6;
+        --color-v2-theme-iris-2-160: #F8F5FB;
+        --color-v2-theme-iris-3-20: #1C112D;
+        --color-v2-theme-iris-3-80: #553581;
+        --color-v2-theme-iris-3-100: #B9A1CB;
+        --color-v2-theme-iris-3-160: #F9F5FB;
+        --color-v2-theme-iris-4-20: var(--color-v2-iris-20);
+        --color-v2-theme-iris-4-80: var(--color-v2-iris-80);
+        --color-v2-theme-iris-4-100: var(--color-v2-iris-100);
+        --color-v2-theme-iris-4-160: var(--color-v2-iris-160);
+        --color-v2-theme-aubergine-1-20: #09080D;
+        --color-v2-theme-aubergine-1-80: #363240;
+        --color-v2-theme-aubergine-1-100: #D3CCD9;
+        --color-v2-theme-aubergine-1-160: #F8F6F9;
+        --color-v2-theme-aubergine-2-20: #0C0816;
+        --color-v2-theme-aubergine-2-80: #4E416A;
+        --color-v2-theme-aubergine-2-100: #BCABCA;
+        --color-v2-theme-aubergine-2-160: #F9F5FD;
+        --color-v2-theme-aubergine-3-20: var(--color-v2-aubergine-20);
+        --color-v2-theme-aubergine-3-80: var(--color-v2-aubergine-80);
+        --color-v2-theme-aubergine-3-100: var(--color-v2-aubergine-100);
+        --color-v2-theme-aubergine-3-160: var(--color-v2-aubergine-160);
+        --color-v2-theme-aubergine-4-20: #120028;
+        --color-v2-theme-aubergine-4-80: #6704BE;
+        --color-v2-theme-aubergine-4-100: #DBAFFF;
+        --color-v2-theme-aubergine-4-160: #FAF4FF;
+        --color-v2-theme-classic-blue-1-20: #181B20;
+        --color-v2-theme-classic-blue-1-80: #616977;
+        --color-v2-theme-classic-blue-1-100: #A0AAB5;
+        --color-v2-theme-classic-blue-1-160: #F6F6F7;
+        --color-v2-theme-classic-blue-2-20: #141820;
+        --color-v2-theme-classic-blue-2-80: #434E62;
+        --color-v2-theme-classic-blue-2-100: #C3D0E2;
+        --color-v2-theme-classic-blue-2-160: #F5F6F8;
+        --color-v2-theme-classic-blue-3-20: #0A172F;
+        --color-v2-theme-classic-blue-3-80: #254686;
+        --color-v2-theme-classic-blue-3-100: #A3CBFE;
+        --color-v2-theme-classic-blue-3-160: #F3F7FB;
+        --color-v2-theme-classic-blue-4-20: var(--color-v2-classic-blue-20);
+        --color-v2-theme-classic-blue-4-80: var(--color-v2-classic-blue-80);
+        --color-v2-theme-classic-blue-4-100: var(--color-v2-classic-blue-100);
+        --color-v2-theme-classic-blue-4-160: var(--color-v2-classic-blue-160);
+        --color-v2-theme-slate-blue-1-20: #12151A;
+        --color-v2-theme-slate-blue-1-80: #2F3442;
+        --color-v2-theme-slate-blue-1-100: #E0E4F2;
+        --color-v2-theme-slate-blue-1-160: #F5F6F9;
+        --color-v2-theme-slate-blue-2-20: var(--color-v2-slate-blue-20);
+        --color-v2-theme-slate-blue-2-80: var(--color-v2-slate-blue-80);
+        --color-v2-theme-slate-blue-2-100: var(--color-v2-slate-blue-100);
+        --color-v2-theme-slate-blue-2-160: var(--color-v2-slate-blue-160);
+        --color-v2-theme-slate-blue-3-20: #091737;
+        --color-v2-theme-slate-blue-3-80: #3750B1;
+        --color-v2-theme-slate-blue-3-100: #BFC9F7;
+        --color-v2-theme-slate-blue-3-160: #F4F6FF;
+        --color-v2-theme-slate-blue-4-20: #000B51;
+        --color-v2-theme-slate-blue-4-80: #2A17FE;
+        --color-v2-theme-slate-blue-4-100: #95A5FC;
+        --color-v2-theme-slate-blue-4-160: #F4F6FF;
+        --color-v2-theme-midnight-1-20: #0D1316;
+        --color-v2-theme-midnight-1-80: #384750;
+        --color-v2-theme-midnight-1-100: #BFC7D4;
+        --color-v2-theme-midnight-1-160: #F4F7FA;
+        --color-v2-theme-midnight-2-20: var(--color-v2-midnight-20);
+        --color-v2-theme-midnight-2-80: var(--color-v2-midnight-80);
+        --color-v2-theme-midnight-2-100: var(--color-v2-midnight-100);
+        --color-v2-theme-midnight-2-160: var(--color-v2-midnight-160);
+        --color-v2-theme-midnight-3-20: #001521;
+        --color-v2-theme-midnight-3-80: #055172;
+        --color-v2-theme-midnight-3-100: #9DDAFE;
+        --color-v2-theme-midnight-3-160: #EBF9FF;
+        --color-v2-theme-midnight-4-20: #001030;
+        --color-v2-theme-midnight-4-80: #00439F;
+        --color-v2-theme-midnight-4-100: #22BBFF;
+        --color-v2-theme-midnight-4-160: #ECF9FF;
+        --color-v2-theme-navy-1-20: #14171F;
+        --color-v2-theme-navy-1-80: #3C445A;
+        --color-v2-theme-navy-1-100: #B8B9D9;
+        --color-v2-theme-navy-1-160: #F6F6FA;
+        --color-v2-theme-navy-2-20: #181828;
+        --color-v2-theme-navy-2-80: #565783;
+        --color-v2-theme-navy-2-100: #C1D8FC;
+        --color-v2-theme-navy-2-160: #F4F7FC;
+        --color-v2-theme-navy-3-20: var(--color-v2-navy-20);
+        --color-v2-theme-navy-3-80: var(--color-v2-navy-80);
+        --color-v2-theme-navy-3-100: var(--color-v2-navy-100);
+        --color-v2-theme-navy-3-160: var(--color-v2-navy-160);
+        --color-v2-theme-navy-4-20: #090D43;
+        --color-v2-theme-navy-4-80: #2322B7;
+        --color-v2-theme-navy-4-100: #7CAEFE;
+        --color-v2-theme-navy-4-160: #F2F7FF;
+        --color-v2-theme-azure-1-20: #11161A;
+        --color-v2-theme-azure-1-80: #35434D;
+        --color-v2-theme-azure-1-100: #B9C7D0;
+        --color-v2-theme-azure-1-160: #F4F6F8;
+        --color-v2-theme-azure-2-20: #141B20;
+        --color-v2-theme-azure-2-80: #566B7B;
+        --color-v2-theme-azure-2-100: #8DAEC3;
+        --color-v2-theme-azure-2-160: #F2F7FA;
+        --color-v2-theme-azure-3-20: #041826;
+        --color-v2-theme-azure-3-80: #064E75;
+        --color-v2-theme-azure-3-100: #BBE4FE;
+        --color-v2-theme-azure-3-160: #F2F7FA;
+        --color-v2-theme-azure-4-20: var(--color-v2-azure-20);
+        --color-v2-theme-azure-4-80: var(--color-v2-azure-80);
+        --color-v2-theme-azure-4-100: var(--color-v2-azure-100);
+        --color-v2-theme-azure-4-160: var(--color-v2-azure-160);
+        --color-v2-theme-prussian-1-20: #161C20;
+        --color-v2-theme-prussian-1-80: #44535D;
+        --color-v2-theme-prussian-1-100: #BAC2CF;
+        --color-v2-theme-prussian-1-160: #F4F7F9;
+        --color-v2-theme-prussian-2-20: #171E2A;
+        --color-v2-theme-prussian-2-80: #576A89;
+        --color-v2-theme-prussian-2-100: #8FADC1;
+        --color-v2-theme-prussian-2-160: #EFF8FC;
+        --color-v2-theme-prussian-3-20: var(--color-v2-prussian-20);
+        --color-v2-theme-prussian-3-80: var(--color-v2-prussian-80);
+        --color-v2-theme-prussian-3-100: var(--color-v2-prussian-100);
+        --color-v2-theme-prussian-3-160: var(--color-v2-prussian-160);
+        --color-v2-theme-prussian-4-20: #071632;
+        --color-v2-theme-prussian-4-80: #032D74;
+        --color-v2-theme-prussian-4-100: #6CC8FD;
+        --color-v2-theme-prussian-4-160: #EBF9FF;
+        --color-v2-theme-peacock-1-20: #141A1D;
+        --color-v2-theme-peacock-1-80: #495962;
+        --color-v2-theme-peacock-1-100: #A5B6BB;
+        --color-v2-theme-peacock-1-160: #F3F7F8;
+        --color-v2-theme-peacock-2-20: var(--color-v2-peacock-20);
+        --color-v2-theme-peacock-2-80: var(--color-v2-peacock-80);
+        --color-v2-theme-peacock-2-100: var(--color-v2-peacock-100);
+        --color-v2-theme-peacock-2-160: var(--color-v2-peacock-160);
+        --color-v2-theme-peacock-3-20: #041D1F;
+        --color-v2-theme-peacock-3-80: #18616A;
+        --color-v2-theme-peacock-3-100: #3DC9C9;
+        --color-v2-theme-peacock-3-160: #E5FCFA;
+        --color-v2-theme-peacock-4-20: #031C26;
+        --color-v2-theme-peacock-4-80: #135E7D;
+        --color-v2-theme-peacock-4-100: #30C5E9;
+        --color-v2-theme-peacock-4-160: #E8FAFF;
+        --color-v2-theme-teal-1-20: #131A19;
+        --color-v2-theme-teal-1-80: #546966;
+        --color-v2-theme-teal-1-100: #B3C5C4;
+        --color-v2-theme-teal-1-160: #F3F7F6;
+        --color-v2-theme-teal-2-20: #0B1514;
+        --color-v2-theme-teal-2-80: #193633;
+        --color-v2-theme-teal-2-100: #7FB4B0;
+        --color-v2-theme-teal-2-160: #EEF8F7;
+        --color-v2-theme-teal-3-20: #041A17;
+        --color-v2-theme-teal-3-80: #07554E;
+        --color-v2-theme-teal-3-100: #B3F3EE;
+        --color-v2-theme-teal-3-160: #EDF9F8;
+        --color-v2-theme-teal-4-20: var(--color-v2-teal-20);
+        --color-v2-theme-teal-4-80: var(--color-v2-teal-80);
+        --color-v2-theme-teal-4-100: var(--color-v2-teal-100);
+        --color-v2-theme-teal-4-160: var(--color-v2-teal-160);
+        --color-v2-theme-cyan-1-20: #141B1C;
+        --color-v2-theme-cyan-1-80: #53676C;
+        --color-v2-theme-cyan-1-100: #B4C5C9;
+        --color-v2-theme-cyan-1-160: #F3F6F7;
+        --color-v2-theme-cyan-2-20: #0A1516;
+        --color-v2-theme-cyan-2-80: #113437;
+        --color-v2-theme-cyan-2-100: #7EB3B6;
+        --color-v2-theme-cyan-2-160: #EEF8F8;
+        --color-v2-theme-cyan-3-20: #061920;
+        --color-v2-theme-cyan-3-80: #155268;
+        --color-v2-theme-cyan-3-100: #B0F4F8;
+        --color-v2-theme-cyan-3-160: #ECF8F9;
+        --color-v2-theme-cyan-4-20: var(--color-v2-cyan-20);
+        --color-v2-theme-cyan-4-80: var(--color-v2-cyan-80);
+        --color-v2-theme-cyan-4-100: var(--color-v2-cyan-100);
+        --color-v2-theme-cyan-4-160: var(--color-v2-cyan-160);
+        --color-v2-theme-deep-teal-1-20: #111815;
+        --color-v2-theme-deep-teal-1-80: #384941;
+        --color-v2-theme-deep-teal-1-100: #D8EAE8;
+        --color-v2-theme-deep-teal-1-160: #F4F7F6;
+        --color-v2-theme-deep-teal-2-20: var(--color-v2-deep-teal-20);
+        --color-v2-theme-deep-teal-2-80: var(--color-v2-deep-teal-80);
+        --color-v2-theme-deep-teal-2-100: var(--color-v2-deep-teal-100);
+        --color-v2-theme-deep-teal-2-160: var(--color-v2-deep-teal-160);
+        --color-v2-theme-deep-teal-3-20: #041D1C;
+        --color-v2-theme-deep-teal-3-80: #216964;
+        --color-v2-theme-deep-teal-3-100: #12DED1;
+        --color-v2-theme-deep-teal-3-160: #E4FCFA;
+        --color-v2-theme-deep-teal-4-20: #041E14;
+        --color-v2-theme-deep-teal-4-80: #19654A;
+        --color-v2-theme-deep-teal-4-100: #32E2A3;
+        --color-v2-theme-deep-teal-4-160: #E4FDF1;
+        --color-v2-theme-lagoon-1-20: #181F22;
+        --color-v2-theme-lagoon-1-80: #41545A;
+        --color-v2-theme-lagoon-1-100: #A5B6BB;
+        --color-v2-theme-lagoon-1-160: #F3F8FA;
+        --color-v2-theme-lagoon-2-20: var(--color-v2-lagoon-20);
+        --color-v2-theme-lagoon-2-80: var(--color-v2-lagoon-80);
+        --color-v2-theme-lagoon-2-100: var(--color-v2-lagoon-100);
+        --color-v2-theme-lagoon-2-160: var(--color-v2-lagoon-160);
+        --color-v2-theme-lagoon-3-20: #0A2027;
+        --color-v2-theme-lagoon-3-80: #024D5F;
+        --color-v2-theme-lagoon-3-100: #55F0F0;
+        --color-v2-theme-lagoon-3-160: #DFFFFD;
+        --color-v2-theme-lagoon-4-20: #07242D;
+        --color-v2-theme-lagoon-4-80: #156D84;
+        --color-v2-theme-lagoon-4-100: #0ACCF4;
+        --color-v2-theme-lagoon-4-160: #EBFAFF;
+        --color-v2-theme-verdigris-1-20: #1C2422;
+        --color-v2-theme-verdigris-1-80: #596D69;
+        --color-v2-theme-verdigris-1-100: #CFE2E3;
+        --color-v2-theme-verdigris-1-160: #F4F8F8;
+        --color-v2-theme-verdigris-2-20: #141F1D;
+        --color-v2-theme-verdigris-2-80: #26433E;
+        --color-v2-theme-verdigris-2-100: #94B7B9;
+        --color-v2-theme-verdigris-2-160: #F2F9F9;
+        --color-v2-theme-verdigris-3-20: var(--color-v2-verdigris-20);
+        --color-v2-theme-verdigris-3-80: var(--color-v2-verdigris-80);
+        --color-v2-theme-verdigris-3-100: var(--color-v2-verdigris-100);
+        --color-v2-theme-verdigris-3-160: var(--color-v2-verdigris-160);
+        --color-v2-theme-verdigris-4-20: #0B221E;
+        --color-v2-theme-verdigris-4-80: #035147;
+        --color-v2-theme-verdigris-4-100: #2AC2CB;
+        --color-v2-theme-verdigris-4-160: #E7FCFD;
+        --color-v2-theme-sage-1-20: #171914;
+        --color-v2-theme-sage-1-80: #646B5C;
+        --color-v2-theme-sage-1-100: #A4AB9F;
+        --color-v2-theme-sage-1-160: #F5F8F4;
+        --color-v2-theme-sage-2-20: #10130C;
+        --color-v2-theme-sage-2-80: #2B3420;
+        --color-v2-theme-sage-2-100: #C3D1B8;
+        --color-v2-theme-sage-2-160: #F4F9F1;
+        --color-v2-theme-sage-3-20: var(--color-v2-sage-20);
+        --color-v2-theme-sage-3-80: var(--color-v2-sage-80);
+        --color-v2-theme-sage-3-100: var(--color-v2-sage-100);
+        --color-v2-theme-sage-3-160: var(--color-v2-sage-160);
+        --color-v2-theme-sage-4-20: #0F1C00;
+        --color-v2-theme-sage-4-80: #4A6C07;
+        --color-v2-theme-sage-4-100: #88BA5B;
+        --color-v2-theme-sage-4-160: #ECFEE0;
+        --color-v2-theme-juniper-1-20: #0B0C07;
+        --color-v2-theme-juniper-1-80: #313425;
+        --color-v2-theme-juniper-1-100: #A7AB97;
+        --color-v2-theme-juniper-1-160: #F6F7F4;
+        --color-v2-theme-juniper-2-20: #0F1008;
+        --color-v2-theme-juniper-2-80: #565B44;
+        --color-v2-theme-juniper-2-100: #C3CF98;
+        --color-v2-theme-juniper-2-160: #F6F8F0;
+        --color-v2-theme-juniper-3-20: var(--color-v2-juniper-20);
+        --color-v2-theme-juniper-3-80: var(--color-v2-juniper-80);
+        --color-v2-theme-juniper-3-100: var(--color-v2-juniper-100);
+        --color-v2-theme-juniper-3-160: var(--color-v2-juniper-160);
+        --color-v2-theme-juniper-4-20: #0E1200;
+        --color-v2-theme-juniper-4-80: #586412;
+        --color-v2-theme-juniper-4-100: #C1DB1C;
+        --color-v2-theme-juniper-4-160: #F4FAE5;
+        --color-v2-theme-olive-1-20: #161711;
+        --color-v2-theme-olive-1-80: #3D4031;
+        --color-v2-theme-olive-1-100: #C6CABC;
+        --color-v2-theme-olive-1-160: #F6F7F4;
+        --color-v2-theme-olive-2-20: #1A1B13;
+        --color-v2-theme-olive-2-80: #5F644D;
+        --color-v2-theme-olive-2-100: #A4AE8D;
+        --color-v2-theme-olive-2-160: #F6F8F1;
+        --color-v2-theme-olive-3-20: #141804;
+        --color-v2-theme-olive-3-80: #363F02;
+        --color-v2-theme-olive-3-100: #DFEBC1;
+        --color-v2-theme-olive-3-160: #F6F8F0;
+        --color-v2-theme-olive-4-20: var(--color-v2-olive-20);
+        --color-v2-theme-olive-4-80: var(--color-v2-olive-80);
+        --color-v2-theme-olive-4-100: var(--color-v2-olive-100);
+        --color-v2-theme-olive-4-160: var(--color-v2-olive-160);
+        --color-v2-theme-fern-1-20: #1C1F1A;
+        --color-v2-theme-fern-1-80: #60695A;
+        --color-v2-theme-fern-1-100: #D2DECB;
+        --color-v2-theme-fern-1-160: #F6F8F5;
+        --color-v2-theme-fern-2-20: #161C12;
+        --color-v2-theme-fern-2-80: #3C4C32;
+        --color-v2-theme-fern-2-100: #A2BD93;
+        --color-v2-theme-fern-2-160: #F4F9F2;
+        --color-v2-theme-fern-3-20: var(--color-v2-fern-20);
+        --color-v2-theme-fern-3-80: var(--color-v2-fern-80);
+        --color-v2-theme-fern-3-100: var(--color-v2-fern-100);
+        --color-v2-theme-fern-3-160: var(--color-v2-fern-160);
+        --color-v2-theme-fern-4-20: #0F1F05;
+        --color-v2-theme-fern-4-80: #2B5301;
+        --color-v2-theme-fern-4-100: #90FA26;
+        --color-v2-theme-fern-4-160: #ECFEE3;
+        --color-v2-theme-moss-1-20: #10140E;
+        --color-v2-theme-moss-1-80: #464E40;
+        --color-v2-theme-moss-1-100: #DBE1C5;
+        --color-v2-theme-moss-1-160: #F6F7F3;
+        --color-v2-theme-moss-2-20: #0A1105;
+        --color-v2-theme-moss-2-80: #233413;
+        --color-v2-theme-moss-2-100: #B1BE81;
+        --color-v2-theme-moss-2-160: #F6F8EF;
+        --color-v2-theme-moss-3-20: var(--color-v2-moss-20);
+        --color-v2-theme-moss-3-80: var(--color-v2-moss-80);
+        --color-v2-theme-moss-3-100: var(--color-v2-moss-100);
+        --color-v2-theme-moss-3-160: var(--color-v2-moss-160);
+        --color-v2-theme-moss-4-20: #0C1A00;
+        --color-v2-theme-moss-4-80: #47740C;
+        --color-v2-theme-moss-4-100: #AAC11A;
+        --color-v2-theme-moss-4-160: #F4FAE7;
+        --color-v2-theme-pine-1-20: var(--color-v2-pine-20);
+        --color-v2-theme-pine-1-80: var(--color-v2-pine-80);
+        --color-v2-theme-pine-1-100: var(--color-v2-pine-100);
+        --color-v2-theme-pine-1-160: var(--color-v2-pine-160);
+        --color-v2-theme-pine-2-20: #0B1406;
+        --color-v2-theme-pine-2-80: #506A41;
+        --color-v2-theme-pine-2-100: #9DC07B;
+        --color-v2-theme-pine-2-160: #F1FBE6;
+        --color-v2-theme-pine-3-20: #051200;
+        --color-v2-theme-pine-3-80: #2A5302;
+        --color-v2-theme-pine-3-100: #BAF280;
+        --color-v2-theme-pine-3-160: #EEFDDD;
+        --color-v2-theme-pine-4-20: #071600;
+        --color-v2-theme-pine-4-80: #3E7601;
+        --color-v2-theme-pine-4-100: #82C716;
+        --color-v2-theme-pine-4-160: #EBFFD6;
+        --color-v2-theme-umber-1-20: var(--color-v2-umber-20);
+        --color-v2-theme-umber-1-80: var(--color-v2-umber-80);
+        --color-v2-theme-umber-1-100: var(--color-v2-umber-100);
+        --color-v2-theme-umber-1-160: var(--color-v2-umber-160);
+        --color-v2-theme-umber-2-20: #20180C;
+        --color-v2-theme-umber-2-80: #725D3A;
+        --color-v2-theme-umber-2-100: #F7E2BB;
+        --color-v2-theme-umber-2-160: #FAF6EF;
+        --color-v2-theme-umber-3-20: #1F1403;
+        --color-v2-theme-umber-3-80: #5D4103;
+        --color-v2-theme-umber-3-100: #FCCF76;
+        --color-v2-theme-umber-3-160: #FEF5E6;
+        --color-v2-theme-umber-4-20: #251801;
+        --color-v2-theme-umber-4-80: #886212;
+        --color-v2-theme-umber-4-100: #D8A21F;
+        --color-v2-theme-umber-4-160: #FFF5E5;
+        --color-v2-theme-hazel-1-20: #1A1711;
+        --color-v2-theme-hazel-1-80: #6C6555;
+        --color-v2-theme-hazel-1-100: #AFA89B;
+        --color-v2-theme-hazel-1-160: #F8F7F5;
+        --color-v2-theme-hazel-2-20: #141109;
+        --color-v2-theme-hazel-2-80: #362D18;
+        --color-v2-theme-hazel-2-100: #C0A97D;
+        --color-v2-theme-hazel-2-160: #FAF6F0;
+        --color-v2-theme-hazel-3-20: var(--color-v2-hazel-20);
+        --color-v2-theme-hazel-3-80: var(--color-v2-hazel-80);
+        --color-v2-theme-hazel-3-100: var(--color-v2-hazel-100);
+        --color-v2-theme-hazel-3-160: var(--color-v2-hazel-160);
+        --color-v2-theme-hazel-4-20: #1F1600;
+        --color-v2-theme-hazel-4-80: #7F6006;
+        --color-v2-theme-hazel-4-100: #FEC02A;
+        --color-v2-theme-hazel-4-160: #FFF6E6;
+        --color-v2-theme-clay-1-20: #191611;
+        --color-v2-theme-clay-1-80: #494133;
+        --color-v2-theme-clay-1-100: #CDC8BA;
+        --color-v2-theme-clay-1-160: #F7F6F3;
+        --color-v2-theme-clay-2-20: #1E1911;
+        --color-v2-theme-clay-2-80: #6C5F4A;
+        --color-v2-theme-clay-2-100: #B8AB8B;
+        --color-v2-theme-clay-2-160: #F9F6F0;
+        --color-v2-theme-clay-3-20: #1D1404;
+        --color-v2-theme-clay-3-80: #4D3504;
+        --color-v2-theme-clay-3-100: #F3E4BB;
+        --color-v2-theme-clay-3-160: #F9F6EE;
+        --color-v2-theme-clay-4-20: var(--color-v2-clay-20);
+        --color-v2-theme-clay-4-80: var(--color-v2-clay-80);
+        --color-v2-theme-clay-4-100: var(--color-v2-clay-100);
+        --color-v2-theme-clay-4-160: var(--color-v2-clay-160);
+        --color-v2-theme-bronze-1-20: #13100B;
+        --color-v2-theme-bronze-1-80: #554E40;
+        --color-v2-theme-bronze-1-100: #C0B9AC;
+        --color-v2-theme-bronze-1-160: #F8F7F5;
+        --color-v2-theme-bronze-2-20: #100C05;
+        --color-v2-theme-bronze-2-80: #362D18;
+        --color-v2-theme-bronze-2-100: #E8D4AD;
+        --color-v2-theme-bronze-2-160: #F9F6F1;
+        --color-v2-theme-bronze-3-20: #181205;
+        --color-v2-theme-bronze-3-80: #74633E;
+        --color-v2-theme-bronze-3-100: #C3A876;
+        --color-v2-theme-bronze-3-160: #FAF6EF;
+        --color-v2-theme-bronze-4-20: var(--color-v2-bronze-20);
+        --color-v2-theme-bronze-4-80: var(--color-v2-bronze-80);
+        --color-v2-theme-bronze-4-100: var(--color-v2-bronze-100);
+        --color-v2-theme-bronze-4-160: var(--color-v2-bronze-160);
+        --color-v2-theme-khaki-1-20: #1C1913;
+        --color-v2-theme-khaki-1-80: #3C3527;
+        --color-v2-theme-khaki-1-100: #D5CEC1;
+        --color-v2-theme-khaki-1-160: #F8F6F2;
+        --color-v2-theme-khaki-2-20: #201C14;
+        --color-v2-theme-khaki-2-80: #5D523D;
+        --color-v2-theme-khaki-2-100: #BCAE8E;
+        --color-v2-theme-khaki-2-160: #FBF6EC;
+        --color-v2-theme-khaki-3-20: var(--color-v2-khaki-20);
+        --color-v2-theme-khaki-3-80: var(--color-v2-khaki-80);
+        --color-v2-theme-khaki-3-100: var(--color-v2-khaki-100);
+        --color-v2-theme-khaki-3-160: var(--color-v2-khaki-160);
+        --color-v2-theme-khaki-4-20: #261B03;
+        --color-v2-theme-khaki-4-80: #6F5308;
+        --color-v2-theme-khaki-4-100: #FED470;
+        --color-v2-theme-khaki-4-160: #FFF6E2;
+        --color-v2-theme-brass-1-20: #1F1C16;
+        --color-v2-theme-brass-1-80: #5E5748;
+        --color-v2-theme-brass-1-100: #E6E1D2;
+        --color-v2-theme-brass-1-160: #F7F6F4;
+        --color-v2-theme-brass-2-20: #1E190E;
+        --color-v2-theme-brass-2-80: #493C20;
+        --color-v2-theme-brass-2-100: #B7AF9B;
+        --color-v2-theme-brass-2-160: #F8F6F3;
+        --color-v2-theme-brass-3-20: #241D0F;
+        --color-v2-theme-brass-3-80: #75633E;
+        --color-v2-theme-brass-3-100: #C4A966;
+        --color-v2-theme-brass-3-160: #FBF6EB;
+        --color-v2-theme-brass-4-20: var(--color-v2-brass-20);
+        --color-v2-theme-brass-4-80: var(--color-v2-brass-80);
+        --color-v2-theme-brass-4-100: var(--color-v2-brass-100);
+        --color-v2-theme-brass-4-160: var(--color-v2-brass-160);
+        --color-v2-theme-orchid-1-20: #1E181D;
+        --color-v2-theme-orchid-1-80: #61535E;
+        --color-v2-theme-orchid-1-100: #BFB2BC;
+        --color-v2-theme-orchid-1-160: #F8F7F8;
+        --color-v2-theme-orchid-2-20: #261523;
+        --color-v2-theme-orchid-2-80: #815479;
+        --color-v2-theme-orchid-2-100: #C99BC0;
+        --color-v2-theme-orchid-2-160: #FAF5F9;
+        --color-v2-theme-orchid-3-20: #231020;
+        --color-v2-theme-orchid-3-80: #5E2E57;
+        --color-v2-theme-orchid-3-100: #FCC6F2;
+        --color-v2-theme-orchid-3-160: #FBF5F9;
+        --color-v2-theme-orchid-4-20: var(--color-v2-orchid-20);
+        --color-v2-theme-orchid-4-80: var(--color-v2-orchid-80);
+        --color-v2-theme-orchid-4-100: var(--color-v2-orchid-100);
+        --color-v2-theme-orchid-4-160: var(--color-v2-orchid-160);
+        --color-v2-theme-raspberry-1-20: #231C1F;
+        --color-v2-theme-raspberry-1-80: #5F4E55;
+        --color-v2-theme-raspberry-1-100: #B6A7AE;
+        --color-v2-theme-raspberry-1-160: #F7F6F6;
+        --color-v2-theme-raspberry-2-20: #2B1B23;
+        --color-v2-theme-raspberry-2-80: #845C6F;
+        --color-v2-theme-raspberry-2-100: #F1DAE4;
+        --color-v2-theme-raspberry-2-160: #F8F5F7;
+        --color-v2-theme-raspberry-3-20: #2F1221;
+        --color-v2-theme-raspberry-3-80: #7B3158;
+        --color-v2-theme-raspberry-3-100: #E2B0C8;
+        --color-v2-theme-raspberry-3-160: #FAF4F7;
+        --color-v2-theme-raspberry-4-20: var(--color-v2-raspberry-20);
+        --color-v2-theme-raspberry-4-80: var(--color-v2-raspberry-80);
+        --color-v2-theme-raspberry-4-100: var(--color-v2-raspberry-100);
+        --color-v2-theme-raspberry-4-160: var(--color-v2-raspberry-160);
+        --color-v2-theme-mulberry-1-20: #171215;
+        --color-v2-theme-mulberry-1-80: #54454F;
+        --color-v2-theme-mulberry-1-100: #C7B7BE;
+        --color-v2-theme-mulberry-1-160: #F8F5F6;
+        --color-v2-theme-mulberry-2-20: #221015;
+        --color-v2-theme-mulberry-2-80: #84515E;
+        --color-v2-theme-mulberry-2-100: #FDCDD7;
+        --color-v2-theme-mulberry-2-160: #FCF4F6;
+        --color-v2-theme-mulberry-3-20: var(--color-v2-mulberry-20);
+        --color-v2-theme-mulberry-3-80: var(--color-v2-mulberry-80);
+        --color-v2-theme-mulberry-3-100: var(--color-v2-mulberry-100);
+        --color-v2-theme-mulberry-3-160: var(--color-v2-mulberry-160);
+        --color-v2-theme-mulberry-4-20: #2D0122;
+        --color-v2-theme-mulberry-4-80: #A71486;
+        --color-v2-theme-mulberry-4-100: #FE7CD7;
+        --color-v2-theme-mulberry-4-160: #FFF2FB;
+        --color-v2-theme-mauve-1-20: #251E21;
+        --color-v2-theme-mauve-1-80: #76646C;
+        --color-v2-theme-mauve-1-100: #E7D9E2;
+        --color-v2-theme-mauve-1-160: #F9F5F7;
+        --color-v2-theme-mauve-2-20: #26181E;
+        --color-v2-theme-mauve-2-80: #633E4F;
+        --color-v2-theme-mauve-2-100: #C4AABC;
+        --color-v2-theme-mauve-2-160: #FBF4F9;
+        --color-v2-theme-mauve-3-20: var(--color-v2-mauve-20);
+        --color-v2-theme-mauve-3-80: var(--color-v2-mauve-80);
+        --color-v2-theme-mauve-3-100: var(--color-v2-mauve-100);
+        --color-v2-theme-mauve-3-160: var(--color-v2-mauve-160);
+        --color-v2-theme-mauve-4-20: #3E0326;
+        --color-v2-theme-mauve-4-80: #BA0F7B;
+        --color-v2-theme-mauve-4-100: #FC9BE3;
+        --color-v2-theme-mauve-4-160: #FFF2FB;
+        --color-v2-theme-damson-1-20: #0F0A0E;
+        --color-v2-theme-damson-1-80: #3E313B;
+        --color-v2-theme-damson-1-100: #D8C5D3;
+        --color-v2-theme-damson-1-160: #F8F5F7;
+        --color-v2-theme-damson-2-20: #160813;
+        --color-v2-theme-damson-2-80: #623C59;
+        --color-v2-theme-damson-2-100: #C49FBA;
+        --color-v2-theme-damson-2-160: #FAF4F9;
+        --color-v2-theme-damson-3-20: var(--color-v2-damson-20);
+        --color-v2-theme-damson-3-80: var(--color-v2-damson-80);
+        --color-v2-theme-damson-3-100: var(--color-v2-damson-100);
+        --color-v2-theme-damson-3-160: var(--color-v2-damson-160);
+        --color-v2-theme-damson-4-20: #22001C;
+        --color-v2-theme-damson-4-80: #952482;
+        --color-v2-theme-damson-4-100: #FE7AE2;
+        --color-v2-theme-damson-4-160: #FFF2FB;
+        --color-v2-theme-fig-1-20: #120D10;
+        --color-v2-theme-fig-1-80: #5B4B52;
+        --color-v2-theme-fig-1-100: #D3C2C5;
+        --color-v2-theme-fig-1-160: #F9F5F7;
+        --color-v2-theme-fig-2-20: var(--color-v2-fig-20);
+        --color-v2-theme-fig-2-80: var(--color-v2-fig-80);
+        --color-v2-theme-fig-2-100: var(--color-v2-fig-100);
+        --color-v2-theme-fig-2-160: var(--color-v2-fig-160);
+        --color-v2-theme-fig-3-20: #1B0017;
+        --color-v2-theme-fig-3-80: #630653;
+        --color-v2-theme-fig-3-100: #FB93B0;
+        --color-v2-theme-fig-3-160: #FFF2F6;
+        --color-v2-theme-fig-4-20: #22000D;
+        --color-v2-theme-fig-4-80: #890944;
+        --color-v2-theme-fig-4-100: #FC9DE0;
+        --color-v2-theme-fig-4-160: #FFF2FB;
+        --color-v2-garden-20: #002213;
+        --color-v2-garden-80: #038153;
+        --color-v2-garden-100: #5EC79E;
+        --color-v2-garden-160: #E8FBF2;
+        --color-v2-forest-20: #022109;
+        --color-v2-forest-80: #1A7F37;
+        --color-v2-forest-100: #4AC26B;
+        --color-v2-forest-160: #E7FDEA;
+        --color-v2-spruce-20: #02170E;
+        --color-v2-spruce-80: #186146;
+        --color-v2-spruce-100: #7FD1A8;
+        --color-v2-spruce-160: #EBFAF1;
+        --color-v2-kale-20: #020F11;
+        --color-v2-kale-80: #17494D;
+        --color-v2-kale-100: #7EC4C4;
+        --color-v2-kale-160: #ECF9F9;
+        --color-v2-gold-20: #271C01;
+        --color-v2-gold-80: #90700A;
+        --color-v2-gold-100: #F4CE23;
+        --color-v2-gold-160: #FDF6DC;
+        --color-v2-crimson-20: #3C020F;
+        --color-v2-crimson-80: #D0144A;
+        --color-v2-crimson-100: #FF8676;
+        --color-v2-crimson-160: #FFF2F0;
+        --color-v2-graphite-20: #0D0D0D;
+        --color-v2-graphite-80: #424242;
+        --color-v2-graphite-100: #BEBEBE;
+        --color-v2-graphite-160: #F5F5F5;
+        --color-v2-ultramarine-20: #050333;
+        --color-v2-ultramarine-80: #2A1FB5;
+        --color-v2-ultramarine-100: #A9B2FF;
+        --color-v2-ultramarine-160: #F3F5FF;
+        --color-v2-chartreuse-20: #151D00;
+        --color-v2-chartreuse-80: #5C7300;
+        --color-v2-chartreuse-100: #B1C757;
+        --color-v2-chartreuse-160: #F3F8E6;
+        --color-v2-tangerine-20: #2D1000;
+        --color-v2-tangerine-80: #A34D00;
+        --color-v2-tangerine-100: #FFB347;
+        --color-v2-tangerine-160: #FFF4E7;
+      }
+
+      :where(:root, [data-mode]) {
+        --colorNeutralBackground1: #FFFFFF;
+        --colorNeutralBackground2: #FAFAFA;
+        --colorNeutralForeground1: #242424;
+        --colorNeutralForeground2: #424242;
+        --colorNeutralForeground3: #616161;
+        --colorNeutralStroke2: #E0E0E0;
+        --colorNeutralBackgroundElevated: #FFFFFF;
+      }
+
+      :where(:root, [data-accent], [data-theme-variant]) {
+        --color-brand-20: var(--color-classic-blue-20);
+        --color-brand-80: var(--color-classic-blue-80);
+        --color-brand-100: var(--color-classic-blue-100);
+        --color-brand-160: var(--color-classic-blue-160);
+      }
+
+      :where(:root, [data-mode], [data-accent], [data-theme-variant]) {
+        --colorBrandForeground1: var(--color-brand-80);
+        --colorBrandBackground2: var(--color-brand-160);
+      }
+
+      :where([data-mode="dark"]) {
+        --colorBrandForeground1: var(--color-brand-100);
+        --colorBrandBackground2: var(--color-brand-20);
+        --colorNeutralBackground1: #1C1C1C;
+        --colorNeutralBackground2: #1F1F1F;
+        --colorNeutralForeground1: #FFFFFF;
+        --colorNeutralForeground2: #D6D6D6;
+        --colorNeutralForeground3: #ADADAD;
+        --colorNeutralStroke2: #2E2E2E;
+        --colorNeutralBackgroundElevated: #292929;
+      }
+
+      :where([data-accent="cobalt"]) {
+        --color-brand-20: var(--color-cobalt-20);
+        --color-brand-80: var(--color-cobalt-80);
+        --color-brand-100: var(--color-cobalt-100);
+        --color-brand-160: var(--color-cobalt-160);
+      }
+
+      :where([data-accent="azure"]) {
+        --color-brand-20: var(--color-azure-20);
+        --color-brand-80: var(--color-azure-80);
+        --color-brand-100: var(--color-azure-100);
+        --color-brand-160: var(--color-azure-160);
+      }
+
+      :where([data-accent="teal"]) {
+        --color-brand-20: var(--color-teal-20);
+        --color-brand-80: var(--color-teal-80);
+        --color-brand-100: var(--color-teal-100);
+        --color-brand-160: var(--color-teal-160);
+      }
+
+      :where([data-accent="cyan"]) {
+        --color-brand-20: var(--color-cyan-20);
+        --color-brand-80: var(--color-cyan-80);
+        --color-brand-100: var(--color-cyan-100);
+        --color-brand-160: var(--color-cyan-160);
+      }
+
+      :where([data-accent="peacock"]) {
+        --color-brand-20: var(--color-peacock-20);
+        --color-brand-80: var(--color-peacock-80);
+        --color-brand-100: var(--color-peacock-100);
+        --color-brand-160: var(--color-peacock-160);
+      }
+
+      :where([data-accent="lilac"]) {
+        --color-brand-20: var(--color-lilac-20);
+        --color-brand-80: var(--color-lilac-80);
+        --color-brand-100: var(--color-lilac-100);
+        --color-brand-160: var(--color-lilac-160);
+      }
+
+      :where([data-accent="orchid"]) {
+        --color-brand-20: var(--color-orchid-20);
+        --color-brand-80: var(--color-orchid-80);
+        --color-brand-100: var(--color-orchid-100);
+        --color-brand-160: var(--color-orchid-160);
+      }
+
+      :where([data-accent="cocoa"]) {
+        --color-brand-20: var(--color-cocoa-20);
+        --color-brand-80: var(--color-cocoa-80);
+        --color-brand-100: var(--color-cocoa-100);
+        --color-brand-160: var(--color-cocoa-160);
+      }
+
+      :where([data-accent="clay"]) {
+        --color-brand-20: var(--color-clay-20);
+        --color-brand-80: var(--color-clay-80);
+        --color-brand-100: var(--color-clay-100);
+        --color-brand-160: var(--color-clay-160);
+      }
+
+      :where([data-accent="burnished-copper"]) {
+        --color-brand-20: var(--color-burnished-copper-20);
+        --color-brand-80: var(--color-burnished-copper-80);
+        --color-brand-100: var(--color-burnished-copper-100);
+        --color-brand-160: var(--color-burnished-copper-160);
+      }
+
+      :where([data-accent="steel-gray"]) {
+        --color-brand-20: var(--color-steel-gray-20);
+        --color-brand-80: var(--color-steel-gray-80);
+        --color-brand-100: var(--color-steel-gray-100);
+        --color-brand-160: var(--color-steel-gray-160);
+      }
+
+      :where([data-accent="stone-gray"]) {
+        --color-brand-20: var(--color-stone-gray-20);
+        --color-brand-80: var(--color-stone-gray-80);
+        --color-brand-100: var(--color-stone-gray-100);
+        --color-brand-160: var(--color-stone-gray-160);
+      }
+
+      :where([data-accent="muted-plum"]) {
+        --color-brand-20: var(--color-muted-plum-20);
+        --color-brand-80: var(--color-muted-plum-80);
+        --color-brand-100: var(--color-muted-plum-100);
+        --color-brand-160: var(--color-muted-plum-160);
+      }
+
+      :where([data-accent="slate-blue"]) {
+        --color-brand-20: var(--color-slate-blue-20);
+        --color-brand-80: var(--color-slate-blue-80);
+        --color-brand-100: var(--color-slate-blue-100);
+        --color-brand-160: var(--color-slate-blue-160);
+      }
+
+      :where([data-accent="denim-blue"]) {
+        --color-brand-20: var(--color-denim-blue-20);
+        --color-brand-80: var(--color-denim-blue-80);
+        --color-brand-100: var(--color-denim-blue-100);
+        --color-brand-160: var(--color-denim-blue-160);
+      }
+
+      :where([data-accent="deep-iris"]) {
+        --color-brand-20: var(--color-deep-iris-20);
+        --color-brand-80: var(--color-deep-iris-80);
+        --color-brand-100: var(--color-deep-iris-100);
+        --color-brand-160: var(--color-deep-iris-160);
+      }
+
+      :where([data-accent="v2-indigo"]) {
+        --color-brand-20: var(--color-v2-indigo-20);
+        --color-brand-80: var(--color-v2-indigo-80);
+        --color-brand-100: var(--color-v2-indigo-100);
+        --color-brand-160: var(--color-v2-indigo-160);
+      }
+
+      :where([data-accent="v2-iris"]) {
+        --color-brand-20: var(--color-v2-iris-20);
+        --color-brand-80: var(--color-v2-iris-80);
+        --color-brand-100: var(--color-v2-iris-100);
+        --color-brand-160: var(--color-v2-iris-160);
+      }
+
+      :where([data-accent="v2-classic-blue"]) {
+        --color-brand-20: var(--color-v2-classic-blue-20);
+        --color-brand-80: var(--color-v2-classic-blue-80);
+        --color-brand-100: var(--color-v2-classic-blue-100);
+        --color-brand-160: var(--color-v2-classic-blue-160);
+      }
+
+      :where([data-accent="v2-navy"]) {
+        --color-brand-20: var(--color-v2-navy-20);
+        --color-brand-80: var(--color-v2-navy-80);
+        --color-brand-100: var(--color-v2-navy-100);
+        --color-brand-160: var(--color-v2-navy-160);
+      }
+
+      :where([data-accent="v2-teal"]) {
+        --color-brand-20: var(--color-v2-teal-20);
+        --color-brand-80: var(--color-v2-teal-80);
+        --color-brand-100: var(--color-v2-teal-100);
+        --color-brand-160: var(--color-v2-teal-160);
+      }
+
+      :where([data-accent="v2-deep-teal"]) {
+        --color-brand-20: var(--color-v2-deep-teal-20);
+        --color-brand-80: var(--color-v2-deep-teal-80);
+        --color-brand-100: var(--color-v2-deep-teal-100);
+        --color-brand-160: var(--color-v2-deep-teal-160);
+      }
+
+      :where([data-accent="v2-azure"]) {
+        --color-brand-20: var(--color-v2-azure-20);
+        --color-brand-80: var(--color-v2-azure-80);
+        --color-brand-100: var(--color-v2-azure-100);
+        --color-brand-160: var(--color-v2-azure-160);
+      }
+
+      :where([data-accent="v2-cyan"]) {
+        --color-brand-20: var(--color-v2-cyan-20);
+        --color-brand-80: var(--color-v2-cyan-80);
+        --color-brand-100: var(--color-v2-cyan-100);
+        --color-brand-160: var(--color-v2-cyan-160);
+      }
+
+      :where([data-accent="v2-peacock"]) {
+        --color-brand-20: var(--color-v2-peacock-20);
+        --color-brand-80: var(--color-v2-peacock-80);
+        --color-brand-100: var(--color-v2-peacock-100);
+        --color-brand-160: var(--color-v2-peacock-160);
+      }
+
+      :where([data-accent="v2-lilac"]) {
+        --color-brand-20: var(--color-v2-lilac-20);
+        --color-brand-80: var(--color-v2-lilac-80);
+        --color-brand-100: var(--color-v2-lilac-100);
+        --color-brand-160: var(--color-v2-lilac-160);
+      }
+
+      :where([data-accent="v2-orchid"]) {
+        --color-brand-20: var(--color-v2-orchid-20);
+        --color-brand-80: var(--color-v2-orchid-80);
+        --color-brand-100: var(--color-v2-orchid-100);
+        --color-brand-160: var(--color-v2-orchid-160);
+      }
+
+      :where([data-accent="v2-slate-blue"]) {
+        --color-brand-20: var(--color-v2-slate-blue-20);
+        --color-brand-80: var(--color-v2-slate-blue-80);
+        --color-brand-100: var(--color-v2-slate-blue-100);
+        --color-brand-160: var(--color-v2-slate-blue-160);
+      }
+
+      :where([data-accent="v2-clay"]) {
+        --color-brand-20: var(--color-v2-clay-20);
+        --color-brand-80: var(--color-v2-clay-80);
+        --color-brand-100: var(--color-v2-clay-100);
+        --color-brand-160: var(--color-v2-clay-160);
+      }
+
+      :where([data-accent="v2-umber"]) {
+        --color-brand-20: var(--color-v2-umber-20);
+        --color-brand-80: var(--color-v2-umber-80);
+        --color-brand-100: var(--color-v2-umber-100);
+        --color-brand-160: var(--color-v2-umber-160);
+      }
+
+      :where([data-accent="v2-olive"]) {
+        --color-brand-20: var(--color-v2-olive-20);
+        --color-brand-80: var(--color-v2-olive-80);
+        --color-brand-100: var(--color-v2-olive-100);
+        --color-brand-160: var(--color-v2-olive-160);
+      }
+
+      :where([data-accent="v2-mulberry"]) {
+        --color-brand-20: var(--color-v2-mulberry-20);
+        --color-brand-80: var(--color-v2-mulberry-80);
+        --color-brand-100: var(--color-v2-mulberry-100);
+        --color-brand-160: var(--color-v2-mulberry-160);
+      }
+
+      :where([data-accent="v2-aubergine"]) {
+        --color-brand-20: var(--color-v2-aubergine-20);
+        --color-brand-80: var(--color-v2-aubergine-80);
+        --color-brand-100: var(--color-v2-aubergine-100);
+        --color-brand-160: var(--color-v2-aubergine-160);
+      }
+
+      :where([data-accent="v2-dusk"]) {
+        --color-brand-20: var(--color-v2-dusk-20);
+        --color-brand-80: var(--color-v2-dusk-80);
+        --color-brand-100: var(--color-v2-dusk-100);
+        --color-brand-160: var(--color-v2-dusk-160);
+      }
+
+      :where([data-accent="v2-amethyst"]) {
+        --color-brand-20: var(--color-v2-amethyst-20);
+        --color-brand-80: var(--color-v2-amethyst-80);
+        --color-brand-100: var(--color-v2-amethyst-100);
+        --color-brand-160: var(--color-v2-amethyst-160);
+      }
+
+      :where([data-accent="v2-prussian"]) {
+        --color-brand-20: var(--color-v2-prussian-20);
+        --color-brand-80: var(--color-v2-prussian-80);
+        --color-brand-100: var(--color-v2-prussian-100);
+        --color-brand-160: var(--color-v2-prussian-160);
+      }
+
+      :where([data-accent="v2-midnight"]) {
+        --color-brand-20: var(--color-v2-midnight-20);
+        --color-brand-80: var(--color-v2-midnight-80);
+        --color-brand-100: var(--color-v2-midnight-100);
+        --color-brand-160: var(--color-v2-midnight-160);
+      }
+
+      :where([data-accent="v2-verdigris"]) {
+        --color-brand-20: var(--color-v2-verdigris-20);
+        --color-brand-80: var(--color-v2-verdigris-80);
+        --color-brand-100: var(--color-v2-verdigris-100);
+        --color-brand-160: var(--color-v2-verdigris-160);
+      }
+
+      :where([data-accent="v2-lagoon"]) {
+        --color-brand-20: var(--color-v2-lagoon-20);
+        --color-brand-80: var(--color-v2-lagoon-80);
+        --color-brand-100: var(--color-v2-lagoon-100);
+        --color-brand-160: var(--color-v2-lagoon-160);
+      }
+
+      :where([data-accent="v2-pine"]) {
+        --color-brand-20: var(--color-v2-pine-20);
+        --color-brand-80: var(--color-v2-pine-80);
+        --color-brand-100: var(--color-v2-pine-100);
+        --color-brand-160: var(--color-v2-pine-160);
+      }
+
+      :where([data-accent="v2-fern"]) {
+        --color-brand-20: var(--color-v2-fern-20);
+        --color-brand-80: var(--color-v2-fern-80);
+        --color-brand-100: var(--color-v2-fern-100);
+        --color-brand-160: var(--color-v2-fern-160);
+      }
+
+      :where([data-accent="v2-moss"]) {
+        --color-brand-20: var(--color-v2-moss-20);
+        --color-brand-80: var(--color-v2-moss-80);
+        --color-brand-100: var(--color-v2-moss-100);
+        --color-brand-160: var(--color-v2-moss-160);
+      }
+
+      :where([data-accent="v2-juniper"]) {
+        --color-brand-20: var(--color-v2-juniper-20);
+        --color-brand-80: var(--color-v2-juniper-80);
+        --color-brand-100: var(--color-v2-juniper-100);
+        --color-brand-160: var(--color-v2-juniper-160);
+      }
+
+      :where([data-accent="v2-sage"]) {
+        --color-brand-20: var(--color-v2-sage-20);
+        --color-brand-80: var(--color-v2-sage-80);
+        --color-brand-100: var(--color-v2-sage-100);
+        --color-brand-160: var(--color-v2-sage-160);
+      }
+
+      :where([data-accent="v2-khaki"]) {
+        --color-brand-20: var(--color-v2-khaki-20);
+        --color-brand-80: var(--color-v2-khaki-80);
+        --color-brand-100: var(--color-v2-khaki-100);
+        --color-brand-160: var(--color-v2-khaki-160);
+      }
+
+      :where([data-accent="v2-bronze"]) {
+        --color-brand-20: var(--color-v2-bronze-20);
+        --color-brand-80: var(--color-v2-bronze-80);
+        --color-brand-100: var(--color-v2-bronze-100);
+        --color-brand-160: var(--color-v2-bronze-160);
+      }
+
+      :where([data-accent="v2-hazel"]) {
+        --color-brand-20: var(--color-v2-hazel-20);
+        --color-brand-80: var(--color-v2-hazel-80);
+        --color-brand-100: var(--color-v2-hazel-100);
+        --color-brand-160: var(--color-v2-hazel-160);
+      }
+
+      :where([data-accent="v2-brass"]) {
+        --color-brand-20: var(--color-v2-brass-20);
+        --color-brand-80: var(--color-v2-brass-80);
+        --color-brand-100: var(--color-v2-brass-100);
+        --color-brand-160: var(--color-v2-brass-160);
+      }
+
+      :where([data-accent="v2-fig"]) {
+        --color-brand-20: var(--color-v2-fig-20);
+        --color-brand-80: var(--color-v2-fig-80);
+        --color-brand-100: var(--color-v2-fig-100);
+        --color-brand-160: var(--color-v2-fig-160);
+      }
+
+      :where([data-accent="v2-raspberry"]) {
+        --color-brand-20: var(--color-v2-raspberry-20);
+        --color-brand-80: var(--color-v2-raspberry-80);
+        --color-brand-100: var(--color-v2-raspberry-100);
+        --color-brand-160: var(--color-v2-raspberry-160);
+      }
+
+      :where([data-accent="v2-mauve"]) {
+        --color-brand-20: var(--color-v2-mauve-20);
+        --color-brand-80: var(--color-v2-mauve-80);
+        --color-brand-100: var(--color-v2-mauve-100);
+        --color-brand-160: var(--color-v2-mauve-160);
+      }
+
+      :where([data-accent="v2-damson"]) {
+        --color-brand-20: var(--color-v2-damson-20);
+        --color-brand-80: var(--color-v2-damson-80);
+        --color-brand-100: var(--color-v2-damson-100);
+        --color-brand-160: var(--color-v2-damson-160);
+      }
+
+      :where([data-accent="v2-indigo"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-indigo-1-20);
+        --color-brand-80: var(--color-v2-theme-indigo-1-80);
+        --color-brand-100: var(--color-v2-theme-indigo-1-100);
+        --color-brand-160: var(--color-v2-theme-indigo-1-160);
+      }
+
+      :where([data-accent="v2-indigo"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-indigo-2-20);
+        --color-brand-80: var(--color-v2-theme-indigo-2-80);
+        --color-brand-100: var(--color-v2-theme-indigo-2-100);
+        --color-brand-160: var(--color-v2-theme-indigo-2-160);
+      }
+
+      :where([data-accent="v2-indigo"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-indigo-3-20);
+        --color-brand-80: var(--color-v2-theme-indigo-3-80);
+        --color-brand-100: var(--color-v2-theme-indigo-3-100);
+        --color-brand-160: var(--color-v2-theme-indigo-3-160);
+      }
+
+      :where([data-accent="v2-indigo"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-indigo-4-20);
+        --color-brand-80: var(--color-v2-theme-indigo-4-80);
+        --color-brand-100: var(--color-v2-theme-indigo-4-100);
+        --color-brand-160: var(--color-v2-theme-indigo-4-160);
+      }
+
+      :where([data-accent="v2-amethyst"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-amethyst-1-20);
+        --color-brand-80: var(--color-v2-theme-amethyst-1-80);
+        --color-brand-100: var(--color-v2-theme-amethyst-1-100);
+        --color-brand-160: var(--color-v2-theme-amethyst-1-160);
+      }
+
+      :where([data-accent="v2-amethyst"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-amethyst-2-20);
+        --color-brand-80: var(--color-v2-theme-amethyst-2-80);
+        --color-brand-100: var(--color-v2-theme-amethyst-2-100);
+        --color-brand-160: var(--color-v2-theme-amethyst-2-160);
+      }
+
+      :where([data-accent="v2-amethyst"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-amethyst-3-20);
+        --color-brand-80: var(--color-v2-theme-amethyst-3-80);
+        --color-brand-100: var(--color-v2-theme-amethyst-3-100);
+        --color-brand-160: var(--color-v2-theme-amethyst-3-160);
+      }
+
+      :where([data-accent="v2-amethyst"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-amethyst-4-20);
+        --color-brand-80: var(--color-v2-theme-amethyst-4-80);
+        --color-brand-100: var(--color-v2-theme-amethyst-4-100);
+        --color-brand-160: var(--color-v2-theme-amethyst-4-160);
+      }
+
+      :where([data-accent="v2-lilac"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-lilac-1-20);
+        --color-brand-80: var(--color-v2-theme-lilac-1-80);
+        --color-brand-100: var(--color-v2-theme-lilac-1-100);
+        --color-brand-160: var(--color-v2-theme-lilac-1-160);
+      }
+
+      :where([data-accent="v2-lilac"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-lilac-2-20);
+        --color-brand-80: var(--color-v2-theme-lilac-2-80);
+        --color-brand-100: var(--color-v2-theme-lilac-2-100);
+        --color-brand-160: var(--color-v2-theme-lilac-2-160);
+      }
+
+      :where([data-accent="v2-lilac"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-lilac-3-20);
+        --color-brand-80: var(--color-v2-theme-lilac-3-80);
+        --color-brand-100: var(--color-v2-theme-lilac-3-100);
+        --color-brand-160: var(--color-v2-theme-lilac-3-160);
+      }
+
+      :where([data-accent="v2-lilac"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-lilac-4-20);
+        --color-brand-80: var(--color-v2-theme-lilac-4-80);
+        --color-brand-100: var(--color-v2-theme-lilac-4-100);
+        --color-brand-160: var(--color-v2-theme-lilac-4-160);
+      }
+
+      :where([data-accent="v2-dusk"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-dusk-1-20);
+        --color-brand-80: var(--color-v2-theme-dusk-1-80);
+        --color-brand-100: var(--color-v2-theme-dusk-1-100);
+        --color-brand-160: var(--color-v2-theme-dusk-1-160);
+      }
+
+      :where([data-accent="v2-dusk"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-dusk-2-20);
+        --color-brand-80: var(--color-v2-theme-dusk-2-80);
+        --color-brand-100: var(--color-v2-theme-dusk-2-100);
+        --color-brand-160: var(--color-v2-theme-dusk-2-160);
+      }
+
+      :where([data-accent="v2-dusk"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-dusk-3-20);
+        --color-brand-80: var(--color-v2-theme-dusk-3-80);
+        --color-brand-100: var(--color-v2-theme-dusk-3-100);
+        --color-brand-160: var(--color-v2-theme-dusk-3-160);
+      }
+
+      :where([data-accent="v2-dusk"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-dusk-4-20);
+        --color-brand-80: var(--color-v2-theme-dusk-4-80);
+        --color-brand-100: var(--color-v2-theme-dusk-4-100);
+        --color-brand-160: var(--color-v2-theme-dusk-4-160);
+      }
+
+      :where([data-accent="v2-iris"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-iris-1-20);
+        --color-brand-80: var(--color-v2-theme-iris-1-80);
+        --color-brand-100: var(--color-v2-theme-iris-1-100);
+        --color-brand-160: var(--color-v2-theme-iris-1-160);
+      }
+
+      :where([data-accent="v2-iris"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-iris-2-20);
+        --color-brand-80: var(--color-v2-theme-iris-2-80);
+        --color-brand-100: var(--color-v2-theme-iris-2-100);
+        --color-brand-160: var(--color-v2-theme-iris-2-160);
+      }
+
+      :where([data-accent="v2-iris"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-iris-3-20);
+        --color-brand-80: var(--color-v2-theme-iris-3-80);
+        --color-brand-100: var(--color-v2-theme-iris-3-100);
+        --color-brand-160: var(--color-v2-theme-iris-3-160);
+      }
+
+      :where([data-accent="v2-iris"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-iris-4-20);
+        --color-brand-80: var(--color-v2-theme-iris-4-80);
+        --color-brand-100: var(--color-v2-theme-iris-4-100);
+        --color-brand-160: var(--color-v2-theme-iris-4-160);
+      }
+
+      :where([data-accent="v2-aubergine"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-aubergine-1-20);
+        --color-brand-80: var(--color-v2-theme-aubergine-1-80);
+        --color-brand-100: var(--color-v2-theme-aubergine-1-100);
+        --color-brand-160: var(--color-v2-theme-aubergine-1-160);
+      }
+
+      :where([data-accent="v2-aubergine"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-aubergine-2-20);
+        --color-brand-80: var(--color-v2-theme-aubergine-2-80);
+        --color-brand-100: var(--color-v2-theme-aubergine-2-100);
+        --color-brand-160: var(--color-v2-theme-aubergine-2-160);
+      }
+
+      :where([data-accent="v2-aubergine"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-aubergine-3-20);
+        --color-brand-80: var(--color-v2-theme-aubergine-3-80);
+        --color-brand-100: var(--color-v2-theme-aubergine-3-100);
+        --color-brand-160: var(--color-v2-theme-aubergine-3-160);
+      }
+
+      :where([data-accent="v2-aubergine"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-aubergine-4-20);
+        --color-brand-80: var(--color-v2-theme-aubergine-4-80);
+        --color-brand-100: var(--color-v2-theme-aubergine-4-100);
+        --color-brand-160: var(--color-v2-theme-aubergine-4-160);
+      }
+
+      :where([data-accent="v2-classic-blue"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-classic-blue-1-20);
+        --color-brand-80: var(--color-v2-theme-classic-blue-1-80);
+        --color-brand-100: var(--color-v2-theme-classic-blue-1-100);
+        --color-brand-160: var(--color-v2-theme-classic-blue-1-160);
+      }
+
+      :where([data-accent="v2-classic-blue"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-classic-blue-2-20);
+        --color-brand-80: var(--color-v2-theme-classic-blue-2-80);
+        --color-brand-100: var(--color-v2-theme-classic-blue-2-100);
+        --color-brand-160: var(--color-v2-theme-classic-blue-2-160);
+      }
+
+      :where([data-accent="v2-classic-blue"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-classic-blue-3-20);
+        --color-brand-80: var(--color-v2-theme-classic-blue-3-80);
+        --color-brand-100: var(--color-v2-theme-classic-blue-3-100);
+        --color-brand-160: var(--color-v2-theme-classic-blue-3-160);
+      }
+
+      :where([data-accent="v2-classic-blue"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-classic-blue-4-20);
+        --color-brand-80: var(--color-v2-theme-classic-blue-4-80);
+        --color-brand-100: var(--color-v2-theme-classic-blue-4-100);
+        --color-brand-160: var(--color-v2-theme-classic-blue-4-160);
+      }
+
+      :where([data-accent="v2-slate-blue"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-slate-blue-1-20);
+        --color-brand-80: var(--color-v2-theme-slate-blue-1-80);
+        --color-brand-100: var(--color-v2-theme-slate-blue-1-100);
+        --color-brand-160: var(--color-v2-theme-slate-blue-1-160);
+      }
+
+      :where([data-accent="v2-slate-blue"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-slate-blue-2-20);
+        --color-brand-80: var(--color-v2-theme-slate-blue-2-80);
+        --color-brand-100: var(--color-v2-theme-slate-blue-2-100);
+        --color-brand-160: var(--color-v2-theme-slate-blue-2-160);
+      }
+
+      :where([data-accent="v2-slate-blue"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-slate-blue-3-20);
+        --color-brand-80: var(--color-v2-theme-slate-blue-3-80);
+        --color-brand-100: var(--color-v2-theme-slate-blue-3-100);
+        --color-brand-160: var(--color-v2-theme-slate-blue-3-160);
+      }
+
+      :where([data-accent="v2-slate-blue"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-slate-blue-4-20);
+        --color-brand-80: var(--color-v2-theme-slate-blue-4-80);
+        --color-brand-100: var(--color-v2-theme-slate-blue-4-100);
+        --color-brand-160: var(--color-v2-theme-slate-blue-4-160);
+      }
+
+      :where([data-accent="v2-midnight"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-midnight-1-20);
+        --color-brand-80: var(--color-v2-theme-midnight-1-80);
+        --color-brand-100: var(--color-v2-theme-midnight-1-100);
+        --color-brand-160: var(--color-v2-theme-midnight-1-160);
+      }
+
+      :where([data-accent="v2-midnight"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-midnight-2-20);
+        --color-brand-80: var(--color-v2-theme-midnight-2-80);
+        --color-brand-100: var(--color-v2-theme-midnight-2-100);
+        --color-brand-160: var(--color-v2-theme-midnight-2-160);
+      }
+
+      :where([data-accent="v2-midnight"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-midnight-3-20);
+        --color-brand-80: var(--color-v2-theme-midnight-3-80);
+        --color-brand-100: var(--color-v2-theme-midnight-3-100);
+        --color-brand-160: var(--color-v2-theme-midnight-3-160);
+      }
+
+      :where([data-accent="v2-midnight"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-midnight-4-20);
+        --color-brand-80: var(--color-v2-theme-midnight-4-80);
+        --color-brand-100: var(--color-v2-theme-midnight-4-100);
+        --color-brand-160: var(--color-v2-theme-midnight-4-160);
+      }
+
+      :where([data-accent="v2-navy"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-navy-1-20);
+        --color-brand-80: var(--color-v2-theme-navy-1-80);
+        --color-brand-100: var(--color-v2-theme-navy-1-100);
+        --color-brand-160: var(--color-v2-theme-navy-1-160);
+      }
+
+      :where([data-accent="v2-navy"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-navy-2-20);
+        --color-brand-80: var(--color-v2-theme-navy-2-80);
+        --color-brand-100: var(--color-v2-theme-navy-2-100);
+        --color-brand-160: var(--color-v2-theme-navy-2-160);
+      }
+
+      :where([data-accent="v2-navy"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-navy-3-20);
+        --color-brand-80: var(--color-v2-theme-navy-3-80);
+        --color-brand-100: var(--color-v2-theme-navy-3-100);
+        --color-brand-160: var(--color-v2-theme-navy-3-160);
+      }
+
+      :where([data-accent="v2-navy"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-navy-4-20);
+        --color-brand-80: var(--color-v2-theme-navy-4-80);
+        --color-brand-100: var(--color-v2-theme-navy-4-100);
+        --color-brand-160: var(--color-v2-theme-navy-4-160);
+      }
+
+      :where([data-accent="v2-azure"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-azure-1-20);
+        --color-brand-80: var(--color-v2-theme-azure-1-80);
+        --color-brand-100: var(--color-v2-theme-azure-1-100);
+        --color-brand-160: var(--color-v2-theme-azure-1-160);
+      }
+
+      :where([data-accent="v2-azure"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-azure-2-20);
+        --color-brand-80: var(--color-v2-theme-azure-2-80);
+        --color-brand-100: var(--color-v2-theme-azure-2-100);
+        --color-brand-160: var(--color-v2-theme-azure-2-160);
+      }
+
+      :where([data-accent="v2-azure"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-azure-3-20);
+        --color-brand-80: var(--color-v2-theme-azure-3-80);
+        --color-brand-100: var(--color-v2-theme-azure-3-100);
+        --color-brand-160: var(--color-v2-theme-azure-3-160);
+      }
+
+      :where([data-accent="v2-azure"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-azure-4-20);
+        --color-brand-80: var(--color-v2-theme-azure-4-80);
+        --color-brand-100: var(--color-v2-theme-azure-4-100);
+        --color-brand-160: var(--color-v2-theme-azure-4-160);
+      }
+
+      :where([data-accent="v2-prussian"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-prussian-1-20);
+        --color-brand-80: var(--color-v2-theme-prussian-1-80);
+        --color-brand-100: var(--color-v2-theme-prussian-1-100);
+        --color-brand-160: var(--color-v2-theme-prussian-1-160);
+      }
+
+      :where([data-accent="v2-prussian"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-prussian-2-20);
+        --color-brand-80: var(--color-v2-theme-prussian-2-80);
+        --color-brand-100: var(--color-v2-theme-prussian-2-100);
+        --color-brand-160: var(--color-v2-theme-prussian-2-160);
+      }
+
+      :where([data-accent="v2-prussian"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-prussian-3-20);
+        --color-brand-80: var(--color-v2-theme-prussian-3-80);
+        --color-brand-100: var(--color-v2-theme-prussian-3-100);
+        --color-brand-160: var(--color-v2-theme-prussian-3-160);
+      }
+
+      :where([data-accent="v2-prussian"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-prussian-4-20);
+        --color-brand-80: var(--color-v2-theme-prussian-4-80);
+        --color-brand-100: var(--color-v2-theme-prussian-4-100);
+        --color-brand-160: var(--color-v2-theme-prussian-4-160);
+      }
+
+      :where([data-accent="v2-peacock"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-peacock-1-20);
+        --color-brand-80: var(--color-v2-theme-peacock-1-80);
+        --color-brand-100: var(--color-v2-theme-peacock-1-100);
+        --color-brand-160: var(--color-v2-theme-peacock-1-160);
+      }
+
+      :where([data-accent="v2-peacock"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-peacock-2-20);
+        --color-brand-80: var(--color-v2-theme-peacock-2-80);
+        --color-brand-100: var(--color-v2-theme-peacock-2-100);
+        --color-brand-160: var(--color-v2-theme-peacock-2-160);
+      }
+
+      :where([data-accent="v2-peacock"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-peacock-3-20);
+        --color-brand-80: var(--color-v2-theme-peacock-3-80);
+        --color-brand-100: var(--color-v2-theme-peacock-3-100);
+        --color-brand-160: var(--color-v2-theme-peacock-3-160);
+      }
+
+      :where([data-accent="v2-peacock"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-peacock-4-20);
+        --color-brand-80: var(--color-v2-theme-peacock-4-80);
+        --color-brand-100: var(--color-v2-theme-peacock-4-100);
+        --color-brand-160: var(--color-v2-theme-peacock-4-160);
+      }
+
+      :where([data-accent="v2-teal"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-teal-1-20);
+        --color-brand-80: var(--color-v2-theme-teal-1-80);
+        --color-brand-100: var(--color-v2-theme-teal-1-100);
+        --color-brand-160: var(--color-v2-theme-teal-1-160);
+      }
+
+      :where([data-accent="v2-teal"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-teal-2-20);
+        --color-brand-80: var(--color-v2-theme-teal-2-80);
+        --color-brand-100: var(--color-v2-theme-teal-2-100);
+        --color-brand-160: var(--color-v2-theme-teal-2-160);
+      }
+
+      :where([data-accent="v2-teal"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-teal-3-20);
+        --color-brand-80: var(--color-v2-theme-teal-3-80);
+        --color-brand-100: var(--color-v2-theme-teal-3-100);
+        --color-brand-160: var(--color-v2-theme-teal-3-160);
+      }
+
+      :where([data-accent="v2-teal"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-teal-4-20);
+        --color-brand-80: var(--color-v2-theme-teal-4-80);
+        --color-brand-100: var(--color-v2-theme-teal-4-100);
+        --color-brand-160: var(--color-v2-theme-teal-4-160);
+      }
+
+      :where([data-accent="v2-cyan"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-cyan-1-20);
+        --color-brand-80: var(--color-v2-theme-cyan-1-80);
+        --color-brand-100: var(--color-v2-theme-cyan-1-100);
+        --color-brand-160: var(--color-v2-theme-cyan-1-160);
+      }
+
+      :where([data-accent="v2-cyan"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-cyan-2-20);
+        --color-brand-80: var(--color-v2-theme-cyan-2-80);
+        --color-brand-100: var(--color-v2-theme-cyan-2-100);
+        --color-brand-160: var(--color-v2-theme-cyan-2-160);
+      }
+
+      :where([data-accent="v2-cyan"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-cyan-3-20);
+        --color-brand-80: var(--color-v2-theme-cyan-3-80);
+        --color-brand-100: var(--color-v2-theme-cyan-3-100);
+        --color-brand-160: var(--color-v2-theme-cyan-3-160);
+      }
+
+      :where([data-accent="v2-cyan"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-cyan-4-20);
+        --color-brand-80: var(--color-v2-theme-cyan-4-80);
+        --color-brand-100: var(--color-v2-theme-cyan-4-100);
+        --color-brand-160: var(--color-v2-theme-cyan-4-160);
+      }
+
+      :where([data-accent="v2-deep-teal"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-deep-teal-1-20);
+        --color-brand-80: var(--color-v2-theme-deep-teal-1-80);
+        --color-brand-100: var(--color-v2-theme-deep-teal-1-100);
+        --color-brand-160: var(--color-v2-theme-deep-teal-1-160);
+      }
+
+      :where([data-accent="v2-deep-teal"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-deep-teal-2-20);
+        --color-brand-80: var(--color-v2-theme-deep-teal-2-80);
+        --color-brand-100: var(--color-v2-theme-deep-teal-2-100);
+        --color-brand-160: var(--color-v2-theme-deep-teal-2-160);
+      }
+
+      :where([data-accent="v2-deep-teal"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-deep-teal-3-20);
+        --color-brand-80: var(--color-v2-theme-deep-teal-3-80);
+        --color-brand-100: var(--color-v2-theme-deep-teal-3-100);
+        --color-brand-160: var(--color-v2-theme-deep-teal-3-160);
+      }
+
+      :where([data-accent="v2-deep-teal"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-deep-teal-4-20);
+        --color-brand-80: var(--color-v2-theme-deep-teal-4-80);
+        --color-brand-100: var(--color-v2-theme-deep-teal-4-100);
+        --color-brand-160: var(--color-v2-theme-deep-teal-4-160);
+      }
+
+      :where([data-accent="v2-lagoon"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-lagoon-1-20);
+        --color-brand-80: var(--color-v2-theme-lagoon-1-80);
+        --color-brand-100: var(--color-v2-theme-lagoon-1-100);
+        --color-brand-160: var(--color-v2-theme-lagoon-1-160);
+      }
+
+      :where([data-accent="v2-lagoon"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-lagoon-2-20);
+        --color-brand-80: var(--color-v2-theme-lagoon-2-80);
+        --color-brand-100: var(--color-v2-theme-lagoon-2-100);
+        --color-brand-160: var(--color-v2-theme-lagoon-2-160);
+      }
+
+      :where([data-accent="v2-lagoon"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-lagoon-3-20);
+        --color-brand-80: var(--color-v2-theme-lagoon-3-80);
+        --color-brand-100: var(--color-v2-theme-lagoon-3-100);
+        --color-brand-160: var(--color-v2-theme-lagoon-3-160);
+      }
+
+      :where([data-accent="v2-lagoon"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-lagoon-4-20);
+        --color-brand-80: var(--color-v2-theme-lagoon-4-80);
+        --color-brand-100: var(--color-v2-theme-lagoon-4-100);
+        --color-brand-160: var(--color-v2-theme-lagoon-4-160);
+      }
+
+      :where([data-accent="v2-verdigris"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-verdigris-1-20);
+        --color-brand-80: var(--color-v2-theme-verdigris-1-80);
+        --color-brand-100: var(--color-v2-theme-verdigris-1-100);
+        --color-brand-160: var(--color-v2-theme-verdigris-1-160);
+      }
+
+      :where([data-accent="v2-verdigris"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-verdigris-2-20);
+        --color-brand-80: var(--color-v2-theme-verdigris-2-80);
+        --color-brand-100: var(--color-v2-theme-verdigris-2-100);
+        --color-brand-160: var(--color-v2-theme-verdigris-2-160);
+      }
+
+      :where([data-accent="v2-verdigris"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-verdigris-3-20);
+        --color-brand-80: var(--color-v2-theme-verdigris-3-80);
+        --color-brand-100: var(--color-v2-theme-verdigris-3-100);
+        --color-brand-160: var(--color-v2-theme-verdigris-3-160);
+      }
+
+      :where([data-accent="v2-verdigris"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-verdigris-4-20);
+        --color-brand-80: var(--color-v2-theme-verdigris-4-80);
+        --color-brand-100: var(--color-v2-theme-verdigris-4-100);
+        --color-brand-160: var(--color-v2-theme-verdigris-4-160);
+      }
+
+      :where([data-accent="v2-sage"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-sage-1-20);
+        --color-brand-80: var(--color-v2-theme-sage-1-80);
+        --color-brand-100: var(--color-v2-theme-sage-1-100);
+        --color-brand-160: var(--color-v2-theme-sage-1-160);
+      }
+
+      :where([data-accent="v2-sage"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-sage-2-20);
+        --color-brand-80: var(--color-v2-theme-sage-2-80);
+        --color-brand-100: var(--color-v2-theme-sage-2-100);
+        --color-brand-160: var(--color-v2-theme-sage-2-160);
+      }
+
+      :where([data-accent="v2-sage"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-sage-3-20);
+        --color-brand-80: var(--color-v2-theme-sage-3-80);
+        --color-brand-100: var(--color-v2-theme-sage-3-100);
+        --color-brand-160: var(--color-v2-theme-sage-3-160);
+      }
+
+      :where([data-accent="v2-sage"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-sage-4-20);
+        --color-brand-80: var(--color-v2-theme-sage-4-80);
+        --color-brand-100: var(--color-v2-theme-sage-4-100);
+        --color-brand-160: var(--color-v2-theme-sage-4-160);
+      }
+
+      :where([data-accent="v2-juniper"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-juniper-1-20);
+        --color-brand-80: var(--color-v2-theme-juniper-1-80);
+        --color-brand-100: var(--color-v2-theme-juniper-1-100);
+        --color-brand-160: var(--color-v2-theme-juniper-1-160);
+      }
+
+      :where([data-accent="v2-juniper"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-juniper-2-20);
+        --color-brand-80: var(--color-v2-theme-juniper-2-80);
+        --color-brand-100: var(--color-v2-theme-juniper-2-100);
+        --color-brand-160: var(--color-v2-theme-juniper-2-160);
+      }
+
+      :where([data-accent="v2-juniper"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-juniper-3-20);
+        --color-brand-80: var(--color-v2-theme-juniper-3-80);
+        --color-brand-100: var(--color-v2-theme-juniper-3-100);
+        --color-brand-160: var(--color-v2-theme-juniper-3-160);
+      }
+
+      :where([data-accent="v2-juniper"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-juniper-4-20);
+        --color-brand-80: var(--color-v2-theme-juniper-4-80);
+        --color-brand-100: var(--color-v2-theme-juniper-4-100);
+        --color-brand-160: var(--color-v2-theme-juniper-4-160);
+      }
+
+      :where([data-accent="v2-olive"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-olive-1-20);
+        --color-brand-80: var(--color-v2-theme-olive-1-80);
+        --color-brand-100: var(--color-v2-theme-olive-1-100);
+        --color-brand-160: var(--color-v2-theme-olive-1-160);
+      }
+
+      :where([data-accent="v2-olive"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-olive-2-20);
+        --color-brand-80: var(--color-v2-theme-olive-2-80);
+        --color-brand-100: var(--color-v2-theme-olive-2-100);
+        --color-brand-160: var(--color-v2-theme-olive-2-160);
+      }
+
+      :where([data-accent="v2-olive"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-olive-3-20);
+        --color-brand-80: var(--color-v2-theme-olive-3-80);
+        --color-brand-100: var(--color-v2-theme-olive-3-100);
+        --color-brand-160: var(--color-v2-theme-olive-3-160);
+      }
+
+      :where([data-accent="v2-olive"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-olive-4-20);
+        --color-brand-80: var(--color-v2-theme-olive-4-80);
+        --color-brand-100: var(--color-v2-theme-olive-4-100);
+        --color-brand-160: var(--color-v2-theme-olive-4-160);
+      }
+
+      :where([data-accent="v2-fern"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-fern-1-20);
+        --color-brand-80: var(--color-v2-theme-fern-1-80);
+        --color-brand-100: var(--color-v2-theme-fern-1-100);
+        --color-brand-160: var(--color-v2-theme-fern-1-160);
+      }
+
+      :where([data-accent="v2-fern"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-fern-2-20);
+        --color-brand-80: var(--color-v2-theme-fern-2-80);
+        --color-brand-100: var(--color-v2-theme-fern-2-100);
+        --color-brand-160: var(--color-v2-theme-fern-2-160);
+      }
+
+      :where([data-accent="v2-fern"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-fern-3-20);
+        --color-brand-80: var(--color-v2-theme-fern-3-80);
+        --color-brand-100: var(--color-v2-theme-fern-3-100);
+        --color-brand-160: var(--color-v2-theme-fern-3-160);
+      }
+
+      :where([data-accent="v2-fern"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-fern-4-20);
+        --color-brand-80: var(--color-v2-theme-fern-4-80);
+        --color-brand-100: var(--color-v2-theme-fern-4-100);
+        --color-brand-160: var(--color-v2-theme-fern-4-160);
+      }
+
+      :where([data-accent="v2-moss"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-moss-1-20);
+        --color-brand-80: var(--color-v2-theme-moss-1-80);
+        --color-brand-100: var(--color-v2-theme-moss-1-100);
+        --color-brand-160: var(--color-v2-theme-moss-1-160);
+      }
+
+      :where([data-accent="v2-moss"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-moss-2-20);
+        --color-brand-80: var(--color-v2-theme-moss-2-80);
+        --color-brand-100: var(--color-v2-theme-moss-2-100);
+        --color-brand-160: var(--color-v2-theme-moss-2-160);
+      }
+
+      :where([data-accent="v2-moss"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-moss-3-20);
+        --color-brand-80: var(--color-v2-theme-moss-3-80);
+        --color-brand-100: var(--color-v2-theme-moss-3-100);
+        --color-brand-160: var(--color-v2-theme-moss-3-160);
+      }
+
+      :where([data-accent="v2-moss"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-moss-4-20);
+        --color-brand-80: var(--color-v2-theme-moss-4-80);
+        --color-brand-100: var(--color-v2-theme-moss-4-100);
+        --color-brand-160: var(--color-v2-theme-moss-4-160);
+      }
+
+      :where([data-accent="v2-pine"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-pine-1-20);
+        --color-brand-80: var(--color-v2-theme-pine-1-80);
+        --color-brand-100: var(--color-v2-theme-pine-1-100);
+        --color-brand-160: var(--color-v2-theme-pine-1-160);
+      }
+
+      :where([data-accent="v2-pine"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-pine-2-20);
+        --color-brand-80: var(--color-v2-theme-pine-2-80);
+        --color-brand-100: var(--color-v2-theme-pine-2-100);
+        --color-brand-160: var(--color-v2-theme-pine-2-160);
+      }
+
+      :where([data-accent="v2-pine"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-pine-3-20);
+        --color-brand-80: var(--color-v2-theme-pine-3-80);
+        --color-brand-100: var(--color-v2-theme-pine-3-100);
+        --color-brand-160: var(--color-v2-theme-pine-3-160);
+      }
+
+      :where([data-accent="v2-pine"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-pine-4-20);
+        --color-brand-80: var(--color-v2-theme-pine-4-80);
+        --color-brand-100: var(--color-v2-theme-pine-4-100);
+        --color-brand-160: var(--color-v2-theme-pine-4-160);
+      }
+
+      :where([data-accent="v2-umber"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-umber-1-20);
+        --color-brand-80: var(--color-v2-theme-umber-1-80);
+        --color-brand-100: var(--color-v2-theme-umber-1-100);
+        --color-brand-160: var(--color-v2-theme-umber-1-160);
+      }
+
+      :where([data-accent="v2-umber"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-umber-2-20);
+        --color-brand-80: var(--color-v2-theme-umber-2-80);
+        --color-brand-100: var(--color-v2-theme-umber-2-100);
+        --color-brand-160: var(--color-v2-theme-umber-2-160);
+      }
+
+      :where([data-accent="v2-umber"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-umber-3-20);
+        --color-brand-80: var(--color-v2-theme-umber-3-80);
+        --color-brand-100: var(--color-v2-theme-umber-3-100);
+        --color-brand-160: var(--color-v2-theme-umber-3-160);
+      }
+
+      :where([data-accent="v2-umber"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-umber-4-20);
+        --color-brand-80: var(--color-v2-theme-umber-4-80);
+        --color-brand-100: var(--color-v2-theme-umber-4-100);
+        --color-brand-160: var(--color-v2-theme-umber-4-160);
+      }
+
+      :where([data-accent="v2-hazel"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-hazel-1-20);
+        --color-brand-80: var(--color-v2-theme-hazel-1-80);
+        --color-brand-100: var(--color-v2-theme-hazel-1-100);
+        --color-brand-160: var(--color-v2-theme-hazel-1-160);
+      }
+
+      :where([data-accent="v2-hazel"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-hazel-2-20);
+        --color-brand-80: var(--color-v2-theme-hazel-2-80);
+        --color-brand-100: var(--color-v2-theme-hazel-2-100);
+        --color-brand-160: var(--color-v2-theme-hazel-2-160);
+      }
+
+      :where([data-accent="v2-hazel"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-hazel-3-20);
+        --color-brand-80: var(--color-v2-theme-hazel-3-80);
+        --color-brand-100: var(--color-v2-theme-hazel-3-100);
+        --color-brand-160: var(--color-v2-theme-hazel-3-160);
+      }
+
+      :where([data-accent="v2-hazel"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-hazel-4-20);
+        --color-brand-80: var(--color-v2-theme-hazel-4-80);
+        --color-brand-100: var(--color-v2-theme-hazel-4-100);
+        --color-brand-160: var(--color-v2-theme-hazel-4-160);
+      }
+
+      :where([data-accent="v2-clay"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-clay-1-20);
+        --color-brand-80: var(--color-v2-theme-clay-1-80);
+        --color-brand-100: var(--color-v2-theme-clay-1-100);
+        --color-brand-160: var(--color-v2-theme-clay-1-160);
+      }
+
+      :where([data-accent="v2-clay"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-clay-2-20);
+        --color-brand-80: var(--color-v2-theme-clay-2-80);
+        --color-brand-100: var(--color-v2-theme-clay-2-100);
+        --color-brand-160: var(--color-v2-theme-clay-2-160);
+      }
+
+      :where([data-accent="v2-clay"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-clay-3-20);
+        --color-brand-80: var(--color-v2-theme-clay-3-80);
+        --color-brand-100: var(--color-v2-theme-clay-3-100);
+        --color-brand-160: var(--color-v2-theme-clay-3-160);
+      }
+
+      :where([data-accent="v2-clay"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-clay-4-20);
+        --color-brand-80: var(--color-v2-theme-clay-4-80);
+        --color-brand-100: var(--color-v2-theme-clay-4-100);
+        --color-brand-160: var(--color-v2-theme-clay-4-160);
+      }
+
+      :where([data-accent="v2-bronze"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-bronze-1-20);
+        --color-brand-80: var(--color-v2-theme-bronze-1-80);
+        --color-brand-100: var(--color-v2-theme-bronze-1-100);
+        --color-brand-160: var(--color-v2-theme-bronze-1-160);
+      }
+
+      :where([data-accent="v2-bronze"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-bronze-2-20);
+        --color-brand-80: var(--color-v2-theme-bronze-2-80);
+        --color-brand-100: var(--color-v2-theme-bronze-2-100);
+        --color-brand-160: var(--color-v2-theme-bronze-2-160);
+      }
+
+      :where([data-accent="v2-bronze"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-bronze-3-20);
+        --color-brand-80: var(--color-v2-theme-bronze-3-80);
+        --color-brand-100: var(--color-v2-theme-bronze-3-100);
+        --color-brand-160: var(--color-v2-theme-bronze-3-160);
+      }
+
+      :where([data-accent="v2-bronze"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-bronze-4-20);
+        --color-brand-80: var(--color-v2-theme-bronze-4-80);
+        --color-brand-100: var(--color-v2-theme-bronze-4-100);
+        --color-brand-160: var(--color-v2-theme-bronze-4-160);
+      }
+
+      :where([data-accent="v2-khaki"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-khaki-1-20);
+        --color-brand-80: var(--color-v2-theme-khaki-1-80);
+        --color-brand-100: var(--color-v2-theme-khaki-1-100);
+        --color-brand-160: var(--color-v2-theme-khaki-1-160);
+      }
+
+      :where([data-accent="v2-khaki"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-khaki-2-20);
+        --color-brand-80: var(--color-v2-theme-khaki-2-80);
+        --color-brand-100: var(--color-v2-theme-khaki-2-100);
+        --color-brand-160: var(--color-v2-theme-khaki-2-160);
+      }
+
+      :where([data-accent="v2-khaki"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-khaki-3-20);
+        --color-brand-80: var(--color-v2-theme-khaki-3-80);
+        --color-brand-100: var(--color-v2-theme-khaki-3-100);
+        --color-brand-160: var(--color-v2-theme-khaki-3-160);
+      }
+
+      :where([data-accent="v2-khaki"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-khaki-4-20);
+        --color-brand-80: var(--color-v2-theme-khaki-4-80);
+        --color-brand-100: var(--color-v2-theme-khaki-4-100);
+        --color-brand-160: var(--color-v2-theme-khaki-4-160);
+      }
+
+      :where([data-accent="v2-brass"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-brass-1-20);
+        --color-brand-80: var(--color-v2-theme-brass-1-80);
+        --color-brand-100: var(--color-v2-theme-brass-1-100);
+        --color-brand-160: var(--color-v2-theme-brass-1-160);
+      }
+
+      :where([data-accent="v2-brass"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-brass-2-20);
+        --color-brand-80: var(--color-v2-theme-brass-2-80);
+        --color-brand-100: var(--color-v2-theme-brass-2-100);
+        --color-brand-160: var(--color-v2-theme-brass-2-160);
+      }
+
+      :where([data-accent="v2-brass"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-brass-3-20);
+        --color-brand-80: var(--color-v2-theme-brass-3-80);
+        --color-brand-100: var(--color-v2-theme-brass-3-100);
+        --color-brand-160: var(--color-v2-theme-brass-3-160);
+      }
+
+      :where([data-accent="v2-brass"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-brass-4-20);
+        --color-brand-80: var(--color-v2-theme-brass-4-80);
+        --color-brand-100: var(--color-v2-theme-brass-4-100);
+        --color-brand-160: var(--color-v2-theme-brass-4-160);
+      }
+
+      :where([data-accent="v2-orchid"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-orchid-1-20);
+        --color-brand-80: var(--color-v2-theme-orchid-1-80);
+        --color-brand-100: var(--color-v2-theme-orchid-1-100);
+        --color-brand-160: var(--color-v2-theme-orchid-1-160);
+      }
+
+      :where([data-accent="v2-orchid"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-orchid-2-20);
+        --color-brand-80: var(--color-v2-theme-orchid-2-80);
+        --color-brand-100: var(--color-v2-theme-orchid-2-100);
+        --color-brand-160: var(--color-v2-theme-orchid-2-160);
+      }
+
+      :where([data-accent="v2-orchid"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-orchid-3-20);
+        --color-brand-80: var(--color-v2-theme-orchid-3-80);
+        --color-brand-100: var(--color-v2-theme-orchid-3-100);
+        --color-brand-160: var(--color-v2-theme-orchid-3-160);
+      }
+
+      :where([data-accent="v2-orchid"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-orchid-4-20);
+        --color-brand-80: var(--color-v2-theme-orchid-4-80);
+        --color-brand-100: var(--color-v2-theme-orchid-4-100);
+        --color-brand-160: var(--color-v2-theme-orchid-4-160);
+      }
+
+      :where([data-accent="v2-raspberry"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-raspberry-1-20);
+        --color-brand-80: var(--color-v2-theme-raspberry-1-80);
+        --color-brand-100: var(--color-v2-theme-raspberry-1-100);
+        --color-brand-160: var(--color-v2-theme-raspberry-1-160);
+      }
+
+      :where([data-accent="v2-raspberry"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-raspberry-2-20);
+        --color-brand-80: var(--color-v2-theme-raspberry-2-80);
+        --color-brand-100: var(--color-v2-theme-raspberry-2-100);
+        --color-brand-160: var(--color-v2-theme-raspberry-2-160);
+      }
+
+      :where([data-accent="v2-raspberry"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-raspberry-3-20);
+        --color-brand-80: var(--color-v2-theme-raspberry-3-80);
+        --color-brand-100: var(--color-v2-theme-raspberry-3-100);
+        --color-brand-160: var(--color-v2-theme-raspberry-3-160);
+      }
+
+      :where([data-accent="v2-raspberry"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-raspberry-4-20);
+        --color-brand-80: var(--color-v2-theme-raspberry-4-80);
+        --color-brand-100: var(--color-v2-theme-raspberry-4-100);
+        --color-brand-160: var(--color-v2-theme-raspberry-4-160);
+      }
+
+      :where([data-accent="v2-mulberry"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-mulberry-1-20);
+        --color-brand-80: var(--color-v2-theme-mulberry-1-80);
+        --color-brand-100: var(--color-v2-theme-mulberry-1-100);
+        --color-brand-160: var(--color-v2-theme-mulberry-1-160);
+      }
+
+      :where([data-accent="v2-mulberry"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-mulberry-2-20);
+        --color-brand-80: var(--color-v2-theme-mulberry-2-80);
+        --color-brand-100: var(--color-v2-theme-mulberry-2-100);
+        --color-brand-160: var(--color-v2-theme-mulberry-2-160);
+      }
+
+      :where([data-accent="v2-mulberry"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-mulberry-3-20);
+        --color-brand-80: var(--color-v2-theme-mulberry-3-80);
+        --color-brand-100: var(--color-v2-theme-mulberry-3-100);
+        --color-brand-160: var(--color-v2-theme-mulberry-3-160);
+      }
+
+      :where([data-accent="v2-mulberry"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-mulberry-4-20);
+        --color-brand-80: var(--color-v2-theme-mulberry-4-80);
+        --color-brand-100: var(--color-v2-theme-mulberry-4-100);
+        --color-brand-160: var(--color-v2-theme-mulberry-4-160);
+      }
+
+      :where([data-accent="v2-mauve"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-mauve-1-20);
+        --color-brand-80: var(--color-v2-theme-mauve-1-80);
+        --color-brand-100: var(--color-v2-theme-mauve-1-100);
+        --color-brand-160: var(--color-v2-theme-mauve-1-160);
+      }
+
+      :where([data-accent="v2-mauve"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-mauve-2-20);
+        --color-brand-80: var(--color-v2-theme-mauve-2-80);
+        --color-brand-100: var(--color-v2-theme-mauve-2-100);
+        --color-brand-160: var(--color-v2-theme-mauve-2-160);
+      }
+
+      :where([data-accent="v2-mauve"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-mauve-3-20);
+        --color-brand-80: var(--color-v2-theme-mauve-3-80);
+        --color-brand-100: var(--color-v2-theme-mauve-3-100);
+        --color-brand-160: var(--color-v2-theme-mauve-3-160);
+      }
+
+      :where([data-accent="v2-mauve"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-mauve-4-20);
+        --color-brand-80: var(--color-v2-theme-mauve-4-80);
+        --color-brand-100: var(--color-v2-theme-mauve-4-100);
+        --color-brand-160: var(--color-v2-theme-mauve-4-160);
+      }
+
+      :where([data-accent="v2-damson"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-damson-1-20);
+        --color-brand-80: var(--color-v2-theme-damson-1-80);
+        --color-brand-100: var(--color-v2-theme-damson-1-100);
+        --color-brand-160: var(--color-v2-theme-damson-1-160);
+      }
+
+      :where([data-accent="v2-damson"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-damson-2-20);
+        --color-brand-80: var(--color-v2-theme-damson-2-80);
+        --color-brand-100: var(--color-v2-theme-damson-2-100);
+        --color-brand-160: var(--color-v2-theme-damson-2-160);
+      }
+
+      :where([data-accent="v2-damson"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-damson-3-20);
+        --color-brand-80: var(--color-v2-theme-damson-3-80);
+        --color-brand-100: var(--color-v2-theme-damson-3-100);
+        --color-brand-160: var(--color-v2-theme-damson-3-160);
+      }
+
+      :where([data-accent="v2-damson"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-damson-4-20);
+        --color-brand-80: var(--color-v2-theme-damson-4-80);
+        --color-brand-100: var(--color-v2-theme-damson-4-100);
+        --color-brand-160: var(--color-v2-theme-damson-4-160);
+      }
+
+      :where([data-accent="v2-fig"][data-theme-variant="1"]) {
+        --color-brand-20: var(--color-v2-theme-fig-1-20);
+        --color-brand-80: var(--color-v2-theme-fig-1-80);
+        --color-brand-100: var(--color-v2-theme-fig-1-100);
+        --color-brand-160: var(--color-v2-theme-fig-1-160);
+      }
+
+      :where([data-accent="v2-fig"][data-theme-variant="2"]) {
+        --color-brand-20: var(--color-v2-theme-fig-2-20);
+        --color-brand-80: var(--color-v2-theme-fig-2-80);
+        --color-brand-100: var(--color-v2-theme-fig-2-100);
+        --color-brand-160: var(--color-v2-theme-fig-2-160);
+      }
+
+      :where([data-accent="v2-fig"][data-theme-variant="3"]) {
+        --color-brand-20: var(--color-v2-theme-fig-3-20);
+        --color-brand-80: var(--color-v2-theme-fig-3-80);
+        --color-brand-100: var(--color-v2-theme-fig-3-100);
+        --color-brand-160: var(--color-v2-theme-fig-3-160);
+      }
+
+      :where([data-accent="v2-fig"][data-theme-variant="4"]) {
+        --color-brand-20: var(--color-v2-theme-fig-4-20);
+        --color-brand-80: var(--color-v2-theme-fig-4-80);
+        --color-brand-100: var(--color-v2-theme-fig-4-100);
+        --color-brand-160: var(--color-v2-theme-fig-4-160);
+      }
+
+      :where([data-accent="v2-garden"]) {
+        --color-brand-20: var(--color-v2-garden-20);
+        --color-brand-80: var(--color-v2-garden-80);
+        --color-brand-100: var(--color-v2-garden-100);
+        --color-brand-160: var(--color-v2-garden-160);
+      }
+
+      :where([data-accent="v2-forest"]) {
+        --color-brand-20: var(--color-v2-forest-20);
+        --color-brand-80: var(--color-v2-forest-80);
+        --color-brand-100: var(--color-v2-forest-100);
+        --color-brand-160: var(--color-v2-forest-160);
+      }
+
+      :where([data-accent="v2-spruce"]) {
+        --color-brand-20: var(--color-v2-spruce-20);
+        --color-brand-80: var(--color-v2-spruce-80);
+        --color-brand-100: var(--color-v2-spruce-100);
+        --color-brand-160: var(--color-v2-spruce-160);
+      }
+
+      :where([data-accent="v2-kale"]) {
+        --color-brand-20: var(--color-v2-kale-20);
+        --color-brand-80: var(--color-v2-kale-80);
+        --color-brand-100: var(--color-v2-kale-100);
+        --color-brand-160: var(--color-v2-kale-160);
+      }
+
+      :where([data-accent="v2-gold"]) {
+        --color-brand-20: var(--color-v2-gold-20);
+        --color-brand-80: var(--color-v2-gold-80);
+        --color-brand-100: var(--color-v2-gold-100);
+        --color-brand-160: var(--color-v2-gold-160);
+      }
+
+      :where([data-accent="v2-crimson"]) {
+        --color-brand-20: var(--color-v2-crimson-20);
+        --color-brand-80: var(--color-v2-crimson-80);
+        --color-brand-100: var(--color-v2-crimson-100);
+        --color-brand-160: var(--color-v2-crimson-160);
+      }
+
+      :where([data-accent="v2-graphite"]) {
+        --color-brand-20: var(--color-v2-graphite-20);
+        --color-brand-80: var(--color-v2-graphite-80);
+        --color-brand-100: var(--color-v2-graphite-100);
+        --color-brand-160: var(--color-v2-graphite-160);
+      }
+
+      :where([data-accent="v2-ultramarine"]) {
+        --color-brand-20: var(--color-v2-ultramarine-20);
+        --color-brand-80: var(--color-v2-ultramarine-80);
+        --color-brand-100: var(--color-v2-ultramarine-100);
+        --color-brand-160: var(--color-v2-ultramarine-160);
+      }
+
+      :where([data-accent="v2-chartreuse"]) {
+        --color-brand-20: var(--color-v2-chartreuse-20);
+        --color-brand-80: var(--color-v2-chartreuse-80);
+        --color-brand-100: var(--color-v2-chartreuse-100);
+        --color-brand-160: var(--color-v2-chartreuse-160);
+      }
+
+      :where([data-accent="v2-tangerine"]) {
+        --color-brand-20: var(--color-v2-tangerine-20);
+        --color-brand-80: var(--color-v2-tangerine-80);
+        --color-brand-100: var(--color-v2-tangerine-100);
+        --color-brand-160: var(--color-v2-tangerine-160);
+      }
+
+      .chart-colour-research-page-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalM);
+        padding: 32px 48px;
+        width: 794px;
+        height: 1123px;
+        background-color: var(--colorNeutralBackground1);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__running-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0 12px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .chart-colour-research-page-3__document-label {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__date-and-page {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__exhibit-5 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalS);
+        padding: var(--spacingVerticalS) 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__exhibit-5-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__exhibit-5-label {
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__exhibit-5-title {
+        align-self: stretch;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase400);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__exhibit-5-subtitle {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__proposed-palette {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__light-palette {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        align-self: stretch;
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .chart-colour-research-page-3__light-mode-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 40px;
+        flex-shrink: 0;
+      }
+
+      .chart-colour-research-page-3__light-label {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-1-blue {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-1-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-blue-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #2E50CC;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-blue-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-blue-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-blue-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-2-ochre {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-2-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-ochre-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #A38948;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-ochre-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-ochre-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-ochre-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-3-berry {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-3-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-berry-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #8B0C4E;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-berry-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-berry-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-berry-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-4-teal {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-4-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-teal-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #32A19A;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-teal-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-teal-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-teal-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-5-violet {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-5-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-violet-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #614887;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-violet-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-violet-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-violet-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-6-cyan {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-6-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-cyan-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #0982A4;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-cyan-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-cyan-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-cyan-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-7-navy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-7-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-navy-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #222868;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-navy-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-navy-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-navy-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-slot-8-pink {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__slot-8-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-pink-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #C3467C;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__light-pink-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__light-pink-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__light-pink-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-palette {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackgroundElevated);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-mode-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 40px;
+        flex-shrink: 0;
+      }
+
+      .chart-colour-research-page-3__dark-label {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-1-blue {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-blue-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #6787FE;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-blue-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-blue-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-blue-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-2-ochre {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-ochre-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #D5BC7B;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-ochre-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-ochre-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-ochre-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-3-berry {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-berry-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #9F789E;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-berry-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-berry-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-berry-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-4-teal {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-teal-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #36D7C7;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-teal-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-teal-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-teal-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-5-violet {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-violet-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #BBA5D3;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-violet-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-violet-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-violet-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-6-cyan {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-cyan-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #9FDDF6;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-cyan-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-cyan-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-cyan-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-7-navy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-navy-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #ACB1FF;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-navy-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-navy-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-navy-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-slot-8-pink {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__dark-pink-swatch {
+        height: 24px;
+        align-self: stretch;
+        background-color: #F7B5CC;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__dark-pink-values {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chart-colour-research-page-3__dark-pink-hex {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__dark-pink-contrast {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__fill-styles {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .chart-colour-research-page-3__fill-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 40px;
+        flex-shrink: 0;
+      }
+
+      .chart-colour-research-page-3__fill-label-text {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__fill-samples {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__solid-fill-sample {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__solid-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__solid-swatches {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__solid-blue-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #2E50CC;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-ochre-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #A38948;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-berry-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #8B0C4E;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-teal-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #32A19A;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-violet-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #614887;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-cyan-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #0982A4;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-navy-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #222868;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-pink-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #C3467C;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__solid-caption {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__gradient-fill-sample {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .chart-colour-research-page-3__gradient-name {
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__gradient-swatches {
+        display: flex;
+        align-items: flex-start;
+        gap: 4px;
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__gradient-blue-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #2E50CC;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__blue-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-ochre-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #A38948;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__ochre-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-berry-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #8B0C4E;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__berry-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-teal-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #32A19A;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__teal-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-violet-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #614887;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__violet-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-cyan-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #0982A4;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__cyan-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-navy-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #222868;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__navy-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-pink-swatch {
+        display: flex;
+        align-items: flex-start;
+        height: 24px;
+        flex: 1 1 0;
+        min-width: 0;
+        background-color: #C3467C;
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .chart-colour-research-page-3__pink-sheen {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 80%);
+      }
+
+      .chart-colour-research-page-3__gradient-caption {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__exhibit-5-note {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__recommendation-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalS);
+        padding: 12px 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .chart-colour-research-page-3__recommendation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalXS);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__recommendation-label {
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__recommendation-text {
+        align-self: stretch;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.4;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__rules {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacingVerticalXS);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-1 {
+        display: flex;
+        align-items: center;
+        gap: var(--spacingHorizontalM);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-1-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .chart-colour-research-page-3__rule-1-number {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__rule-1-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__rule-2 {
+        display: flex;
+        align-items: center;
+        gap: var(--spacingHorizontalM);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-2-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .chart-colour-research-page-3__rule-2-number {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__rule-2-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__rule-3 {
+        display: flex;
+        align-items: center;
+        gap: var(--spacingHorizontalM);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-3-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .chart-colour-research-page-3__rule-3-number {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__rule-3-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__rule-4 {
+        display: flex;
+        align-items: center;
+        gap: var(--spacingHorizontalM);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-4-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .chart-colour-research-page-3__rule-4-number {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__rule-4-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__rule-5 {
+        display: flex;
+        align-items: center;
+        gap: var(--spacingHorizontalM);
+        align-self: stretch;
+      }
+
+      .chart-colour-research-page-3__rule-5-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .chart-colour-research-page-3__rule-5-number {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__rule-5-text {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__sources {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 0 0;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .chart-colour-research-page-3__sources-title {
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightSemibold);
+        line-height: 1.35;
+        white-space: pre;
+      }
+
+      .chart-colour-research-page-3__source-1 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-2 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-3 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-4 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-5 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-6 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-7 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-8 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .chart-colour-research-page-3__source-9 {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: var(--fontWeightRegular);
+        line-height: 1.35;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chart-colour-research-page-3">
+      <header class="chart-colour-research-page-3__running-header">
+        <p class="chart-colour-research-page-3__document-label">Research note · Chart colours and themes</p>
+        <p class="chart-colour-research-page-3__date-and-page">Surya design system · 2 November 2026 · 3 / 3</p>
+      </header>
+      <div class="chart-colour-research-page-3__exhibit-5">
+        <div class="chart-colour-research-page-3__exhibit-5-header">
+          <p class="chart-colour-research-page-3__exhibit-5-label">Exhibit 5</p>
+          <h1 class="chart-colour-research-page-3__exhibit-5-title">What B looks like: eight colours for any brand colour, solid or gradient</h1>
+          <p class="chart-colour-research-page-3__exhibit-5-subtitle">Each colour with its contrast on the chart background: white in light mode, dark grey in dark mode. Each one can be drawn solid or with a gradient.</p>
+        </div>
+        <div class="chart-colour-research-page-3__proposed-palette">
+          <div class="chart-colour-research-page-3__light-palette">
+            <div class="chart-colour-research-page-3__light-mode-label">
+              <p class="chart-colour-research-page-3__light-label">Light</p>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-1-blue">
+              <p class="chart-colour-research-page-3__slot-1-name">1 Blue</p>
+              <div class="chart-colour-research-page-3__light-blue-swatch"></div>
+              <div class="chart-colour-research-page-3__light-blue-values">
+                <p class="chart-colour-research-page-3__light-blue-hex">#2E50CC</p>
+                <p class="chart-colour-research-page-3__light-blue-contrast">6.7:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-2-ochre">
+              <p class="chart-colour-research-page-3__slot-2-name">2 Ochre</p>
+              <div class="chart-colour-research-page-3__light-ochre-swatch"></div>
+              <div class="chart-colour-research-page-3__light-ochre-values">
+                <p class="chart-colour-research-page-3__light-ochre-hex">#A38948</p>
+                <p class="chart-colour-research-page-3__light-ochre-contrast">3.4:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-3-berry">
+              <p class="chart-colour-research-page-3__slot-3-name">3 Berry</p>
+              <div class="chart-colour-research-page-3__light-berry-swatch"></div>
+              <div class="chart-colour-research-page-3__light-berry-values">
+                <p class="chart-colour-research-page-3__light-berry-hex">#8B0C4E</p>
+                <p class="chart-colour-research-page-3__light-berry-contrast">9.3:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-4-teal">
+              <p class="chart-colour-research-page-3__slot-4-name">4 Teal</p>
+              <div class="chart-colour-research-page-3__light-teal-swatch"></div>
+              <div class="chart-colour-research-page-3__light-teal-values">
+                <p class="chart-colour-research-page-3__light-teal-hex">#32A19A</p>
+                <p class="chart-colour-research-page-3__light-teal-contrast">3.1:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-5-violet">
+              <p class="chart-colour-research-page-3__slot-5-name">5 Violet</p>
+              <div class="chart-colour-research-page-3__light-violet-swatch"></div>
+              <div class="chart-colour-research-page-3__light-violet-values">
+                <p class="chart-colour-research-page-3__light-violet-hex">#614887</p>
+                <p class="chart-colour-research-page-3__light-violet-contrast">7.5:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-6-cyan">
+              <p class="chart-colour-research-page-3__slot-6-name">6 Cyan</p>
+              <div class="chart-colour-research-page-3__light-cyan-swatch"></div>
+              <div class="chart-colour-research-page-3__light-cyan-values">
+                <p class="chart-colour-research-page-3__light-cyan-hex">#0982A4</p>
+                <p class="chart-colour-research-page-3__light-cyan-contrast">4.4:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-7-navy">
+              <p class="chart-colour-research-page-3__slot-7-name">7 Navy</p>
+              <div class="chart-colour-research-page-3__light-navy-swatch"></div>
+              <div class="chart-colour-research-page-3__light-navy-values">
+                <p class="chart-colour-research-page-3__light-navy-hex">#222868</p>
+                <p class="chart-colour-research-page-3__light-navy-contrast">13.4:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__light-slot-8-pink">
+              <p class="chart-colour-research-page-3__slot-8-name">8 Pink</p>
+              <div class="chart-colour-research-page-3__light-pink-swatch"></div>
+              <div class="chart-colour-research-page-3__light-pink-values">
+                <p class="chart-colour-research-page-3__light-pink-hex">#C3467C</p>
+                <p class="chart-colour-research-page-3__light-pink-contrast">4.7:1</p>
+              </div>
+            </div>
+          </div>
+          <div class="chart-colour-research-page-3__dark-palette" data-mode="dark" data-accent="v2-lilac" data-theme-variant="1">
+            <div class="chart-colour-research-page-3__dark-mode-label">
+              <p class="chart-colour-research-page-3__dark-label">Dark</p>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-1-blue">
+              <div class="chart-colour-research-page-3__dark-blue-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-blue-values">
+                <p class="chart-colour-research-page-3__dark-blue-hex">#6787FE</p>
+                <p class="chart-colour-research-page-3__dark-blue-contrast">4.5:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-2-ochre">
+              <div class="chart-colour-research-page-3__dark-ochre-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-ochre-values">
+                <p class="chart-colour-research-page-3__dark-ochre-hex">#D5BC7B</p>
+                <p class="chart-colour-research-page-3__dark-ochre-contrast">7.8:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-3-berry">
+              <div class="chart-colour-research-page-3__dark-berry-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-berry-values">
+                <p class="chart-colour-research-page-3__dark-berry-hex">#9F789E</p>
+                <p class="chart-colour-research-page-3__dark-berry-contrast">3.9:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-4-teal">
+              <div class="chart-colour-research-page-3__dark-teal-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-teal-values">
+                <p class="chart-colour-research-page-3__dark-teal-hex">#36D7C7</p>
+                <p class="chart-colour-research-page-3__dark-teal-contrast">8.1:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-5-violet">
+              <div class="chart-colour-research-page-3__dark-violet-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-violet-values">
+                <p class="chart-colour-research-page-3__dark-violet-hex">#BBA5D3</p>
+                <p class="chart-colour-research-page-3__dark-violet-contrast">6.5:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-6-cyan">
+              <div class="chart-colour-research-page-3__dark-cyan-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-cyan-values">
+                <p class="chart-colour-research-page-3__dark-cyan-hex">#9FDDF6</p>
+                <p class="chart-colour-research-page-3__dark-cyan-contrast">9.8:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-7-navy">
+              <div class="chart-colour-research-page-3__dark-navy-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-navy-values">
+                <p class="chart-colour-research-page-3__dark-navy-hex">#ACB1FF</p>
+                <p class="chart-colour-research-page-3__dark-navy-contrast">7.3:1</p>
+              </div>
+            </div>
+            <div class="chart-colour-research-page-3__dark-slot-8-pink">
+              <div class="chart-colour-research-page-3__dark-pink-swatch"></div>
+              <div class="chart-colour-research-page-3__dark-pink-values">
+                <p class="chart-colour-research-page-3__dark-pink-hex">#F7B5CC</p>
+                <p class="chart-colour-research-page-3__dark-pink-contrast">8.6:1</p>
+              </div>
+            </div>
+          </div>
+          <div class="chart-colour-research-page-3__fill-styles">
+            <div class="chart-colour-research-page-3__fill-label">
+              <p class="chart-colour-research-page-3__fill-label-text">Fill</p>
+            </div>
+            <div class="chart-colour-research-page-3__fill-samples">
+              <div class="chart-colour-research-page-3__solid-fill-sample">
+                <p class="chart-colour-research-page-3__solid-name">Solid</p>
+                <div class="chart-colour-research-page-3__solid-swatches">
+                  <div class="chart-colour-research-page-3__solid-blue-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-ochre-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-berry-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-teal-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-violet-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-cyan-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-navy-swatch"></div>
+                  <div class="chart-colour-research-page-3__solid-pink-swatch"></div>
+                </div>
+                <p class="chart-colour-research-page-3__solid-caption">Flat colour on every bar, segment and line.</p>
+              </div>
+              <div class="chart-colour-research-page-3__gradient-fill-sample">
+                <p class="chart-colour-research-page-3__gradient-name">Gradient</p>
+                <div class="chart-colour-research-page-3__gradient-swatches">
+                  <div class="chart-colour-research-page-3__gradient-blue-swatch">
+                    <div class="chart-colour-research-page-3__blue-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-ochre-swatch">
+                    <div class="chart-colour-research-page-3__ochre-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-berry-swatch">
+                    <div class="chart-colour-research-page-3__berry-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-teal-swatch">
+                    <div class="chart-colour-research-page-3__teal-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-violet-swatch">
+                    <div class="chart-colour-research-page-3__violet-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-cyan-swatch">
+                    <div class="chart-colour-research-page-3__cyan-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-navy-swatch">
+                    <div class="chart-colour-research-page-3__navy-sheen"></div>
+                  </div>
+                  <div class="chart-colour-research-page-3__gradient-pink-swatch">
+                    <div class="chart-colour-research-page-3__pink-sheen"></div>
+                  </div>
+                </div>
+                <p class="chart-colour-research-page-3__gradient-caption">The same colour with a light sheen, or a fade under lines.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="chart-colour-research-page-3__exhibit-5-note">Colours 1–4 stay distinct for colour-blind viewers; none reads as a warning.</p>
+      </div>
+      <section class="chart-colour-research-page-3__recommendation-section">
+        <div class="chart-colour-research-page-3__recommendation">
+          <p class="chart-colour-research-page-3__recommendation-label">Final Verdict</p>
+          <p class="chart-colour-research-page-3__recommendation-text">No. Charts should use one set of colours that stays the same whichever brand colour is picked. Only light and dark mode get their own versions, and each reader picks solid or gradient fills. The brand colour is for buttons and menus, not for data.</p>
+        </div>
+        <div class="chart-colour-research-page-3__rules">
+          <div class="chart-colour-research-page-3__rule-1">
+            <div class="chart-colour-research-page-3__rule-1-badge">
+              <p class="chart-colour-research-page-3__rule-1-number">1</p>
+            </div>
+            <p class="chart-colour-research-page-3__rule-1-text">Charts use the eight colours in order, and a category keeps the same colour on every chart.</p>
+          </div>
+          <div class="chart-colour-research-page-3__rule-2">
+            <div class="chart-colour-research-page-3__rule-2-badge">
+              <p class="chart-colour-research-page-3__rule-2-number">2</p>
+            </div>
+            <p class="chart-colour-research-page-3__rule-2-text">Warning, error and success keep their own colours, which are never used for ordinary data.</p>
+          </div>
+          <div class="chart-colour-research-page-3__rule-3">
+            <div class="chart-colour-research-page-3__rule-3-badge">
+              <p class="chart-colour-research-page-3__rule-3-number">3</p>
+            </div>
+            <p class="chart-colour-research-page-3__rule-3-text">Steps in a process, like Draft to Approved, use shades of one fixed colour, not of the brand colour.</p>
+          </div>
+          <div class="chart-colour-research-page-3__rule-4">
+            <div class="chart-colour-research-page-3__rule-4-badge">
+              <p class="chart-colour-research-page-3__rule-4-number">4</p>
+            </div>
+            <p class="chart-colour-research-page-3__rule-4-text">Charts with one set of data use the first colour; labels mean no one relies on colour alone.</p>
+          </div>
+          <div class="chart-colour-research-page-3__rule-5">
+            <div class="chart-colour-research-page-3__rule-5-badge">
+              <p class="chart-colour-research-page-3__rule-5-number">5</p>
+            </div>
+            <p class="chart-colour-research-page-3__rule-5-text">Solid or gradient is set in the Theme menu and applies to every chart. A gradient only lightens the same colour, so it never changes what a colour means.</p>
+          </div>
+        </div>
+      </section>
+      <div class="chart-colour-research-page-3__sources">
+        <p class="chart-colour-research-page-3__sources-title">Sources</p>
+        <p class="chart-colour-research-page-3__source-1">1  Fluent UI charting, Colors · microsoft.github.io/fluentui-charting-contrib/docs/colors</p>
+        <p class="chart-colour-research-page-3__source-2">2  IBM Carbon, Color palettes · carbondesignsystem.com/data-visualization/color-palettes</p>
+        <p class="chart-colour-research-page-3__source-3">3  Atlassian, Data visualization color · atlassian.design/foundations/color/data-visualization-color</p>
+        <p class="chart-colour-research-page-3__source-4">4  AWS Cloudscape, Data vis colors · cloudscape.design/foundation/visual-foundation/data-vis-colors</p>
+        <p class="chart-colour-research-page-3__source-5">5  GitLab Pajamas, Data visualization color · design.gitlab.com/data-visualization/color</p>
+        <p class="chart-colour-research-page-3__source-6">6  Power BI, Create custom report themes · learn.microsoft.com/power-bi/create-reports/report-themes-create-custom</p>
+        <p class="chart-colour-research-page-3__source-7">7  W3C, Understanding SC 1.4.11 Non-text Contrast · w3.org/WAI/WCAG21/Understanding/non-text-contrast</p>
+        <p class="chart-colour-research-page-3__source-8">8  Microsoft Support, Change a theme and make it the default in Word or Excel · support.microsoft.com</p>
+        <p class="chart-colour-research-page-3__source-9">9  Logos: Microsoft, IBM, Atlassian, Amazon Web Services, GitLab, via Wikimedia Commons; trademarks of their owners</p>
+      </div>
+    </div>
+  </body>
+</html>

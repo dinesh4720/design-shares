@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en" data-mode="light" data-layout="mode-1" data-global="value" data-brand="brand-1">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Typography · 3 · Text colours</title>
+    <style>
+      /* Inter ships beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Inter by The Inter Project Authors, SIL Open Font License 1.1, https://openfontlicense.org */
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      body {
+        margin: 0;
+        background: var(--Neutral-Background-1-Rest);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --Custom-Typography-Font-size-250: 13px;
+      }
+
+      :root, [data-global] {
+        --Size-200: 0;
+        --Size-320: 0;
+        --Colors-Neutral-White: #000000;
+        --Colors-Neutral-Grey-16: #000000;
+        --Size-80: 0;
+        --Typography-Font-size-200: 0;
+        --Colors-Neutral-Grey-38: #000000;
+        --Colors-Neutral-Grey-68: #000000;
+        --Typography-Font-size-600: 0;
+        --Colors-Neutral-Grey-14: #000000;
+        --Typography-Font-size-300: 0;
+        --Colors-Neutral-Grey-26: #000000;
+        --Colors-Neutral-Grey-84: #000000;
+        --Size-120: 0;
+        --Colors-Neutral-Grey-82: #000000;
+        --Colors-Neutral-Grey-40: #000000;
+        --Colors-Neutral-Grey-88: #000000;
+        --Colors-Neutral-Grey-32: #000000;
+        --Corner-radius-20: 0;
+        --Colors-Neutral-Grey-44: #000000;
+        --Colors-Neutral-Grey-60: #000000;
+        --Colors-Shared-Cranberry-Shade-10: #000000;
+        --Colors-Shared-Cranberry-Tint-30: #000000;
+        --Colors-Shared-Orange-Shade-20: #000000;
+        --Colors-Shared-Orange-Tint-20: #000000;
+        --Colors-Shared-Green-Shade-10: #000000;
+        --Colors-Shared-Green-Tint-30: #000000;
+        --Colors-Neutral-Grey-74: #000000;
+        --Colors-Neutral-Grey-36: #000000;
+        --Size-40: 0;
+      }
+
+      :root, [data-brand] {
+        --Brand-70: #000000;
+        --Brand-100: #000000;
+      }
+
+      :root, [data-layout], [data-global] {
+        --Spacing-Vertical-XL: 0;
+        --Spacing-Vertical-XXXL: 0;
+        --Spacing-Horizontal-XXXL: 0;
+        --Spacing-Vertical-S: 0;
+        --Spacing-Horizontal-M: 0;
+        --Spacing-Horizontal-S: 0;
+        --Corner-radius-Small: 0;
+        --Spacing-Vertical-XS: 0;
+      }
+
+      :root, [data-mode], [data-global] {
+        --Neutral-Background-1-Rest: var(--Colors-Neutral-White);
+        --Neutral-Foreground-3-Rest: var(--Colors-Neutral-Grey-38);
+        --Neutral-Foreground-1-Rest: var(--Colors-Neutral-Grey-14);
+        --Neutral-Foreground-2-Rest: var(--Colors-Neutral-Grey-26);
+        --Neutral-Stroke-1-Rest: var(--Colors-Neutral-Grey-82);
+        --Neutral-Stroke-2-Rest: var(--Colors-Neutral-Grey-88);
+        --Neutral-Foreground-On-Brand-Rest: var(--Colors-Neutral-White);
+        --Neutral-Foreground-4-Rest: var(--Colors-Neutral-Grey-44);
+        --Status-Danger-Foreground-1-Rest: var(--Colors-Shared-Cranberry-Shade-10);
+        --Status-Warning-Foreground-1-Rest: var(--Colors-Shared-Orange-Shade-20);
+        --Status-Success-Foreground-1-Rest: var(--Colors-Shared-Green-Shade-10);
+        --Neutral-Foreground-Disabled-Rest: var(--Colors-Neutral-Grey-74);
+      }
+
+      :root, [data-mode], [data-brand] {
+        --Brand-Foreground-Link-Rest: var(--Brand-70);
+      }
+
+      [data-global="value"] {
+        --Size-200: 20px;
+        --Size-320: 32px;
+        --Colors-Neutral-White: #ffffff;
+        --Colors-Neutral-Grey-16: #292929;
+        --Size-80: 8px;
+        --Typography-Font-size-200: 12px;
+        --Colors-Neutral-Grey-38: #616161;
+        --Colors-Neutral-Grey-68: #adadad;
+        --Typography-Font-size-600: 24px;
+        --Colors-Neutral-Grey-14: #242424;
+        --Typography-Font-size-300: 14px;
+        --Colors-Neutral-Grey-26: #424242;
+        --Colors-Neutral-Grey-84: #d6d6d6;
+        --Size-120: 12px;
+        --Colors-Neutral-Grey-82: #d1d1d1;
+        --Colors-Neutral-Grey-40: #666666;
+        --Colors-Neutral-Grey-88: #e0e0e0;
+        --Colors-Neutral-Grey-32: #525252;
+        --Corner-radius-20: 2px;
+        --Colors-Neutral-Grey-44: #707070;
+        --Colors-Neutral-Grey-60: #999999;
+        --Colors-Shared-Cranberry-Shade-10: #b10e1c;
+        --Colors-Shared-Cranberry-Tint-30: #dc626d;
+        --Colors-Shared-Orange-Shade-20: #bc4b09;
+        --Colors-Shared-Orange-Tint-20: #f98845;
+        --Colors-Shared-Green-Shade-10: #0e700e;
+        --Colors-Shared-Green-Tint-30: #54b054;
+        --Colors-Neutral-Grey-74: #bdbdbd;
+        --Colors-Neutral-Grey-36: #5c5c5c;
+        --Size-40: 4px;
+      }
+
+      [data-layout="mode-1"] {
+        --Spacing-Vertical-XL: var(--Size-200);
+        --Spacing-Vertical-XXXL: var(--Size-320);
+        --Spacing-Horizontal-XXXL: var(--Size-320);
+        --Spacing-Vertical-S: var(--Size-80);
+        --Spacing-Horizontal-M: var(--Size-120);
+        --Spacing-Horizontal-S: var(--Size-80);
+        --Corner-radius-Small: var(--Corner-radius-20);
+        --Spacing-Vertical-XS: var(--Size-40);
+      }
+
+      [data-mode="dark"] {
+        --Neutral-Background-1-Rest: var(--Colors-Neutral-Grey-16);
+        --Neutral-Foreground-3-Rest: var(--Colors-Neutral-Grey-68);
+        --Neutral-Foreground-1-Rest: var(--Colors-Neutral-White);
+        --Neutral-Foreground-2-Rest: var(--Colors-Neutral-Grey-84);
+        --Neutral-Stroke-1-Rest: var(--Colors-Neutral-Grey-40);
+        --Neutral-Stroke-2-Rest: var(--Colors-Neutral-Grey-32);
+        --Neutral-Foreground-On-Brand-Rest: var(--Colors-Neutral-White);
+        --Neutral-Foreground-4-Rest: var(--Colors-Neutral-Grey-60);
+        --Brand-Foreground-Link-Rest: var(--Brand-100);
+        --Status-Danger-Foreground-1-Rest: var(--Colors-Shared-Cranberry-Tint-30);
+        --Status-Warning-Foreground-1-Rest: var(--Colors-Shared-Orange-Tint-20);
+        --Status-Success-Foreground-1-Rest: var(--Colors-Shared-Green-Tint-30);
+        --Neutral-Foreground-Disabled-Rest: var(--Colors-Neutral-Grey-36);
+      }
+
+      [data-brand="brand-1"] {
+        --Brand-70: #115ea3;
+        --Brand-100: #479ef5;
+      }
+
+      .typography-3-text-colours {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--Spacing-Vertical-XL);
+        padding: var(--Spacing-Vertical-XXXL) var(--Spacing-Horizontal-XXXL);
+        width: 794px;
+        height: 1123px;
+        background-color: var(--Neutral-Background-1-Rest);
+      }
+
+      .typography-3-text-colours__board-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--Spacing-Vertical-S);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .typography-3-text-colours__eyebrow {
+        color: var(--Neutral-Foreground-3-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__board-title {
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-600);
+        font-weight: 600;
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__summary {
+        align-self: stretch;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__colour-table {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .typography-3-text-colours__header-row {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__area-header {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__style-header {
+        width: 72px;
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__token-header {
+        width: 236px;
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__values-header {
+        width: 126px;
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__kpi-figure-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__area {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__style {
+        width: 72px;
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__token {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-S);
+        width: 236px;
+        flex-shrink: 0;
+      }
+
+      .typography-3-text-colours__swatch {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-1-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforeground1 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__values {
+        width: 126px;
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-3-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__page-title-and-dialog-title-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__section-and-panel-titles-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__card-titles-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__help-panels-and-calculation-notes-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-2 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-2-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforeground2 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__form-labels-and-input-values-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__buttons-selected-tab-message-bar-text-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__primary-button-text-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-3 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-On-Brand-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforegroundonbrand {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__menu-items-and-unselected-tabs-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__context-bar-values-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__context-bar-labels-entity-as-of-date-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-4 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-3-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforeground3 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__placeholder-in-an-input-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-5 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-4-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforeground4 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__links-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-6 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Brand-Foreground-Link-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorbrandforegroundlink {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__cells-row-labels-totals-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__negatives-the-minus-sign-not-colour-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__column-headers-second-line-in-a-cell-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__units-scale-and-as-of-line-of-a-table-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__helper-text-timestamps-sources-footnotes-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__error-text-beside-the-error-icon-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-7 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Status-Danger-Foreground-1-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorstatusdangerforeground1 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__badges-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__token-2 {
+        display: flex;
+        align-items: flex-start;
+        width: 236px;
+        flex-shrink: 0;
+      }
+
+      .typography-3-text-colours__badge-s-own-tokens {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-2-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__limit-breach-failed-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__warning-near-limit-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-8 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Status-Warning-Foreground-1-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorstatuswarningforeground1 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__within-limit-approved-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-9 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Status-Success-Foreground-1-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorstatussuccessforeground1 {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__disabled-text-row {
+        display: flex;
+        align-items: center;
+        gap: var(--Spacing-Horizontal-M);
+        padding: var(--Spacing-Vertical-S) 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--Neutral-Stroke-2-Rest);
+      }
+
+      .typography-3-text-colours__swatch-10 {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        background-color: var(--Neutral-Foreground-Disabled-Rest);
+        border-radius: var(--Corner-radius-Small);
+        box-shadow: inset 0 0 0 1px var(--Neutral-Stroke-1-Rest);
+      }
+
+      .typography-3-text-colours__colorneutralforegrounddisabled {
+        flex-shrink: 0;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Custom-Typography-Font-size-250);
+        line-height: 1.385;
+        white-space: pre;
+      }
+
+      .typography-3-text-colours__colour-rules {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--Spacing-Vertical-XS);
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .typography-3-text-colours__status-rule {
+        align-self: stretch;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__brand-text-rule {
+        align-self: stretch;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .typography-3-text-colours__token-rule {
+        align-self: stretch;
+        color: var(--Neutral-Foreground-1-Rest);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: var(--Typography-Font-size-300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="typography-3-text-colours">
+      <header class="typography-3-text-colours__board-header">
+        <p class="typography-3-text-colours__eyebrow">Surya's Fluent · Typography · Page 3 of 4</p>
+        <h1 class="typography-3-text-colours__board-title">Which text colour each area uses</h1>
+        <p class="typography-3-text-colours__summary">Every area from page 2's "Use it for" column, with its Fluent colour token. Values are Light · Dark.</p>
+      </header>
+      <div class="typography-3-text-colours__colour-table">
+        <div class="typography-3-text-colours__header-row">
+          <p class="typography-3-text-colours__area-header">Area</p>
+          <p class="typography-3-text-colours__style-header">Style</p>
+          <p class="typography-3-text-colours__token-header">Colour token</p>
+          <p class="typography-3-text-colours__values-header">Light · Dark</p>
+        </div>
+        <div class="typography-3-text-colours__kpi-figure-row">
+          <p class="typography-3-text-colours__area">KPI figure</p>
+          <p class="typography-3-text-colours__style">Title 3</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__page-title-and-dialog-title-row">
+          <p class="typography-3-text-colours__area">Page title and dialog title</p>
+          <p class="typography-3-text-colours__style">Subtitle 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__section-and-panel-titles-row">
+          <p class="typography-3-text-colours__area">Section and panel titles</p>
+          <p class="typography-3-text-colours__style">Section</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__card-titles-row">
+          <p class="typography-3-text-colours__area">Card titles</p>
+          <p class="typography-3-text-colours__style">Body 2</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__help-panels-and-calculation-notes-row">
+          <p class="typography-3-text-colours__area">Help panels and calculation notes</p>
+          <p class="typography-3-text-colours__style">Body 2</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-2"></div>
+            <p class="typography-3-text-colours__colorneutralforeground2">colorNeutralForeground2</p>
+          </div>
+          <p class="typography-3-text-colours__values">#424242 · #D6D6D6</p>
+        </div>
+        <div class="typography-3-text-colours__form-labels-and-input-values-row">
+          <p class="typography-3-text-colours__area">Form labels and input values</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__buttons-selected-tab-message-bar-text-row">
+          <p class="typography-3-text-colours__area">Buttons, selected tab, message bar text</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__primary-button-text-row">
+          <p class="typography-3-text-colours__area">Primary button text</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-3"></div>
+            <p class="typography-3-text-colours__colorneutralforegroundonbrand">colorNeutralForegroundOnBrand</p>
+          </div>
+          <p class="typography-3-text-colours__values">#FFFFFF · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__menu-items-and-unselected-tabs-row">
+          <p class="typography-3-text-colours__area">Menu items and unselected tabs</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-2"></div>
+            <p class="typography-3-text-colours__colorneutralforeground2">colorNeutralForeground2</p>
+          </div>
+          <p class="typography-3-text-colours__values">#424242 · #D6D6D6</p>
+        </div>
+        <div class="typography-3-text-colours__context-bar-values-row">
+          <p class="typography-3-text-colours__area">Context bar values</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__context-bar-labels-entity-as-of-date-row">
+          <p class="typography-3-text-colours__area">Context bar labels: Entity, As-of date</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-4"></div>
+            <p class="typography-3-text-colours__colorneutralforeground3">colorNeutralForeground3</p>
+          </div>
+          <p class="typography-3-text-colours__values">#616161 · #ADADAD</p>
+        </div>
+        <div class="typography-3-text-colours__placeholder-in-an-input-row">
+          <p class="typography-3-text-colours__area">Placeholder in an input</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-5"></div>
+            <p class="typography-3-text-colours__colorneutralforeground4">colorNeutralForeground4</p>
+          </div>
+          <p class="typography-3-text-colours__values">#707070 · #999999</p>
+        </div>
+        <div class="typography-3-text-colours__links-row">
+          <p class="typography-3-text-colours__area">Links</p>
+          <p class="typography-3-text-colours__style">Body 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-6"></div>
+            <p class="typography-3-text-colours__colorbrandforegroundlink">colorBrandForegroundLink</p>
+          </div>
+          <p class="typography-3-text-colours__values">#115EA3 · #479EF5</p>
+        </div>
+        <div class="typography-3-text-colours__cells-row-labels-totals-row">
+          <p class="typography-3-text-colours__area">Cells, row labels, totals</p>
+          <p class="typography-3-text-colours__style">Data</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__negatives-the-minus-sign-not-colour-row">
+          <p class="typography-3-text-colours__area">Negatives: the minus sign, not colour</p>
+          <p class="typography-3-text-colours__style">Data</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch"></div>
+            <p class="typography-3-text-colours__colorneutralforeground1">colorNeutralForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#242424 · #FFFFFF</p>
+        </div>
+        <div class="typography-3-text-colours__column-headers-second-line-in-a-cell-row">
+          <p class="typography-3-text-colours__area">Column headers; second line in a cell</p>
+          <p class="typography-3-text-colours__style">Data</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-2"></div>
+            <p class="typography-3-text-colours__colorneutralforeground2">colorNeutralForeground2</p>
+          </div>
+          <p class="typography-3-text-colours__values">#424242 · #D6D6D6</p>
+        </div>
+        <div class="typography-3-text-colours__units-scale-and-as-of-line-of-a-table-row">
+          <p class="typography-3-text-colours__area">Units, scale and as-of line of a table</p>
+          <p class="typography-3-text-colours__style">Caption 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-2"></div>
+            <p class="typography-3-text-colours__colorneutralforeground2">colorNeutralForeground2</p>
+          </div>
+          <p class="typography-3-text-colours__values">#424242 · #D6D6D6</p>
+        </div>
+        <div class="typography-3-text-colours__helper-text-timestamps-sources-footnotes-row">
+          <p class="typography-3-text-colours__area">Helper text, timestamps, footnotes</p>
+          <p class="typography-3-text-colours__style">Caption 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-4"></div>
+            <p class="typography-3-text-colours__colorneutralforeground3">colorNeutralForeground3</p>
+          </div>
+          <p class="typography-3-text-colours__values">#616161 · #ADADAD</p>
+        </div>
+        <div class="typography-3-text-colours__error-text-beside-the-error-icon-row">
+          <p class="typography-3-text-colours__area">Error text, beside the error icon</p>
+          <p class="typography-3-text-colours__style">Caption 1</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-7"></div>
+            <p class="typography-3-text-colours__colorstatusdangerforeground1">colorStatusDangerForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#B10E1C · #DC626D</p>
+        </div>
+        <div class="typography-3-text-colours__badges-row">
+          <p class="typography-3-text-colours__area">Badges</p>
+          <p class="typography-3-text-colours__style">Caption 1</p>
+          <div class="typography-3-text-colours__token-2">
+            <p class="typography-3-text-colours__badge-s-own-tokens">Badge's own tokens</p>
+          </div>
+          <p class="typography-3-text-colours__values">—</p>
+        </div>
+        <div class="typography-3-text-colours__limit-breach-failed-row">
+          <p class="typography-3-text-colours__area">Limit breach, failed</p>
+          <p class="typography-3-text-colours__style">Any</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-7"></div>
+            <p class="typography-3-text-colours__colorstatusdangerforeground1">colorStatusDangerForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#B10E1C · #DC626D</p>
+        </div>
+        <div class="typography-3-text-colours__warning-near-limit-row">
+          <p class="typography-3-text-colours__area">Warning, near limit</p>
+          <p class="typography-3-text-colours__style">Any</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-8"></div>
+            <p class="typography-3-text-colours__colorstatuswarningforeground1">colorStatusWarningForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#BC4B09 · #F98845</p>
+        </div>
+        <div class="typography-3-text-colours__within-limit-approved-row">
+          <p class="typography-3-text-colours__area">Within limit, approved</p>
+          <p class="typography-3-text-colours__style">Any</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-9"></div>
+            <p class="typography-3-text-colours__colorstatussuccessforeground1">colorStatusSuccessForeground1</p>
+          </div>
+          <p class="typography-3-text-colours__values">#0E700E · #54B054</p>
+        </div>
+        <div class="typography-3-text-colours__disabled-text-row">
+          <p class="typography-3-text-colours__area">Disabled text</p>
+          <p class="typography-3-text-colours__style">Any</p>
+          <div class="typography-3-text-colours__token">
+            <div class="typography-3-text-colours__swatch-10"></div>
+            <p class="typography-3-text-colours__colorneutralforegrounddisabled">colorNeutralForegroundDisabled</p>
+          </div>
+          <p class="typography-3-text-colours__values">#BDBDBD · #5C5C5C</p>
+        </div>
+      </div>
+      <div class="typography-3-text-colours__colour-rules">
+        <p class="typography-3-text-colours__status-rule">Status colour only with its icon and word, never alone. Never the brand colour for status.</p>
+        <p class="typography-3-text-colours__brand-text-rule">Brand text (links) on Background 5 or lighter, never on Background 6.</p>
+        <p class="typography-3-text-colours__token-rule">Use the token, never the hex: Dark mode and high contrast follow it.</p>
+      </div>
+    </div>
+  </body>
+</html>
