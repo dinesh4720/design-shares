@@ -23,6 +23,32 @@
   .bar button, .bar select { height: 28px; min-width: 28px; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: var(--text); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
   .bar button:hover, .bar select:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
   #pct { min-width: 48px; font-variant-numeric: tabular-nums; }
+  body.commenting, body.commenting .board { cursor: crosshair; }
+  #pins { position: absolute; inset: 0; pointer-events: none; }
+  .c-pin { position: absolute; width: 28px; height: 28px; margin: -28px 0 0 0; padding: 0; border: 2px solid #fff; border-radius: 14px 14px 14px 2px; background: #1a1a1a; color: #fff; font: 600 12px/24px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer; pointer-events: auto; transition: transform .15s; transform-origin: 0 100%; }
+  .c-pin:hover, .c-pin.open { transform: scale(1.12); }
+  .c-pin.draft { background: #0d6efd; pointer-events: none; }
+  .c-card { position: fixed; z-index: 5; width: 280px; max-width: calc(100vw - 16px); padding: 10px; border-radius: 12px; background: var(--panel); color: var(--text); box-shadow: 0 0 0 1px var(--line), 0 8px 28px rgba(0,0,0,.16); cursor: default; user-select: text; -webkit-user-select: text; }
+  .c-card[hidden], .c-hint[hidden] { display: none; }
+  .c-head { display: flex; align-items: center; justify-content: space-between; margin: -2px 0 6px; font-size: 13px; }
+  .c-x { width: 24px; height: 24px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-size: 16px; cursor: pointer; }
+  .c-x:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+  .c-list { list-style: none; margin: 0 0 8px; padding: 0; max-height: 260px; overflow: auto; }
+  .c-msg { padding: 6px 0; border-top: 1px solid var(--line); }
+  .c-msg:first-child { border-top: 0; }
+  .c-meta { display: flex; gap: 6px; align-items: baseline; }
+  .c-who { font-weight: 600; font-size: 12px; }
+  .c-msg.owner .c-who::after { content: " · designer"; font-weight: 400; color: var(--muted); }
+  .c-when { color: var(--muted); font-size: 11px; }
+  .c-words { margin: 2px 0 0; font-size: 13px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .c-form { display: grid; gap: 6px; }
+  .c-name, .c-text { width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--text); font: 13px/1.4 inherit; font-family: inherit; resize: none; outline: none; }
+  .c-name:focus, .c-text:focus { border-color: var(--muted); }
+  .c-row { display: flex; align-items: center; gap: 8px; }
+  .c-err { flex: 1; color: #d33; font-size: 11px; }
+  .c-send { height: 28px; padding: 0 12px; border: 0; border-radius: 7px; background: var(--text); color: var(--panel); font: 500 12px inherit; font-family: inherit; cursor: pointer; }
+  .c-send:disabled { opacity: .4; cursor: default; }
+  .c-hint { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); padding: 6px 12px; border-radius: 8px; background: #1a1a1a; color: #fff; font-size: 12px; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -34,7 +60,8 @@
   <button type="button" id="in" aria-label="Zoom in">+</button>
   <button type="button" id="fit" title="See everything (F)">Fit</button>
 </div>
-<script type="application/json" id="pages">[{"id":"page-1","name":"Page 1","color":"#101317","boards":[{"file":"board-dNNWY.html","name":"image","x":1296,"y":3950,"w":800,"h":403},{"file":"board-mxb0K.html","name":"image-2","x":1296,"y":4394,"w":800,"h":402},{"file":"board-EerUg.html","name":"image-3","x":1296,"y":4884,"w":1200,"h":669},{"file":"board-LxIRB.html","name":"App header","x":2576,"y":5054,"w":1366,"h":56},{"file":"board-GVGHu.html","name":"App rail","x":4022,"y":5134,"w":76,"h":712},{"file":"board-IcSNN.html","name":"Engagement subnav","x":4178,"y":5134,"w":256,"h":712},{"file":"board-AozC5.html","name":"Badge / Draft","x":4514,"y":5166,"w":55,"h":20},{"file":"board-E2EJs.html","name":"Badge / Approval pending","x":2665,"y":5198,"w":124,"h":20},{"file":"board-HMsGn.html","name":"Badge / Closed","x":2869,"y":5230,"w":64,"h":20},{"file":"board-onl6Q.html","name":"Badge / Published","x":3013,"y":5262,"w":80,"h":20},{"file":"board-hnTx1.html","name":"Counter badge","x":3173,"y":5294,"w":15,"h":16},{"file":"board-5dBf1.html","name":"Button / Primary","x":2665,"y":5342,"w":96,"h":32},{"file":"board-k9ay2.html","name":"Button / Secondary","x":2841,"y":5390,"w":113,"h":32},{"file":"board-OsqRv.html","name":"Button / Subtle icon","x":3034,"y":5438,"w":32,"h":32},{"file":"board-XLCjm.html","name":"Input","x":3146,"y":5486,"w":240,"h":32},{"file":"board-jSKEP.html","name":"Checkbox","x":2665,"y":5534,"w":16,"h":16},{"file":"board-TPqLL.html","name":"Checkbox / Checked","x":2761,"y":5534,"w":16,"h":16},{"file":"board-SVJHu.html","name":"Switch / On","x":2857,"y":5566,"w":40,"h":20},{"file":"board-wymGG.html","name":"Switch / Off","x":2977,"y":5566,"w":40,"h":20},{"file":"board-aApYI.html","name":"Radio / On","x":3097,"y":5598,"w":16,"h":16},{"file":"board-tvsaL.html","name":"Radio / Off","x":3193,"y":5598,"w":16,"h":16},{"file":"board-D3Psu.html","name":"Tab","x":2665,"y":5630,"w":105,"h":32},{"file":"board-eahl0.html","name":"Avatar / Initials","x":2176,"y":5686,"w":20,"h":20},{"file":"board-HA7sy.html","name":"Requests","x":2265,"y":3950,"w":1366,"h":768},{"file":"board-u6nVD.html","name":"Scheme definition · Forms","x":3751,"y":3950,"w":1366,"h":768},{"file":"board-LgbAR.html","name":"Scheme definition · Details","x":5237,"y":3950,"w":1366,"h":768},{"file":"board-LjBlV.html","name":"Create form","x":4649,"y":4818,"w":1366,"h":768},{"file":"board-iECUo.html","name":"Form preview · Change in scope","x":4649,"y":5673,"w":1366,"h":768},{"file":"board-sfEo9.html","name":"Create detail page","x":6095,"y":4818,"w":1366,"h":768},{"file":"board-edk2L.html","name":"Create form · New step","x":6095,"y":6554,"w":1366,"h":768},{"file":"board-u5Ai7.html","name":"Create form · No steps","x":4649,"y":6554,"w":1366,"h":768},{"file":"board-wYR6Q.html","name":"Create detail page · Add custom field","x":-471,"y":3950,"w":1366,"h":768},{"file":"board-pxq66.html","name":"Final Proto","x":-616,"y":2223,"w":1912,"h":1261}]}]</script>
+<script type="application/json" id="pages">[{"id":"page-1","name":"Page 1","color":"#101317","boards":[{"id":"dNNWY","file":"board-dNNWY.html?v=1","name":"image","x":1296,"y":3950,"w":800,"h":403},{"id":"mxb0K","file":"board-mxb0K.html?v=1","name":"image-2","x":1296,"y":4394,"w":800,"h":402},{"id":"EerUg","file":"board-EerUg.html?v=1","name":"image-3","x":1296,"y":4884,"w":1200,"h":669},{"id":"LxIRB","file":"board-LxIRB.html?v=1","name":"App header","x":2576,"y":5054,"w":1366,"h":56},{"id":"GVGHu","file":"board-GVGHu.html?v=1","name":"App rail","x":4022,"y":5134,"w":76,"h":712},{"id":"IcSNN","file":"board-IcSNN.html?v=1","name":"Engagement subnav","x":4178,"y":5134,"w":256,"h":712},{"id":"AozC5","file":"board-AozC5.html?v=1","name":"Badge / Draft","x":4514,"y":5166,"w":55,"h":20},{"id":"E2EJs","file":"board-E2EJs.html?v=1","name":"Badge / Approval pending","x":2665,"y":5198,"w":124,"h":20},{"id":"HMsGn","file":"board-HMsGn.html?v=1","name":"Badge / Closed","x":2869,"y":5230,"w":64,"h":20},{"id":"onl6Q","file":"board-onl6Q.html?v=1","name":"Badge / Published","x":3013,"y":5262,"w":80,"h":20},{"id":"hnTx1","file":"board-hnTx1.html?v=1","name":"Counter badge","x":3173,"y":5294,"w":15,"h":16},{"id":"5dBf1","file":"board-5dBf1.html?v=1","name":"Button / Primary","x":2665,"y":5342,"w":96,"h":32},{"id":"k9ay2","file":"board-k9ay2.html?v=1","name":"Button / Secondary","x":2841,"y":5390,"w":113,"h":32},{"id":"OsqRv","file":"board-OsqRv.html?v=1","name":"Button / Subtle icon","x":3034,"y":5438,"w":32,"h":32},{"id":"XLCjm","file":"board-XLCjm.html?v=1","name":"Input","x":3146,"y":5486,"w":240,"h":32},{"id":"jSKEP","file":"board-jSKEP.html?v=1","name":"Checkbox","x":2665,"y":5534,"w":16,"h":16},{"id":"TPqLL","file":"board-TPqLL.html?v=1","name":"Checkbox / Checked","x":2761,"y":5534,"w":16,"h":16},{"id":"SVJHu","file":"board-SVJHu.html?v=1","name":"Switch / On","x":2857,"y":5566,"w":40,"h":20},{"id":"wymGG","file":"board-wymGG.html?v=1","name":"Switch / Off","x":2977,"y":5566,"w":40,"h":20},{"id":"aApYI","file":"board-aApYI.html?v=1","name":"Radio / On","x":3097,"y":5598,"w":16,"h":16},{"id":"tvsaL","file":"board-tvsaL.html?v=1","name":"Radio / Off","x":3193,"y":5598,"w":16,"h":16},{"id":"D3Psu","file":"board-D3Psu.html?v=1","name":"Tab","x":2665,"y":5630,"w":105,"h":32},{"id":"eahl0","file":"board-eahl0.html?v=1","name":"Avatar / Initials","x":2176,"y":5686,"w":20,"h":20},{"id":"HA7sy","file":"board-HA7sy.html?v=1","name":"Requests","x":2265,"y":3950,"w":1366,"h":768},{"id":"u6nVD","file":"board-u6nVD.html?v=1","name":"Scheme definition · Forms","x":3751,"y":3950,"w":1366,"h":768},{"id":"LgbAR","file":"board-LgbAR.html?v=1","name":"Scheme definition · Details","x":5237,"y":3950,"w":1366,"h":768},{"id":"LjBlV","file":"board-LjBlV.html?v=1","name":"Create form","x":4649,"y":4818,"w":1366,"h":768},{"id":"iECUo","file":"board-iECUo.html?v=1","name":"Form preview · Change in scope","x":4649,"y":5673,"w":1366,"h":768},{"id":"sfEo9","file":"board-sfEo9.html?v=1","name":"Create detail page","x":6095,"y":4818,"w":1366,"h":768},{"id":"u5Ai7","file":"board-u5Ai7.html?v=1","name":"Create form · No steps","x":4649,"y":6554,"w":1366,"h":768},{"id":"wYR6Q","file":"board-wYR6Q.html?v=1","name":"Create detail page · Add custom field","x":-471,"y":3950,"w":1366,"h":768},{"id":"pxq66","file":"board-pxq66.html?v=1","name":"Final Proto","x":-616,"y":2223,"w":1912,"h":1209}]}]</script>
+<script type="application/json" id="share">{"service":"https://design-app-link.knotdesign.workers.dev/","share":"3adroU6J8CfTf_2QKGVa1A"}</script>
 <script>
 (function () {
   var pages = JSON.parse(document.getElementById("pages").textContent);
@@ -43,10 +70,13 @@
   var view = { s: 1, x: 0, y: 0 };
   var current = 0;
   var MIN = 0.02, MAX = 8;
+  // For comments.js (share comments): the view, the pages, which is shown.
+  var hooks = window.knotCanvas = { view: view, pages: pages, current: function () { return current; }, mode: "" };
   function apply() {
     world.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
     world.style.setProperty("--inv", String(1 / view.s));
     pct.textContent = Math.round(view.s * 100) + "%";
+    if (hooks.onView) hooks.onView();
   }
   function zoomAt(s, cx, cy) {
     moved = true;
@@ -98,9 +128,10 @@
     fit();
   }
   // Moving around: drag (one finger), pinch (two), scroll and ⌘/Ctrl-scroll.
-  var pointers = new Map(), last;
+  var pointers = new Map(), last, press;
   addEventListener("pointerdown", function (e) {
-    if (e.target.closest(".bar")) return;
+    if (e.target.closest(".bar, .c-card, .c-pin")) return;
+    press = pointers.size ? undefined : { id: e.pointerId, x: e.clientX, y: e.clientY };
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     document.body.setPointerCapture(e.pointerId);
     document.body.classList.add("dragging");
@@ -120,6 +151,14 @@
     }
   });
   function up(e) { pointers.delete(e.pointerId); last = undefined; if (!pointers.size) document.body.classList.remove("dragging"); }
+  // A press that didn't move: a comment there in comment mode (comments.js).
+  addEventListener("pointerup", function (e) {
+    var p = press;
+    press = undefined;
+    if (!p || p.id !== e.pointerId || Math.hypot(e.clientX - p.x, e.clientY - p.y) > 4) return;
+    if (hooks.mode === "comment" && hooks.onPlace) hooks.onPlace(e);
+    else if (hooks.onClick) hooks.onClick(e);
+  });
   addEventListener("pointerup", up);
   addEventListener("pointercancel", up);
   addEventListener("wheel", function (e) {
@@ -137,7 +176,7 @@
   document.getElementById("pct").onclick = function () { centre(1); };
   document.getElementById("fit").onclick = function () { fit(); moved = false; };
   addEventListener("keydown", function (e) {
-    if (e.target.tagName === "SELECT") return;
+    if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
     if (e.key === "+" || e.key === "=") centre(view.s * 1.25);
     else if (e.key === "-" || e.key === "_") centre(view.s / 1.25);
     else if (e.key === "f" || e.key === "F" || (e.key === "1" && e.shiftKey)) fit();
@@ -152,5 +191,6 @@
   show(0);
 })();
 </script>
+<script src="comments.js"></script>
 </body>
 </html>

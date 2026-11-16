@@ -94,7 +94,6 @@
         --colorNeutralBackground3: #f5f5f5;
         --colorNeutralBackground4: #f0f0f0;
         --colorNeutralBackground5: #ebebeb;
-        --colorNeutralBackground6: #e6e6e6;
         --colorNeutralStroke1: #d1d1d1;
         --colorNeutralStroke2: #e0e0e0;
         --colorNeutralStroke3: #f0f0f0;
@@ -102,17 +101,16 @@
         --colorBrandBackground: #0f6cbd;
         --colorBrandBackground2: #ebf3fc;
         --colorBrandForeground1: #0f6cbd;
-        --colorBrandForegroundLink: #115ea3;
         --colorBrandStroke1: #0f6cbd;
         --borderRadiusMedium: 4px;
         --borderRadiusLarge: 6px;
         --borderRadiusXLarge: 8px;
         --borderRadiusCircular: 9999px;
-        --fontSizeBase100: 10px;
         --fontSizeBase200: 12px;
         --fontSizeBase300: 14px;
         --fontSizeBase400: 16px;
         --fontSizeBase500: 20px;
+        --colorNeutralStencil1: #e6e6e6;
       }
 
       .create-detail-page {
@@ -765,10 +763,6 @@
         background-color: var(--colorNeutralForegroundDisabled);
       }
 
-      .checkbox-checked--checkbox {
-        background-color: var(--colorNeutralForeground3);
-      }
-
       .checkbox-checked__check {
         width: 12px;
         height: 12px;
@@ -927,86 +921,51 @@
       }
 
       .create-detail-page__request-title {
-        color: var(--colorNeutralForeground1);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase500);
-        font-weight: 600;
-        line-height: 1.4;
-        white-space: pre;
-      }
-
-      .create-detail-page__ret-rm-0000007 {
-        color: var(--colorNeutralForeground3);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase200);
-        line-height: 1.333;
-        white-space: pre;
-      }
-
-      .create-detail-page__copy-icon {
-        width: 12px;
-        height: 12px;
-        color: var(--colorNeutralForeground3);
-        stroke-width: 1.5;
-      }
-
-      .avatar-initials {
         display: flex;
-        justify-content: center;
         align-items: center;
-        background-color: var(--colorNeutralBackground6);
-        border-radius: var(--borderRadiusCircular);
+        height: 28px;
       }
 
-      .avatar-initials--avatar {
-        width: 16px;
+      .create-detail-page__shimmer {
+        width: 360px;
+        height: 20px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .create-detail-page__meta-line-2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         height: 16px;
       }
 
-      .avatar-initials--avatar-2 {
-        width: 20px;
-        height: 20px;
+      .create-detail-page__shimmer-2 {
+        width: 96px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
-      .avatar-initials__initials {
-        flex-shrink: 0;
-        color: var(--colorNeutralForeground2);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-weight: 600;
-        line-height: 1;
-        white-space: pre;
+      .create-detail-page__shimmer-circle {
+        width: 16px;
+        height: 16px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusCircular);
       }
 
-      .avatar-initials__initials--avatar {
-        font-size: 7px;
+      .create-detail-page__shimmer-3 {
+        width: 64px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
-      .avatar-initials__initials--avatar-2 {
-        font-size: var(--fontSizeBase100);
-      }
-
-      .create-detail-page__dinesh-k {
-        color: var(--colorNeutralForeground3);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase200);
-        line-height: 1.333;
-        white-space: pre;
-      }
-
-      .create-detail-page__requested {
-        color: var(--colorNeutralForeground3);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase200);
-        line-height: 1.333;
-        white-space: pre;
-      }
-
-      .create-detail-page__16-11-2026 {
-        color: var(--colorNeutralForeground3);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase200);
-        line-height: 1.333;
-        white-space: pre;
+      .create-detail-page__shimmer-4 {
+        width: 72px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
       .create-detail-page__status-bar {
@@ -1021,53 +980,19 @@
         box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
       }
 
-      .create-detail-page__status-button {
+      .create-detail-page__status {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 0 10px;
+        padding: 0 8px;
         height: 32px;
         flex-shrink: 0;
-        background-color: var(--colorNeutralBackground5);
+      }
+
+      .create-detail-page__shimmer-5 {
+        width: 80px;
+        height: 20px;
+        background-color: var(--colorNeutralStencil1);
         border-radius: var(--borderRadiusMedium);
-      }
-
-      .create-detail-page__draft-icon-slot {
-        position: relative;
-        width: 16px;
-        height: 16px;
-      }
-
-      .create-detail-page__dashed-circle {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 16px;
-        height: 16px;
-      }
-
-      .create-detail-page__circle-1 {
-        position: absolute;
-        left: 1.5px;
-        top: 1.5px;
-        width: 13px;
-        height: 13px;
-      }
-
-      .create-detail-page__label-2 {
-        color: var(--colorNeutralForeground1);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase300);
-        font-weight: 600;
-        line-height: 1.429;
-        white-space: pre;
-      }
-
-      .create-detail-page__chevron-down-icon {
-        width: 12px;
-        height: 12px;
-        color: var(--colorNeutralForeground1);
-        stroke-width: 1.5;
       }
 
       .create-detail-page__export-icon {
@@ -1135,7 +1060,7 @@
         border-radius: var(--borderRadiusMedium);
       }
 
-      .create-detail-page__label-3 {
+      .create-detail-page__label-2 {
         color: var(--colorNeutralForeground3);
         font-family: 'Segoe UI', 'Selawik', sans-serif;
         font-size: var(--fontSizeBase200);
@@ -1144,13 +1069,17 @@
       }
 
       .create-detail-page__value {
-        align-self: stretch;
-        color: var(--colorNeutralForeground1);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase300);
-        line-height: 1.429;
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 20px;
+      }
+
+      .create-detail-page__shimmer-6 {
+        width: 320px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
       .create-detail-page__value-row {
@@ -1171,6 +1100,13 @@
         border-radius: var(--borderRadiusMedium);
       }
 
+      .create-detail-page__shimmer-7 {
+        width: 200px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
+      }
+
       .create-detail-page__value-change-type {
         position: relative;
         display: flex;
@@ -1183,6 +1119,13 @@
         background-color: var(--colorNeutralBackground2);
         border-radius: var(--borderRadiusMedium);
         box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .create-detail-page__shimmer-8 {
+        width: 112px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
       .create-detail-page__field-toolbar {
@@ -1282,6 +1225,13 @@
         border-radius: var(--borderRadiusMedium);
       }
 
+      .create-detail-page__shimmer-9 {
+        width: 560px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
+      }
+
       .create-detail-page__value-effective-from {
         display: flex;
         flex-direction: column;
@@ -1290,6 +1240,13 @@
         padding: 6px 8px;
         flex: 1 1 0;
         min-width: 0;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .create-detail-page__shimmer-10 {
+        width: 80px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
         border-radius: var(--borderRadiusMedium);
       }
 
@@ -1321,7 +1278,7 @@
         stroke-width: 1.5;
       }
 
-      .create-detail-page__label-4 {
+      .create-detail-page__label-3 {
         color: var(--colorNeutralForeground2);
         font-family: 'Segoe UI', 'Selawik', sans-serif;
         font-size: var(--fontSizeBase300);
@@ -1354,6 +1311,13 @@
         border-radius: var(--borderRadiusMedium);
       }
 
+      .create-detail-page__shimmer-11 {
+        width: 40px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
+      }
+
       .create-detail-page__value-criticality-after-change {
         display: flex;
         flex-direction: column;
@@ -1376,18 +1340,11 @@
         border-radius: var(--borderRadiusMedium);
       }
 
-      .create-detail-page__person {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .create-detail-page__value-2 {
-        color: var(--colorNeutralForeground1);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase300);
-        line-height: 1.429;
-        white-space: pre;
+      .create-detail-page__shimmer-circle-2 {
+        width: 20px;
+        height: 20px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusCircular);
       }
 
       .create-detail-page__empty-cell {
@@ -1429,33 +1386,18 @@
         border-radius: var(--borderRadiusMedium);
       }
 
-      .create-detail-page__file-sow-connectreach-v2-pdf {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .create-detail-page__paperclip-icon {
+      .create-detail-page__shimmer-icon {
         width: 16px;
         height: 16px;
-        color: var(--colorNeutralForeground2);
-        stroke-width: 1.5;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
-      .create-detail-page__file-name {
-        color: var(--colorBrandForegroundLink);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase300);
-        line-height: 1.429;
-        white-space: pre;
-      }
-
-      .create-detail-page__file-size {
-        color: var(--colorNeutralForeground3);
-        font-family: 'Segoe UI', 'Selawik', sans-serif;
-        font-size: var(--fontSizeBase200);
-        line-height: 1.333;
-        white-space: pre;
+      .create-detail-page__shimmer-12 {
+        width: 180px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
+        border-radius: var(--borderRadiusMedium);
       }
 
       .create-detail-page__value-other-documents {
@@ -1466,6 +1408,13 @@
         padding: 6px 8px;
         flex: 1 1 0;
         min-width: 0;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .create-detail-page__shimmer-13 {
+        width: 120px;
+        height: 12px;
+        background-color: var(--colorNeutralStencil1);
         border-radius: var(--borderRadiusMedium);
       }
 
@@ -1488,7 +1437,7 @@
         flex-direction: column;
         align-items: flex-start;
         padding: 4px;
-        height: 365px;
+        height: 325px;
         align-self: stretch;
         overflow: hidden;
       }
@@ -1533,7 +1482,7 @@
         box-shadow: inset 0 0 0 1px var(--colorNeutralStrokeAccessible);
       }
 
-      .create-detail-page__label-5 {
+      .create-detail-page__label-4 {
         flex: 1 1 0;
         min-width: 0;
         color: var(--colorNeutralForeground2);
@@ -1798,18 +1747,18 @@
         border-radius: var(--borderRadiusMedium);
       }
 
-      .create-detail-page__footer-divider {
+      .create-detail-page__custom-field-divider {
         height: 1px;
         align-self: stretch;
         background-color: var(--colorNeutralStroke2);
       }
 
-      .create-detail-page__menu-footer {
+      .create-detail-page__custom-field-row {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 8px 8px 4px;
+        align-items: flex-start;
+        padding: 4px;
         align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
       }
 
       .create-detail-page__add-custom-field-button {
@@ -1818,24 +1767,41 @@
         gap: 6px;
         padding: 0 8px;
         height: 32px;
-        flex-shrink: 0;
+        flex: 1 1 0;
+        min-width: 0;
         border-radius: var(--borderRadiusMedium);
       }
 
       .create-detail-page__plus-icon-2 {
         width: 20px;
         height: 20px;
+        flex-shrink: 0;
         color: var(--colorBrandForeground1);
         stroke-width: 1.5;
       }
 
-      .create-detail-page__label-6 {
+      .create-detail-page__label-5 {
+        flex-shrink: 0;
         color: var(--colorBrandForeground1);
         font-family: 'Segoe UI', 'Selawik', sans-serif;
         font-size: var(--fontSizeBase300);
         font-weight: 600;
         line-height: 1.429;
         white-space: pre;
+      }
+
+      .create-detail-page__footer-divider {
+        height: 1px;
+        align-self: stretch;
+        background-color: var(--colorNeutralStroke2);
+      }
+
+      .create-detail-page__menu-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 8px;
+        align-self: stretch;
       }
     </style>
   </head>
@@ -1985,37 +1951,26 @@
             <div class="create-detail-page__page-canvas">
               <div class="create-detail-page__canvas-note">
                 <svg class="create-detail-page__eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-                <p class="create-detail-page__note">Shown with a sample request.</p>
+                <p class="create-detail-page__note">Values fill in from each request.</p>
               </div>
               <div class="create-detail-page__detail-page-header">
                 <svg class="create-detail-page__back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                 <div class="create-detail-page__title-block">
-                  <h2 class="create-detail-page__request-title">Add payroll processing to Connect Reach scope</h2>
-                  <div class="create-detail-page__meta-line">
-                    <p class="create-detail-page__ret-rm-0000007">RET/RM_0000007</p>
-                    <svg class="create-detail-page__copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                    <p class="create-detail-page__dot">•</p>
-                    <div class="avatar-initials avatar-initials--avatar" data-instance-of="avatar-initials">
-                      <p class="avatar-initials__initials avatar-initials__initials--avatar">DK</p>
-                    </div>
-                    <p class="create-detail-page__dinesh-k">Dinesh K</p>
-                    <p class="create-detail-page__dot">•</p>
-                    <p class="create-detail-page__requested">Requested</p>
-                    <p class="create-detail-page__dot">•</p>
-                    <p class="create-detail-page__16-11-2026">16-11-2026</p>
+                  <div class="create-detail-page__request-title">
+                    <div class="create-detail-page__shimmer"></div>
+                  </div>
+                  <div class="create-detail-page__meta-line-2">
+                    <div class="create-detail-page__shimmer-2"></div>
+                    <div class="create-detail-page__shimmer-circle"></div>
+                    <div class="create-detail-page__shimmer-3"></div>
+                    <div class="create-detail-page__shimmer-4"></div>
                   </div>
                 </div>
               </div>
               <div class="create-detail-page__status-bar">
-                <button class="create-detail-page__status-button" type="button">
-                  <span class="create-detail-page__draft-icon-slot">
-                    <span class="create-detail-page__dashed-circle">
-                      <svg class="create-detail-page__circle-1" viewBox="1.5 1.5 13 13" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M14.5 8 C14.5 11.59 11.59 14.5 8 14.5 C4.41 14.5 1.5 11.59 1.5 8 C1.5 4.41 4.41 1.5 8 1.5 C11.59 1.5 14.5 4.41 14.5 8 Z" fill="none" stroke="#424242" stroke-width="1.2" stroke-dasharray="3.5999999999999996 2.4" stroke-linecap="butt" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
-                    </span>
-                  </span>
-                  <span class="create-detail-page__label-2">Draft</span>
-                  <svg class="create-detail-page__chevron-down-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-                </button>
+                <div class="create-detail-page__status">
+                  <div class="create-detail-page__shimmer-5"></div>
+                </div>
                 <svg class="create-detail-page__export-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
               </div>
               <div class="create-detail-page__detail-card-request-details">
@@ -2025,17 +1980,23 @@
                 </div>
                 <div class="create-detail-page__values">
                   <div class="create-detail-page__value-request-name">
-                    <p class="create-detail-page__label-3">Request name</p>
-                    <p class="create-detail-page__value">Add payroll processing to Connect Reach scope</p>
+                    <p class="create-detail-page__label-2">Request name</p>
+                    <div class="create-detail-page__value">
+                      <div class="create-detail-page__shimmer-6"></div>
+                    </div>
                   </div>
                   <div class="create-detail-page__value-row">
                     <div class="create-detail-page__value-engagement">
-                      <p class="create-detail-page__label-3">Engagement</p>
-                      <p class="create-detail-page__value">Connect Reach · RET/RM_0000005</p>
+                      <p class="create-detail-page__label-2">Engagement</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-7"></div>
+                      </div>
                     </div>
                     <div class="create-detail-page__value-change-type">
-                      <p class="create-detail-page__label-3">Change type</p>
-                      <p class="create-detail-page__value">Scope increase</p>
+                      <p class="create-detail-page__label-2">Change type</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-8"></div>
+                      </div>
                       <div class="create-detail-page__field-toolbar">
                         <button class="create-detail-page__drag-handle-button" type="button">
                           <svg class="create-detail-page__grip-vertical-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>
@@ -2055,23 +2016,29 @@
                     </div>
                   </div>
                   <div class="create-detail-page__value-description">
-                    <p class="create-detail-page__label-3">Description</p>
-                    <p class="create-detail-page__value">Connect Reach will also run the monthly payroll file transfer for 1,200 branch staff.</p>
+                    <p class="create-detail-page__label-2">Description</p>
+                    <div class="create-detail-page__value">
+                      <div class="create-detail-page__shimmer-9"></div>
+                    </div>
                   </div>
                   <div class="create-detail-page__value-row">
                     <div class="create-detail-page__value-effective-from">
-                      <p class="create-detail-page__label-3">Effective from</p>
-                      <p class="create-detail-page__value">01-12-2026</p>
+                      <p class="create-detail-page__label-2">Effective from</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-10"></div>
+                      </div>
                     </div>
                     <div class="create-detail-page__value-revised-annual-spend">
-                      <p class="create-detail-page__label-3">Revised annual spend</p>
-                      <p class="create-detail-page__value">₹ 12,50,000</p>
+                      <p class="create-detail-page__label-2">Revised annual spend</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-2"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <button class="create-detail-page__add-field-button" type="button">
                   <svg class="create-detail-page__plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                  <span class="create-detail-page__label-4">Add field</span>
+                  <span class="create-detail-page__label-3">Add field</span>
                 </button>
               </div>
               <div class="create-detail-page__detail-card-risk-impact">
@@ -2082,22 +2049,24 @@
                 <div class="create-detail-page__values">
                   <div class="create-detail-page__value-row">
                     <div class="create-detail-page__value-does-the-change-alter-data-access">
-                      <p class="create-detail-page__label-3">Does the change alter data access?</p>
-                      <p class="create-detail-page__value">Yes</p>
+                      <p class="create-detail-page__label-2">Does the change alter data access?</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-11"></div>
+                      </div>
                     </div>
                     <div class="create-detail-page__value-criticality-after-change">
-                      <p class="create-detail-page__label-3">Criticality after change</p>
-                      <p class="create-detail-page__value">High</p>
+                      <p class="create-detail-page__label-2">Criticality after change</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-3"></div>
+                      </div>
                     </div>
                   </div>
                   <div class="create-detail-page__value-row">
                     <div class="create-detail-page__value-assessor">
-                      <p class="create-detail-page__label-3">Assessor</p>
-                      <div class="create-detail-page__person">
-                        <div class="avatar-initials avatar-initials--avatar-2" data-instance-of="avatar-initials">
-                          <p class="avatar-initials__initials avatar-initials__initials--avatar-2">JS</p>
-                        </div>
-                        <p class="create-detail-page__value-2">Jay Shrivastava</p>
+                      <p class="create-detail-page__label-2">Assessor</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-circle-2"></div>
+                        <div class="create-detail-page__shimmer-8"></div>
                       </div>
                     </div>
                     <div class="create-detail-page__empty-cell"></div>
@@ -2105,7 +2074,7 @@
                 </div>
                 <button class="create-detail-page__add-field-button-2" type="button">
                   <svg class="create-detail-page__plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                  <span class="create-detail-page__label-4">Add field</span>
+                  <span class="create-detail-page__label-3">Add field</span>
                 </button>
               </div>
               <div class="create-detail-page__detail-card-documents">
@@ -2116,22 +2085,24 @@
                 <div class="create-detail-page__values">
                   <div class="create-detail-page__value-row">
                     <div class="create-detail-page__value-revised-statement-of-work">
-                      <p class="create-detail-page__label-3">Revised statement of work</p>
-                      <div class="create-detail-page__file-sow-connectreach-v2-pdf">
-                        <svg class="create-detail-page__paperclip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
-                        <p class="create-detail-page__file-name">SOW_ConnectReach_v2.pdf</p>
-                        <p class="create-detail-page__file-size">1.4 MB</p>
+                      <p class="create-detail-page__label-2">Revised statement of work</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-icon"></div>
+                        <div class="create-detail-page__shimmer-12"></div>
                       </div>
                     </div>
                     <div class="create-detail-page__value-other-documents">
-                      <p class="create-detail-page__label-3">Other documents</p>
-                      <p class="create-detail-page__value">None attached</p>
+                      <p class="create-detail-page__label-2">Other documents</p>
+                      <div class="create-detail-page__value">
+                        <div class="create-detail-page__shimmer-icon"></div>
+                        <div class="create-detail-page__shimmer-13"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <button class="create-detail-page__add-field-button-2" type="button">
                   <svg class="create-detail-page__plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                  <span class="create-detail-page__label-4">Add field</span>
+                  <span class="create-detail-page__label-3">Add field</span>
                 </button>
               </div>
             </div>
@@ -2145,43 +2116,43 @@
           </div>
           <div class="create-detail-page__menu-item-request-id">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Request ID</p>
+            <p class="create-detail-page__label-4">Request ID</p>
             <p class="create-detail-page__type">ID</p>
           </div>
           <div class="create-detail-page__menu-item-request-name">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Request name</p>
+            <p class="create-detail-page__label-4">Request name</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-requested-by">
             <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Requested by</p>
+            <p class="create-detail-page__label-4">Requested by</p>
             <p class="create-detail-page__type">Person</p>
           </div>
           <div class="create-detail-page__menu-item-requested-on">
             <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Requested on</p>
+            <p class="create-detail-page__label-4">Requested on</p>
             <p class="create-detail-page__type">Date</p>
           </div>
           <div class="create-detail-page__menu-item-status">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Status</p>
+            <p class="create-detail-page__label-4">Status</p>
             <p class="create-detail-page__type">Status</p>
           </div>
           <div class="create-detail-page__menu-item-current-approver">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Current approver</p>
+            <p class="create-detail-page__label-4">Current approver</p>
             <p class="create-detail-page__type">Person</p>
           </div>
           <div class="create-detail-page__menu-item-last-updated">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Last updated</p>
+            <p class="create-detail-page__label-4">Last updated</p>
             <p class="create-detail-page__type">Date and time</p>
           </div>
           <div class="create-detail-page__group-divider">
@@ -2194,94 +2165,97 @@
             <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Vendor contact</p>
+            <p class="create-detail-page__label-4">Vendor contact</p>
             <p class="create-detail-page__type">Person</p>
           </div>
           <div class="create-detail-page__menu-item-contract-end-date">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Contract end date</p>
+            <p class="create-detail-page__label-4">Contract end date</p>
             <p class="create-detail-page__type">Date</p>
           </div>
           <div class="create-detail-page__menu-item-data-categories-affected">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Data categories affected</p>
+            <p class="create-detail-page__label-4">Data categories affected</p>
             <p class="create-detail-page__type">Multi-choice</p>
           </div>
           <div class="create-detail-page__menu-item-reason-for-the-new-criticality">
             <div class="checkbox" data-instance-of="checkbox"></div>
-            <p class="create-detail-page__label-5">Reason for the new criticality</p>
+            <p class="create-detail-page__label-4">Reason for the new criticality</p>
             <p class="create-detail-page__type">Long text</p>
           </div>
           <div class="create-detail-page__menu-item-assessor">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Assessor</p>
+            <p class="create-detail-page__label-4">Assessor</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-change-type">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Change type</p>
+            <p class="create-detail-page__label-4">Change type</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-criticality-after-change">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Criticality after change</p>
+            <p class="create-detail-page__label-4">Criticality after change</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-description">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Description</p>
+            <p class="create-detail-page__label-4">Description</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-effective-from">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Effective from</p>
+            <p class="create-detail-page__label-4">Effective from</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-engagement">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Engagement</p>
+            <p class="create-detail-page__label-4">Engagement</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-revised-annual-spend">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Revised annual spend</p>
+            <p class="create-detail-page__label-4">Revised annual spend</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-revised-statement-of-work">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Revised statement of work</p>
+            <p class="create-detail-page__label-4">Revised statement of work</p>
             <p class="create-detail-page__added">Added</p>
           </div>
           <div class="create-detail-page__menu-item-other-documents">
-            <div class="checkbox-checked checkbox-checked--checkbox" data-instance-of="checkbox-checked">
+            <div class="checkbox-checked checkbox-checked--instance" data-instance-of="checkbox-checked">
               <svg class="checkbox-checked__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <p class="create-detail-page__label-5">Other documents</p>
+            <p class="create-detail-page__label-4">Other documents</p>
             <p class="create-detail-page__added">Added</p>
           </div>
         </div>
-        <div class="create-detail-page__footer-divider"></div>
-        <div class="create-detail-page__menu-footer">
+        <div class="create-detail-page__custom-field-divider"></div>
+        <div class="create-detail-page__custom-field-row">
           <button class="create-detail-page__add-custom-field-button" type="button">
             <svg class="create-detail-page__plus-icon-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-            <span class="create-detail-page__label-6">Add custom field</span>
+            <span class="create-detail-page__label-5">Add custom field</span>
           </button>
+        </div>
+        <div class="create-detail-page__footer-divider"></div>
+        <div class="create-detail-page__menu-footer">
           <button class="button-primary button-primary--add-selected-fields-button" type="button" data-instance-of="button-primary">
             <span class="button-primary__label">Add 3 fields</span>
           </button>
