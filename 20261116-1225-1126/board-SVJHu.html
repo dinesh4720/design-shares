@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Switch / On</title>
+    <style>
+      body {
+        margin: 0;
+        background: var(--colorBrandBackground);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --colorNeutralForegroundOnBrand: #ffffff;
+        --colorBrandBackground: #0f6cbd;
+      }
+
+      .switch-on {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 3px;
+        width: 40px;
+        height: 20px;
+        background-color: var(--colorBrandBackground);
+        border-radius: 10px;
+      }
+
+      .switch-on__knob {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralForegroundOnBrand);
+        border-radius: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="switch-on" data-component="switch-on">
+      <div class="switch-on__knob"></div>
+    </div>
+  </body>
+</html>

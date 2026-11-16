@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Button / Subtle icon</title>
+    <style>
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --colorNeutralForeground2: #424242;
+        --borderRadiusMedium: 4px;
+      }
+
+      .button-subtle-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .button-subtle-icon__glyph {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="button-subtle-icon" type="button" data-component="button-subtle-icon">
+      <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></svg>
+    </button>
+  </body>
+</html>
