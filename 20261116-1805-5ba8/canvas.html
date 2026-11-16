@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untitled 2 · canvas</title>
+<style>
+  :root { color-scheme: light dark; --canvas: #e9e9e9; --panel: #fff; --line: #e2e2e2; --text: #1a1a1a; --muted: #6b6b6b; --label: #6b6b6b; }
+  @media (prefers-color-scheme: dark) { :root { --canvas: #161616; --panel: #1e1e1e; --line: #2e2e2e; --text: #ececec; --muted: #a1a1a1; --label: #9a9a9a; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body { background: var(--page, var(--canvas)); font: 12px/1.3 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  body.dragging { cursor: grabbing; }
+  #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .board { position: absolute; }
+  .board iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; background: transparent; }
+  .board .name { position: absolute; left: 0; bottom: 100%; padding-bottom: 4px; transform: scale(var(--inv, 1)); transform-origin: 0 100%; white-space: nowrap; max-width: calc(var(--w) * 1px / var(--inv, 1)); overflow: hidden; text-overflow: ellipsis; color: var(--label); font-size: 12px; }
+  .board:hover .name { color: var(--text); }
+  .board .name { display: flex; align-items: center; gap: 4px; pointer-events: auto; }
+  .board .play { display: none; flex: none; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: var(--text); font-size: 9px; line-height: 18px; text-align: center; cursor: pointer; }
+  .board .play:hover { background: color-mix(in srgb, var(--text) 10%, transparent); }
+  body.playable .board:hover .play, body.playable .board .play:focus-visible { display: block; }
+  .focus { left: 50%; top: 12px; transform: translateX(-50%); padding: 3px 3px 3px 12px; gap: 8px; font-size: 12px; white-space: nowrap; }
+  .focus strong { font-weight: 600; overflow: hidden; text-overflow: ellipsis; max-width: 40vw; }
+  .bar { position: fixed; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 10px; background: var(--panel); box-shadow: 0 0 0 1px var(--line), 0 4px 16px rgba(0,0,0,.08); cursor: default; }
+  .bar[hidden] { display: none; }
+  .zoom { right: 12px; bottom: 12px; }
+  .pages { left: 12px; top: 12px; }
+  .bar button, .bar select { height: 28px; min-width: 28px; padding: 0 8px; border: 0; border-radius: 7px; background: transparent; color: var(--text); font: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
+  .bar button:hover, .bar select:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+  #pct { min-width: 48px; font-variant-numeric: tabular-nums; }
+  body.commenting, body.commenting .board { cursor: crosshair; }
+  #pins { position: absolute; inset: 0; pointer-events: none; }
+  .c-pin { position: absolute; width: 28px; height: 28px; margin: -28px 0 0 0; padding: 0; border: 2px solid #fff; border-radius: 14px 14px 14px 2px; background: #1a1a1a; color: #fff; font: 600 12px/24px -apple-system, BlinkMacSystemFont, "Inter", sans-serif; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer; pointer-events: auto; transition: transform .15s; transform-origin: 0 100%; }
+  .c-pin:hover, .c-pin.open { transform: scale(1.12); }
+  .c-pin.draft { background: #0d6efd; pointer-events: none; }
+  .c-card { position: fixed; z-index: 5; width: 280px; max-width: calc(100vw - 16px); padding: 10px; border-radius: 12px; background: var(--panel); color: var(--text); box-shadow: 0 0 0 1px var(--line), 0 8px 28px rgba(0,0,0,.16); cursor: default; user-select: text; -webkit-user-select: text; }
+  .c-card[hidden], .c-hint[hidden] { display: none; }
+  .c-head { display: flex; align-items: center; justify-content: space-between; margin: -2px 0 6px; font-size: 13px; }
+  .c-x { width: 24px; height: 24px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-size: 16px; cursor: pointer; }
+  .c-x:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+  .c-list { list-style: none; margin: 0 0 8px; padding: 0; max-height: 260px; overflow: auto; }
+  .c-msg { padding: 6px 0; border-top: 1px solid var(--line); }
+  .c-msg:first-child { border-top: 0; }
+  .c-meta { display: flex; gap: 6px; align-items: baseline; }
+  .c-who { font-weight: 600; font-size: 12px; }
+  .c-msg.owner .c-who::after { content: " · designer"; font-weight: 400; color: var(--muted); }
+  .c-when { color: var(--muted); font-size: 11px; }
+  .c-words { margin: 2px 0 0; font-size: 13px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .c-form { display: grid; gap: 6px; }
+  .c-name, .c-text { width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--text); font: 13px/1.4 inherit; font-family: inherit; resize: none; outline: none; }
+  .c-name:focus, .c-text:focus { border-color: var(--muted); }
+  .c-row { display: flex; align-items: center; gap: 8px; }
+  .c-err { flex: 1; color: #d33; font-size: 11px; }
+  .c-send { height: 28px; padding: 0 12px; border: 0; border-radius: 7px; background: var(--text); color: var(--panel); font: 500 12px inherit; font-family: inherit; cursor: pointer; }
+  .c-send:disabled { opacity: .4; cursor: default; }
+  .c-hint { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); padding: 6px 12px; border-radius: 8px; background: #1a1a1a; color: #fff; font-size: 12px; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="world"></div>
+<div class="bar pages" id="pagebar" hidden><select id="page" aria-label="Page"></select></div>
+<div class="bar focus" id="focusbar" hidden><strong id="focusname"></strong><button type="button" id="all">Show all frames</button></div>
+<div class="bar zoom" role="group" aria-label="Zoom">
+  <button type="button" id="out" aria-label="Zoom out">−</button>
+  <button type="button" id="pct" title="Zoom to 100%">100%</button>
+  <button type="button" id="in" aria-label="Zoom in">+</button>
+  <button type="button" id="fit" title="See everything (F)">Fit</button>
+</div>
+<script type="application/json" id="pages">[{"id":"page-1","name":"Page 1","color":"#101317","boards":[{"id":"dNNWY","file":"board-dNNWY.html","name":"image","x":1296,"y":3950,"w":800,"h":403},{"id":"mxb0K","file":"board-mxb0K.html","name":"image-2","x":1296,"y":4394,"w":800,"h":402},{"id":"EerUg","file":"board-EerUg.html","name":"image-3","x":1296,"y":4884,"w":1200,"h":669},{"id":"LxIRB","file":"board-LxIRB.html","name":"App header","x":2576,"y":5054,"w":1366,"h":48},{"id":"GVGHu","file":"board-GVGHu.html","name":"App rail","x":4022,"y":5134,"w":76,"h":712},{"id":"IcSNN","file":"board-IcSNN.html","name":"Engagement subnav","x":4178,"y":5134,"w":256,"h":712},{"id":"AozC5","file":"board-AozC5.html","name":"Badge / Draft","x":4514,"y":5166,"w":55,"h":20},{"id":"E2EJs","file":"board-E2EJs.html","name":"Badge / Approval pending","x":2665,"y":5198,"w":124,"h":20},{"id":"HMsGn","file":"board-HMsGn.html","name":"Badge / Closed","x":2869,"y":5230,"w":64,"h":20},{"id":"onl6Q","file":"board-onl6Q.html","name":"Badge / Published","x":3013,"y":5262,"w":80,"h":20},{"id":"hnTx1","file":"board-hnTx1.html","name":"Counter badge","x":3173,"y":5294,"w":15,"h":16},{"id":"5dBf1","file":"board-5dBf1.html","name":"Button / Primary","x":2665,"y":5342,"w":96,"h":32},{"id":"k9ay2","file":"board-k9ay2.html","name":"Button / Secondary","x":2841,"y":5390,"w":113,"h":32},{"id":"OsqRv","file":"board-OsqRv.html","name":"Button / Subtle icon","x":3034,"y":5438,"w":32,"h":32},{"id":"XLCjm","file":"board-XLCjm.html","name":"Input","x":3146,"y":5486,"w":240,"h":32},{"id":"jSKEP","file":"board-jSKEP.html","name":"Checkbox","x":2665,"y":5534,"w":16,"h":16},{"id":"TPqLL","file":"board-TPqLL.html","name":"Checkbox / Checked","x":2761,"y":5534,"w":16,"h":16},{"id":"SVJHu","file":"board-SVJHu.html","name":"Switch / On","x":2857,"y":5566,"w":40,"h":20},{"id":"wymGG","file":"board-wymGG.html","name":"Switch / Off","x":2977,"y":5566,"w":40,"h":20},{"id":"aApYI","file":"board-aApYI.html","name":"Radio / On","x":3097,"y":5598,"w":16,"h":16},{"id":"tvsaL","file":"board-tvsaL.html","name":"Radio / Off","x":3193,"y":5598,"w":16,"h":16},{"id":"D3Psu","file":"board-D3Psu.html","name":"Tab","x":2665,"y":5630,"w":105,"h":32},{"id":"eahl0","file":"board-eahl0.html","name":"Avatar / Initials","x":2176,"y":5686,"w":20,"h":20},{"id":"HA7sy","file":"board-HA7sy.html","name":"Requests","x":2265,"y":3950,"w":1366,"h":768},{"id":"u6nVD","file":"board-u6nVD.html","name":"Scheme definition · Forms","x":3751,"y":3950,"w":1366,"h":768},{"id":"LgbAR","file":"board-LgbAR.html","name":"Scheme definition · Details","x":5237,"y":3950,"w":1366,"h":768},{"id":"LjBlV","file":"board-LjBlV.html","name":"Create form","x":4649,"y":4818,"w":1366,"h":768},{"id":"iECUo","file":"board-iECUo.html","name":"Form preview · Change in scope","x":4649,"y":5673,"w":1366,"h":768},{"id":"sfEo9","file":"board-sfEo9.html","name":"Create detail page","x":6095,"y":4818,"w":1366,"h":768},{"id":"wYR6Q","file":"board-wYR6Q.html","name":"Create detail page · Add custom field","x":-471,"y":3950,"w":1366,"h":768},{"id":"tQyF9","file":"board-tQyF9.html","name":"Scheme definition · Prototype","x":-471,"y":2201,"w":1366,"h":768},{"id":"rccyk","file":"board-rccyk.html","name":"Create form · No steps · Top toolbar","x":4649,"y":6541,"w":1366,"h":768}]}]</script>
+<script type="application/json" id="share">{"service":"https://design-app-link.knotdesign.workers.dev/","share":"_TWoSdsDZWgrG1vAwr4IPg"}</script>
+<script>
+(function () {
+  var pages = JSON.parse(document.getElementById("pages").textContent);
+  var world = document.getElementById("world");
+  var pct = document.getElementById("pct");
+  var view = { s: 1, x: 0, y: 0 };
+  var current = 0;
+  var MIN = 0.02, MAX = 8;
+  // For comments.js (share comments): the view, the pages, which is shown.
+  var hooks = window.knotCanvas = { view: view, pages: pages, current: function () { return current; }, mode: "", only: "" };
+  // In the snapshot's viewer, a frame's ▷ plays it in the prototype there.
+  var inViewer = window.parent !== window;
+  if (inViewer) document.body.classList.add("playable");
+  function apply() {
+    world.style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
+    world.style.setProperty("--inv", String(1 / view.s));
+    pct.textContent = Math.round(view.s * 100) + "%";
+    if (hooks.onView) hooks.onView();
+  }
+  function zoomAt(s, cx, cy) {
+    moved = true;
+    s = Math.min(MAX, Math.max(MIN, s));
+    view.x = cx - (cx - view.x) * (s / view.s);
+    view.y = cy - (cy - view.y) * (s / view.s);
+    view.s = s;
+    apply();
+  }
+  // Until someone moves the view, it keeps everything in sight (the frame
+  // this shows in can have no size yet when it starts).
+  var moved = false;
+  function fit() {
+    if (innerWidth < 40 || innerHeight < 40) return requestAnimationFrame(fit);
+    var boards = pages[current].boards.filter(function (b) { return !hooks.only || b.id === hooks.only; });
+    if (!boards.length) boards = pages[current].boards;
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    boards.forEach(function (b) { x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); });
+    var pad = 64, w = innerWidth - pad * 2, h = innerHeight - pad * 2;
+    var s = Math.min(1, w / (x1 - x0), h / (y1 - y0));
+    view.s = Math.max(MIN, s);
+    view.x = (innerWidth - (x1 - x0) * view.s) / 2 - x0 * view.s;
+    view.y = (innerHeight - (y1 - y0) * view.s) / 2 - y0 * view.s;
+    apply();
+  }
+  function show(i) {
+    current = i;
+    var page = pages[i];
+    document.body.style.setProperty("--page", page.color || "");
+    if (!page.color) document.body.style.removeProperty("--page");
+    world.textContent = "";
+    page.boards.forEach(function (b) {
+      if (hooks.only && b.id !== hooks.only) return;
+      var box = document.createElement("div");
+      box.className = "board";
+      box.style.left = b.x + "px"; box.style.top = b.y + "px";
+      box.style.width = b.w + "px"; box.style.height = b.h + "px";
+      box.style.setProperty("--w", String(b.w));
+      box.dataset.file = b.file;
+      var name = document.createElement("div");
+      name.className = "name";
+      var label = document.createElement("span");
+      label.textContent = b.name;
+      name.appendChild(label);
+      if (b.id) {
+        var play = document.createElement("button");
+        play.type = "button";
+        play.className = "play";
+        play.textContent = "▶";
+        play.title = "Play this frame";
+        play.setAttribute("aria-label", "Play " + (b.name || "this frame"));
+        play.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+        play.addEventListener("click", function (e) { e.stopPropagation(); window.parent.postMessage({ knot: "play", id: b.id }, "*"); });
+        name.appendChild(play);
+      }
+      var frame = document.createElement("iframe");
+      frame.src = b.file;
+      frame.title = b.name || "Board";
+      frame.setAttribute("tabindex", "-1");
+      box.appendChild(name);
+      box.appendChild(frame);
+      world.appendChild(box);
+    });
+    fit();
+  }
+  // Moving around: drag (one finger), pinch (two), scroll and ⌘/Ctrl-scroll.
+  var pointers = new Map(), last, press;
+  addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".bar, .c-card, .c-pin")) return;
+    press = pointers.size ? undefined : { id: e.pointerId, x: e.clientX, y: e.clientY };
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    document.body.setPointerCapture(e.pointerId);
+    document.body.classList.add("dragging");
+    last = undefined;
+  });
+  addEventListener("pointermove", function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    var before = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      moved = true; view.x += e.clientX - before.x; view.y += e.clientY - before.y; apply();
+    } else if (pointers.size === 2) {
+      var p = Array.from(pointers.values());
+      var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), mx = (p[0].x + p[1].x) / 2, my = (p[0].y + p[1].y) / 2;
+      if (last) { view.x += mx - last.mx; view.y += my - last.my; zoomAt(view.s * d / last.d, mx, my); }
+      last = { d: d, mx: mx, my: my };
+    }
+  });
+  function up(e) { pointers.delete(e.pointerId); last = undefined; if (!pointers.size) document.body.classList.remove("dragging"); }
+  // A press that didn't move: a comment there in comment mode (comments.js).
+  addEventListener("pointerup", function (e) {
+    var p = press;
+    press = undefined;
+    if (!p || p.id !== e.pointerId || Math.hypot(e.clientX - p.x, e.clientY - p.y) > 4) return;
+    if (hooks.mode === "comment" && hooks.onPlace) hooks.onPlace(e);
+    else if (hooks.onClick) hooks.onClick(e);
+  });
+  addEventListener("pointerup", up);
+  addEventListener("pointercancel", up);
+  addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (e.ctrlKey || e.metaKey) zoomAt(view.s * Math.exp(-e.deltaY * (e.ctrlKey && !e.metaKey ? 0.01 : 0.002)), e.clientX, e.clientY);
+    else { moved = true; view.x -= e.deltaX; view.y -= e.deltaY; apply(); }
+  }, { passive: false });
+  addEventListener("dblclick", function (e) {
+    var box = e.target.closest && e.target.closest(".board");
+    if (box) window.open(box.dataset.file, "_blank", "noopener");
+  });
+  function centre(s) { zoomAt(s, innerWidth / 2, innerHeight / 2); }
+  document.getElementById("in").onclick = function () { centre(view.s * 1.25); };
+  document.getElementById("out").onclick = function () { centre(view.s / 1.25); };
+  document.getElementById("pct").onclick = function () { centre(1); };
+  document.getElementById("fit").onclick = function () { fit(); moved = false; };
+  addEventListener("keydown", function (e) {
+    if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if (e.key === "+" || e.key === "=") centre(view.s * 1.25);
+    else if (e.key === "-" || e.key === "_") centre(view.s / 1.25);
+    else if (e.key === "f" || e.key === "F" || (e.key === "1" && e.shiftKey)) fit();
+    else if (e.key === "0") centre(1);
+  });
+  addEventListener("resize", function () { if (moved) apply(); else fit(); });
+  // Pages, when there's more than one.
+  var select = document.getElementById("page");
+  pages.forEach(function (p, i) { var o = document.createElement("option"); o.value = String(i); o.textContent = p.name; select.appendChild(o); });
+  if (pages.length > 1) document.getElementById("pagebar").hidden = false;
+  select.onchange = function () { show(Number(select.value)); };
+  // A link to one frame (#frame=<id>): that frame alone, until "Show all frames".
+  var focusbar = document.getElementById("focusbar");
+  function focus(id) {
+    hooks.only = "";
+    var found = -1, name = "";
+    pages.forEach(function (p, i) { p.boards.forEach(function (b) { if (b.id === id && found < 0) { found = i; name = b.name; } }); });
+    if (found >= 0) hooks.only = id;
+    focusbar.hidden = !hooks.only;
+    document.getElementById("pagebar").hidden = Boolean(hooks.only) || pages.length < 2;
+    document.getElementById("focusname").textContent = name || "Frame";
+    moved = false;
+    select.value = String(Math.max(0, found));
+    show(Math.max(0, found));
+    if (inViewer) window.parent.postMessage({ knot: "frame", id: hooks.only }, "*");
+  }
+  document.getElementById("all").onclick = function () { focus(""); };
+  var wanted = /^#frame=(.+)$/.exec(location.hash);
+  if (wanted) focus(decodeURIComponent(wanted[1]));
+  else show(0);
+})();
+</script>
+<script src="comments.js"></script>
+</body>
+</html>

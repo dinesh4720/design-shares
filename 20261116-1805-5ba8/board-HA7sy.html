@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Requests</title>
+    <style>
+      /* The fonts ship beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Segoe UI from Google Fonts, under the SIL Open Font License or Apache License 2.0, https://fonts.google.com */
+
+      @font-face {
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('Segoe UI'), url("assets/fonts/segoe-ui-600-figma.ttf") format("truetype");
+        ascent-override: 107.91%;
+        descent-override: 25.1%;
+        line-gap-override: 0%;
+      }
+
+      @font-face {
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Segoe UI'), url("assets/fonts/segoe-ui-400-figma.ttf") format("truetype");
+        ascent-override: 107.91%;
+        descent-override: 25.1%;
+        line-gap-override: 0%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--colorNeutralBackground3);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --colorNeutralForeground1: #242424;
+        --colorNeutralForeground2: #424242;
+        --colorNeutralForeground3: #616161;
+        --colorNeutralForegroundOnBrand: #ffffff;
+        --colorNeutralBackground1: #ffffff;
+        --colorNeutralBackground2: #fafafa;
+        --colorNeutralBackground3: #f5f5f5;
+        --colorNeutralBackground5: #ebebeb;
+        --colorNeutralStroke1: #d1d1d1;
+        --colorNeutralStroke2: #e0e0e0;
+        --colorNeutralStrokeAccessible: #616161;
+        --colorBrandBackground: #0f6cbd;
+        --colorBrandBackground2: #ebf3fc;
+        --colorBrandForeground1: #0f6cbd;
+        --colorBrandForegroundLink: #115ea3;
+        --colorBrandStroke1: #0f6cbd;
+        --colorStatusSuccessBackground1: #f1faf1;
+        --colorStatusSuccessForeground1: #0e700e;
+        --colorStatusSuccessBorder1: #9fd89f;
+        --colorStatusWarningBackground1: #fff9f5;
+        --colorStatusWarningForeground1: #bc4b09;
+        --colorStatusWarningBorder1: #fdcfb4;
+        --borderRadiusMedium: 4px;
+        --borderRadiusLarge: 6px;
+        --borderRadiusXLarge: 8px;
+        --borderRadiusCircular: 9999px;
+        --fontSizeBase100: 10px;
+        --fontSizeBase200: 12px;
+        --fontSizeBase300: 14px;
+        --fontSizeBase400: 16px;
+        --fontSizeBase500: 20px;
+      }
+
+      .requests {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1366px;
+        height: 768px;
+        background-color: var(--colorNeutralBackground3);
+        overflow: hidden;
+      }
+
+      .app-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px 0 22px;
+        height: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .app-header__surya-logo {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .app-header__logo-crop {
+        position: absolute;
+        left: -20px;
+        top: -12px;
+        width: 1160px;
+        height: 584px;
+        object-fit: cover;
+      }
+
+      .app-header__surya {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase400);
+        font-weight: 600;
+        line-height: 1.375;
+        white-space: pre;
+      }
+
+      .app-header__spacer {
+        height: 1px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .app-header__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .button-subtle-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .button-subtle-icon__glyph {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .requests__body {
+        display: flex;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .app-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 4px 12px;
+        width: 76px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset -1px 0 0 0 var(--colorNeutralStroke2);
+      }
+
+      .app-rail__rail-item-engagement-requests {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 2px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .app-rail__icon-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 32px;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusLarge);
+      }
+
+      .app-rail__clipboard-list-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__label {
+        color: var(--colorBrandForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: 600;
+        line-height: 1.333;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .app-rail__rail-item-internal-assessments {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 2px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .app-rail__icon-box-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 32px;
+        border-radius: var(--borderRadiusLarge);
+      }
+
+      .app-rail__file-text-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__label-2 {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .app-rail__spacer {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .app-rail__divider {
+        width: 36px;
+        height: 1px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralStroke2);
+      }
+
+      .app-rail__search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .app-rail__search-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__shortcut {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .app-rail__key-ctrl {
+        position: relative;
+        width: 17px;
+        height: 16px;
+        background-color: var(--colorNeutralBackground5);
+        border-radius: 2px;
+      }
+
+      .app-rail__ctrl {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__text {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__key-k {
+        position: relative;
+        width: 6px;
+        height: 16px;
+        background-color: var(--colorNeutralBackground5);
+        border-radius: 2px;
+      }
+
+      .app-rail__k {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__workspace-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__app-launcher-icon {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .app-rail__circle-1 {
+        position: absolute;
+        left: 2.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-2 {
+        position: absolute;
+        left: 8.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-3 {
+        position: absolute;
+        left: 14.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-4 {
+        position: absolute;
+        left: 2.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-5 {
+        position: absolute;
+        left: 8.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-6 {
+        position: absolute;
+        left: 14.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-7 {
+        position: absolute;
+        left: 2.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-8 {
+        position: absolute;
+        left: 8.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-9 {
+        position: absolute;
+        left: 14.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__avatar {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: var(--borderRadiusCircular);
+        overflow: hidden;
+      }
+
+      .app-rail__avatar-crop {
+        position: absolute;
+        left: -23px;
+        top: -585px;
+        width: 1248px;
+        height: 629px;
+        object-fit: cover;
+      }
+
+      .engagement-subnav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 256px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset -1px 0 0 0 var(--colorNeutralStroke2);
+      }
+
+      .engagement-subnav__subnav-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px 0 8px;
+        height: 46px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .engagement-subnav__title {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase500);
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .engagement-subnav__collapse-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .engagement-subnav__nav-items {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .engagement-subnav__nav-item-requests {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        height: 32px;
+        align-self: stretch;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .engagement-subnav__label {
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .engagement-subnav__nav-item-workflows {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        height: 32px;
+        align-self: stretch;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .engagement-subnav__label-2 {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .engagement-subnav__nav-item-automation {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        height: 32px;
+        align-self: stretch;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .engagement-subnav__label-3 {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .engagement-subnav__nav-item-scheme-definition {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        height: 32px;
+        align-self: stretch;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .engagement-subnav__label-4 {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .engagement-subnav__nav-item-dynamic-fields {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        height: 32px;
+        align-self: stretch;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .engagement-subnav__label-5 {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__main {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px 16px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .requests__page-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .requests__breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 28px;
+      }
+
+      .requests__crumb-engagement-requests {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .requests__engagement-requests {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__chevron-down-icon {
+        width: 12px;
+        height: 12px;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .requests__separator {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__crumb-requests {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .requests__requests {
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__title-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: stretch;
+      }
+
+      .requests__page-title {
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase500);
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .requests__page-description {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__filter-chips {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .requests__filter-chip-draft {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px 0 10px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .requests__icon-slot {
+        position: relative;
+        width: 16px;
+        height: 16px;
+      }
+
+      .requests__dashed-circle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+      }
+
+      .requests__circle-1 {
+        position: absolute;
+        left: 1.5px;
+        top: 1.5px;
+        width: 13px;
+        height: 13px;
+      }
+
+      .requests__label {
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .counter-badge {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+        height: 16px;
+        border-radius: var(--borderRadiusCircular);
+      }
+
+      .counter-badge--count {
+        background-color: var(--colorNeutralBackground5);
+      }
+
+      .counter-badge--count-2 {
+        background-color: var(--colorBrandBackground);
+      }
+
+      .counter-badge__count {
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase100);
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .counter-badge__count--count {
+        color: var(--colorNeutralForeground3);
+      }
+
+      .counter-badge__count--count-2 {
+        color: var(--colorNeutralForegroundOnBrand);
+      }
+
+      .requests__filter-chip-my-requests {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px 0 10px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .requests__chip-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .requests__filter-chip-closed {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px 0 10px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .requests__filter-chip-all-requests {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px 0 10px;
+        height: 32px;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorBrandStroke1);
+      }
+
+      .requests__chip-icon-2 {
+        width: 16px;
+        height: 16px;
+        color: var(--colorBrandForeground1);
+        stroke-width: 1.5;
+      }
+
+      .requests__label-2 {
+        color: var(--colorBrandForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__filter-chip-onboard-requests {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px 0 10px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .requests__add-view-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusCircular);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .requests__plus-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .requests__toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusXLarge);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .button-primary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        height: 32px;
+        flex-shrink: 0;
+        background-color: var(--colorBrandBackground);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .button-primary__leading-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForegroundOnBrand);
+        stroke-width: 1.5;
+      }
+
+      .button-primary__label {
+        color: var(--colorNeutralForegroundOnBrand);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .button-primary__chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForegroundOnBrand);
+        stroke-width: 1.5;
+      }
+
+      .requests__toolbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .input {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1px 1px 0;
+        width: 200px;
+        background-color: var(--colorNeutralStroke1);
+        border-radius: var(--borderRadiusMedium);
+        overflow: hidden;
+      }
+
+      .input__field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+        height: 30px;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: 3px 3px 0 0;
+      }
+
+      .input__leading-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .input__value {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .input__trailing-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .input__underline {
+        height: 2px;
+        align-self: stretch;
+        background-color: var(--colorBrandStroke1);
+      }
+
+      .requests__requests-grid {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusXLarge);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+        overflow: hidden;
+      }
+
+      .requests__header-row {
+        display: flex;
+        align-items: flex-start;
+        height: 36px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke1);
+      }
+
+      .requests__cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px 0 36px;
+        width: 462px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset -1px 0 0 0 var(--colorNeutralStroke2);
+        overflow: hidden;
+      }
+
+      .checkbox {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStrokeAccessible);
+      }
+
+      .requests__header-label {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__cell-2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        width: 180px;
+        flex-shrink: 0;
+        align-self: stretch;
+        box-shadow: inset -1px 0 0 0 var(--colorNeutralStroke2);
+        overflow: hidden;
+      }
+
+      .requests__cell-3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        width: 180px;
+        flex-shrink: 0;
+        align-self: stretch;
+        overflow: hidden;
+      }
+
+      .requests__row-ret-rm-0000006 {
+        display: flex;
+        align-items: flex-start;
+        height: 36px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .requests__request-name {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .badge-draft {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 6px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralBackground3);
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .badge-draft__status-icon {
+        position: relative;
+        width: 12px;
+        height: 12px;
+      }
+
+      .badge-draft__circle-1 {
+        position: absolute;
+        left: 1px;
+        top: 1px;
+        width: 10px;
+        height: 10px;
+      }
+
+      .badge-draft__label {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .requests__reference-number {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__third-party {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .requests__row-ret-rm-0000005 {
+        display: flex;
+        align-items: flex-start;
+        height: 36px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .requests__request-name-2 {
+        flex: 1 1 0;
+        min-width: 0;
+        color: var(--colorBrandForegroundLink);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        text-decoration: underline;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .badge-approval-pending {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 6px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorStatusWarningBackground1);
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorStatusWarningBorder1);
+      }
+
+      .badge-approval-pending__status-icon {
+        width: 12px;
+        height: 12px;
+        color: var(--colorStatusWarningForeground1);
+        stroke-width: 1.5;
+      }
+
+      .badge-approval-pending__label {
+        color: var(--colorStatusWarningForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .requests__row-ret-rm-0000003 {
+        display: flex;
+        align-items: flex-start;
+        height: 36px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .badge-closed {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 6px;
+        height: 20px;
+        flex-shrink: 0;
+        background-color: var(--colorStatusSuccessBackground1);
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorStatusSuccessBorder1);
+      }
+
+      .badge-closed__status-icon {
+        width: 12px;
+        height: 12px;
+        color: var(--colorStatusSuccessForeground1);
+        stroke-width: 1.5;
+      }
+
+      .badge-closed__label {
+        color: var(--colorStatusSuccessForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .requests__edit-columns-button {
+        position: absolute;
+        left: 962px;
+        top: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .requests__pencil-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .requests__vertical-scrollbar {
+        position: absolute;
+        left: 996px;
+        top: 6px;
+        width: 3px;
+        height: 28px;
+        background-color: var(--colorNeutralStroke1);
+        border-radius: 2px;
+      }
+
+      .requests__horizontal-scrollbar {
+        position: absolute;
+        left: 8px;
+        top: 477px;
+        width: 80px;
+        height: 3px;
+        background-color: var(--colorNeutralStroke1);
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="requests">
+      <header class="app-header" data-instance-of="app-header">
+        <div class="app-header__surya-logo">
+          <img class="app-header__logo-crop" src="assets/image.png" alt="Logo crop">
+        </div>
+        <p class="app-header__surya">Surya</p>
+        <div class="app-header__spacer"></div>
+        <div class="app-header__header-actions">
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+          </button>
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          </button>
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="requests__body">
+        <div class="app-rail" data-instance-of="app-rail">
+          <div class="app-rail__rail-item-engagement-requests">
+            <div class="app-rail__icon-box">
+              <svg class="app-rail__clipboard-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+            </div>
+            <p class="app-rail__label">Engagement<br>requests</p>
+          </div>
+          <div class="app-rail__rail-item-internal-assessments">
+            <div class="app-rail__icon-box-2">
+              <svg class="app-rail__file-text-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+            </div>
+            <p class="app-rail__label-2">Internal<br>assessments</p>
+          </div>
+          <div class="app-rail__spacer"></div>
+          <div class="app-rail__divider"></div>
+          <div class="app-rail__search">
+            <svg class="app-rail__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+            <div class="app-rail__shortcut">
+              <div class="app-rail__key-ctrl">
+                <p class="app-rail__ctrl">ctrl</p>
+              </div>
+              <p class="app-rail__text">+</p>
+              <div class="app-rail__key-k">
+                <p class="app-rail__k">k</p>
+              </div>
+            </div>
+          </div>
+          <svg class="app-rail__workspace-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <div class="app-rail__app-launcher-icon">
+            <svg class="app-rail__circle-1" viewBox="2.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 4 C5.3 4.464 5.052 4.894 4.65 5.126 C4.248 5.358 3.752 5.358 3.35 5.126 C2.948 4.894 2.7 4.464 2.7 4 C2.7 3.536 2.948 3.106 3.35 2.874 C3.752 2.642 4.248 2.642 4.65 2.874 C5.052 3.106 5.3 3.536 5.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-2" viewBox="8.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 4 C11.3 4.718 10.718 5.3 10 5.3 C9.282 5.3 8.7 4.718 8.7 4 C8.7 3.282 9.282 2.7 10 2.7 C10.718 2.7 11.3 3.282 11.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-3" viewBox="14.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 4 C17.3 4.718 16.718 5.3 16 5.3 C15.282 5.3 14.7 4.718 14.7 4 C14.7 3.282 15.282 2.7 16 2.7 C16.718 2.7 17.3 3.282 17.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-4" viewBox="2.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 10 C5.3 10.464 5.052 10.894 4.65 11.126 C4.248 11.358 3.752 11.358 3.35 11.126 C2.948 10.894 2.7 10.464 2.7 10 C2.7 9.536 2.948 9.106 3.35 8.874 C3.752 8.642 4.248 8.642 4.65 8.874 C5.052 9.106 5.3 9.536 5.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-5" viewBox="8.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 10 C11.3 10.718 10.718 11.3 10 11.3 C9.282 11.3 8.7 10.718 8.7 10 C8.7 9.282 9.282 8.7 10 8.7 C10.718 8.7 11.3 9.282 11.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-6" viewBox="14.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 10 C17.3 10.718 16.718 11.3 16 11.3 C15.282 11.3 14.7 10.718 14.7 10 C14.7 9.282 15.282 8.7 16 8.7 C16.718 8.7 17.3 9.282 17.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-7" viewBox="2.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 16 C5.3 16.464 5.052 16.894 4.65 17.126 C4.248 17.358 3.752 17.358 3.35 17.126 C2.948 16.894 2.7 16.464 2.7 16 C2.7 15.536 2.948 15.106 3.35 14.874 C3.752 14.642 4.248 14.642 4.65 14.874 C5.052 15.106 5.3 15.536 5.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-8" viewBox="8.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 16 C11.3 16.718 10.718 17.3 10 17.3 C9.282 17.3 8.7 16.718 8.7 16 C8.7 15.282 9.282 14.7 10 14.7 C10.718 14.7 11.3 15.282 11.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-9" viewBox="14.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 16 C17.3 16.718 16.718 17.3 16 17.3 C15.282 17.3 14.7 16.718 14.7 16 C14.7 15.282 15.282 14.7 16 14.7 C16.718 14.7 17.3 15.282 17.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <div class="app-rail__avatar">
+            <img class="app-rail__avatar-crop" src="assets/image.png" alt="Avatar crop">
+          </div>
+        </div>
+        <div class="engagement-subnav" data-instance-of="engagement-subnav">
+          <div class="engagement-subnav__subnav-title-row">
+            <h1 class="engagement-subnav__title">Engagement requests</h1>
+            <svg class="engagement-subnav__collapse-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
+          </div>
+          <nav class="engagement-subnav__nav-items">
+            <div class="engagement-subnav__nav-item-requests">
+              <p class="engagement-subnav__label">Requests</p>
+            </div>
+            <div class="engagement-subnav__nav-item-workflows">
+              <p class="engagement-subnav__label-2">Workflows</p>
+            </div>
+            <div class="engagement-subnav__nav-item-automation">
+              <p class="engagement-subnav__label-3">Automation</p>
+            </div>
+            <div class="engagement-subnav__nav-item-scheme-definition">
+              <p class="engagement-subnav__label-4">Scheme definition</p>
+            </div>
+            <div class="engagement-subnav__nav-item-dynamic-fields">
+              <p class="engagement-subnav__label-5">Dynamic fields</p>
+            </div>
+          </nav>
+        </div>
+        <main class="requests__main">
+          <div class="requests__page-heading">
+            <div class="requests__breadcrumb">
+              <div class="requests__crumb-engagement-requests">
+                <p class="requests__engagement-requests">Engagement requests</p>
+                <svg class="requests__chevron-down-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+              <p class="requests__separator">/</p>
+              <div class="requests__crumb-requests">
+                <p class="requests__requests">Requests</p>
+                <svg class="requests__chevron-down-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="requests__title-block">
+              <h2 class="requests__page-title">Requests</h2>
+              <p class="requests__page-description">Every job the studio runs - fitting, validation, monthly monitoring and publishing - with its trigger, duration, records</p>
+            </div>
+          </div>
+          <div class="requests__filter-chips">
+            <div class="requests__filter-chip-draft">
+              <div class="requests__icon-slot">
+                <div class="requests__dashed-circle">
+                  <svg class="requests__circle-1" viewBox="1.5 1.5 13 13" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M14.5 8 C14.5 11.59 11.59 14.5 8 14.5 C4.41 14.5 1.5 11.59 1.5 8 C1.5 4.41 4.41 1.5 8 1.5 C11.59 1.5 14.5 4.41 14.5 8 Z" fill="none" stroke="#424242" stroke-width="1.2" stroke-dasharray="3.5999999999999996 2.4" stroke-linecap="butt" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                </div>
+              </div>
+              <p class="requests__label">Draft</p>
+              <div class="counter-badge counter-badge--count" data-instance-of="counter-badge">
+                <p class="counter-badge__count counter-badge__count--count">1</p>
+              </div>
+            </div>
+            <div class="requests__filter-chip-my-requests">
+              <svg class="requests__chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              <p class="requests__label">My requests</p>
+              <div class="counter-badge counter-badge--count" data-instance-of="counter-badge">
+                <p class="counter-badge__count counter-badge__count--count">2</p>
+              </div>
+            </div>
+            <div class="requests__filter-chip-closed">
+              <svg class="requests__chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m9 15 2 2 4-4"/></svg>
+              <p class="requests__label">Closed</p>
+              <div class="counter-badge counter-badge--count" data-instance-of="counter-badge">
+                <p class="counter-badge__count counter-badge__count--count">3</p>
+              </div>
+            </div>
+            <div class="requests__filter-chip-all-requests">
+              <svg class="requests__chip-icon-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg>
+              <p class="requests__label-2">All requests</p>
+              <div class="counter-badge counter-badge--count-2" data-instance-of="counter-badge">
+                <p class="counter-badge__count counter-badge__count--count-2">6</p>
+              </div>
+            </div>
+            <div class="requests__filter-chip-onboard-requests">
+              <svg class="requests__chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></svg>
+              <p class="requests__label">Onboard requests</p>
+              <div class="counter-badge counter-badge--count" data-instance-of="counter-badge">
+                <p class="counter-badge__count counter-badge__count--count">3</p>
+              </div>
+            </div>
+            <button class="requests__add-view-button" type="button">
+              <svg class="requests__plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            </button>
+          </div>
+          <div class="requests__toolbar">
+            <button class="button-primary" type="button" data-instance-of="button-primary">
+              <svg class="button-primary__leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              <span class="button-primary__label">Raise engagement request</span>
+              <svg class="button-primary__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="requests__toolbar-actions">
+              <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+                <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg>
+              </button>
+              <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+                <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
+              </button>
+              <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+                <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5h20"/><path d="M6 12h12"/><path d="M9 19h6"/></svg>
+              </button>
+              <div class="input" data-instance-of="input">
+                <div class="input__field">
+                  <svg class="input__leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                  <p class="input__value">Onboard</p>
+                  <svg class="input__trailing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </div>
+                <div class="input__underline"></div>
+              </div>
+              <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+                <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="requests__requests-grid">
+            <div class="requests__header-row">
+              <div class="requests__cell">
+                <div class="checkbox" data-instance-of="checkbox"></div>
+                <p class="requests__header-label">Request name</p>
+              </div>
+              <div class="requests__cell-2">
+                <p class="requests__header-label">Status</p>
+              </div>
+              <div class="requests__cell-2">
+                <p class="requests__header-label">Reference number</p>
+              </div>
+              <div class="requests__cell-3">
+                <p class="requests__header-label">Third party</p>
+              </div>
+            </div>
+            <div class="requests__row-ret-rm-0000006">
+              <div class="requests__cell">
+                <div class="checkbox" data-instance-of="checkbox"></div>
+                <p class="requests__request-name">Onboard Surya Fintech for Enterprise GRC Platform Implem…</p>
+              </div>
+              <div class="requests__cell-2">
+                <div class="badge-draft" data-instance-of="badge-draft">
+                  <div class="badge-draft__status-icon">
+                    <svg class="badge-draft__circle-1" viewBox="1 1 10 10" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11 6 C11 8.761 8.761 11 6 11 C3.239 11 1 8.761 1 6 C1 3.239 3.239 1 6 1 C8.761 1 11 3.239 11 6 Z" fill="none" stroke="#616161" stroke-width="1" stroke-dasharray="3 2" stroke-linecap="butt" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>
+                  </div>
+                  <p class="badge-draft__label">Draft</p>
+                </div>
+              </div>
+              <div class="requests__cell-2">
+                <p class="requests__reference-number">RET/RM_0000006</p>
+              </div>
+              <div class="requests__cell-3">
+                <p class="requests__third-party">Surya Fintech</p>
+              </div>
+            </div>
+            <div class="requests__row-ret-rm-0000005">
+              <div class="requests__cell">
+                <div class="checkbox" data-instance-of="checkbox"></div>
+                <p class="requests__request-name-2">Onboard Third Party for Retail Customer Notification and C…</p>
+              </div>
+              <div class="requests__cell-2">
+                <div class="badge-approval-pending" data-instance-of="badge-approval-pending">
+                  <svg class="badge-approval-pending__status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  <p class="badge-approval-pending__label">Approval pending</p>
+                </div>
+              </div>
+              <div class="requests__cell-2">
+                <p class="requests__reference-number">RET/RM_0000005</p>
+              </div>
+              <div class="requests__cell-3">
+                <p class="requests__third-party">Connect Reach</p>
+              </div>
+            </div>
+            <div class="requests__row-ret-rm-0000003">
+              <div class="requests__cell">
+                <div class="checkbox" data-instance-of="checkbox"></div>
+                <p class="requests__request-name">Onboard Cloud Infrastructure Services Provider</p>
+              </div>
+              <div class="requests__cell-2">
+                <div class="badge-closed" data-instance-of="badge-closed">
+                  <svg class="badge-closed__status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="m9 15 2 2 4-4"/></svg>
+                  <p class="badge-closed__label">Closed</p>
+                </div>
+              </div>
+              <div class="requests__cell-2">
+                <p class="requests__reference-number">RET/RM_0000003</p>
+              </div>
+              <div class="requests__cell-3">
+                <p class="requests__third-party">CloudSphere</p>
+              </div>
+            </div>
+            <button class="requests__edit-columns-button" type="button">
+              <svg class="requests__pencil-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <div class="requests__vertical-scrollbar"></div>
+            <div class="requests__horizontal-scrollbar"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

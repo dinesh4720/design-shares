@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>App header</title>
+    <style>
+      /* The fonts ship beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Segoe UI from Google Fonts, under the SIL Open Font License or Apache License 2.0, https://fonts.google.com */
+
+      @font-face {
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('Segoe UI'), url("assets/fonts/segoe-ui-600-figma.ttf") format("truetype");
+        ascent-override: 107.91%;
+        descent-override: 25.1%;
+        line-gap-override: 0%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--colorNeutralBackground2);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --colorNeutralForeground1: #242424;
+        --colorNeutralForeground2: #424242;
+        --colorNeutralBackground2: #fafafa;
+        --colorNeutralStroke2: #e0e0e0;
+        --borderRadiusMedium: 4px;
+        --fontSizeBase400: 16px;
+      }
+
+      .app-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px 0 22px;
+        width: 1366px;
+        height: 48px;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .app-header__surya-logo {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .app-header__logo-crop {
+        position: absolute;
+        left: -20px;
+        top: -12px;
+        width: 1160px;
+        height: 584px;
+        object-fit: cover;
+      }
+
+      .app-header__surya {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase400);
+        font-weight: 600;
+        line-height: 1.375;
+        white-space: pre;
+      }
+
+      .app-header__spacer {
+        height: 1px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .app-header__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .button-subtle-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .button-subtle-icon__glyph {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="app-header" data-component="app-header">
+      <div class="app-header__surya-logo">
+        <img class="app-header__logo-crop" src="assets/image.png" alt="Logo crop">
+      </div>
+      <p class="app-header__surya">Surya</p>
+      <div class="app-header__spacer"></div>
+      <header class="app-header__header-actions">
+        <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+          <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+        </button>
+        <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+          <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        </button>
+        <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+          <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </header>
+    </header>
+  </body>
+</html>

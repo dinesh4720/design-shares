@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create form · No steps · Top toolbar</title>
+    <style>
+      /* The fonts ship beside the page (assets/fonts/), so text looks the same on every system. */
+
+      /* Segoe UI from Google Fonts, under the SIL Open Font License or Apache License 2.0, https://fonts.google.com */
+
+      @font-face {
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+        src: local('Segoe UI'), url("assets/fonts/segoe-ui-600-figma.ttf") format("truetype");
+        ascent-override: 107.91%;
+        descent-override: 25.1%;
+        line-gap-override: 0%;
+      }
+
+      @font-face {
+        font-family: 'Segoe UI';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Segoe UI'), url("assets/fonts/segoe-ui-400-figma.ttf") format("truetype");
+        ascent-override: 107.91%;
+        descent-override: 25.1%;
+        line-gap-override: 0%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--colorNeutralBackground3);
+        color: #111111;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+      }
+
+      body > * {
+        margin-inline: auto;
+      }
+
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6, blockquote, figure, dl, dd {
+        margin: 0;
+        font: inherit;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        text-align: inherit;
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      img, svg {
+        display: block;
+      }
+
+      /* Design tokens. Set data-* theme attributes on any element to switch its subtree. */
+      :root {
+        --colorNeutralForeground1: #242424;
+        --colorNeutralForeground2: #424242;
+        --colorNeutralForeground3: #616161;
+        --colorNeutralForegroundDisabled: #bdbdbd;
+        --colorNeutralBackground1: #ffffff;
+        --colorNeutralBackground2: #fafafa;
+        --colorNeutralBackground3: #f5f5f5;
+        --colorNeutralBackground4: #f0f0f0;
+        --colorNeutralBackground5: #ebebeb;
+        --colorNeutralStroke1: #d1d1d1;
+        --colorNeutralStroke2: #e0e0e0;
+        --colorBrandBackground2: #ebf3fc;
+        --colorBrandForeground1: #0f6cbd;
+        --borderRadiusMedium: 4px;
+        --borderRadiusLarge: 6px;
+        --borderRadiusXLarge: 8px;
+        --borderRadiusCircular: 9999px;
+        --fontSizeBase200: 12px;
+        --fontSizeBase300: 14px;
+        --fontSizeBase400: 16px;
+        --fontSizeBase500: 20px;
+      }
+
+      .create-form-no-steps-top-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 1366px;
+        height: 768px;
+        background-color: var(--colorNeutralBackground3);
+        overflow: hidden;
+      }
+
+      .app-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 16px 0 22px;
+        height: 48px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset 0 -1px 0 0 var(--colorNeutralStroke2);
+      }
+
+      .app-header__surya-logo {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .app-header__logo-crop {
+        position: absolute;
+        left: -20px;
+        top: -12px;
+        width: 1160px;
+        height: 584px;
+        object-fit: cover;
+      }
+
+      .app-header__surya {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase400);
+        font-weight: 600;
+        line-height: 1.375;
+        white-space: pre;
+      }
+
+      .app-header__app-switcher {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .app-header__app-name {
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .app-header__chevron-down-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .app-header__spacer {
+        height: 1px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .app-header__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .button-subtle-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .button-subtle-icon__glyph {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .create-form-no-steps-top-toolbar__body {
+        display: flex;
+        align-items: flex-start;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .app-rail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 4px 12px;
+        width: 76px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground2);
+        box-shadow: inset -1px 0 0 0 var(--colorNeutralStroke2);
+      }
+
+      .app-rail__nav-menu-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 32px;
+        flex-shrink: 0;
+      }
+
+      .app-rail__menu-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__rail-item-engagement-requests {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 2px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .app-rail__icon-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 32px;
+        background-color: var(--colorBrandBackground2);
+        border-radius: var(--borderRadiusLarge);
+      }
+
+      .app-rail__clipboard-list-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorBrandForeground1);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__label {
+        color: var(--colorBrandForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: 600;
+        line-height: 1.333;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .app-rail__rail-item-internal-assessments {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 2px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .app-rail__icon-box-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 32px;
+        border-radius: var(--borderRadiusLarge);
+      }
+
+      .app-rail__file-text-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__label-2 {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        text-align: center;
+        white-space: pre;
+      }
+
+      .app-rail__spacer {
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .app-rail__divider {
+        width: 36px;
+        height: 1px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralStroke2);
+      }
+
+      .app-rail__search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+
+      .app-rail__search-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__shortcut {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .app-rail__key-ctrl {
+        position: relative;
+        width: 17px;
+        height: 16px;
+        background-color: var(--colorNeutralBackground5);
+        border-radius: 2px;
+      }
+
+      .app-rail__ctrl {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__text {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__key-k {
+        position: relative;
+        width: 6px;
+        height: 16px;
+        background-color: var(--colorNeutralBackground5);
+        border-radius: 2px;
+      }
+
+      .app-rail__k {
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .app-rail__workspace-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .app-rail__app-launcher-icon {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .app-rail__circle-1 {
+        position: absolute;
+        left: 2.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-2 {
+        position: absolute;
+        left: 8.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-3 {
+        position: absolute;
+        left: 14.7px;
+        top: 2.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-4 {
+        position: absolute;
+        left: 2.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-5 {
+        position: absolute;
+        left: 8.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-6 {
+        position: absolute;
+        left: 14.7px;
+        top: 8.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-7 {
+        position: absolute;
+        left: 2.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-8 {
+        position: absolute;
+        left: 8.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__circle-9 {
+        position: absolute;
+        left: 14.7px;
+        top: 14.7px;
+        width: 2.6px;
+        height: 2.6px;
+      }
+
+      .app-rail__avatar {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: var(--borderRadiusCircular);
+        overflow: hidden;
+      }
+
+      .app-rail__avatar-crop {
+        position: absolute;
+        left: -23px;
+        top: -585px;
+        width: 1248px;
+        height: 629px;
+        object-fit: cover;
+      }
+
+      .create-form-no-steps-top-toolbar__main {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px 16px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .create-form-no-steps-top-toolbar__title-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .create-form-no-steps-top-toolbar__back-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .create-form-no-steps-top-toolbar__arrow-left-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        stroke-width: 1.5;
+      }
+
+      .create-form-no-steps-top-toolbar__title-block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .create-form-no-steps-top-toolbar__title-line {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .create-form-no-steps-top-toolbar__page-title {
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase500);
+        font-weight: 600;
+        line-height: 1.4;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__rename-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForeground3);
+        stroke-width: 1.5;
+      }
+
+      .create-form-no-steps-top-toolbar__meta-line {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .create-form-no-steps-top-toolbar__new-form {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__dot {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__draft {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__no-fields-yet {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__not-saved-yet {
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        height: 52px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusXLarge);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .button-secondary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        height: 32px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke1);
+      }
+
+      .button-secondary__leading-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForeground1);
+        stroke-width: 1.5;
+      }
+
+      .button-secondary__label {
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__spacer {
+        height: 1px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      .create-form-no-steps-top-toolbar__publish-hint {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre;
+      }
+
+      .button-primary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        height: 32px;
+        flex-shrink: 0;
+        background-color: var(--colorNeutralBackground4);
+        border-radius: var(--borderRadiusMedium);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .button-primary__label {
+        color: var(--colorNeutralForegroundDisabled);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__builder {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+      }
+
+      .create-form-no-steps-top-toolbar__steps-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 8px;
+        width: 280px;
+        flex-shrink: 0;
+        align-self: stretch;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusXLarge);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .create-form-no-steps-top-toolbar__panel-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 8px;
+        height: 24px;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .create-form-no-steps-top-toolbar__panel-title {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground1);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__empty-steps {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 4px 8px 0;
+        flex-shrink: 0;
+        align-self: stretch;
+      }
+
+      .create-form-no-steps-top-toolbar__empty-steps-note {
+        align-self: stretch;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        line-height: 1.333;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      .create-form-no-steps-top-toolbar__add-step-button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 8px;
+        height: 32px;
+        flex-shrink: 0;
+        border-radius: var(--borderRadiusMedium);
+      }
+
+      .create-form-no-steps-top-toolbar__plus-icon {
+        width: 16px;
+        height: 16px;
+        color: var(--colorNeutralForeground2);
+        stroke-width: 1.5;
+      }
+
+      .create-form-no-steps-top-toolbar__label {
+        color: var(--colorNeutralForeground2);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase300);
+        font-weight: 600;
+        line-height: 1.429;
+        white-space: pre;
+      }
+
+      .create-form-no-steps-top-toolbar__canvas {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 8px 0 0;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-width: 0;
+      }
+
+      .create-form-no-steps-top-toolbar__first-step {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 24px;
+        flex: 1 1 0;
+        align-self: stretch;
+        min-height: 0;
+        background-color: var(--colorNeutralBackground1);
+        border-radius: var(--borderRadiusXLarge);
+        box-shadow: inset 0 0 0 1px var(--colorNeutralStroke2);
+      }
+
+      .create-form-no-steps-top-toolbar__first-step-title {
+        flex-shrink: 0;
+        color: var(--colorNeutralForeground3);
+        font-family: 'Segoe UI', 'Selawik', sans-serif;
+        font-size: var(--fontSizeBase200);
+        font-weight: 600;
+        line-height: 1.333;
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="create-form-no-steps-top-toolbar">
+      <header class="app-header" data-instance-of="app-header">
+        <div class="app-header__surya-logo">
+          <img class="app-header__logo-crop" src="assets/image.png" alt="Logo crop">
+        </div>
+        <p class="app-header__surya">Surya</p>
+        <div class="app-header__app-switcher">
+          <p class="app-header__app-name">Engagement requests</p>
+          <svg class="app-header__chevron-down-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="app-header__spacer"></div>
+        <div class="app-header__header-actions">
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+          </button>
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          </button>
+          <button class="button-subtle-icon" type="button" data-instance-of="button-subtle-icon">
+            <svg class="button-subtle-icon__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="create-form-no-steps-top-toolbar__body">
+        <div class="app-rail" data-instance-of="app-rail">
+          <nav class="app-rail__nav-menu-button">
+            <svg class="app-rail__menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+          </nav>
+          <div class="app-rail__rail-item-engagement-requests">
+            <div class="app-rail__icon-box">
+              <svg class="app-rail__clipboard-list-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+            </div>
+            <p class="app-rail__label">Engagement<br>requests</p>
+          </div>
+          <div class="app-rail__rail-item-internal-assessments">
+            <div class="app-rail__icon-box-2">
+              <svg class="app-rail__file-text-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+            </div>
+            <p class="app-rail__label-2">Internal<br>assessments</p>
+          </div>
+          <div class="app-rail__spacer"></div>
+          <div class="app-rail__divider"></div>
+          <div class="app-rail__search">
+            <svg class="app-rail__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+            <div class="app-rail__shortcut">
+              <div class="app-rail__key-ctrl">
+                <p class="app-rail__ctrl">ctrl</p>
+              </div>
+              <p class="app-rail__text">+</p>
+              <div class="app-rail__key-k">
+                <p class="app-rail__k">k</p>
+              </div>
+            </div>
+          </div>
+          <svg class="app-rail__workspace-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <div class="app-rail__app-launcher-icon">
+            <svg class="app-rail__circle-1" viewBox="2.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 4 C5.3 4.464 5.052 4.894 4.65 5.126 C4.248 5.358 3.752 5.358 3.35 5.126 C2.948 4.894 2.7 4.464 2.7 4 C2.7 3.536 2.948 3.106 3.35 2.874 C3.752 2.642 4.248 2.642 4.65 2.874 C5.052 3.106 5.3 3.536 5.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-2" viewBox="8.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 4 C11.3 4.718 10.718 5.3 10 5.3 C9.282 5.3 8.7 4.718 8.7 4 C8.7 3.282 9.282 2.7 10 2.7 C10.718 2.7 11.3 3.282 11.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-3" viewBox="14.7 2.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 4 C17.3 4.718 16.718 5.3 16 5.3 C15.282 5.3 14.7 4.718 14.7 4 C14.7 3.282 15.282 2.7 16 2.7 C16.718 2.7 17.3 3.282 17.3 4 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-4" viewBox="2.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 10 C5.3 10.464 5.052 10.894 4.65 11.126 C4.248 11.358 3.752 11.358 3.35 11.126 C2.948 10.894 2.7 10.464 2.7 10 C2.7 9.536 2.948 9.106 3.35 8.874 C3.752 8.642 4.248 8.642 4.65 8.874 C5.052 9.106 5.3 9.536 5.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-5" viewBox="8.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 10 C11.3 10.718 10.718 11.3 10 11.3 C9.282 11.3 8.7 10.718 8.7 10 C8.7 9.282 9.282 8.7 10 8.7 C10.718 8.7 11.3 9.282 11.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-6" viewBox="14.7 8.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 10 C17.3 10.718 16.718 11.3 16 11.3 C15.282 11.3 14.7 10.718 14.7 10 C14.7 9.282 15.282 8.7 16 8.7 C16.718 8.7 17.3 9.282 17.3 10 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-7" viewBox="2.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M5.3 16 C5.3 16.464 5.052 16.894 4.65 17.126 C4.248 17.358 3.752 17.358 3.35 17.126 C2.948 16.894 2.7 16.464 2.7 16 C2.7 15.536 2.948 15.106 3.35 14.874 C3.752 14.642 4.248 14.642 4.65 14.874 C5.052 15.106 5.3 15.536 5.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-8" viewBox="8.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M11.3 16 C11.3 16.718 10.718 17.3 10 17.3 C9.282 17.3 8.7 16.718 8.7 16 C8.7 15.282 9.282 14.7 10 14.7 C10.718 14.7 11.3 15.282 11.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+            <svg class="app-rail__circle-9" viewBox="14.7 14.7 2.6 2.6" preserveAspectRatio="none" overflow="visible" aria-hidden="true"><path d="M17.3 16 C17.3 16.718 16.718 17.3 16 17.3 C15.282 17.3 14.7 16.718 14.7 16 C14.7 15.282 15.282 14.7 16 14.7 C16.718 14.7 17.3 15.282 17.3 16 Z" fill="#424242" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <div class="app-rail__avatar">
+            <img class="app-rail__avatar-crop" src="assets/image.png" alt="Avatar crop">
+          </div>
+        </div>
+        <main class="create-form-no-steps-top-toolbar__main">
+          <div class="create-form-no-steps-top-toolbar__title-row">
+            <button class="create-form-no-steps-top-toolbar__back-button" type="button">
+              <svg class="create-form-no-steps-top-toolbar__arrow-left-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+            </button>
+            <div class="create-form-no-steps-top-toolbar__title-block">
+              <div class="create-form-no-steps-top-toolbar__title-line">
+                <h1 class="create-form-no-steps-top-toolbar__page-title">Untitled form</h1>
+                <svg class="create-form-no-steps-top-toolbar__rename-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+              </div>
+              <div class="create-form-no-steps-top-toolbar__meta-line">
+                <p class="create-form-no-steps-top-toolbar__new-form">New form</p>
+                <p class="create-form-no-steps-top-toolbar__dot">•</p>
+                <p class="create-form-no-steps-top-toolbar__draft">Draft</p>
+                <p class="create-form-no-steps-top-toolbar__dot">•</p>
+                <p class="create-form-no-steps-top-toolbar__no-fields-yet">No fields yet</p>
+                <p class="create-form-no-steps-top-toolbar__dot">•</p>
+                <p class="create-form-no-steps-top-toolbar__not-saved-yet">Not saved yet</p>
+              </div>
+            </div>
+          </div>
+          <div class="create-form-no-steps-top-toolbar__toolbar">
+            <button class="button-secondary" type="button" data-instance-of="button-secondary">
+              <svg class="button-secondary__leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              <span class="button-secondary__label">New group</span>
+            </button>
+            <button class="button-secondary" type="button" data-instance-of="button-secondary">
+              <svg class="button-secondary__leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+              <span class="button-secondary__label">New flat field</span>
+            </button>
+            <div class="create-form-no-steps-top-toolbar__spacer"></div>
+            <p class="create-form-no-steps-top-toolbar__publish-hint">Add a field to publish</p>
+            <button class="button-secondary" type="button" data-instance-of="button-secondary">
+              <svg class="button-secondary__leading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+              <span class="button-secondary__label">Preview</span>
+            </button>
+            <button class="button-primary" type="button" data-instance-of="button-primary">
+              <span class="button-primary__label">Publish form</span>
+            </button>
+          </div>
+          <div class="create-form-no-steps-top-toolbar__builder">
+            <div class="create-form-no-steps-top-toolbar__steps-panel">
+              <div class="create-form-no-steps-top-toolbar__panel-header">
+                <p class="create-form-no-steps-top-toolbar__panel-title">Steps</p>
+              </div>
+              <div class="create-form-no-steps-top-toolbar__empty-steps">
+                <p class="create-form-no-steps-top-toolbar__empty-steps-note">No steps yet, so the form is one page.</p>
+              </div>
+              <button class="create-form-no-steps-top-toolbar__add-step-button" type="button">
+                <svg class="create-form-no-steps-top-toolbar__plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                <span class="create-form-no-steps-top-toolbar__label">Add step</span>
+              </button>
+            </div>
+            <div class="create-form-no-steps-top-toolbar__canvas">
+              <div class="create-form-no-steps-top-toolbar__first-step">
+                <p class="create-form-no-steps-top-toolbar__first-step-title">Add the first piece of the form</p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
