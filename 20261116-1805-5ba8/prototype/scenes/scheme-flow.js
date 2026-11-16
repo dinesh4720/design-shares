@@ -57,6 +57,12 @@ export default function ({ el, reduced }) {
     node.style.cursor = "pointer";
     node.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); fn(e); });
   };
+  // Editing a heading turns it into a Fluent input: a stroke box with the brand underline, the text kept where it was
+  const asInput = (n, show) => {
+    if (!n) return;
+    if (show) Object.assign(n.style, { background: "var(--colorNeutralBackground1, #ffffff)", boxShadow: "inset 0 0 0 1px var(--colorNeutralStroke1, #d1d1d1), inset 0 -2px 0 var(--colorBrandStroke1, #0f6cbd)", borderRadius: "4px", padding: "3px 8px", margin: "-3px 0 -3px -8px", minWidth: "240px", boxSizing: "border-box" });
+    else Object.assign(n.style, { background: "transparent", boxShadow: "none", borderRadius: "2px", padding: "", margin: "", minWidth: "8px" });
+  };
   const navItem = (view, label) => byText(q(view, "nav-items"), label, '[class*="nav-item"]');
   const tab = (view, label) => byText(q(view, "scheme-tabs"), label, '[data-instance-of="tab"], .tab');
 
@@ -84,14 +90,18 @@ export default function ({ el, reduced }) {
     if (head) head.style.height = "auto";
     if (expandLinks[i]) expandLinks[i].style.display = open ? "none" : "inline-flex";
   });
+  // The link is the one drawn above the builders' titles, so the list views and the builders show the same thing
+  const linkTpl = q(V.builder, "expand-sidebar-link") || q(V.dpb, "expand-sidebar-link");
+  const LINK_HOVER = "var(--colorNeutralBackground5, #ebebeb)";
+  const hoverLink = (b) => { b.addEventListener("mouseenter", () => (b.style.background = LINK_HOVER)); b.addEventListener("mouseleave", () => (b.style.background = "transparent")); };
   sideViews.forEach((v) => {
     const crumb = q(v, "breadcrumb");
-    const b = document.createElement("button");
+    const b = linkTpl ? linkTpl.cloneNode(true) : document.createElement("button");
+    if (linkTpl) { b.setAttribute("role", "button"); b.tabIndex = 0; }
     b.type = "button"; b.setAttribute("aria-label", "Expand sidebar");
-    b.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 4a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4ZM3 6a1 1 0 0 1 1-1h3v10H4a1 1 0 0 1-1-1V6Zm5 9V5h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8Zm2.65-7.35a.5.5 0 0 0 0 .7L12.29 10l-1.64 1.65a.5.5 0 0 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7 0Z"/></svg><span>Expand sidebar</span>';
+    if (!linkTpl) b.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 4a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4ZM3 6a1 1 0 0 1 1-1h3v10H4a1 1 0 0 1-1-1V6Zm5 9V5h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8Zm2.65-7.35a.5.5 0 0 0 0 .7L12.29 10l-1.64 1.65a.5.5 0 0 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7 0Z"/></svg><span>Expand sidebar</span>';
     Object.assign(b.style, { display: "none", alignItems: "center", gap: "4px", height: "24px", padding: "0 6px", margin: "0 0 4px -6px", border: "none", borderRadius: "4px", background: "transparent", color: "#0F6CBD", font: "600 12px/16px 'Segoe UI', system-ui, sans-serif", cursor: "pointer", alignSelf: "flex-start" });
-    b.addEventListener("mouseenter", () => (b.style.background = "#F5F5F5"));
-    b.addEventListener("mouseleave", () => (b.style.background = "transparent"));
+    hoverLink(b);
     b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); setSide(true); });
     if (crumb) crumb.parentElement.insertBefore(b, crumb);
     expandLinks.push(b);
@@ -106,7 +116,7 @@ export default function ({ el, reduced }) {
 
   // ---------- Form builder: a form is built one piece at a time ----------
   // Create new form opens it empty; a form in the list opens with what it holds. Steps come from the steps panel,
-  // groups and flat fields from the toolbar, fields from each card's Add field (pick a type, then name it).
+  // groups and fields from the toolbar or the empty step's New field / New group, fields from each card's Add field.
   // Every name edits in place. Hover a field for its toolbar (drag, Half / Full, Required, rename, remove);
   // the ellipsis on a step or a group opens Rename, Duplicate, Move up, Move down and Delete.
   let fbDrawer = null; // the detail page's Add dynamic field drawer, shared with the form builder
@@ -124,7 +134,8 @@ export default function ({ el, reduced }) {
 
     // Templates, kept under the views
     const take = (base) => { const n = q(tl, base); return n ? n.cloneNode(true) : null; };
-    const takeBtn = (t) => { const n = byText(tl, t, "button"); return n ? n.cloneNode(true) : null; };
+    const barParts = q(tl, "bar-parts") || tl;
+    const takeBtn = (t) => { const n = byText(barParts, t, "button"); return n ? n.cloneNode(true) : null; };
     const TYPES = ["Text", "Long text", "Number", "Date", "Choice", "Yes or no", "Person", "File"];
     const fieldTpl = {};
     TYPES.forEach((t) => (fieldTpl[t] = take("field-" + t.toLowerCase().replace(/[^a-z0-9]+/g, "-"))));
@@ -132,7 +143,7 @@ export default function ({ el, reduced }) {
     const typeMenu = take("field-type-menu"), itemMenu = take("item-menu");
     const emptyEl = take("empty-step-message"), emptySteps = take("empty-steps");
     const flatTag = take("flat-tag"), tb = take("form-field-toolbar");
-    const groupOff = takeBtn("New group"), flatOn = takeBtn("New flat field"), pubOff = takeBtn("Publish form");
+    const groupOff = takeBtn("New group"), flatOn = takeBtn("New field"), pubOff = takeBtn("Publish form");
     tl.remove();
 
     // The builder's own parts
@@ -143,7 +154,7 @@ export default function ({ el, reduced }) {
     const editor = q(B, "step-editor"), header = q(editor, "step-header"), content = q(editor, "step-content");
     const posEl = q(editor, "step-position"), stepTitle = q(editor, "step-title"), tagEl = q(editor, "step-type-tag");
     const stepMenuBtn = header && (header.querySelector('[data-instance-of="button-subtle-icon"]') || header.lastElementChild);
-    const newGroupBtn = byText(B, "New group", "button"), flatOffBtn = byText(B, "New flat field", "button");
+    const newGroupBtn = byText(B, "New group", "button"), flatOffBtn = byText(B, "New field", "button");
     const publishBtn = byText(B, "Publish form", "button"), previewBtn = byText(B, "Preview", "button");
     const ruleNote = q(B, "rule-note"), ruleText = q(B, "rule-note-text");
     const rowSel = q(stepper, "step-risk-impact"), rowPlain = q(stepper, "step-request-details");
@@ -161,7 +172,7 @@ export default function ({ el, reduced }) {
     if (ruleText && previewBtn) { pubHint = ruleText.cloneNode(true); pubHint.textContent = "Add a field to publish"; Object.assign(pubHint.style, { flex: "none", width: "auto" }); previewBtn.before(pubHint); }
     if (emptySteps && addStepBtn) addStepBtn.before(emptySteps);
     if (flatTag && tagEl) tagEl.after(flatTag);
-    if (emptyEl) Object.assign(emptyEl.style, { height: "auto", flex: "1 1 auto", minHeight: "240px", alignSelf: "stretch", width: "auto" });
+    if (emptyEl) Object.assign(emptyEl.style, { height: "auto", flex: "1 1 auto", minHeight: "320px", alignSelf: "stretch", width: "auto" });
     content.style.paddingTop = "8px";
 
     // Helpers
@@ -173,18 +184,18 @@ export default function ({ el, reduced }) {
     const leaves = (root) => root ? [...root.querySelectorAll("p,span,h1,h2,h3")].filter((n) => n.children.length === 0 && n.textContent.trim() && n.textContent.trim() !== "*") : [];
     const focusAll = (n) => { if (!n) return; n.focus({ preventScroll: true }); const r = document.createRange(); r.selectNodeContents(n); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
     // Always-editable text: hover shows a light box, click edits, Enter keeps, Escape puts it back
-    const editable = (n, onInput) => {
+    const editable = (n, onInput, heading) => {
       if (!n || n.__ed) return; n.__ed = true;
       n.contentEditable = "true"; n.spellcheck = false;
       Object.assign(n.style, { outline: "none", cursor: "text", borderRadius: "2px", whiteSpace: "nowrap", overflow: "visible", minWidth: "8px", width: "auto", maxWidth: "none", background: "transparent", boxShadow: "none" });
       if (!reduced) n.style.transition = `background-color 120ms ${ease}, box-shadow 120ms ${ease}`;
       let before = "";
-      const idle = () => { n.style.background = "transparent"; n.style.boxShadow = "none"; };
+      const idle = () => { if (heading) asInput(n, false); n.style.background = "transparent"; n.style.boxShadow = "none"; };
       n.addEventListener("mouseenter", () => { if (document.activeElement !== n) n.style.background = HOV; });
       n.addEventListener("mouseleave", () => { if (document.activeElement !== n) idle(); });
       n.addEventListener("pointerdown", (e) => e.stopPropagation());
       n.addEventListener("click", (e) => { e.stopPropagation(); e.preventDefault(); });
-      n.addEventListener("focus", () => { before = n.textContent; n.style.background = "transparent"; n.style.boxShadow = `inset 0 -2px 0 ${FOCUS}`; });
+      n.addEventListener("focus", () => { before = n.textContent; if (heading) asInput(n, true); else { n.style.background = "transparent"; n.style.boxShadow = `inset 0 -2px 0 ${FOCUS}`; } });
       n.addEventListener("input", () => onInput && onInput(n.textContent.trim()));
       n.addEventListener("keydown", (e) => {
         if (e.key === "Enter") { e.preventDefault(); n.blur(); }
@@ -331,7 +342,7 @@ export default function ({ el, reduced }) {
     const wireGroup = (g) => {
       if (g.__gw) return; g.__gw = true;
       g.style.opacity = "";
-      editable(q(g, "group-heading"));
+      editable(q(g, "group-heading"), null, true);
       const menu = q(g, "group-menu"); on(menu, () => openItemMenu(menu, groupActions(g)));
       on(q(g, "collapse-group"), () => setCollapsed(g, g.dataset.collapsed !== "1"));
       const add = q(g, "add-field-button"); hoverBtn(add); on(add, () => openTypeMenu(add, (t, l) => addField(q(g, "fields"), t, l)));
@@ -470,7 +481,7 @@ export default function ({ el, reduced }) {
       openM = m; openFor = anchor;
       menuItems(m).forEach((it) => (it.style.background = "transparent"));
       m.style.display = "";
-      const a = rel(anchor.getBoundingClientRect()), mw = m.offsetWidth, mh = m.offsetHeight, W = B.offsetWidth, H = B.offsetHeight;
+      const barEl = q(B, "bottom-toolbar"), a = rel(anchor.getBoundingClientRect()), mw = m.offsetWidth, mh = m.offsetHeight, W = B.offsetWidth, H = barEl ? rel(barEl.getBoundingClientRect()).t : B.offsetHeight;
       let left = alignRight ? a.r - mw : a.l, top = a.b + 4;
       const up = top + mh > H - 8; if (up) top = Math.max(8, a.t - 4 - mh);
       left = Math.max(8, Math.min(left, W - mw - 8));
@@ -517,7 +528,19 @@ export default function ({ el, reduced }) {
       const footer = q(typeMenu, "menu-footer");
       const addLabel = byText(typeMenu, "Add 3 fields");
       const addBtn = (addLabel && addLabel.closest("button")) || (footer && footer.lastElementChild);
+      // Select all ticks every field the form doesn't have yet, or clears them when they're all ticked
+      const allRow = q(typeMenu, "select-all-option");
+      const cbMixed = allRow && allRow.firstElementChild ? allRow.firstElementChild.cloneNode(true) : null;
+      const free = () => items.filter((it) => st.get(it) !== "added");
+      const paintAll = () => {
+        if (!allRow || !cbMixed) return;
+        const f = free(), n = f.filter((it) => st.get(it) === "on").length;
+        const box = !f.length ? cb.added : n === f.length ? cb.on : n ? cbMixed : cb.off;
+        allRow.firstElementChild.replaceWith(box.cloneNode(true));
+        allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+      };
       const upd = () => {
+        paintAll();
         const n = items.filter((it) => st.get(it) === "on").length;
         if (addLabel) addLabel.textContent = n ? `Add ${plural(n, "field")}` : "Add fields";
         if (addBtn) { addBtn.style.opacity = n ? "" : "0.4"; addBtn.style.pointerEvents = n ? "" : "none"; }
@@ -535,6 +558,11 @@ export default function ({ el, reduced }) {
         if (pick) chosen.forEach((it) => pick(TMAP[types[itemLabel(it)]] || "Text", itemLabel(it)));
       });
       let made = 0;
+      if (allRow) {
+        allRow.addEventListener("mouseenter", () => { if (free().length) allRow.style.background = HOV; });
+        allRow.addEventListener("mouseleave", () => (allRow.style.background = "transparent"));
+        on(allRow, () => { const f = free(); if (!f.length) return; const all = f.every((it) => st.get(it) === "on"); f.forEach((it) => setSt(it, all ? "off" : "on")); upd(); });
+      }
       const create = q(typeMenu, "add-custom-field-button");
       if (create) {
         create.addEventListener("mouseenter", () => (create.style.background = HOV));
@@ -658,8 +686,9 @@ export default function ({ el, reduced }) {
       if (metaEl) metaEl.textContent = !total ? "No fields yet" : implicit ? plural(total, "field") : `${plural(total, "field")} in ${plural(n, "step")}`;
       if (emptyEl) {
         emptyEl.style.display = kind === "empty" ? "" : "none";
-        const h = q(emptyEl, "empty-canvas-hint") || emptyEl.firstElementChild;
-        if (h) h.textContent = implicit ? "Use New group or New flat field in the toolbar\nto add the first field." : `${nameOf(cur) || "This step"} has no fields yet. Use New group or\nNew flat field in the toolbar to add its first field.`;
+        const t = q(emptyEl, "empty-state-title"), r = q(emptyEl, "empty-state-rule");
+        if (t) t.textContent = implicit ? "Add the first piece of the form" : `Add the first piece of ${nameOf(cur) || "this step"}`;
+        if (r) r.textContent = `A ${implicit ? "form" : "step"} holds fields or groups, not both.`;
       }
     }
 
@@ -684,12 +713,16 @@ export default function ({ el, reduced }) {
     const total = () => steps.reduce((k, s) => k + s.page.querySelectorAll('[data-fb="field"]').length, 0);
 
     // Wiring
-    editable(titleEl); pencil(q(B, "rename-icon"), titleEl);
-    editable(stepTitle, (t) => { if (cur && cur.row) q(cur.row, "step-name").textContent = t || "Untitled step"; });
+    editable(titleEl, null, true); pencil(q(B, "rename-icon"), titleEl);
+    editable(stepTitle, (t) => { if (cur && cur.row) q(cur.row, "step-name").textContent = t || "Untitled step"; }, true);
     pencil(q(header, "rename-step"), stepTitle);
     on(stepMenuBtn, () => { if (cur && cur.row) openItemMenu(stepMenuBtn, stepActions(cur)); });
     on(newGroupBtn, addGroup);
     on(flatOn, () => openTypeMenu(flatOn, addFlatField));
+    // An empty step offers both ways to start in its middle, each drawn as what it makes
+    const emptyField = emptyEl && byText(emptyEl, "New field", "button"), emptyGroup = emptyEl && byText(emptyEl, "New group", "button");
+    on(emptyField, () => openTypeMenu(emptyField, addFlatField));
+    on(emptyGroup, addGroup);
     hoverBtn(addStepBtn); on(addStepBtn, addStep);
     load(seed);
 
@@ -730,6 +763,26 @@ export default function ({ el, reduced }) {
     on(FB.backBtn, () => { keepForm(false); go("forms"); });
     on(FB.publishBtn, () => { keepForm(true); go("forms"); });
   }
+
+  // Builders open with the secondary sidebar collapsed: "Expand sidebar" above the title opens it, its collapse icon closes it.
+  const navTpl = (() => { const tr = q(V.forms, "subnav-title-row"); return tr ? tr.parentElement : null; })();
+  const bSides = [];
+  const setBuilderSide = (open) => bSides.forEach(({ nav, link }) => { nav.style.display = open ? "" : "none"; link.style.display = open ? "none" : ""; });
+  ["builder", "dpb"].forEach((k) => {
+    const v = V[k], link = q(v, "expand-sidebar-link"), main = q(v, "main");
+    if (!v || !link || !main || !navTpl) return;
+    const nav = navTpl.cloneNode(true);
+    Object.assign(nav.style, { display: "none", flex: "none" });
+    main.before(nav);
+    link.setAttribute("role", "button"); link.setAttribute("aria-label", "Expand sidebar");
+    hoverLink(link);
+    on(link, () => setBuilderSide(true));
+    on(q(nav, "collapse-icon"), () => setBuilderSide(false));
+    const leave = (to) => { if (k === "builder") keepForm(false); go(to); };
+    on(navItem(nav, "Requests"), () => leave("req"));
+    on(navItem(nav, "Scheme definition"), () => leave("forms"));
+    bSides.push({ nav, link });
+  });
 
   let detailPublished = false;
   function publishForm(row) {
@@ -782,9 +835,9 @@ export default function ({ el, reduced }) {
       n.addEventListener("mouseleave", () => { if (document.activeElement !== n) idle(); });
       n.addEventListener("pointerdown", (e) => e.stopPropagation());
       n.addEventListener("click", (e) => e.stopPropagation());
-      n.addEventListener("focus", () => { before = n.textContent; n.style.background = "transparent"; n.style.boxShadow = `inset 0 -2px 0 ${FOCUS}`; });
+      n.addEventListener("focus", () => { before = n.textContent; asInput(n, true); });
       n.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); n.blur(); } if (e.key === "Escape") { e.preventDefault(); n.textContent = before; n.blur(); } e.stopPropagation(); });
-      n.addEventListener("blur", () => { if (!n.textContent.trim()) n.textContent = before; idle(); window.getSelection().removeAllRanges(); });
+      n.addEventListener("blur", () => { if (!n.textContent.trim()) n.textContent = before; asInput(n, false); idle(); window.getSelection().removeAllRanges(); });
       const pen = n.parentElement && n.parentElement.querySelector('[class*="__rename-card"]');
       if (pen) {
         pen.style.cursor = "pointer";
@@ -802,21 +855,7 @@ export default function ({ el, reduced }) {
     const D = V.dpb;
     const css = (n) => getComputedStyle(n);
 
-    // Values and the request heading show as Fluent's skeleton shimmer (stencil 1 -> 2 -> 1, 3 s, linear).
-    if (!document.getElementById("dpb-shimmer-style")) {
-      const st = document.createElement("style"); st.id = "dpb-shimmer-style";
-      st.textContent = "@keyframes dpbShimmer { from { background-position-x: 300%; } to { background-position-x: 0%; } }";
-      document.head.appendChild(st);
-    }
-    const S1 = "var(--colorNeutralStencil1, #e6e6e6)", S2 = "var(--colorNeutralStencil2, #fafafa)";
-    const shimmers = () => D.querySelectorAll('[class*="__shimmer"]');
-    const shimmerOn = () => {
-      const all = shimmers();
-      all.forEach((n) => Object.assign(n.style, { backgroundImage: `linear-gradient(to right, ${S1} 0%, ${S2} 50%, ${S1} 100%)`, backgroundSize: "300% 100%", animation: "none" }));
-      void D.offsetWidth;
-      if (!reduced) all.forEach((n) => (n.style.animation = "dpbShimmer 3s linear infinite"));
-    };
-    shimmerOn();
+    // Values show as plain placeholder containers drawn on the board: static, each as wide as its field (Half or Full).
     const HOVER_BG = "var(--colorNeutralBackground2, #fafafa)";
     const HOVER_LINE = "var(--colorNeutralStroke1, #d1d1d1)";
     const ITEM_HOVER = "var(--colorNeutralBackground3, #f5f5f5)";
@@ -991,6 +1030,17 @@ export default function ({ el, reduced }) {
       };
       items.forEach((it) => setState(it, q(it, "added") ? "added" : "off"));
 
+      // Select all ticks every field the page doesn't have yet, or clears them when they're all ticked
+      const allRow = q(fieldMenu, "select-all-option");
+      const cbMixed = allRow && allRow.firstElementChild ? allRow.firstElementChild.cloneNode(true) : null;
+      const free = () => items.filter((it) => state.get(it) === "on" || state.get(it) === "off");
+      const paintAll = () => {
+        if (!allRow || !cbMixed) return;
+        const f = free(), n = f.filter((it) => state.get(it) === "on").length;
+        const box = !f.length ? cbAdded : n === f.length ? cbOn : n ? cbMixed : cbOff;
+        allRow.firstElementChild.replaceWith(box.cloneNode(true));
+        allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+      };
       const footer = q(fieldMenu, "menu-footer");
       const addLabel = byText(fieldMenu, "Add 3 fields");
       const addBtn = addLabel ? (addLabel.closest("button") || footer.lastElementChild) : footer && footer.lastElementChild;
@@ -999,6 +1049,7 @@ export default function ({ el, reduced }) {
         const pl = (k) => `${k} field${k === 1 ? "" : "s"}`;
         if (addLabel) addLabel.textContent = a && r ? `Update ${pl(n)}` : r ? `Remove ${pl(r)}` : a ? `Add ${pl(a)}` : "Add fields";
         if (addBtn) { addBtn.style.opacity = n ? "" : "0.4"; addBtn.style.pointerEvents = n ? "" : "none"; }
+        paintAll();
       };
       updateFooter();
 
@@ -1006,8 +1057,6 @@ export default function ({ el, reduced }) {
       fieldMenu.querySelectorAll('[class*="__group-header"]').forEach((h) => { h.style.position = "sticky"; h.style.top = "0"; h.style.zIndex = "1"; });
       fieldMenu.style.display = "none"; fieldMenu.style.zIndex = "50";
 
-      // A new field's shimmer is as long as a typical value of its type.
-      const widths = { ID: 112, Text: 200, Person: 120, Date: 80, "Date and time": 128, Status: 64, "Multi-choice": 180, "Long text": 280, Choice: 96, Lookup: 200, Amount: 96, File: 180 };
       let openFor = null;
       const closeMenu = () => {
         fieldMenu.style.display = "none";
@@ -1022,7 +1071,7 @@ export default function ({ el, reduced }) {
         if (list) list.scrollTop = 0;
         const v = D.getBoundingClientRect(), r = btn.getBoundingClientRect(), s = scale();
         const top = (r.top - v.top) / s, left = (r.left - v.left) / s, bh = r.height / s;
-        const mh = fieldMenu.offsetHeight, vh = D.offsetHeight;
+        const barEl = q(D, "bottom-toolbar"), mh = fieldMenu.offsetHeight, vh = barEl ? (barEl.getBoundingClientRect().top - v.top) / s : D.offsetHeight;
         const below = top + bh + 4, fitsBelow = below + mh <= vh - 8;
         Object.assign(fieldMenu.style, { left: left + "px", right: "auto", bottom: "auto", top: (fitsBelow ? below : Math.max(8, top - 4 - mh)) + "px" });
         if (!reduced) {
@@ -1058,14 +1107,11 @@ export default function ({ el, reduced }) {
             const v = fieldTpl.cloneNode(true);
             const l = q(v, "label"), val = q(v, "value");
             if (l) l.textContent = label;
-            const sh = val && val.querySelector('[class*="__shimmer"]');
-            if (sh) sh.style.width = (widths[types[label]] || 160) + "px";
             values.appendChild(v); prep(v, 1); wire(v);
           }
           setState(it, "added");
         });
         bump(card, chosen.length);
-        if (chosen.length) shimmerOn();
         items.filter((it) => state.get(it) === "remove").forEach((it) => {
           const label = labelOf(it);
           [...D.querySelectorAll('[class*="__detail-card-"]')].forEach((c) => {
@@ -1079,6 +1125,11 @@ export default function ({ el, reduced }) {
         });
         closeMenu();
       });
+      if (allRow) {
+        allRow.addEventListener("mouseenter", () => { if (free().length) allRow.style.background = ITEM_HOVER; });
+        allRow.addEventListener("mouseleave", () => (allRow.style.background = "transparent"));
+        on(allRow, () => { const f = free(); if (!f.length) return; const all = f.every((it) => state.get(it) === "on"); f.forEach((it) => setState(it, all ? "off" : "on")); updateFooter(); });
+      }
       onRemoved = (label) => { const it = items.find((i) => labelOf(i) === label); if (it) { setState(it, "off"); updateFooter(); } };
 
       // Add custom field drawer
@@ -1192,7 +1243,7 @@ export default function ({ el, reduced }) {
       }
       D.addEventListener("click", (e) => { if (openFor && !fieldMenu.contains(e.target)) closeMenu(); });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openFor) closeMenu(); });
-      const canvas = q(D, "page-canvas"); if (canvas) canvas.addEventListener("scroll", () => openFor && closeMenu());
+      const scroller = q(D, "page-scroll") || q(D, "page-canvas"); if (scroller) scroller.addEventListener("scroll", () => openFor && closeMenu());
       [q(D, "back-button"), byText(D, "Publish detail page", "button")].forEach((n) => n && n.addEventListener("click", () => openFor && closeMenu()));
     }
   }
