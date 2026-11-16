@@ -56,7 +56,7 @@
     var page = canvas.pages[canvas.current()];
     return !c.page || !page || !page.id || c.page === page.id || (c.board && page.boards.some(function (b) { return b.id === c.board; }));
   }
-  function visible() { return comments.filter(function (c) { return !c.resolved && onThisPage(c); }); }
+  function visible() { return comments.filter(function (c) { return !c.resolved && onThisPage(c) && (!canvas.only || c.board === canvas.only); }); }
   function toScreen(p) { var v = canvas.view; return { x: p.x * v.s + v.x, y: p.y * v.s + v.y }; }
 
   function paint() {
@@ -245,6 +245,7 @@
     var at = { x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100, page: page && page.id };
     if (page) for (var i = page.boards.length - 1; i >= 0; i--) {
       var b = page.boards[i];
+      if (canvas.only && b.id !== canvas.only) continue;
       if (b.id && x >= b.x && y >= b.y && x <= b.x + b.w && y <= b.y + b.h) { at.board = b.id; at.dx = Math.round((x - b.x) * 100) / 100; at.dy = Math.round((y - b.y) * 100) / 100; break; }
     }
     newComment(at);
