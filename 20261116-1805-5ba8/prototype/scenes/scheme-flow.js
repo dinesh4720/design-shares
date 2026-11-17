@@ -28,8 +28,77 @@ export default function ({ el, reduced }) {
   const missing = Object.entries(V).filter(([k, v]) => !v).map(([k]) => k);
   if (missing.length) console.warn("scheme-flow: views not found: " + missing.join(", "));
   const ease = "cubic-bezier(0.33, 0, 0.67, 1)";
+
+  // Every edit pencil (rename title, step, group, card; edit description; field and column edit buttons), on every page:
+  // hover is the brand tint's hover fill with the brand icon colour, pressed its pressed step. Same blue as Add description.
+  // Bare icons draw the fill as a 4px ring around the glyph, so nothing moves.
+  const PEN_ICONS = ["rename-icon", "rename-step", "rename-card", "edit-description"];
+  const PEN_BTNS = ["edit-field-button", "edit-columns-button", "rename-group-button"];
+  const sel = (names, suf = "") => names.map((n) => `[class*="__${n}"]${suf}`).join(", ");
+  if (!document.getElementById("sf-pen-states")) {
+    const H = "var(--colorBrandBackground2Hover, #cfe4fa)", P = "var(--colorBrandBackground2Pressed, #96c6fa)";
+    const HI = "var(--colorNeutralForeground2BrandHover, #0f6cbd)", PI = "var(--colorNeutralForeground2BrandPressed, #115ea3)";
+    const st = document.createElement("style"); st.id = "sf-pen-states";
+    st.textContent = `
+      ${sel(PEN_ICONS)} { border-radius: 1.2px; transition: ${reduced ? "none" : `background-color 120ms ${ease}, box-shadow 120ms ${ease}, color 120ms ${ease}`}; }
+      ${sel(PEN_ICONS, ":hover")} { background-color: ${H}; box-shadow: 0 0 0 4px ${H}; color: ${HI} !important; }
+      ${sel(PEN_ICONS, "[data-pressed]")} { background-color: ${P}; box-shadow: 0 0 0 4px ${P}; color: ${PI} !important; }
+      ${sel(PEN_BTNS)} { cursor: pointer; transition: ${reduced ? "none" : `background-color 120ms ${ease}`}; }
+      ${sel(PEN_BTNS, ":hover")} { background-color: ${H} !important; }
+      ${sel(PEN_BTNS, ":hover svg")} { color: ${HI} !important; }
+      ${sel(PEN_BTNS, "[data-pressed]")} { background-color: ${P} !important; }
+      ${sel(PEN_BTNS, "[data-pressed] svg")} { color: ${PI} !important; }
+    `;
+    document.head.appendChild(st);
+  }
+  // Pressed is set by hand: the pencils cancel pointerdown (to keep text selection), which can stop :active
+  const penSel = sel([...PEN_ICONS, ...PEN_BTNS]);
+  let pressedPen = null;
+  const unpress = () => { if (pressedPen) { pressedPen.removeAttribute("data-pressed"); pressedPen = null; } };
+  el.addEventListener("pointerdown", (e) => { const t = e.target.closest && e.target.closest(penSel); if (t) { unpress(); pressedPen = t; t.setAttribute("data-pressed", ""); } }, true);
+  window.addEventListener("pointerup", unpress, true); window.addEventListener("pointercancel", unpress, true);
+  el.addEventListener("pointerout", (e) => { if (pressedPen && e.target === pressedPen && !pressedPen.contains(e.relatedTarget)) unpress(); }, true);
   let cur = "req", z = 10, lastList = "forms";
   const hide = (v) => { if (!v) return; v.style.display = "none"; v.style.opacity = "0"; v.style.pointerEvents = "none"; };
+  // Bottom toolbars stay pinned to the bottom of their view: what sits above them scrolls instead of pushing them off
+  Object.values(V).forEach((v) => {
+    if (!v) return;
+    [...v.querySelectorAll('[class*="__bottom-toolbar"]')].filter((n) => [...n.classList].some((c) => /__bottom-toolbar(-\d+)?$/.test(c))).forEach((bar) => {
+      const main = bar.parentElement; if (!main) return;
+      Object.assign(main.style, { minHeight: "0", overflow: "hidden", display: "flex", flexDirection: "column" });
+      Object.assign(bar.style, { flexShrink: "0", position: "sticky", bottom: "0", zIndex: "20" });
+      [...main.children].forEach((s) => {
+        if (s === bar) return;
+        Object.assign(s.style, { minHeight: "0", flex: "1 1 0", overflowY: "auto" });
+        s.querySelectorAll('[class*="__step-content"],[class*="__page-scroll"],[class*="__page-canvas"]').forEach((sc) => {
+          for (let n = sc; n && n !== s; n = n.parentElement) n.style.minHeight = "0";
+          sc.style.overflowY = "auto";
+        });
+      });
+    });
+  });
+  // The prototype fills the window's height, so each view's bottom bar sits on the window's bottom edge instead of below the fold
+  const fitHeight = () => {
+    const s = (el.getBoundingClientRect().width / el.offsetWidth) || 1;
+    const H = Math.max(640, Math.floor(window.innerHeight / s));
+    el.style.height = H + "px"; el.style.minHeight = H + "px"; el.style.maxHeight = H + "px"; el.style.overflow = "hidden";
+    [...stage.children, ...el.children].forEach((v) => {
+      if (!(v instanceof HTMLElement) || v.offsetHeight < 700) return;
+      v.style.height = H + "px";
+      const fill = (box) => {
+        Object.assign(box.style, { display: "flex", flexDirection: getComputedStyle(box).flexDirection || "column" });
+        [...box.children].forEach((c) => {
+          if (c.offsetHeight >= 640 && getComputedStyle(c).position !== "absolute") {
+            Object.assign(c.style, { height: "auto", flex: box.style.flexDirection === "row" || getComputedStyle(box).flexDirection === "row" ? "" : "1 1 0", alignSelf: "stretch", minHeight: "0" });
+            fill(c);
+          } else if (getComputedStyle(c).position === "absolute" && c.offsetHeight >= 700) { c.style.height = H + "px"; fill(c); }
+        });
+      };
+      fill(v);
+    });
+  };
+  fitHeight();
+  window.addEventListener("resize", fitHeight);
   Object.entries(V).forEach(([k, v]) => { if (!v) return; if (k === cur) { v.style.display = ""; v.style.opacity = "1"; v.style.pointerEvents = "auto"; } else hide(v); });
 
   function go(name) {
@@ -75,32 +144,73 @@ export default function ({ el, reduced }) {
 
   V.forms && V.forms.querySelectorAll('[class*="__create-detail-page-link"]').forEach((a) => on(a, () => go("dpb")));
 
-  on(byText(V.details, "Create new detail page", "button"), () => go("dpb"));
+  on(byText(V.details, "Create", "button"), () => go("dpb"));
   on(byText(V.details, "Create detail page", "button"), () => go("dpb"));
 
   on(q(V.dpb, "back-button"), () => go(lastList));
+
+  // The secondary sidebar and the Expand sidebar link show and hide instantly (the slide animation was reverted).
+  const NAV_MS = 220;
+  const settle = (n, fn) => { clearTimeout(n.__sideT); n.__sideT = setTimeout(() => { n.__anim = false; n.style.transition = ""; fn(); }, NAV_MS + 40); };
+  const slideNav = (nav, open) => {
+    if (!nav) return;
+    const done = () => Object.assign(nav.style, { transition: "", marginLeft: "", clipPath: "", display: open ? "" : "none" });
+    if (true) { clearTimeout(nav.__sideT); nav.__anim = false; done(); return; }
+    const atRest = !nav.__anim, shown = nav.style.display !== "none";
+    if (atRest && shown === open) return;
+    if (atRest) {
+      nav.style.transition = "none"; nav.style.display = "";
+      const w0 = nav.offsetWidth;
+      nav.style.marginLeft = (open ? -w0 : 0) + "px"; nav.style.clipPath = `inset(0 0 0 ${open ? w0 : 0}px)`;
+      void nav.offsetWidth;
+    }
+    const w = nav.offsetWidth;
+    nav.__anim = true;
+    nav.style.transition = `margin-left ${NAV_MS}ms ${ease}, clip-path ${NAV_MS}ms ${ease}`;
+    nav.style.marginLeft = (open ? 0 : -w) + "px"; nav.style.clipPath = `inset(0 0 0 ${open ? 0 : w}px)`;
+    settle(nav, done);
+  };
+  const slideLink = (link, show, display) => {
+    if (!link) return;
+    const done = () => Object.assign(link.style, { transition: "", marginLeft: "", marginTop: "", opacity: "", display: show ? display : "none" });
+    if (true) { clearTimeout(link.__sideT); link.__anim = false; done(); return; }
+    const atRest = !link.__anim, shown = link.style.display !== "none";
+    if (atRest && shown === show) return;
+    const pcs = getComputedStyle(link.parentElement), row = pcs.flexDirection.startsWith("row");
+    const prop = row ? "marginLeft" : "marginTop", css = row ? "margin-left" : "margin-top";
+    if (atRest) { link.style.transition = "none"; link.style.display = display; if (show) link.style.opacity = "0"; }
+    const lcs = getComputedStyle(link);
+    const span = row ? link.offsetWidth + (parseFloat(pcs.columnGap) || 0) + (parseFloat(lcs.marginRight) || 0)
+      : link.offsetHeight + (parseFloat(pcs.rowGap) || 0) + (parseFloat(lcs.marginBottom) || 0);
+    if (atRest) { link.style[prop] = (show ? -span : 0) + "px"; void link.offsetWidth; }
+    link.__anim = true;
+    link.style.transition = `${css} ${NAV_MS}ms ${ease}, opacity ${show ? NAV_MS : 120}ms ${ease}`;
+    link.style[prop] = (show ? 0 : -span) + "px"; link.style.opacity = show ? "1" : "0";
+    settle(link, done);
+  };
 
   // Secondary sidebar: the collapse icon hides the subnav on every list view; an "Expand sidebar" link above the breadcrumb brings it back.
   const sideViews = ["req", "forms", "details"].map((k) => V[k]).filter(Boolean);
   const expandLinks = [];
   const setSide = (open) => sideViews.forEach((v, i) => {
     const tr = q(v, "subnav-title-row"), nav = tr ? tr.parentElement : q(v, "engagement-subnav"), main = nav ? nav.nextElementSibling : q(v, "main"), head = q(v, "page-heading");
-    if (nav) nav.style.display = open ? "" : "none";
+    slideNav(nav, open);
     if (main) { main.style.flex = open ? "" : "1 1 0"; main.style.width = open ? "" : "auto"; main.style.minWidth = "0"; }
     if (head) head.style.height = "auto";
-    if (expandLinks[i]) expandLinks[i].style.display = open ? "none" : "inline-flex";
+    slideLink(expandLinks[i], !open, "inline-flex");
   });
   // The link is the one drawn above the builders' titles, so the list views and the builders show the same thing
   const linkTpl = q(V.builder, "expand-sidebar-link") || q(V.dpb, "expand-sidebar-link");
-  const LINK_HOVER = "var(--colorNeutralBackground5, #ebebeb)";
-  const hoverLink = (b) => { b.addEventListener("mouseenter", () => (b.style.background = LINK_HOVER)); b.addEventListener("mouseleave", () => (b.style.background = "transparent")); };
+  const LINK_HOVER = "var(--colorNeutralBackground1Hover, #f5f5f5)";
+  const LINK_REST = "transparent";
+  const hoverLink = (b) => { b.addEventListener("mouseenter", () => (b.style.background = LINK_HOVER)); b.addEventListener("mouseleave", () => (b.style.background = LINK_REST)); };
   sideViews.forEach((v) => {
     const crumb = q(v, "breadcrumb");
     const b = linkTpl ? linkTpl.cloneNode(true) : document.createElement("button");
     if (linkTpl) { b.setAttribute("role", "button"); b.tabIndex = 0; }
     b.type = "button"; b.setAttribute("aria-label", "Expand sidebar");
     if (!linkTpl) b.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 4a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4ZM3 6a1 1 0 0 1 1-1h3v10H4a1 1 0 0 1-1-1V6Zm5 9V5h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8Zm2.65-7.35a.5.5 0 0 0 0 .7L12.29 10l-1.64 1.65a.5.5 0 0 0 .7.7l2-2a.5.5 0 0 0 0-.7l-2-2a.5.5 0 0 0-.7 0Z"/></svg><span>Expand sidebar</span>';
-    Object.assign(b.style, { display: "none", alignItems: "center", gap: "4px", height: "24px", padding: "0 6px", margin: "0 0 4px -6px", border: "none", borderRadius: "4px", background: "transparent", color: "#0F6CBD", font: "600 12px/16px 'Segoe UI', system-ui, sans-serif", cursor: "pointer", alignSelf: "flex-start" });
+    Object.assign(b.style, { display: "none", alignItems: "center", gap: "6px", height: "24px", padding: "0 8px", margin: "0 0 4px 0", border: "1px solid var(--colorNeutralStroke1, #d1d1d1)", boxSizing: "border-box", borderRadius: "4px", background: "transparent", color: "var(--colorNeutralForeground1, #242424)", font: "400 12px/16px 'Segoe UI', system-ui, sans-serif", cursor: "pointer", alignSelf: "flex-start" });
     hoverLink(b);
     b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); setSide(true); });
     if (crumb) crumb.parentElement.insertBefore(b, crumb);
@@ -112,13 +222,14 @@ export default function ({ el, reduced }) {
   on(q(V.preview, "dialog-header") && q(V.preview, "dialog-header").querySelector("button"), () => go("builder"));
   on(q(V.preview, "scrim"), () => go("builder"));
 
-  on(byText(V.dpb, "Publish detail page", "button"), () => { publishDetail(); go("details"); });
+  on(byText(V.dpb, "Save", "button"), () => { publishDetail(); go("details"); });
 
   // ---------- Form builder: a form is built one piece at a time ----------
   // Create new form opens it empty; a form in the list opens with what it holds. Steps come from the steps panel,
   // groups and fields from the toolbar or the empty step's New field / New group, fields from each card's Add field.
   // Every name edits in place. Hover a field for its toolbar (drag, Half / Full, Required, rename, remove);
   // the ellipsis on a step or a group opens Rename, Duplicate, Move up, Move down and Delete.
+  let emptyTplShared = null; // the form builder's empty message, reused by the detail page builder
   let fbDrawer = null; // the detail page's Add dynamic field drawer, shared with the form builder
   const FB = (() => {
     const B = V.builder;
@@ -139,11 +250,16 @@ export default function ({ el, reduced }) {
     const TYPES = ["Text", "Long text", "Number", "Date", "Choice", "Yes or no", "Person", "File"];
     const fieldTpl = {};
     TYPES.forEach((t) => (fieldTpl[t] = take("field-" + t.toLowerCase().replace(/[^a-z0-9]+/g, "-"))));
-    const reqTpl = take("required-mark");
+    const reqTpl = take("required-mark"), tglOff = take("required-toggle"), tglOn = take("required-toggle-on");
+    const convTpl = q(barParts, "convert-to-group-button") ? q(barParts, "convert-to-group-button").cloneNode(true) : null;
     const typeMenu = take("field-type-menu"), itemMenu = take("item-menu");
     const emptyEl = take("empty-step-message"), emptySteps = take("empty-steps");
-    const flatTag = take("flat-tag"), tb = take("form-field-toolbar");
-    const groupOff = takeBtn("New group"), flatOn = takeBtn("New field"), pubOff = takeBtn("Publish form");
+    emptyTplShared = emptyEl ? emptyEl.cloneNode(true) : null;
+    const tb = take("form-field-toolbar");
+    // The field's pencil sits after its label, not in the toolbar
+    if (tb) tb.querySelectorAll('[class*="__edit-field-button"]').forEach((n) => n.remove());
+    const penTpl = take("edit-field-button");
+    const groupOff = takeBtn("New group"), flatOn = takeBtn("New field"), pubOff = takeBtn("Save");
     tl.remove();
 
     // The builder's own parts
@@ -151,17 +267,20 @@ export default function ({ el, reduced }) {
     const metaEl = byText(B, "13 fields in 3 steps"), savedEl = byText(B, "Saved 16-11-2026, 10:42");
     const panel = q(B, "steps-panel"), stepper = q(B, "stepper");
     const countEl = q(panel, "step-count"), addStepBtn = q(panel, "add-step-button");
-    const editor = q(B, "step-editor"), header = q(editor, "step-header"), content = q(editor, "step-content");
-    const posEl = q(editor, "step-position"), stepTitle = q(editor, "step-title"), tagEl = q(editor, "step-type-tag");
-    const stepMenuBtn = header && (header.querySelector('[data-instance-of="button-subtle-icon"]') || header.lastElementChild);
+    const editor = q(B, "step-editor"), content = q(editor, "step-content");
+    // The board draws one hovered field (its toolbar and Required checkbox): the prototype makes those on hover instead
+    if (content) content.querySelectorAll('[class*="__form-field-toolbar"],[class*="__required-toggle"],[class*="__edit-field-button"]').forEach((n) => n.remove());
     const newGroupBtn = byText(B, "New group", "button"), flatOffBtn = byText(B, "New field", "button");
-    const publishBtn = byText(B, "Publish form", "button"), previewBtn = byText(B, "Preview", "button");
+    const publishBtn = byText(B, "Save", "button"), previewBtn = byText(B, "Preview", "button");
     const ruleNote = q(B, "rule-note"), ruleText = q(B, "rule-note-text");
     const rowSel = q(stepper, "step-risk-impact"), rowPlain = q(stepper, "step-request-details");
     if (!titleEl || !stepper || !content || !rowSel || !rowPlain) { console.warn("scheme-flow: form builder parts not found"); return null; }
     const rowTpl = rowPlain.cloneNode(true);
     const renTpl = q(rowSel, "rename-step").cloneNode(true), menTpl = q(rowSel, "step-menu").cloneNode(true);
-    const layersIco = q(rowSel, "content-type-icon").cloneNode(true), listIco = q(rowPlain, "content-type-icon").cloneNode(true);
+    const descEditTpl = q(rowSel, "edit-description") ? q(rowSel, "edit-description").cloneNode(true) : null;
+    const addDescTpl = q(stepper, "add-description-button") ? q(stepper, "add-description-button").cloneNode(true) : null;
+    const descOf = (s) => { const d = s && s.row ? q(s.row, "step-description") : null; return d ? d.textContent.trim() : ""; };
+    const layersIco = q(rowSel, "content-type-icon")?.cloneNode(true), listIco = q(rowPlain, "content-type-icon")?.cloneNode(true);
 
     // Each toolbar action gets its disabled twin; the hint shows while there's nothing to publish
     if (groupOff && newGroupBtn) newGroupBtn.after(groupOff);
@@ -171,9 +290,8 @@ export default function ({ el, reduced }) {
     let pubHint = null;
     if (ruleText && previewBtn) { pubHint = ruleText.cloneNode(true); pubHint.textContent = "Add a field to publish"; Object.assign(pubHint.style, { flex: "none", width: "auto" }); previewBtn.before(pubHint); }
     if (emptySteps && addStepBtn) addStepBtn.before(emptySteps);
-    if (flatTag && tagEl) tagEl.after(flatTag);
     if (emptyEl) Object.assign(emptyEl.style, { height: "auto", flex: "1 1 auto", minHeight: "320px", alignSelf: "stretch", width: "auto" });
-    content.style.paddingTop = "8px";
+    content.style.paddingTop = "0px";
 
     // Helpers
     const scale = () => (B.getBoundingClientRect().width / B.offsetWidth) || 1;
@@ -183,18 +301,17 @@ export default function ({ el, reduced }) {
     const changed = () => { touch(); refresh(); };
     const leaves = (root) => root ? [...root.querySelectorAll("p,span,h1,h2,h3")].filter((n) => n.children.length === 0 && n.textContent.trim() && n.textContent.trim() !== "*") : [];
     const focusAll = (n) => { if (!n) return; n.focus({ preventScroll: true }); const r = document.createRange(); r.selectNodeContents(n); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); };
-    // Always-editable text: hover shows a light box, click edits, Enter keeps, Escape puts it back
+    // Editable text edits only from its pencil (or the field toolbar's edit button): a click on the words does nothing.
+    // Enter keeps, Escape puts it back, and leaving it turns editing off again.
+    const startEdit = (n) => { if (!n) return; n.contentEditable = "true"; n.style.cursor = "text"; focusAll(n); };
     const editable = (n, onInput, heading) => {
       if (!n || n.__ed) return; n.__ed = true;
-      n.contentEditable = "true"; n.spellcheck = false;
-      Object.assign(n.style, { outline: "none", cursor: "text", borderRadius: "2px", whiteSpace: "nowrap", overflow: "visible", minWidth: "8px", width: "auto", maxWidth: "none", background: "transparent", boxShadow: "none" });
-      if (!reduced) n.style.transition = `background-color 120ms ${ease}, box-shadow 120ms ${ease}`;
+      n.contentEditable = "false"; n.spellcheck = false;
+      Object.assign(n.style, { outline: "none", cursor: "", borderRadius: "2px", whiteSpace: "nowrap", overflow: "visible", minWidth: "8px", width: "auto", maxWidth: "none", background: "transparent", boxShadow: "none" });
       let before = "";
-      const idle = () => { if (heading) asInput(n, false); n.style.background = "transparent"; n.style.boxShadow = "none"; };
-      n.addEventListener("mouseenter", () => { if (document.activeElement !== n) n.style.background = HOV; });
-      n.addEventListener("mouseleave", () => { if (document.activeElement !== n) idle(); });
-      n.addEventListener("pointerdown", (e) => e.stopPropagation());
-      n.addEventListener("click", (e) => { e.stopPropagation(); e.preventDefault(); });
+      const idle = () => { if (heading) asInput(n, false); n.style.background = "transparent"; n.style.boxShadow = "none"; n.contentEditable = "false"; n.style.cursor = ""; };
+      n.addEventListener("pointerdown", (e) => { if (n.isContentEditable) e.stopPropagation(); });
+      n.addEventListener("click", (e) => { if (n.isContentEditable) { e.stopPropagation(); e.preventDefault(); } });
       n.addEventListener("focus", () => { before = n.textContent; if (heading) asInput(n, true); else { n.style.background = "transparent"; n.style.boxShadow = `inset 0 -2px 0 ${FOCUS}`; } });
       n.addEventListener("input", () => onInput && onInput(n.textContent.trim()));
       n.addEventListener("keydown", (e) => {
@@ -227,7 +344,15 @@ export default function ({ el, reduced }) {
       n.addEventListener("input", inp); n.addEventListener("keydown", key); n.addEventListener("click", stop); n.addEventListener("blur", done);
       focusAll(n);
     };
-    const pencil = (icon, target) => { if (!icon || !target) return; icon.style.cursor = "pointer"; icon.addEventListener("pointerdown", (e) => e.preventDefault()); icon.addEventListener("click", (e) => { e.stopPropagation(); focusAll(target); }); };
+    const pencil = (icon, target) => { if (!icon || !target || icon.__pen) return; icon.__pen = true; icon.style.cursor = "pointer"; icon.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); }); icon.addEventListener("click", (e) => { e.stopPropagation(); startEdit(target); }); };
+    // Drag grips: subtle hover fill and darker icon, pressed fill while held
+    const gripStates = (b) => { if (!b || b.__gs) return; b.__gs = true; let over = false; const ic = b.querySelector("svg") || b.firstElementChild;
+      const paint = (bg, col) => { b.style.background = bg; if (ic) ic.style.color = col; };
+      b.addEventListener("mouseenter", () => { over = true; if (!drag) paint(HOV, "var(--colorNeutralForeground2, #424242)"); });
+      b.addEventListener("mouseleave", () => { over = false; if (!drag) paint("transparent", ""); });
+      b.addEventListener("pointerdown", () => paint("var(--colorSubtleBackgroundPressed, #e0e0e0)", "var(--colorNeutralForeground1, #242424)"), true);
+      document.addEventListener("pointerup", () => paint(over ? HOV : "transparent", over ? "var(--colorNeutralForeground2, #424242)" : ""));
+    };
     const hoverBtn = (b) => { if (!b || b.__hb) return; b.__hb = true; b.addEventListener("mouseenter", () => (b.style.background = HOV)); b.addEventListener("mouseleave", () => (b.style.background = "transparent")); };
 
     // Fields sit in a two-column grid per card: each spans one column (Half) or both (Full)
@@ -243,12 +368,29 @@ export default function ({ el, reduced }) {
     };
     const isReq = (f) => !!q(f, "required-mark");
     const setReq = (f, on) => { const l = q(f, "label-text"), m = q(f, "required-mark"); if (on && !m && l && reqTpl) l.after(reqTpl.cloneNode(true)); if (!on && m) m.remove(); };
+    // Some fields are always required: their checkbox shows ticked and can't be cleared
+    const LOCKED = new Set(["Request ID", "Request name", "Engagement", "Change type"]);
+    const labelOfField = (f) => ((q(f, "label-text") || {}).textContent || "").trim();
+    // Required is a checkbox after the label, shown only while the field is hovered
+    const putToggle = (f) => {
+      const lab = q(f, "label"); if (!lab || !tglOff || !tglOn) return null;
+      const old = f.__tgl; const on = isReq(f), locked = LOCKED.has(labelOfField(f));
+      const t = (on ? tglOn : tglOff).cloneNode(true);
+      Object.assign(t.style, { display: old ? old.style.display : "none", cursor: locked ? "default" : "pointer", opacity: locked ? "0.5" : "", flex: "none", marginLeft: "auto" });
+      lab.style.width = "100%"; lab.style.alignSelf = "stretch"; lab.style.boxSizing = "border-box";
+      if (locked) t.title = "Always required";
+      if (old) old.replaceWith(t); else lab.appendChild(t);
+      f.__tgl = t;
+      t.addEventListener("pointerdown", (e) => e.stopPropagation());
+      t.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (locked) return; setReq(f, !isReq(f)); lab.appendChild(f.__tgl); putToggle(f); changed(); });
+      return t;
+    };
     const makeField = (type, label, o = {}) => {
       const f = fieldTpl[type] ? fieldTpl[type].cloneNode(true) : null; if (!f) return null;
       f.dataset.fb = "field"; setSpan(f, o.full || type === "Long text" ? 2 : 1);
       const l = q(f, "label-text"); if (l) l.textContent = label;
       const v = f.querySelector(".input__value"); if (v && o.ph) v.textContent = o.ph;
-      if (o.req) setReq(f, true);
+      if (o.req || LOCKED.has(label)) setReq(f, true);
       return f;
     };
 
@@ -256,18 +398,22 @@ export default function ({ el, reduced }) {
     const newPage = () => { const p = document.createElement("div"); p.style.display = "contents"; return p; };
     const groupsNow = [...content.children].filter((c) => q(c, "group-header"));
     groupsNow.forEach((g) => { g.dataset.fb = "group"; const fl = q(g, "fields"); if (fl) flatten(fl); });
+    const handleSrc = groupsNow.map((g) => q(g, "drag-handle")).find(Boolean);
+    const handleTpl = handleSrc ? handleSrc.cloneNode(true) : null;
     const groupTpl = groupsNow[0].cloneNode(true);
     q(groupTpl, "fields").innerHTML = "";
     q(groupTpl, "group-heading").textContent = "New group";
     const flatTpl = groupTpl.cloneNode(true);
     q(flatTpl, "group-header").remove();
-    flatTpl.dataset.fb = "flat"; flatTpl.style.paddingTop = "12px";
+    flatTpl.querySelectorAll('[class*="__drag-handle"]').forEach((n) => n.remove());
+    // Flat fields sit in one card that fills the step's height
+    flatTpl.dataset.fb = "flat"; Object.assign(flatTpl.style, { paddingTop: "12px", paddingLeft: "8px", flex: "1 1 auto", minHeight: "100%", boxSizing: "border-box", alignSelf: "stretch" });
     const flatCard = (list) => { const c = flatTpl.cloneNode(true); const fl = q(c, "fields"); list.forEach((f) => f && fl.appendChild(f)); return c; };
     const page = (...kids) => { const p = newPage(); kids.forEach((k) => p.appendChild(k)); return p; };
     const seed = {
       title: titleEl.textContent.trim(), implicit: false, sel: 1, saved: savedEl ? savedEl.textContent : "",
       steps: [
-        { name: "Request details", page: page(flatCard([
+        { name: "Request details", desc: "Who is asking, and for which engagement", page: page(flatCard([
           makeField("Choice", "Engagement", { ph: "Select an engagement", req: true }),
           makeField("Choice", "Change type", { ph: "Select a change type", req: true }),
           makeField("Date", "Effective from", { req: true }),
@@ -275,7 +421,7 @@ export default function ({ el, reduced }) {
           makeField("Date", "Contract end date"),
           makeField("Long text", "Description", { ph: "What changes and why" }),
         ])) },
-        { name: "Risk impact", page: page(...groupsNow) },
+        { name: "Risk impact", desc: "How the change affects data access and criticality", page: page(...groupsNow) },
         { name: "Documents", page: page(flatCard([
           makeField("File", "Revised statement of work", { req: true }),
           makeField("File", "Other documents"),
@@ -289,14 +435,14 @@ export default function ({ el, reduced }) {
     const nameOf = (s) => (s && s.row ? q(s.row, "step-name").textContent.trim() : "");
     const kindOf = (p) => (p.querySelector('[data-fb="group"]') ? "groups" : p.querySelector('[data-fb="field"]') ? "flat" : "empty");
 
-    // Field toolbar: drag, Half / Full, Required, rename, remove
-    const half = tb && q(tb, "half-option"), full = tb && q(tb, "full-option"), reqO = tb && q(tb, "required-option");
+    // Field toolbar: drag, Half / Full, rename, remove (Required is the checkbox after the label)
+    const half = tb && q(tb, "half-option"), full = tb && q(tb, "full-option");
     const editO = tb && q(tb, "edit-field-button"), remO = tb && q(tb, "remove-field-button"), grip = tb && q(tb, "drag-handle-button");
-    if (tb) Object.assign(tb.style, { position: "absolute", top: "-15px", right: "8px", left: "auto", bottom: "auto", zIndex: "5", cursor: "default" });
+    if (tb) Object.assign(tb.style, { position: "absolute", top: "auto", right: "8px", left: "auto", bottom: "calc(100% - 4px)", zIndex: "5", cursor: "default" });
     const paint = (o, sel) => { if (!o) return; const st = sel ? SEL : UNSEL; o.style.background = st.bg; const l = q(o, "option-label") || o; l.style.color = st.fg; l.style.fontWeight = st.w; };
-    const paintTb = () => { if (!hot) return; paint(half, hot.dataset.span === "1"); paint(full, hot.dataset.span === "2"); paint(reqO, isReq(hot)); };
+    const paintTb = () => { if (!hot) return; paint(half, hot.dataset.span === "1"); paint(full, hot.dataset.span === "2"); };
     function hideTb() {
-      if (hot) { hot.style.background = "transparent"; hot.style.boxShadow = "none"; }
+      if (hot) { hot.style.background = "transparent"; hot.style.boxShadow = "none"; if (hot.__tgl && !(hot.__tgl.contains(document.activeElement))) hot.__tgl.style.display = "none"; if (hot.__pen) hot.__pen.style.display = "none"; }
       if (tb && tb.parentElement) tb.remove();
       hot = null;
     }
@@ -304,12 +450,14 @@ export default function ({ el, reduced }) {
       if (hot && hot !== f) hideTb();
       hot = f; f.style.background = "var(--colorNeutralBackground2, #fafafa)"; f.style.boxShadow = "inset 0 0 0 1px var(--colorNeutralStroke1, #d1d1d1)";
       if (tb) { f.appendChild(tb); paintTb(); }
+      if (!f.__tgl) putToggle(f); if (f.__tgl) f.__tgl.style.display = "inline-flex";
+      const lt = q(f, "label-text");
+      if (f.__pen) f.__pen.style.display = lt && lt.isContentEditable ? "none" : "inline-flex";
     };
     on(half, () => { if (hot) { setSpan(hot, 1); paintTb(); changed(); } });
     on(full, () => { if (hot) { setSpan(hot, 2); paintTb(); changed(); } });
-    on(reqO, () => { if (hot) { setReq(hot, !isReq(hot)); paintTb(); changed(); } });
     if (editO) editO.addEventListener("pointerdown", (e) => e.preventDefault());
-    on(editO, () => { if (hot) focusAll(q(hot, "label-text")); });
+    on(editO, () => { if (hot) startEdit(q(hot, "label-text")); });
     on(remO, () => {
       if (!hot) return;
       const f = hot, card = f.closest('[data-fb="flat"]');
@@ -320,16 +468,40 @@ export default function ({ el, reduced }) {
 
     const wireField = (f) => {
       if (f.__fw) return; f.__fw = true;
-      Object.assign(f.style, { position: "relative", minWidth: "0", width: "auto", flex: "none", boxSizing: "border-box", borderRadius: "4px", background: "transparent", boxShadow: "none", opacity: "" });
+      Object.assign(f.style, { position: "relative", minWidth: "0", width: "auto", flex: "none", boxSizing: "border-box", borderRadius: "4px", background: "transparent", boxShadow: "none", outline: "none", borderColor: "transparent", opacity: "" });
       if (!reduced) f.style.transition = `background-color 120ms ${ease}, box-shadow 120ms ${ease}`;
       setSpan(f, +f.dataset.span || 1);
-      leaves(f).forEach((n) => editable(n));
-      f.querySelectorAll('[data-instance-of="input"]').forEach((b) => {
-        const v = b.querySelector(".input__value");
-        if (v) { b.style.cursor = "text"; b.addEventListener("click", (e) => { if (e.target !== v) { e.stopPropagation(); focusAll(v); } }); }
-      });
+      f.querySelectorAll('[class*="__required-toggle"],[class*="__form-field-toolbar"],[class*="__edit-field-button"]').forEach((n) => n.remove());
+      const lt = q(f, "label-text");
+      editable(lt);
+      const lab = q(f, "label"); if (lab) lab.style.alignItems = "center";
+      // Hovering the field shows a pencil right after its label (and its required mark); editing hides it
+      f.__pen = null;
+      if (lt && penTpl) {
+        const pen = penTpl.cloneNode(true); f.__pen = pen;
+        Object.assign(pen.style, { display: "none", flex: "none", width: "20px", height: "20px", alignItems: "center", justifyContent: "center", borderRadius: "var(--borderRadiusMedium, 4px)", cursor: "pointer" });
+        const m = q(f, "required-mark"); (m || lt).after(pen);
+        pen.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); });
+        pen.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); pen.style.display = "none"; startEdit(lt); });
+        lt.addEventListener("focus", () => (pen.style.display = "none"));
+        lt.addEventListener("blur", () => (pen.style.display = hot === f ? "inline-flex" : "none"));
+      }
+      f.__tgl = null; putToggle(f);
       f.addEventListener("mouseenter", () => { if (!drag) showTb(f); });
       f.addEventListener("mouseleave", () => { if (!drag && hot === f) hideTb(); });
+      // Press and hold (or press and move) anywhere on the field to pick it up
+      f.style.cursor = "grab";
+      f.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0 || drag) return;
+        const t = e.target;
+        if ((t.isContentEditable) || (tb && tb.contains(t)) || (f.__tgl && f.__tgl.contains(t)) || (t.closest && t.closest("textarea,select,a"))) return;
+        const x0 = e.clientX, y0 = e.clientY; let timer = null;
+        const go = (ev) => { cancel(); startDrag("field", f, ev || { clientX: x0, clientY: y0, preventDefault() {}, stopPropagation() {} }); };
+        const mv = (ev) => { if (Math.hypot(ev.clientX - x0, ev.clientY - y0) > 4) go(ev); };
+        const cancel = () => { clearTimeout(timer); document.removeEventListener("pointermove", mv, true); document.removeEventListener("pointerup", cancel, true); };
+        timer = setTimeout(() => go(null), 220);
+        document.addEventListener("pointermove", mv, true); document.addEventListener("pointerup", cancel, true);
+      });
     };
 
     // Groups: heading edits in place, chevron collapses, ellipsis opens the menu, the grip drags
@@ -337,18 +509,75 @@ export default function ({ el, reduced }) {
       g.dataset.collapsed = on ? "1" : "";
       [q(g, "fields"), q(g, "add-field-button")].forEach((n) => n && (n.style.display = on ? "none" : ""));
       const c = q(g, "collapse-group");
-      if (c) { c.style.transition = reduced ? "" : `transform 180ms ${ease}`; c.style.transform = on ? "rotate(180deg)" : ""; }
+      if (c) { c.style.transition = reduced ? "" : `transform 180ms ${ease}`; c.style.transform = on ? "rotate(-90deg)" : ""; }
     };
+    const wireAdd = (card) => { const add = q(card, "add-field-button"); if (!add || add.__aw) return; add.__aw = true; hoverBtn(add); on(add, () => openTypeMenu(add, (t, l) => addField(q(card, "fields"), t, l))); };
     const wireGroup = (g) => {
       if (g.__gw) return; g.__gw = true;
-      g.style.opacity = "";
-      editable(q(g, "group-heading"), null, true);
+      g.style.opacity = ""; g.style.position = "relative";
+      const hd = q(g, "group-heading");
+      editable(hd, null, true); pencil(q(g, "rename-group"), hd);
       const menu = q(g, "group-menu"); on(menu, () => openItemMenu(menu, groupActions(g)));
       on(q(g, "collapse-group"), () => setCollapsed(g, g.dataset.collapsed !== "1"));
-      const add = q(g, "add-field-button"); hoverBtn(add); on(add, () => openTypeMenu(add, (t, l) => addField(q(g, "fields"), t, l)));
-      const h = q(g, "drag-handle"); if (h) { h.style.cursor = "grab"; h.addEventListener("pointerdown", (e) => startDrag("group", g, e)); }
+      // Header icons are subtle icon buttons: a fill on hover, a darker one while pressed
+      // The pencil's own states (the brand tint, as every pencil) come from the shared pencil styles; it hides while the name is edited
+      const rb = q(g, "rename-group-button");
+      if (rb && hd) {
+        rb.style.outline = "none"; rb.addEventListener("mousedown", (e) => e.preventDefault());
+        rb.addEventListener("click", (e) => { if (e.target === rb) { e.stopPropagation(); startEdit(hd); } });
+        hd.addEventListener("focus", () => (rb.style.visibility = "hidden"));
+        hd.addEventListener("blur", () => (rb.style.visibility = ""));
+      }
+      ["collapse-group-button", "group-menu-button"].forEach((k) => {
+        const b = q(g, k); if (!b || b.__ib) return; b.__ib = true; b.style.cursor = "pointer"; b.style.transition = reduced ? "" : `background 120ms ${ease}`;
+        let over = false;
+        b.addEventListener("mouseenter", () => { over = true; b.style.background = HOV; });
+        b.addEventListener("mouseleave", () => { over = false; b.style.background = "transparent"; });
+        b.addEventListener("pointerdown", () => (b.style.background = "var(--colorSubtleBackgroundPressed, #e0e0e0)"), true);
+        b.addEventListener("pointerup", () => (b.style.background = over ? HOV : "transparent"), true);
+        // A click on the button's padding does what a click on its icon does
+        const ic = b.firstElementChild;
+        if (ic) b.addEventListener("click", (e) => { if (e.target === b) ic.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })); });
+      });
+      wireAdd(g);
+      // The drag handle sits in the card's left gutter and shows while the card is hovered
+      let h = q(g, "drag-handle");
+      if (!h && handleTpl) { h = handleTpl.cloneNode(true); g.appendChild(h); }
+      if (h) {
+        Object.assign(h.style, { cursor: "grab", display: "none", position: "absolute", left: "16px", top: "12px", width: "20px", height: "24px", alignItems: "center", justifyContent: "center", borderRadius: "var(--borderRadiusMedium, 4px)" });
+        gripStates(h);
+        h.addEventListener("pointerdown", (e) => startDrag("group", g, e));
+        // Centre the grip on the header row, whatever its height
+        const alignH = () => { const hd = q(g, "group-header") || q(g, "group-heading"); if (!hd) return; const gr = g.getBoundingClientRect(), hr = hd.getBoundingClientRect(); h.style.top = Math.round(hr.top - gr.top + hr.height / 2 - 12) + "px"; };
+        g.addEventListener("mouseenter", () => { if (!drag) { h.style.display = "flex"; alignH(); } });
+        g.addEventListener("mouseleave", () => { if (!drag || drag.el !== g) h.style.display = "none"; });
+      }
     };
-    const wireCard = (c) => { if (c.__cw) return; c.__cw = true; const add = q(c, "add-field-button"); hoverBtn(add); on(add, () => openTypeMenu(add, (t, l) => addField(q(c, "fields"), t, l))); };
+    // A flat card can become a group: its fields go inside a new group, which starts with its name being edited
+    const toGroup = (c) => {
+      if (!cur) return;
+      closeMenu(); hideTb();
+      const row = c.__convRow; if (row) { const add = q(row, "add-field-button"); if (add) row.replaceWith(add); else row.remove(); }
+      const head = q(groupTpl, "group-header").cloneNode(true);
+      c.insertBefore(head, c.firstChild);
+      c.dataset.fb = "group"; c.style.paddingTop = ""; c.style.flex = ""; c.style.alignSelf = "";
+      wireGroup(c); changed();
+      requestAnimationFrame(() => { reveal(c); startEdit(q(c, "group-heading")); });
+    };
+    const wireCard = (c) => {
+      if (c.__cw) return; c.__cw = true;
+      c.querySelectorAll('[class*="__convert-to-group-button"]').forEach((n) => n.remove());
+      const add = q(c, "add-field-button");
+      if (add && add.parentElement !== c) add.parentElement.replaceWith(add);
+      wireAdd(c);
+      if (add && convTpl) {
+        const row = document.createElement("div");
+        Object.assign(row.style, { display: "flex", alignItems: "center", gap: "8px", alignSelf: "flex-start" });
+        add.replaceWith(row); row.appendChild(add);
+        const cv = convTpl.cloneNode(true); row.appendChild(cv); hoverBtn(cv); on(cv, () => toGroup(c));
+        c.__convRow = row;
+      }
+    };
     const wirePage = (p) => { p.querySelectorAll('[data-fb="group"]').forEach(wireGroup); p.querySelectorAll('[data-fb="flat"]').forEach(wireCard); p.querySelectorAll('[data-fb="field"]').forEach(wireField); };
 
     // Adding
@@ -358,13 +587,13 @@ export default function ({ el, reduced }) {
       fl.appendChild(f); wireField(f);
       const g = fl.closest('[data-fb="group"]'); if (g && g.dataset.collapsed === "1") setCollapsed(g, false);
       changed();
-      requestAnimationFrame(() => { reveal(f); if (!label) focusAll(q(f, "label-text")); });
+      requestAnimationFrame(() => { reveal(f); if (!label) startEdit(q(f, "label-text")); });
     };
     const addGroup = () => {
       if (!cur || kindOf(cur.page) === "flat") return;
       closeMenu(); hideTb();
       const g = groupTpl.cloneNode(true); cur.page.appendChild(g); wireGroup(g); changed();
-      requestAnimationFrame(() => { reveal(g); focusAll(q(g, "group-heading")); });
+      requestAnimationFrame(() => { reveal(g); startEdit(q(g, "group-heading")); });
     };
     const addFlatField = (t, l) => {
       if (!cur || kindOf(cur.page) === "groups") return;
@@ -381,26 +610,129 @@ export default function ({ el, reduced }) {
       const mk = q(r, "step-marker"), num = q(r, "step-number"), nm = q(r, "step-name");
       if (mk) { mk.style.background = sel ? "var(--colorBrandBackground, #0f6cbd)" : "var(--colorNeutralBackground1, #ffffff)"; mk.style.boxShadow = sel ? "none" : "inset 0 0 0 1px var(--colorNeutralStroke1, #d1d1d1)"; }
       if (num) num.style.color = sel ? "var(--colorNeutralForegroundOnBrand, #ffffff)" : "var(--colorNeutralForeground2, #424242)";
-      if (nm) { nm.style.fontWeight = sel ? "600" : "400"; [...nm.parentElement.children].forEach((k) => { if (k !== nm) k.style.visibility = sel || r.__hover ? "visible" : "hidden"; }); }
+      if (nm) { nm.style.fontWeight = "400"; [...nm.parentElement.children].forEach((k) => { if (k !== nm) k.style.visibility = sel || r.__hover ? "visible" : "hidden"; }); }
+      const de = q(r, "edit-description"); if (de) de.style.visibility = r.__hover && !r.__editing ? "visible" : "hidden";
+      // While the name or description is being edited, its pencils stay away
+      if (r.__editing) { const rn = q(r, "rename-step"); if (rn) rn.style.visibility = "hidden"; }
     });
-    const makeRow = (name, st) => {
+    const makeRow = (name, st, desc) => {
       const r = rowTpl.cloneNode(true);
       const nm = q(r, "step-name"); nm.textContent = name;
+      // Description: the words with a pencil on hover, or "Add description" when there are none
+      const dRow = q(r, "description-row"), dTx = dRow && q(dRow, "step-description");
+      let dIc = dRow && q(dRow, "edit-description");
+      if (dRow && !dIc && descEditTpl) { dIc = descEditTpl.cloneNode(true); dRow.appendChild(dIc); }
+      // The pencil follows the description's last word, inline, wherever the words wrap
+      if (dRow) { dRow.style.paddingRight = "20px"; dRow.style.lineHeight = "16px"; }
+      if (dTx) Object.assign(dTx.style, { display: "inline", whiteSpace: "normal", width: "auto", maxWidth: "none", flex: "none" });
+      if (dIc) Object.assign(dIc.style, { display: "inline-block", verticalAlign: "-3px", marginLeft: "4px" });
+      const dAdd = addDescTpl ? addDescTpl.cloneNode(true) : null;
+      if (dRow && dAdd) dRow.after(dAdd);
+      const showDesc = (has) => { if (dRow) dRow.style.display = has ? "block" : "none"; if (dAdd) dAdd.style.display = has ? "none" : ""; };
+      if (dTx) dTx.textContent = desc || "";
+      showDesc(!!(desc && desc.trim()));
+      // Adding or editing a description opens a full-width, three-line Fluent textarea with Save (check) and Cancel (dismiss) at its end.
+      // Hovering anywhere on it (the words or the two buttons) puts the whole box in its hover state; Enter saves, Escape cancels, clicking away saves.
+      let ed = null;
+      const ICON = (d) => `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="${d}"/></svg>`;
+      const CHECK = "M13.86 3.66a.5.5 0 0 1-.02.7l-7.93 7.48a.6.6 0 0 1-.84-.02L2.4 9.1a.5.5 0 0 1 .72-.7l2.4 2.44 7.65-7.2a.5.5 0 0 1 .7.02Z";
+      const DISMISS = "m2.59 2.72.06-.07a.5.5 0 0 1 .63-.06l.07.06L8 7.29l4.65-4.64a.5.5 0 0 1 .7.7L8.71 8l4.64 4.65c.18.17.2.44.06.63l-.06.07a.5.5 0 0 1-.63.06l-.07-.06L8 8.71l-4.65 4.64a.5.5 0 0 1-.7-.7L7.29 8 2.65 3.35a.5.5 0 0 1-.06-.63l.06-.07Z";
+      const closeEd = (save) => {
+        if (!ed) return;
+        const v = ed.ta.value.replace(/\s+/g, " ").trim();
+        ed.box.remove(); ed = null; r.__editing = false;
+        if (save && dTx) dTx.textContent = v;
+        showDesc(!!(dTx && dTx.textContent.trim())); paintRows();
+        if (save) changed();
+      };
+      const editDesc = () => {
+        if (!dTx || ed || nm.isContentEditable) return;
+        r.__editing = true;
+        if (dRow) dRow.style.display = "none"; if (dAdd) dAdd.style.display = "none";
+        const box = document.createElement("div");
+        Object.assign(box.style, { display: "flex", alignItems: "flex-end", gap: "4px", width: "100%", boxSizing: "border-box", marginTop: "4px", padding: "6px 4px 4px 8px", background: "var(--colorNeutralBackground1, #ffffff)", border: "1px solid var(--colorNeutralStroke1, #d1d1d1)", borderBottomColor: "var(--colorNeutralStrokeAccessible, #616161)", borderRadius: "var(--borderRadiusMedium, 4px)", cursor: "text" });
+        if (!reduced) box.style.transition = `border-color 120ms ${ease}, box-shadow 120ms ${ease}`;
+        const ta = document.createElement("textarea");
+        ta.rows = 3; ta.value = dTx.textContent.trim(); ta.placeholder = "Add a description"; ta.setAttribute("aria-label", "Step description");
+        Object.assign(ta.style, { flex: "1 1 0", minWidth: "0", height: "48px", margin: "0 0 2px 0", padding: "0", border: "none", outline: "none", resize: "none", background: "transparent", font: "inherit", fontFamily: "var(--fontFamilyBase, Inter, sans-serif)", fontSize: "var(--fontSizeBase200, 12px)", lineHeight: "16px", color: "var(--colorNeutralForeground1, #242424)" });
+        const acts = document.createElement("div");
+        Object.assign(acts.style, { display: "flex", gap: "2px", flex: "none" });
+        const mkBtn = (label, d, color, fn) => {
+          const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", label); b.title = label; b.innerHTML = ICON(d);
+          Object.assign(b.style, { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px", padding: "0", border: "none", borderRadius: "var(--borderRadiusMedium, 4px)", background: "transparent", color, cursor: "pointer" });
+          b.addEventListener("mouseenter", () => (b.style.background = "var(--colorSubtleBackgroundHover, #f5f5f5)"));
+          b.addEventListener("mouseleave", () => (b.style.background = "transparent"));
+          b.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); });
+          b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); fn(); });
+          return b;
+        };
+        acts.append(mkBtn("Save description", CHECK, "var(--colorBrandForeground1, #0f6cbd)", () => closeEd(true)), mkBtn("Cancel", DISMISS, "var(--colorNeutralForeground2, #424242)", () => closeEd(false)));
+        box.append(ta, acts);
+        let hov = false, foc = false;
+        const paintBox = () => {
+          box.style.borderColor = hov ? "var(--colorNeutralStroke1Hover, #c7c7c7)" : "var(--colorNeutralStroke1, #d1d1d1)";
+          box.style.borderBottomColor = foc ? "var(--colorCompoundBrandStroke, #0f6cbd)" : hov ? "var(--colorNeutralStrokeAccessibleHover, #575757)" : "var(--colorNeutralStrokeAccessible, #616161)";
+          box.style.boxShadow = foc ? "inset 0 -1px 0 var(--colorCompoundBrandStroke, #0f6cbd)" : "none";
+        };
+        box.addEventListener("mouseenter", () => { hov = true; paintBox(); });
+        box.addEventListener("mouseleave", () => { hov = false; paintBox(); });
+        box.addEventListener("pointerdown", (e) => { e.stopPropagation(); if (e.target !== ta) { e.preventDefault(); ta.focus(); } });
+        box.addEventListener("click", (e) => e.stopPropagation());
+        ta.addEventListener("focus", () => { foc = true; paintBox(); });
+        ta.addEventListener("blur", () => { foc = false; paintBox(); setTimeout(() => { if (ed && ed.box === box && document.activeElement !== ta) closeEd(true); }, 0); });
+        ta.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); closeEd(true); }
+          else if (e.key === "Escape") { e.preventDefault(); closeEd(false); }
+          e.stopPropagation();
+        });
+        (dAdd || dRow).after(box);
+        ed = { box, ta };
+        paintBox(); paintRows();
+        ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length);
+      };
+      if (dIc) { dIc.style.cursor = "pointer"; dIc.style.flex = "none"; dIc.style.visibility = "hidden"; dIc.addEventListener("pointerdown", (e) => e.preventDefault()); on(dIc, editDesc); }
+      if (dAdd) {
+        // Hover: a subtle fill behind the button (Fluent subtle hover), the darker brand colour, no underline
+        Object.assign(dAdd.style, { padding: "2px 6px", margin: "-2px -6px", borderRadius: "var(--borderRadiusMedium, 4px)" });
+        const dLbl = [...dAdd.querySelectorAll("*")].filter((e) => !e.children.length && e.textContent.trim());
+        const dIco = dAdd.firstElementChild;
+        const paintAdd = (h) => {
+          const c = h ? "var(--colorBrandForegroundLinkHover, #115ea3)" : "";
+          // A blue fill: the brand tint's hover step, visible on both the grey hover row and the blue selected row
+          dAdd.style.background = h ? "var(--colorBrandBackground2Hover, #cfe4fa)" : "transparent";
+          dLbl.forEach((e) => { e.style.color = c; });
+          if (dIco && !dLbl.includes(dIco)) { dIco.style.color = c; dIco.querySelectorAll("path").forEach((p) => { p.style.fill = c; }); }
+        };
+        if (!reduced) { dLbl.forEach((e) => { e.style.transition = `color 120ms ${ease}`; }); dAdd.style.transition = `background 120ms ${ease}`; }
+        dAdd.addEventListener("mouseenter", () => paintAdd(true));
+        dAdd.addEventListener("mouseleave", () => paintAdd(false));
+      }
+      if (dAdd) { dAdd.style.cursor = "pointer"; dAdd.style.alignSelf = "flex-start"; dAdd.addEventListener("pointerdown", (e) => e.preventDefault()); on(dAdd, editDesc); }
+      if (dTx) { dTx.style.minWidth = "8px"; dTx.addEventListener("click", (e) => { if (dTx.isContentEditable) e.stopPropagation(); }); }
       const ren = renTpl.cloneNode(true), men = menTpl.cloneNode(true);
-      nm.parentElement.append(ren, men);
+      // The pencil sits right after the name; a spacer pushes the menu to the row's end
+      [...nm.parentElement.children].forEach((k) => { if (k !== nm && /__spacer/.test(k.className || "")) k.remove(); });
+      const gap = document.createElement("div"); gap.style.flex = "1 1 0"; gap.style.minWidth = "0";
+      nm.style.flex = "0 1 auto"; nm.style.width = "auto"; nm.style.minWidth = "0";
+      nm.parentElement.append(ren, gap, men);
       [ren, men].forEach((i) => (i.style.flex = "none"));
       r.style.cursor = "pointer";
       if (!reduced) r.style.transition = `background-color 120ms ${ease}`;
       r.addEventListener("mouseenter", () => { r.__hover = true; paintRows(); });
       r.addEventListener("mouseleave", () => { r.__hover = false; paintRows(); });
       r.addEventListener("click", () => { if (nm.isContentEditable) return; const i = steps.indexOf(st); if (i >= 0 && st !== cur) select(i); });
-      nm.addEventListener("dblclick", (e) => { e.stopPropagation(); renameRow(st); });
       ren.addEventListener("pointerdown", (e) => e.preventDefault());
       on(ren, () => renameRow(st));
       on(men, () => openItemMenu(men, stepActions(st)));
       return r;
     };
-    const renameRow = (st) => { if (st && st.row) inlineEdit(q(st.row, "step-name"), (t) => { if (st === cur && stepTitle) stepTitle.textContent = t || "Untitled step"; }); };
+    const renameRow = (st) => {
+      if (!st || !st.row) return;
+      const n = q(st.row, "step-name"); if (!n || n.isContentEditable) return;
+      st.row.__editing = true; paintRows();
+      inlineEdit(n);
+      n.addEventListener("blur", () => { st.row.__editing = false; paintRows(); }, { once: true });
+    };
     function select(i) {
       closeMenu(); hideTb();
       cur = steps[i];
@@ -443,7 +775,7 @@ export default function ({ el, reduced }) {
     const groupActions = (g) => {
       const gs = [...g.parentElement.children].filter((c) => c.dataset.fb === "group"), i = gs.indexOf(g);
       return [
-        ["Rename", true, () => focusAll(q(g, "group-heading"))],
+        ["Rename", true, () => startEdit(q(g, "group-heading"))],
         ["Duplicate", true, () => {
           hideTb();
           const c = g.cloneNode(true), h = q(c, "group-heading");
@@ -501,7 +833,9 @@ export default function ({ el, reduced }) {
       openAt(itemMenu, anchor, true);
     };
     // Add field: the same System and Dynamic fields picker as the detail page; tick several, then add them
-    const TMAP = { ID: "Text", Text: "Text", "Long text": "Long text", Number: "Number", Amount: "Number", Date: "Date", "Date and time": "Date", Choice: "Choice", "Multi-choice": "Choice", Status: "Choice", Lookup: "Choice", "Yes or no": "Yes or no", Person: "Person", File: "File" };
+    const TMAP = { String: "Text", ID: "Text", Text: "Text", "Long text": "Long text", Number: "Number", Amount: "Number", Date: "Date", "Date and time": "Date", Choice: "Choice", "Multi-choice": "Choice", Status: "Choice", Lookup: "Choice", "Yes or no": "Yes or no", Actor: "Person", Person: "Person", File: "File" };
+    // Strings that need room are drawn as long text in the form
+    const LONG = new Set(["Description", "Reason for the new criticality"]);
     const TM = (() => {
       if (!typeMenu) return null;
       const items = menuItems(typeMenu);
@@ -511,7 +845,7 @@ export default function ({ el, reduced }) {
       const cb = { off: offI.firstElementChild.cloneNode(true), on: onI.firstElementChild.cloneNode(true), added: adI.firstElementChild.cloneNode(true) };
       const addedTxt = q(adI, "added").cloneNode(true), typeTxt = q(offI, "type").cloneNode(true);
       const labelColor = getComputedStyle(q(offI, "label")).color, addedColor = getComputedStyle(q(adI, "label")).color;
-      const types = { "Request name": "Text", "Assessor": "Person", "Change type": "Choice", "Criticality after change": "Choice", "Description": "Long text", "Effective from": "Date", "Engagement": "Lookup", "Revised annual spend": "Amount", "Revised statement of work": "File", "Other documents": "File" };
+      const types = { "Request name": "String", "Assessor": "Actor", "Change type": "Lookup", "Criticality after change": "Lookup", "Description": "String", "Effective from": "Date and time", "Engagement": "Lookup", "Revised annual spend": "Number", "Revised statement of work": "File", "Other documents": "File" };
       items.forEach((it) => { const t = q(it, "type"); if (t) types[itemLabel(it)] = t.textContent.trim(); });
       const st = new Map();
       const setSt = (it, s) => {
@@ -528,16 +862,19 @@ export default function ({ el, reduced }) {
       const footer = q(typeMenu, "menu-footer");
       const addLabel = byText(typeMenu, "Add 3 fields");
       const addBtn = (addLabel && addLabel.closest("button")) || (footer && footer.lastElementChild);
-      // Select all ticks every field the form doesn't have yet, or clears them when they're all ticked
-      const allRow = q(typeMenu, "select-all-option");
-      const cbMixed = allRow && allRow.firstElementChild ? allRow.firstElementChild.cloneNode(true) : null;
-      const free = () => items.filter((it) => st.get(it) !== "added");
+      // The checkbox on each group's name ticks every field of that group the form doesn't have yet, or clears them
+      const allRows = [...typeMenu.querySelectorAll('[class*="__group-select"]')];
+      const cbMixed = allRows[0] && allRows[0].firstElementChild ? allRows[0].firstElementChild.cloneNode(true) : null;
+      const groupOf = (row) => { const h = row.closest('[class*="__group-header"]'), out = []; let n = h && h.nextElementSibling; while (n && !/__group-header/.test(n.className)) { if (items.includes(n)) out.push(n); n = n.nextElementSibling; } return out; };
+      const freeIn = (row) => groupOf(row).filter((it) => st.get(it) !== "added");
       const paintAll = () => {
-        if (!allRow || !cbMixed) return;
-        const f = free(), n = f.filter((it) => st.get(it) === "on").length;
-        const box = !f.length ? cb.added : n === f.length ? cb.on : n ? cbMixed : cb.off;
-        allRow.firstElementChild.replaceWith(box.cloneNode(true));
-        allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+        if (!cbMixed) return;
+        allRows.forEach((allRow) => {
+          const f = freeIn(allRow), n = f.filter((it) => st.get(it) === "on").length;
+          const box = !f.length ? cb.added : n === f.length ? cb.on : n ? cbMixed : cb.off;
+          allRow.firstElementChild.replaceWith(box.cloneNode(true));
+          allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+        });
       };
       const upd = () => {
         paintAll();
@@ -555,14 +892,14 @@ export default function ({ el, reduced }) {
       on(addBtn, () => {
         const pick = T.pick, chosen = items.filter((it) => st.get(it) === "on");
         closeMenu();
-        if (pick) chosen.forEach((it) => pick(TMAP[types[itemLabel(it)]] || "Text", itemLabel(it)));
+        if (pick) chosen.forEach((it) => pick(LONG.has(itemLabel(it)) ? "Long text" : TMAP[types[itemLabel(it)]] || "Text", itemLabel(it)));
       });
       let made = 0;
-      if (allRow) {
-        allRow.addEventListener("mouseenter", () => { if (free().length) allRow.style.background = HOV; });
+      allRows.forEach((allRow) => {
+        allRow.addEventListener("mouseenter", () => { if (freeIn(allRow).length) allRow.style.background = HOV; });
         allRow.addEventListener("mouseleave", () => (allRow.style.background = "transparent"));
-        on(allRow, () => { const f = free(); if (!f.length) return; const all = f.every((it) => st.get(it) === "on"); f.forEach((it) => setSt(it, all ? "off" : "on")); upd(); });
-      }
+        on(allRow, () => { const f = freeIn(allRow); if (!f.length) return; const all = f.every((it) => st.get(it) === "on"); f.forEach((it) => setSt(it, all ? "off" : "on")); upd(); });
+      });
       const create = q(typeMenu, "add-custom-field-button");
       if (create) {
         create.addEventListener("mouseenter", () => (create.style.background = HOV));
@@ -575,8 +912,8 @@ export default function ({ el, reduced }) {
             [...it.classList].forEach((k) => { if (/menu-item-request-id/.test(k)) { it.classList.remove(k); it.classList.add(k.replace("menu-item-request-id", "menu-item-fb-custom-" + (++made))); } });
             it.style.background = "transparent";
             const l = q(it, "label"); if (l) l.textContent = name;
-            const ty = q(it, "type"); if (ty) ty.textContent = "Text";
-            types[name] = "Text";
+            const ty = q(it, "type"); if (ty) ty.textContent = "String";
+            types[name] = "String";
             (list || typeMenu).appendChild(it); it.style.flexShrink = "0"; items.push(it); wireItem(it);
             openTypeMenu(a, p);
             setSt(it, "on"); upd();
@@ -611,13 +948,22 @@ export default function ({ el, reduced }) {
       drag = { kind, el, target: null, after: false, box: null, folded: [] };
       if (kind === "group") [...el.parentElement.children].forEach((c) => { if (c.dataset.fb === "group" && c !== el && c.dataset.collapsed !== "1") { setCollapsed(c, true); drag.folded.push(c); } });
       el.style.opacity = "0.45"; document.body.style.cursor = "grabbing";
+      if (kind === "field") {
+        const R = el.getBoundingClientRect(), gh = el.cloneNode(true);
+        gh.querySelectorAll('[class*="__form-field-toolbar"]').forEach((n) => n.remove());
+        Object.assign(gh.style, { position: "fixed", left: R.left + "px", top: R.top + "px", width: R.width + "px", margin: "0", pointerEvents: "none", zIndex: "9999", opacity: "0.95", cursor: "grabbing", background: "var(--colorNeutralBackground1, #fff)", borderRadius: "var(--borderRadiusMedium, 4px)", boxShadow: "var(--shadow16, 0 6px 14px rgba(0,0,0,.14), 0 0 2px rgba(0,0,0,.12))", transform: "rotate(0deg)" });
+        document.body.appendChild(gh);
+        drag.ghost = gh; drag.dx = (e.clientX || R.left) - R.left; drag.dy = (e.clientY || R.top) - R.top;
+      }
     }
-    if (grip) { grip.style.cursor = "grab"; grip.addEventListener("pointerdown", (e) => { const f = hot; if (f) startDrag("field", f, e); }); }
+    if (grip) { grip.style.cursor = "grab"; gripStates(grip); grip.addEventListener("pointerdown", (e) => { const f = hot; if (f) startDrag("field", f, e); }); }
     document.addEventListener("pointermove", (e) => {
       if (!drag) return;
+      if (drag.ghost) { drag.ghost.style.left = e.clientX - drag.dx + "px"; drag.ghost.style.top = e.clientY - drag.dy + "px"; drag.ghost.style.display = "none"; }
       drag.target = null; drag.box = null; marker.style.display = "none";
       if (drag.kind === "field") {
         let n = document.elementFromPoint(e.clientX, e.clientY), t = null, box = null;
+        if (drag.ghost) drag.ghost.style.display = "";
         while (n && n !== B) {
           if (!t && n.dataset && n.dataset.fb === "field") t = n;
           if (n.dataset && (n.dataset.fb === "group" || n.dataset.fb === "flat")) { box = n; break; }
@@ -642,6 +988,7 @@ export default function ({ el, reduced }) {
       if (!drag) return;
       const d = drag; drag = null;
       marker.style.display = "none"; document.body.style.cursor = ""; d.el.style.opacity = "";
+      if (d.ghost) d.ghost.remove();
       d.folded.forEach((c) => setCollapsed(c, false));
       if (d.target) (d.after ? d.target.after(d.el) : d.target.before(d.el));
       else if (d.box) d.box.appendChild(d.el);
@@ -662,18 +1009,11 @@ export default function ({ el, reduced }) {
         const num = q(s.row, "step-number"); if (num) num.textContent = String(i + 1);
         const sum = q(s.row, "content-summary"); if (sum) sum.textContent = gs ? `${plural(gs, "group")} · ${plural(fs, "field")}` : fs ? `Flat fields · ${fs}` : "Empty";
         const ic = q(s.row, "content-type-icon");
-        if (ic) { const c = (gs ? layersIco : listIco).cloneNode(true); c.style.display = gs || fs ? "" : "none"; ic.replaceWith(c); }
+        if (ic && layersIco && listIco) { const c = (gs ? layersIco : listIco).cloneNode(true); c.style.display = gs || fs ? "" : "none"; ic.replaceWith(c); }
         const con = q(s.row, "connector"); if (con) con.style.visibility = i < n - 1 ? "visible" : "hidden";
       });
       cur.page.querySelectorAll('[data-fb="group"]').forEach((g) => { const c = q(g, "field-count"); if (c) c.textContent = plural(g.querySelectorAll('[data-fb="field"]').length, "field"); });
       const kind = kindOf(cur.page), where = implicit ? "This form" : "This step";
-      if (header) header.style.display = implicit ? "none" : "";
-      if (!implicit) {
-        if (posEl) posEl.textContent = `Step ${steps.indexOf(cur) + 1} of ${n}`;
-        if (stepTitle && document.activeElement !== stepTitle) stepTitle.textContent = nameOf(cur);
-      }
-      if (tagEl) tagEl.style.display = kind === "groups" ? "" : "none";
-      if (flatTag) flatTag.style.display = kind === "flat" ? "" : "none";
       if (countEl) { countEl.textContent = String(n); countEl.style.display = implicit ? "none" : ""; }
       if (emptySteps) emptySteps.style.display = implicit ? "" : "none";
       if (addStepBtn) addStepBtn.style.paddingLeft = implicit ? "8px" : "12px";
@@ -692,7 +1032,9 @@ export default function ({ el, reduced }) {
       }
     }
 
+    let opened = null;
     function load(doc) {
+      opened = doc;
       closeMenu(); hideTb();
       stepper.innerHTML = ""; steps = []; implicit = !!doc.implicit;
       titleEl.textContent = doc.title;
@@ -700,7 +1042,7 @@ export default function ({ el, reduced }) {
       doc.steps.forEach((s) => {
         const st = { page: s.page.cloneNode(true), row: null };
         wirePage(st.page);
-        if (!implicit) { st.row = makeRow(s.name, st); stepper.appendChild(st.row); }
+        if (!implicit) { st.row = makeRow(s.name, st, s.desc); stepper.appendChild(st.row); }
         steps.push(st);
       });
       if (!steps.length) { implicit = true; steps.push({ page: newPage(), row: null }); }
@@ -708,15 +1050,15 @@ export default function ({ el, reduced }) {
     }
     const snapshot = () => {
       closeMenu(); hideTb();
-      return { title: titleEl.textContent.trim(), implicit, sel: Math.max(0, steps.indexOf(cur)), saved: savedEl ? savedEl.textContent : "", steps: steps.map((s) => ({ name: nameOf(s), page: s.page.cloneNode(true) })) };
+      return { title: titleEl.textContent.trim(), implicit, sel: Math.max(0, steps.indexOf(cur)), saved: savedEl ? savedEl.textContent : "", steps: steps.map((s) => ({ name: nameOf(s), desc: descOf(s), page: s.page.cloneNode(true) })) };
     };
     const total = () => steps.reduce((k, s) => k + s.page.querySelectorAll('[data-fb="field"]').length, 0);
 
     // Wiring
     editable(titleEl, null, true); pencil(q(B, "rename-icon"), titleEl);
-    editable(stepTitle, (t) => { if (cur && cur.row) q(cur.row, "step-name").textContent = t || "Untitled step"; }, true);
-    pencil(q(header, "rename-step"), stepTitle);
-    on(stepMenuBtn, () => { if (cur && cur.row) openItemMenu(stepMenuBtn, stepActions(cur)); });
+    // Reset puts the whole form back as it was when it opened: its title, steps, groups and fields
+    const resetBtn = byText(B, "Reset", "button");
+    on(resetBtn, () => { if (opened) load(opened); });
     on(newGroupBtn, addGroup);
     on(flatOn, () => openTypeMenu(flatOn, addFlatField));
     // An empty step offers both ways to start in its middle, each drawn as what it makes
@@ -726,7 +1068,7 @@ export default function ({ el, reduced }) {
     hoverBtn(addStepBtn); on(addStepBtn, addStep);
     load(seed);
 
-    return { seed, blank, load, snapshot, total, publishBtn, backBtn: q(B, "back-button"), focusTitle: () => focusAll(titleEl) };
+    return { seed, blank, load, snapshot, total, publishBtn, backBtn: q(B, "back-button"), focusTitle: () => startEdit(titleEl) };
   })();
 
   // Forms open in the builder: a row with what it holds, Create new form empty. Back keeps a draft, Publish publishes.
@@ -737,7 +1079,7 @@ export default function ({ el, reduced }) {
   const openForm = (row) => { if (!FB || !docs.get(row)) return; editing = row; FB.load(docs.get(row)); go("builder"); };
   const wireFormRow = (row) => on(q(row, "form-name"), () => openForm(row));
   if (FB && formRow0) { docs.set(formRow0, FB.seed); wireFormRow(formRow0); }
-  on(byText(V.forms, "Create new form", "button"), () => { if (!FB) return; editing = null; FB.load(FB.blank()); go("builder"); setTimeout(FB.focusTitle, reduced ? 0 : 240); });
+  on(byText(V.forms, "Create", "button"), () => { if (!FB) return; editing = null; FB.load(FB.blank()); go("builder"); setTimeout(FB.focusTitle, reduced ? 0 : 240); });
   const bumpForms = () => {
     for (const k of ["forms", "details"]) {
       const t = tab(V[k], "Forms"), c = t && t.querySelector(".counter-badge__count, [class*='counter-badge__count']");
@@ -767,7 +1109,7 @@ export default function ({ el, reduced }) {
   // Builders open with the secondary sidebar collapsed: "Expand sidebar" above the title opens it, its collapse icon closes it.
   const navTpl = (() => { const tr = q(V.forms, "subnav-title-row"); return tr ? tr.parentElement : null; })();
   const bSides = [];
-  const setBuilderSide = (open) => bSides.forEach(({ nav, link }) => { nav.style.display = open ? "" : "none"; link.style.display = open ? "none" : ""; });
+  const setBuilderSide = (open) => bSides.forEach(({ nav, link }) => { slideNav(nav, open); slideLink(link, !open, ""); });
   ["builder", "dpb"].forEach((k) => {
     const v = V[k], link = q(v, "expand-sidebar-link"), main = q(v, "main");
     if (!v || !link || !main || !navTpl) return;
@@ -822,19 +1164,16 @@ export default function ({ el, reduced }) {
     }
   }
 
-  // ---------- Detail page builder: card titles rename in place (pencil or click) ----------
-  if (V.dpb) {
-    V.dpb.querySelectorAll('[class*="__card-title"]').forEach((n) => {
+  // ---------- Detail page builder: card titles rename only from their pencil, as every heading does ----------
+  const dpbRename = (root) => {
+    root.querySelectorAll('[class*="__card-title"]').forEach((n) => {
       if (n.__ren) return; n.__ren = true;
-      const HOV = "var(--colorSubtleBackgroundHover, #f5f5f5)", FOCUS = "var(--colorCompoundBrandStroke, #0f6cbd)";
-      n.contentEditable = "true"; n.spellcheck = false;
-      Object.assign(n.style, { outline: "none", cursor: "text", borderRadius: "2px", whiteSpace: "nowrap", width: "auto", maxWidth: "none", minWidth: "8px" });
+      n.contentEditable = "false"; n.spellcheck = false;
+      Object.assign(n.style, { outline: "none", cursor: "", borderRadius: "2px", whiteSpace: "nowrap", width: "auto", maxWidth: "none", minWidth: "8px" });
       let before = "";
-      const idle = () => { n.style.background = "transparent"; n.style.boxShadow = "none"; };
-      n.addEventListener("mouseenter", () => { if (document.activeElement !== n) n.style.background = HOV; });
-      n.addEventListener("mouseleave", () => { if (document.activeElement !== n) idle(); });
-      n.addEventListener("pointerdown", (e) => e.stopPropagation());
-      n.addEventListener("click", (e) => e.stopPropagation());
+      const idle = () => { n.style.background = "transparent"; n.style.boxShadow = "none"; n.contentEditable = "false"; n.style.cursor = ""; };
+      n.addEventListener("pointerdown", (e) => { if (n.isContentEditable) e.stopPropagation(); });
+      n.addEventListener("click", (e) => { if (n.isContentEditable) e.stopPropagation(); });
       n.addEventListener("focus", () => { before = n.textContent; asInput(n, true); });
       n.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); n.blur(); } if (e.key === "Escape") { e.preventDefault(); n.textContent = before; n.blur(); } e.stopPropagation(); });
       n.addEventListener("blur", () => { if (!n.textContent.trim()) n.textContent = before; asInput(n, false); idle(); window.getSelection().removeAllRanges(); });
@@ -842,10 +1181,11 @@ export default function ({ el, reduced }) {
       if (pen) {
         pen.style.cursor = "pointer";
         pen.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); });
-        pen.addEventListener("click", (e) => { e.stopPropagation(); n.focus(); const r = document.createRange(); r.selectNodeContents(n); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); });
+        pen.addEventListener("click", (e) => { e.stopPropagation(); n.contentEditable = "true"; n.style.cursor = "text"; n.focus(); const r = document.createRange(); r.selectNodeContents(n); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); });
       }
     });
-  }
+  };
+  if (V.dpb) dpbRename(V.dpb);
 
   // ---------- Detail page builder ----------
   // Fields sit in a two-column grid per card: each spans one column (Half) or both (Full).
@@ -869,8 +1209,12 @@ export default function ({ el, reduced }) {
     const optStyle = (o) => { const l = q(o, "option-label") || o; return { bg: css(o).backgroundColor, color: css(l).color, weight: css(l).fontWeight }; };
     const SEL = half ? optStyle(half) : null, UNSEL = full ? optStyle(full) : null;
     if (hov) { hov.style.background = "transparent"; hov.style.boxShadow = "none"; hov.style.outline = "none"; }
-    if (tb) { tb.remove(); Object.assign(tb.style, { position: "absolute", top: "-15px", right: "8px", left: "auto", bottom: "auto", zIndex: "5", display: "none", cursor: "default" }); }
-    if (grip) grip.style.cursor = "grab";
+    if (tb) { tb.remove(); Object.assign(tb.style, { position: "absolute", top: "auto", right: "8px", left: "auto", bottom: "calc(100% - 4px)", zIndex: "5", display: "none", cursor: "default" }); }
+    if (grip && !grip.__gs) { grip.__gs = true; grip.style.cursor = "grab"; grip.style.borderRadius = "var(--borderRadiusMedium, 4px)"; let over = false; const ic = grip.querySelector("svg") || grip.firstElementChild; const paint = (bg, col) => { grip.style.background = bg; if (ic) ic.style.color = col; };
+      grip.addEventListener("mouseenter", () => { over = true; paint("var(--colorSubtleBackgroundHover, #f5f5f5)", "var(--colorNeutralForeground2, #424242)"); });
+      grip.addEventListener("mouseleave", () => { over = false; paint("transparent", ""); });
+      grip.addEventListener("pointerdown", () => paint("var(--colorSubtleBackgroundPressed, #e0e0e0)", "var(--colorNeutralForeground1, #242424)"), true);
+      document.addEventListener("pointerup", () => paint(over ? "var(--colorSubtleBackgroundHover, #f5f5f5)" : "transparent", over ? "var(--colorNeutralForeground2, #424242)" : "")); }
 
     const isFieldEl = (n) => [...n.classList].some((c) => /__value-(?!row)[a-z][a-z0-9-]*$/.test(c));
     const isRow = (n) => [...n.classList].some((c) => /__value-row(-\d+)?$/.test(c));
@@ -946,23 +1290,64 @@ export default function ({ el, reduced }) {
       target = null; clearHover(f);
     });
 
-    // Cards (groups) drag by their header: every card collapses to its header while dragging, and all expand again on release.
+    // Cards (groups) drag by the handle in their left gutter, shown while the card is hovered: every card collapses
+    // to its header while dragging, and all expand again on release. The chevron left of the title folds one card.
     const cards = () => [...D.querySelectorAll('[class*="__detail-card-"]')].filter((c) => [...c.classList].some((k) => /__detail-card-[a-z0-9-]+$/.test(k)) && q(c, "card-header") && q(c, "card-header").parentElement === c);
     let cardDrag = null, cardTarget = null, cardAfter = false;
+    const isBody = (k) => !/__card-header/.test(k.className) && !/__card-drag-handle/.test(k.className);
     const setCollapsed = (on) => cards().forEach((c) => {
-      [...c.children].forEach((k) => { if (!/__card-header/.test(k.className)) if (on) { if (k.__disp === undefined) k.__disp = k.style.display; k.style.display = "none"; } else if (k.__disp !== undefined) { k.style.display = k.__disp; delete k.__disp; } });
+      [...c.children].forEach((k) => { if (isBody(k)) if (on) { if (k.__disp === undefined) k.__disp = k.style.display; k.style.display = "none"; } else if (k.__disp !== undefined) { k.style.display = k.__disp; delete k.__disp; } });
     });
-    cards().forEach((c) => {
-      const h = q(c, "card-header"); if (!h) return;
-      h.style.cursor = "grab"; h.style.userSelect = "none";
+    const foldCard = (c, on) => {
+      c.dataset.collapsed = on ? "1" : "";
+      [...c.children].forEach((k) => { if (isBody(k)) k.style.display = on ? "none" : ""; });
+      const ch = q(c, "collapse-card");
+      if (ch) { ch.style.transition = reduced ? "" : `transform 180ms ${ease}`; ch.style.transform = on ? "rotate(-90deg)" : ""; }
+    };
+    const cardHandleSrc = cards().map((c) => q(c, "card-drag-handle")).find(Boolean);
+    const cardHandleTpl = cardHandleSrc ? cardHandleSrc.cloneNode(true) : null;
+    // New group: an empty card made from the page's own card, named "New group" and opened for renaming
+    const cardSrc = cards()[cards().length - 1];
+    const cardTpl = cardSrc ? cardSrc.cloneNode(true) : null;
+    if (cardTpl) { const v = q(cardTpl, "values"); if (v) v.innerHTML = ""; const t = q(cardTpl, "card-title"); if (t) t.textContent = "New group"; }
+    const madeCards = [];
+    let wireAddBtn = () => {};
+    const wireCard = (c) => {
+      const ch = q(c, "collapse-card"); if (ch) { ch.style.cursor = "pointer"; ch.addEventListener("pointerdown", (e) => e.stopPropagation()); ch.addEventListener("click", (e) => { e.stopPropagation(); foldCard(c, c.dataset.collapsed !== "1"); }); }
+      let h = q(c, "card-drag-handle");
+      if (!h && cardHandleTpl) { h = cardHandleTpl.cloneNode(true); c.appendChild(h); }
+      if (!h) return;
+      c.style.position = "relative";
+      Object.assign(h.style, { display: "none", position: "absolute", left: "16px", top: "11px", width: "20px", height: "24px", alignItems: "center", justifyContent: "center", borderRadius: "var(--borderRadiusMedium, 4px)", cursor: "grab", userSelect: "none" });
+      if (!h.__gs) { h.__gs = true; let over = false; const ic = h.querySelector("svg") || h.firstElementChild; const paint = (bg, col) => { h.style.background = bg; if (ic) ic.style.color = col; };
+        h.addEventListener("mouseenter", () => { over = true; if (!cardDrag) paint("var(--colorSubtleBackgroundHover, #f5f5f5)", "var(--colorNeutralForeground2, #424242)"); });
+        h.addEventListener("mouseleave", () => { over = false; if (!cardDrag) paint("transparent", ""); });
+        h.addEventListener("pointerdown", () => paint("var(--colorSubtleBackgroundPressed, #e0e0e0)", "var(--colorNeutralForeground1, #242424)"), true);
+        document.addEventListener("pointerup", () => paint(over ? "var(--colorSubtleBackgroundHover, #f5f5f5)" : "transparent", over ? "var(--colorNeutralForeground2, #424242)" : "")); }
+      const alignC = () => { const hd = q(c, "card-header"); if (!hd) return; const cr = c.getBoundingClientRect(), hr = hd.getBoundingClientRect(); h.style.top = Math.round(hr.top - cr.top + hr.height / 2 - 12) + "px"; };
+      c.addEventListener("mouseenter", () => { if (!cardDrag) { h.style.display = "flex"; alignC(); } });
+      c.addEventListener("mouseleave", () => { if (cardDrag !== c) h.style.display = "none"; });
       h.addEventListener("pointerdown", (e) => {
-        if (e.target.closest && e.target.closest('[class*="__edit-icon"]')) return;
-        e.preventDefault();
+        e.preventDefault(); e.stopPropagation();
         if (fieldMenu) fieldMenu.style.display = "none";
         cardDrag = c; setCollapsed(true);
         c.style.opacity = "0.45"; document.body.style.cursor = "grabbing";
       });
-    });
+    };
+    cards().forEach(wireCard);
+    const addGroup = (rename = true) => {
+      if (!cardTpl) return null;
+      const list = cards(), last = list[list.length - 1];
+      const c = cardTpl.cloneNode(true);
+      if (last) last.after(c); else if (cardParent) cardParent.appendChild(c);
+      madeCards.push(c);
+      dpbRename(c); wireCard(c);
+      const ab = q(c, "add-field-button"); if (ab) wireAddBtn(ab);
+      c.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+      if (rename) { const pen = q(c, "rename-card"); if (pen) setTimeout(() => pen.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })), reduced ? 0 : 200); }
+      return c;
+    };
+    on(byText(D, "New group", "button"), () => addGroup());
     document.addEventListener("pointermove", (e) => {
       if (!cardDrag) return;
       const list = cards().filter((c) => c !== cardDrag);
@@ -979,9 +1364,28 @@ export default function ({ el, reduced }) {
       marker.style.display = "none"; document.body.style.cursor = ""; c.style.opacity = "";
       if (cardTarget) (cardAfter ? cardTarget.after(c) : cardTarget.before(c));
       cardTarget = null; setCollapsed(false);
+      const h = q(c, "card-drag-handle"); if (h && !c.matches(":hover")) h.style.display = "none";
     });
 
+    // Reset puts the page back as it opened: its cards in order, their titles, fields and widths
+    const cards0 = cards(), cardParent = cards0[0] ? cards0[0].parentElement : null;
+    const titles0 = cards0.map((c) => { const t = q(c, "card-title"); return [t, t ? t.textContent : ""]; });
+    const values0 = valuesEls.map((v) => [v, [...v.children].map((f) => [f, f.dataset.span])]);
+    const summary0 = q(D, "field-summary") ? q(D, "field-summary").textContent : "";
+    let resetMenu = () => {}, paintEmpty = () => {};
+
     let total = 11;
+    const resetPage = () => {
+      resetMenu();
+      if (hot) clearHover(hot);
+      madeCards.splice(0).forEach((c) => c.remove());
+      cards0.forEach((c) => { c.remove(); c.style.opacity = ""; foldCard(c, false); });
+      titles0.forEach(([t, s]) => { if (t) t.textContent = s; });
+      values0.forEach(([v, kids]) => v.replaceChildren(...kids.map(([f, s]) => { setSpan(f, +s || 1); f.style.opacity = ""; return f; })));
+      total = 0; const fs = q(D, "field-summary"); if (fs) fs.textContent = summary0;
+      paintEmpty();
+    };
+    on(byText(D, "Reset", "button"), resetPage);
     const slugOf = (card) => { if (!card) return null; for (const c of card.classList) { const m = c.match(/__detail-card-([a-z0-9-]+?)(-\d+)?$/); if (m) return m[1]; } return null; };
     const bump = (card, d) => {
       const slug = slugOf(card), row = slug && q(D, "section-row-" + slug), c = row && q(row, "field-count");
@@ -1008,12 +1412,13 @@ export default function ({ el, reduced }) {
       const list = q(fieldMenu, "input-list");
       const items = [...fieldMenu.querySelectorAll('[class*="__menu-item-"]')];
       const openBg = addBtns[0] ? css(addBtns[0]).backgroundColor : ITEM_HOVER;
+      const newFieldBtn = byText(D, "New field", "button");
       addBtns.forEach((b) => (b.style.background = "transparent"));
       const offItem = q(fieldMenu, "menu-item-request-id"), selItem = q(fieldMenu, "menu-item-requested-by"), addedItem = q(fieldMenu, "menu-item-request-name");
       const cbOff = offItem.firstElementChild.cloneNode(true), cbOn = selItem.firstElementChild.cloneNode(true), cbAdded = addedItem.firstElementChild.cloneNode(true);
       const addedTxt = q(addedItem, "added").cloneNode(true), typeTxt = q(offItem, "type").cloneNode(true);
       const labelColor = css(q(offItem, "label")).color, addedColor = css(q(addedItem, "label")).color;
-      const types = { "Request name": "Text", "Assessor": "Person", "Change type": "Choice", "Criticality after change": "Choice", "Description": "Long text", "Effective from": "Date", "Engagement": "Lookup", "Revised annual spend": "Amount", "Revised statement of work": "File", "Other documents": "File" };
+      const types = { "Request name": "String", "Assessor": "Actor", "Change type": "Lookup", "Criticality after change": "Lookup", "Description": "String", "Effective from": "Date and time", "Engagement": "Lookup", "Revised annual spend": "Number", "Revised statement of work": "File", "Other documents": "File" };
       const state = new Map();
       const labelOf = (it) => ((q(it, "label") || {}).textContent || "").trim();
       items.forEach((it) => { const t = q(it, "type"); if (t) types[labelOf(it)] = t.textContent.trim(); });
@@ -1029,17 +1434,21 @@ export default function ({ el, reduced }) {
         it.style.cursor = "pointer";
       };
       items.forEach((it) => setState(it, q(it, "added") ? "added" : "off"));
+      const items0 = items.slice(), state0 = new Map(items.map((it) => [it, state.get(it)]));
 
-      // Select all ticks every field the page doesn't have yet, or clears them when they're all ticked
-      const allRow = q(fieldMenu, "select-all-option");
-      const cbMixed = allRow && allRow.firstElementChild ? allRow.firstElementChild.cloneNode(true) : null;
-      const free = () => items.filter((it) => state.get(it) === "on" || state.get(it) === "off");
+      // The checkbox on each group's name ticks every field of that group the page doesn't have yet, or clears them
+      const allRows = [...fieldMenu.querySelectorAll('[class*="__group-select"]')];
+      const cbMixed = allRows[0] && allRows[0].firstElementChild ? allRows[0].firstElementChild.cloneNode(true) : null;
+      const groupOf = (row) => { const h = row.closest('[class*="__group-header"]'), out = []; let n = h && h.nextElementSibling; while (n && !/__group-header/.test(n.className)) { if (items.includes(n)) out.push(n); n = n.nextElementSibling; } return out; };
+      const freeIn = (row) => groupOf(row).filter((it) => state.get(it) === "on" || state.get(it) === "off");
       const paintAll = () => {
-        if (!allRow || !cbMixed) return;
-        const f = free(), n = f.filter((it) => state.get(it) === "on").length;
-        const box = !f.length ? cbAdded : n === f.length ? cbOn : n ? cbMixed : cbOff;
-        allRow.firstElementChild.replaceWith(box.cloneNode(true));
-        allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+        if (!cbMixed) return;
+        allRows.forEach((allRow) => {
+          const f = freeIn(allRow), n = f.filter((it) => state.get(it) === "on").length;
+          const box = !f.length ? cbAdded : n === f.length ? cbOn : n ? cbMixed : cbOff;
+          allRow.firstElementChild.replaceWith(box.cloneNode(true));
+          allRow.style.opacity = f.length ? "" : "0.4"; allRow.style.cursor = f.length ? "pointer" : "default";
+        });
       };
       const footer = q(fieldMenu, "menu-footer");
       const addLabel = byText(fieldMenu, "Add 3 fields");
@@ -1060,13 +1469,13 @@ export default function ({ el, reduced }) {
       let openFor = null;
       const closeMenu = () => {
         fieldMenu.style.display = "none";
-        if (openFor) openFor.style.background = "transparent";
+        if (openFor && openFor !== newFieldBtn) openFor.style.background = "transparent";
         openFor = null;
         items.forEach((it) => { const s = state.get(it); if (s === "on") setState(it, "off"); if (s === "remove") setState(it, "added"); });
         updateFooter();
       };
       const openMenu = (btn) => {
-        closeMenu(); openFor = btn; btn.style.background = openBg;
+        closeMenu(); openFor = btn; if (btn !== newFieldBtn) btn.style.background = openBg;
         fieldMenu.style.display = "";
         if (list) list.scrollTop = 0;
         const v = D.getBoundingClientRect(), r = btn.getBoundingClientRect(), s = scale();
@@ -1083,7 +1492,10 @@ export default function ({ el, reduced }) {
           }));
         }
       };
-      addBtns.forEach((b) => on(b, () => (openFor === b ? closeMenu() : openMenu(b))));
+      wireAddBtn = (b) => { b.style.background = "transparent"; on(b, () => (openFor === b ? closeMenu() : openMenu(b))); };
+      addBtns.forEach(wireAddBtn);
+      // The toolbar's New field adds to the last group, making one when the page has none
+      if (newFieldBtn) on(newFieldBtn, () => (openFor === newFieldBtn ? closeMenu() : openMenu(newFieldBtn)));
 
       const wireItem = (it) => {
         it.addEventListener("mouseenter", () => { it.style.background = ITEM_HOVER; });
@@ -1098,7 +1510,10 @@ export default function ({ el, reduced }) {
 
       on(addBtn, () => {
         if (!openFor) return;
-        const card = openFor.closest('[class*="__detail-card-"]') || openFor.parentElement;
+        let card;
+        if (openFor === newFieldBtn || (emptyFieldBtn && openFor === emptyFieldBtn)) { const cs = cards(); card = cs[cs.length - 1] || addGroup(false); paintEmpty(); }
+        else card = openFor.closest('[class*="__detail-card-"]') || openFor.parentElement;
+        if (!card) return;
         const values = q(card, "values");
         const chosen = items.filter((it) => state.get(it) === "on");
         chosen.forEach((it) => {
@@ -1125,12 +1540,37 @@ export default function ({ el, reduced }) {
         });
         closeMenu();
       });
-      if (allRow) {
-        allRow.addEventListener("mouseenter", () => { if (free().length) allRow.style.background = ITEM_HOVER; });
+      allRows.forEach((allRow) => {
+        allRow.addEventListener("mouseenter", () => { if (freeIn(allRow).length) allRow.style.background = ITEM_HOVER; });
         allRow.addEventListener("mouseleave", () => (allRow.style.background = "transparent"));
-        on(allRow, () => { const f = free(); if (!f.length) return; const all = f.every((it) => state.get(it) === "on"); f.forEach((it) => setState(it, all ? "off" : "on")); updateFooter(); });
-      }
+        on(allRow, () => { const f = freeIn(allRow); if (!f.length) return; const all = f.every((it) => state.get(it) === "on"); f.forEach((it) => setState(it, all ? "off" : "on")); updateFooter(); });
+      });
       onRemoved = (label) => { const it = items.find((i) => labelOf(i) === label); if (it) { setState(it, "off"); updateFooter(); } };
+      resetMenu = () => {
+        closeMenu();
+        items.filter((it) => !items0.includes(it)).forEach((it) => it.remove());
+        items.length = 0; items.push(...items0);
+        items.forEach((it) => setState(it, state0.get(it)));
+        updateFooter();
+      };
+
+      // The page opens empty: the form builder's empty message, with New group and New field, until a card is added
+      const emptyPage = emptyTplShared ? emptyTplShared.cloneNode(true) : null;
+      var emptyFieldBtn = null;
+      if (emptyPage && cardParent) {
+        Object.assign(emptyPage.style, { height: "auto", flex: "1 1 auto", minHeight: "520px", alignSelf: "stretch", width: "auto", boxSizing: "border-box", border: "none", outline: "none", boxShadow: "none" });
+        const t = byText(emptyPage, "Form is empty"); if (t) t.textContent = "Page is empty";
+        cardParent.appendChild(emptyPage);
+        const emptyGroupBtn = byText(emptyPage, "New group", "button");
+        emptyFieldBtn = byText(emptyPage, "New field", "button");
+        on(emptyGroupBtn, () => { closeMenu(); addGroup(); paintEmpty(); });
+        on(emptyFieldBtn, () => (openFor === emptyFieldBtn ? closeMenu() : openMenu(emptyFieldBtn)));
+        paintEmpty = () => { emptyPage.style.display = cards().length ? "none" : ""; };
+      }
+      cards0.forEach((c) => c.remove());
+      total = 0;
+      items.forEach((it) => { setState(it, "off"); state0.set(it, "off"); });
+      updateFooter(); paintEmpty();
 
       // Add custom field drawer
       const layer = [...stage.children].find((c) => [...c.classList].some((k) => /custom-field-drawer-layer$/.test(k)));
@@ -1144,7 +1584,7 @@ export default function ({ el, reduced }) {
         Object.assign(layer.style, { display: "none", opacity: "1", zIndex: "1000", pointerEvents: "auto" });
         const submit = byText(drawer, "Submit", "button");
         const submitLabel = submit && byText(submit, "Submit");
-        const pub = byText(D, "Publish detail page", "button"), pubLabel = byText(D, "Publish detail page");
+        const pub = byText(D, "Save", "button"), pubLabel = byText(D, "Save");
         const onCss = pub ? { bg: css(pub).backgroundColor, bc: css(pub).borderColor, fg: css(pubLabel).color } : null;
         const offCss = submit ? { bg: css(submit).backgroundColor, bc: css(submit).borderColor, fg: submitLabel ? css(submitLabel).color : "" } : null;
         const fg = css(q(drawer, "drawer-title")).color;
@@ -1224,8 +1664,8 @@ export default function ({ el, reduced }) {
           [...it.classList].forEach((k) => { if (/menu-item-request-id/.test(k)) { it.classList.remove(k); it.classList.add(k.replace("menu-item-request-id", "menu-item-custom-" + (++made))); } });
           it.style.background = "transparent";
           const l = q(it, "label"); if (l) l.textContent = name;
-          const ty = q(it, "type"); if (ty) ty.textContent = "Text";
-          types[name] = "Text";
+          const ty = q(it, "type"); if (ty) ty.textContent = "String";
+          types[name] = "String";
           (list || fieldMenu).appendChild(it); items.push(it); wireItem(it);
           closeDrawer(() => {
             if (back) openMenu(back);
@@ -1244,7 +1684,7 @@ export default function ({ el, reduced }) {
       D.addEventListener("click", (e) => { if (openFor && !fieldMenu.contains(e.target)) closeMenu(); });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openFor) closeMenu(); });
       const scroller = q(D, "page-scroll") || q(D, "page-canvas"); if (scroller) scroller.addEventListener("scroll", () => openFor && closeMenu());
-      [q(D, "back-button"), byText(D, "Publish detail page", "button")].forEach((n) => n && n.addEventListener("click", () => openFor && closeMenu()));
+      [q(D, "back-button"), byText(D, "Save", "button")].forEach((n) => n && n.addEventListener("click", () => openFor && closeMenu()));
     }
   }
 }
